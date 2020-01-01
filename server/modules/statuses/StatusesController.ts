@@ -1,32 +1,32 @@
 import {Request, Response} from "express";
 import {FindManyOptions, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
-import {Departments} from "./DepartmentsModel";
+import {Statuses} from "./StatusesModel";
 import {
     ERROR_CODE_BAD_REQUEST,
-    ERROR_CODE_DEPARTMENT_NOT_EXISTS,
-    ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS,
-    ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
+    ERROR_CODE_STATUS_NOT_EXISTS,
+    ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
+    ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
     ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
-interface IRestDepartmentsCreate {
+interface IRestStatusesCreate {
     name_ru: string;
     name_kz: string;
 }
 
-interface IRestDepartmentsList {
+interface IRestStatusesList {
     offset?: number;
     count?: number;
 }
 
-export default new class DepartmentsController {
+export default new class StatusesController {
     async create(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
-            const bodyParams = <IRestDepartmentsCreate>rest.getBody();
+            const bodyParams = <IRestStatusesCreate>rest.getBody();
 
             if (!bodyParams.name_ru) {
                 return res.status(400).send({
@@ -42,11 +42,11 @@ export default new class DepartmentsController {
                 });
             }
 
-            const Department = new Departments;
-            Department.name_kz = bodyParams.name_kz;
-            Department.name_ru = bodyParams.name_ru;
+            const Status = new Statuses;
+            Status.name_kz = bodyParams.name_kz;
+            Status.name_ru = bodyParams.name_ru;
 
-            const existDepartment = await getManager().getRepository(Departments).findOne({
+            const existStatus = await getManager().getRepository(Statuses).findOne({
                 where: [{
                     name_kz: bodyParams.name_kz
                 }, {
@@ -54,28 +54,28 @@ export default new class DepartmentsController {
                 }]
             });
 
-            if (existDepartment && existDepartment.name_kz === bodyParams.name_kz) {
+            if (existStatus && existStatus.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS,
-                    message: 'A department with that name_kz already exists.'
+                    code: 'ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS',
+                    errorCode: ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
+                    message: 'A status with that name_kz already exists.'
                 });
-            } else if (existDepartment && existDepartment.name_ru === bodyParams.name_ru) {
+            } else if (existStatus && existStatus.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS,
-                    message: 'A department with that name_ru already exists.'
+                    code: 'ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS',
+                    errorCode: ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
+                    message: 'A status with that name_ru already exists.'
                 });
             }
 
-            const department = await getManager().getRepository(Departments).save(Department);
+            const status = await getManager().getRepository(Statuses).save(Status);
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: {
-                    id: department.id,
-                    name_kz: department.name_kz,
-                    name_ru: department.name_ru
+                    id: status.id,
+                    name_kz: status.name_kz,
+                    name_ru: status.name_ru
                 },
                 message: ERROR_MESSAGE_OK
             });
@@ -92,7 +92,7 @@ export default new class DepartmentsController {
     async list(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
-            const queryParams: IRestDepartmentsList = <IRestDepartmentsList>rest.getQuery();
+            const queryParams: IRestStatusesList = <IRestStatusesList>rest.getQuery();
 
             const config = {} as FindManyOptions;
 
@@ -106,7 +106,7 @@ export default new class DepartmentsController {
 
             config.select = ['id', 'name_ru', 'name_kz'];
 
-            const departments = await getManager().getRepository(Departments).find(config);
+            const statuses = await getManager().getRepository(Statuses).find(config);
 
             /**
              * custom sql
@@ -115,7 +115,7 @@ export default new class DepartmentsController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: departments,
+                data: statuses,
                 message: ERROR_MESSAGE_OK
             });
         } catch (err) {
@@ -132,20 +132,20 @@ export default new class DepartmentsController {
         try {
             const {id} = req.params;
 
-            const department = await getManager().getRepository(Departments).findOne({
+            const status = await getManager().getRepository(Statuses).findOne({
                 where: {
                     id
                 }
             });
 
-            if (!department) {
+            if (!status) {
                 return res.send({
-                    code: 'ERROR_CODE_DEPARTMENT_NOT_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_NOT_EXISTS,
-                    message: `Department by id ${id} is not exists`
+                    code: 'ERROR_CODE_STATUS_NOT_EXISTS',
+                    errorCode: ERROR_CODE_STATUS_NOT_EXISTS,
+                    message: `Status by id ${id} is not exists`
                 });
             }
-            await getManager().getRepository(Departments).remove(department);
+            await getManager().getRepository(Statuses).remove(status);
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,

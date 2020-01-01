@@ -3,9 +3,12 @@ import {FindManyOptions, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Cities} from "./CitiesModel";
 import {
-    ERROR_CODE_BAD_REQUEST, ERROR_CODE_CITY_WITH_NAME_KZ_EXISTS, ERROR_CODE_CITY_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_BAD_REQUEST,
+    ERROR_CODE_CITY_WITH_NAME_KZ_EXISTS,
+    ERROR_CODE_CITY_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
-    ERROR_CODE_PARAMETER_NOT_PASSED, ERROR_CODE_USER_NOT_EXISTS,
+    ERROR_CODE_PARAMETER_NOT_PASSED,
+    ERROR_CODE_USER_NOT_EXISTS,
     ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 

@@ -10,7 +10,7 @@ const DepartmentsRoutes = Router();
 DepartmentsRoutes.use((req: Request, res: Response, next: Function) => {
     const time: string = moment(Date.now()).format("DD-MM-YYYY HH:mm:ss");
 
-    console.log(`[${time}] API Module Users:`, req.originalUrl);
+    console.log(`[${time}] API Module Departments:`, req.originalUrl);
     next();
 });
 
@@ -27,7 +27,7 @@ DepartmentsRoutes.delete(`/rest/api/deleteDepartment/:id`, DepartmentsController
 DepartmentsRoutes.use('*', (req: Request, res: Response) => {
     return res.status(500).send({
         errorCode: 13,
-        message: 'Request error for Cities method'
+        message: 'Request error for Departments method'
     });
 });
 

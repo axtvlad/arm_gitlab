@@ -1,13 +1,19 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class Departments {
+export class Faqs {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({unique: true})
-    name_ru: string;
+    question_ru: string;
 
     @Column({unique: true})
-    name_kz: string;
+    question_kz: string;
+
+    @Column()
+    answer_ru: string;
+
+    @Column()
+    answer_kz: string;
 }

@@ -1,32 +1,32 @@
 import {Request, Response} from "express";
 import {FindManyOptions, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
-import {Departments} from "./DepartmentsModel";
+import {Customers} from "./CustomersModel";
 import {
     ERROR_CODE_BAD_REQUEST,
-    ERROR_CODE_DEPARTMENT_NOT_EXISTS,
-    ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS,
-    ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_CUSTOMER_NOT_EXISTS,
+    ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS,
+    ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
-interface IRestDepartmentsCreate {
+interface IRestCustomersCreate {
     name_ru: string;
     name_kz: string;
 }
 
-interface IRestDepartmentsList {
+interface IRestCustomersList {
     offset?: number;
     count?: number;
 }
 
-export default new class DepartmentsController {
+export default new class CustomersController {
     async create(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
-            const bodyParams = <IRestDepartmentsCreate>rest.getBody();
+            const bodyParams = <IRestCustomersCreate>rest.getBody();
 
             if (!bodyParams.name_ru) {
                 return res.status(400).send({
@@ -42,11 +42,11 @@ export default new class DepartmentsController {
                 });
             }
 
-            const Department = new Departments;
-            Department.name_kz = bodyParams.name_kz;
-            Department.name_ru = bodyParams.name_ru;
+            const Customer = new Customers;
+            Customer.name_kz = bodyParams.name_kz;
+            Customer.name_ru = bodyParams.name_ru;
 
-            const existDepartment = await getManager().getRepository(Departments).findOne({
+            const existCustomer = await getManager().getRepository(Customers).findOne({
                 where: [{
                     name_kz: bodyParams.name_kz
                 }, {
@@ -54,28 +54,28 @@ export default new class DepartmentsController {
                 }]
             });
 
-            if (existDepartment && existDepartment.name_kz === bodyParams.name_kz) {
+            if (existCustomer && existCustomer.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_WITH_NAME_KZ_EXISTS,
-                    message: 'A department with that name_kz already exists.'
+                    code: 'ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS',
+                    errorCode: ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS,
+                    message: 'A customer with that name_kz already exists.'
                 });
-            } else if (existDepartment && existDepartment.name_ru === bodyParams.name_ru) {
+            } else if (existCustomer && existCustomer.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS,
-                    message: 'A department with that name_ru already exists.'
+                    code: 'ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS',
+                    errorCode: ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS,
+                    message: 'A customer with that name_ru already exists.'
                 });
             }
 
-            const department = await getManager().getRepository(Departments).save(Department);
+            const customer = await getManager().getRepository(Customers).save(Customer);
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: {
-                    id: department.id,
-                    name_kz: department.name_kz,
-                    name_ru: department.name_ru
+                    id: customer.id,
+                    name_kz: customer.name_kz,
+                    name_ru: customer.name_ru
                 },
                 message: ERROR_MESSAGE_OK
             });
@@ -92,7 +92,7 @@ export default new class DepartmentsController {
     async list(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
-            const queryParams: IRestDepartmentsList = <IRestDepartmentsList>rest.getQuery();
+            const queryParams: IRestCustomersList = <IRestCustomersList>rest.getQuery();
 
             const config = {} as FindManyOptions;
 
@@ -106,7 +106,7 @@ export default new class DepartmentsController {
 
             config.select = ['id', 'name_ru', 'name_kz'];
 
-            const departments = await getManager().getRepository(Departments).find(config);
+            const customers = await getManager().getRepository(Customers).find(config);
 
             /**
              * custom sql
@@ -115,7 +115,7 @@ export default new class DepartmentsController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: departments,
+                data: customers,
                 message: ERROR_MESSAGE_OK
             });
         } catch (err) {
@@ -132,20 +132,20 @@ export default new class DepartmentsController {
         try {
             const {id} = req.params;
 
-            const department = await getManager().getRepository(Departments).findOne({
+            const customer = await getManager().getRepository(Customers).findOne({
                 where: {
                     id
                 }
             });
 
-            if (!department) {
+            if (!customer) {
                 return res.send({
-                    code: 'ERROR_CODE_DEPARTMENT_NOT_EXISTS',
-                    errorCode: ERROR_CODE_DEPARTMENT_NOT_EXISTS,
-                    message: `Department by id ${id} is not exists`
+                    code: 'ERROR_CODE_CUSTOMER_NOT_EXISTS',
+                    errorCode: ERROR_CODE_CUSTOMER_NOT_EXISTS,
+                    message: `Customer by id ${id} is not exists`
                 });
             }
-            await getManager().getRepository(Departments).remove(department);
+            await getManager().getRepository(Customers).remove(customer);
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,

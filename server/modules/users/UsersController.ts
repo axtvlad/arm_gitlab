@@ -280,57 +280,55 @@ export default new class UsersController {
                 config.select = ['id', 'firstName_kz', 'patronymic_kz', 'login', 'email', 'isPremium', 'phone'];
             }
 
-        const users = await getManager().getRepository(Users).find(config);
+            const users = await getManager().getRepository(Users).find(config);
 
-        /**
-         * custom sql
-         */
-        // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
 
-        return res.send({
-            errorCode: ERROR_CODE_NONE,
-            data: users,
-            message: ERROR_MESSAGE_OK
-        });
-    }
-
-    catch(err) {
-        console.error(err);
-        res.status(500).send({
-            code: 'ERROR_CODE_BAD_REQUEST',
-            errorCode: ERROR_CODE_BAD_REQUEST,
-            message: 'An unknown error has occurred.'
-        });
-    }
-}
-
-async remove(req: Request, res:Response) {
-    try {
-        const {id} = req.params;
-
-        const user = await getManager().getRepository(Users).findOne({
-            where: {
-                id
-            }
-        });
-
-        if (!user) {
             return res.send({
-                code: 'ERROR_CODE_USER_NOT_EXISTS',
-                errorCode: ERROR_CODE_USER_NOT_EXISTS,
-                message: `User by id ${id} is not exists`
+                errorCode: ERROR_CODE_NONE,
+                data: users,
+                message: ERROR_MESSAGE_OK
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: 'An unknown error has occurred.'
             });
         }
-
-        await getManager().getRepository(Users).remove(user);
-
-        return res.send({
-            errorCode: ERROR_CODE_NONE,
-            data: id,
-            message: ERROR_MESSAGE_OK
-        });
-    } catch (err) {
-
     }
-}
+
+    async remove(req: Request, res: Response) {
+        try {
+            const {id} = req.params;
+
+            const user = await getManager().getRepository(Users).findOne({
+                where: {
+                    id
+                }
+            });
+
+            if (!user) {
+                return res.send({
+                    code: 'ERROR_CODE_USER_NOT_EXISTS',
+                    errorCode: ERROR_CODE_USER_NOT_EXISTS,
+                    message: `User by id ${id} is not exists`
+                });
+            }
+
+            await getManager().getRepository(Users).remove(user);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: id,
+                message: ERROR_MESSAGE_OK
+            });
+        } catch (err) {
+
+        }
+    }
 }
