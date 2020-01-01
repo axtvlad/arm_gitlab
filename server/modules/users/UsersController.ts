@@ -10,7 +10,7 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED, ERROR_CODE_USER_NOT_EXISTS, ERROR_CODE_USER_WITH_EMAIL_EXISTS,
     ERROR_CODE_USER_WITH_LOGIN_EXISTS, ERROR_CODE_USER_WITH_USERNAME_EXISTS,
-    ERROR_MESSAGE_OK
+    ERROR_MESSAGE_OK, ERROR_CODE_USER_WITH_PHONE_EXISTS
 } from '../../services/ServiceRestCodes';
 
 interface IRestUsersCreate {
@@ -34,6 +34,8 @@ interface IRestUsersCreate {
 }
 
 interface IRestUsersList {
+    offset?: number;
+    lang?: string;
     count?: number;
     loadData?: boolean;
 }
@@ -170,7 +172,7 @@ export default new class UsersController {
             User.role_id = bodyParams.role_id;
             User.phone = bodyParams.phone;
             User.b_day = bodyParams.b_day;
-            User.isPremium = bodyParams.b_day;
+            User.isPremium = bodyParams.isPremium;
             User.city_id = bodyParams.city_id;
             User.institution_id = bodyParams.institution_id;
 
@@ -213,12 +215,22 @@ export default new class UsersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: {
-                    userId: user.userId,
+                    id: user.id,
+                    firstName_kz: user.firstName_kz,
+                    firstName_ru: user.firstName_ru,
+                    lastName_ru: user.lastName_ru,
+                    lastName_kz: user.lastName_kz,
+                    patronymic_ru: user.patronymic_ru,
+                    patronymic_kz: user.patronymic_kz,
+                    b_day: user.b_day,
+                    role_id: user.role_id,
+                    email: user.email,
                     login: user.login,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    patronymic: user.patronymic,
-                    created: user.created
+                    phone: user.phone,
+                    isPremium: user.isPremium,
+                    city_id: user.city_id,
+                    institution_id: user.institution_id,
+                    gender_id: user.gender_id
                 },
                 message: ERROR_MESSAGE_OK
             });
@@ -248,66 +260,77 @@ export default new class UsersController {
             }
 
             if (queryParams.loadData === true) {
-                config.select = ['userId', 'username', 'email', 'firstName', 'lastName', 'patronymic', 'created'];
+                config.select = ['id', 'lastName_kz', 'lastName_ru', 'firstName_ru', 'firstName_kz', 'patronymic_kz',
+                    'patronymic_ru', 'role_id', 'login', 'b_day', 'email', 'isPremium', 'city_id', 'institution_id',
+                    'gender_id', 'phone'];
             } else {
-                config.select = ['userId', 'username', 'email'];
+                config.select = ['id', 'firstName_ru', 'firstName_kz', 'patronymic_kz', 'patronymic_ru', 'login',
+                    'email', 'isPremium', 'phone'];
             }
 
-            if (queryParams.isConfirmed === true) {
-                config.where = {
-                    isConfirmed: true
-                }
+            if (queryParams.loadData === true && queryParams.lang === 'ru') {
+                config.select = ['id', 'lastName_ru', 'firstName_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
+                    'email', 'isPremium', 'city_id', 'institution_id', 'gender_id', 'phone'];
+            } else if (queryParams.loadData === true && queryParams.lang === 'kz') {
+                config.select = ['id', 'lastName_ru', 'firstName_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
+                    'email', 'isPremium', 'city_id', 'institution_id', 'gender_id', 'phone'];
+            } else if (queryParams.loadData === false && queryParams.lang === 'ru') {
+                config.select = ['id', 'firstName_ru', 'patronymic_ru', 'login', 'email', 'isPremium', 'phone'];
+            } else if (queryParams.loadData === false && queryParams.lang === 'kz') {
+                config.select = ['id', 'firstName_kz', 'patronymic_kz', 'login', 'email', 'isPremium', 'phone'];
             }
 
-            const users = await getManager().getRepository(Users).find(config);
+        const users = await getManager().getRepository(Users).find(config);
 
-            /**
-             * custom sql
-             */
-            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+        /**
+         * custom sql
+         */
+        // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
 
-            return res.send({
-                errorCode: ERROR_CODE_NONE,
-                data: users,
-                message: ERROR_MESSAGE_OK
-            });
-        } catch (err) {
-            console.error(err);
-            res.status(500).send({
-                code: 'ERROR_CODE_BAD_REQUEST',
-                errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
-            });
-        }
+        return res.send({
+            errorCode: ERROR_CODE_NONE,
+            data: users,
+            message: ERROR_MESSAGE_OK
+        });
     }
 
-    async remove(req: Request, res: Response) {
-        try {
-            const {userId} = req.params;
-
-            const user = await getManager().getRepository(Users).findOne({
-                where: {
-                    userId
-                }
-            });
-
-            if (!user) {
-                return res.send({
-                    code: 'ERROR_CODE_USER_NOT_EXISTS',
-                    errorCode: ERROR_CODE_USER_NOT_EXISTS,
-                    message: `User by id ${userId} is not exists`
-                });
-            }
-
-            await getManager().getRepository(Users).remove(user);
-
-            return res.send({
-                errorCode: ERROR_CODE_NONE,
-                data: userId,
-                message: ERROR_MESSAGE_OK
-            });
-        } catch (err) {
-
-        }
+    catch(err) {
+        console.error(err);
+        res.status(500).send({
+            code: 'ERROR_CODE_BAD_REQUEST',
+            errorCode: ERROR_CODE_BAD_REQUEST,
+            message: 'An unknown error has occurred.'
+        });
     }
+}
+
+async remove(req: Request, res:Response) {
+    try {
+        const {id} = req.params;
+
+        const user = await getManager().getRepository(Users).findOne({
+            where: {
+                id
+            }
+        });
+
+        if (!user) {
+            return res.send({
+                code: 'ERROR_CODE_USER_NOT_EXISTS',
+                errorCode: ERROR_CODE_USER_NOT_EXISTS,
+                message: `User by id ${id} is not exists`
+            });
+        }
+
+        await getManager().getRepository(Users).remove(user);
+
+        return res.send({
+            errorCode: ERROR_CODE_NONE,
+            data: id,
+            message: ERROR_MESSAGE_OK
+        });
+    } catch (err) {
+
+    }
+}
 }
