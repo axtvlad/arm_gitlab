@@ -8,9 +8,12 @@ import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_INVALID_EMAIL,
     ERROR_CODE_NONE,
-    ERROR_CODE_PARAMETER_NOT_PASSED, ERROR_CODE_USER_NOT_EXISTS, ERROR_CODE_USER_WITH_EMAIL_EXISTS,
-    ERROR_CODE_USER_WITH_LOGIN_EXISTS, ERROR_CODE_USER_WITH_USERNAME_EXISTS,
-    ERROR_MESSAGE_OK, ERROR_CODE_USER_WITH_PHONE_EXISTS
+    ERROR_CODE_PARAMETER_NOT_PASSED,
+    ERROR_CODE_USER_NOT_EXISTS,
+    ERROR_CODE_USER_WITH_EMAIL_EXISTS,
+    ERROR_CODE_USER_WITH_LOGIN_EXISTS,
+    ERROR_CODE_USER_WITH_PHONE_EXISTS,
+    ERROR_MESSAGE_OK
 } from '../../services/ServiceRestCodes';
 
 interface IRestUsersCreate {
@@ -29,7 +32,7 @@ interface IRestUsersCreate {
     isPremium: boolean;
     photo?: string;
     city_id: number;
-    institution_id: number;
+    customer_id: number;
     gender_id: number;
 }
 
@@ -136,11 +139,11 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'City_id parameter not passed'
                 });
-            } else if (!bodyParams.institution_id) {
+            } else if (!bodyParams.customer_id) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CITY_ID',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CUSTOMER_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'City_id parameter not passed'
+                    message: 'Customer_id parameter not passed'
                 });
             } else if (!bodyParams.gender_id) {
                 return res.status(400).send({
@@ -174,7 +177,7 @@ export default new class UsersController {
             User.b_day = bodyParams.b_day;
             User.isPremium = bodyParams.isPremium;
             User.city_id = bodyParams.city_id;
-            User.institution_id = bodyParams.institution_id;
+            User.customer_id = bodyParams.customer_id;
 
             if (bodyParams.photo) {
                 User.photo = bodyParams.photo;
@@ -194,19 +197,19 @@ export default new class UsersController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_LOGIN_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_LOGIN_EXISTS,
-                    message: 'A user with that login already exists.'
+                    message: 'An user with that login already exists.'
                 });
             } else if (existUser && existUser.email === bodyParams.email) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_EMAIL_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_EMAIL_EXISTS,
-                    message: 'A user with that email already exists.'
+                    message: 'An user with that email already exists.'
                 });
             } else if (existUser && existUser.phone === bodyParams.phone) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_PHONE_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_PHONE_EXISTS,
-                    message: 'A user with that phone already exists.'
+                    message: 'An user with that phone already exists.'
                 });
             }
 
@@ -229,7 +232,7 @@ export default new class UsersController {
                     phone: user.phone,
                     isPremium: user.isPremium,
                     city_id: user.city_id,
-                    institution_id: user.institution_id,
+                    customer_id: user.customer_id,
                     gender_id: user.gender_id
                 },
                 message: ERROR_MESSAGE_OK
@@ -261,7 +264,7 @@ export default new class UsersController {
 
             if (queryParams.loadData === true) {
                 config.select = ['id', 'lastName_kz', 'lastName_ru', 'firstName_ru', 'firstName_kz', 'patronymic_kz',
-                    'patronymic_ru', 'role_id', 'login', 'b_day', 'email', 'isPremium', 'city_id', 'institution_id',
+                    'patronymic_ru', 'role_id', 'login', 'b_day', 'email', 'isPremium', 'city_id', 'customer_id',
                     'gender_id', 'phone'];
             } else {
                 config.select = ['id', 'firstName_ru', 'firstName_kz', 'patronymic_kz', 'patronymic_ru', 'login',
@@ -270,10 +273,10 @@ export default new class UsersController {
 
             if (queryParams.loadData === true && queryParams.lang === 'ru') {
                 config.select = ['id', 'lastName_ru', 'firstName_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
-                    'email', 'isPremium', 'city_id', 'institution_id', 'gender_id', 'phone'];
+                    'email', 'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone'];
             } else if (queryParams.loadData === true && queryParams.lang === 'kz') {
                 config.select = ['id', 'lastName_ru', 'firstName_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
-                    'email', 'isPremium', 'city_id', 'institution_id', 'gender_id', 'phone'];
+                    'email', 'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone'];
             } else if (queryParams.loadData === false && queryParams.lang === 'ru') {
                 config.select = ['id', 'firstName_ru', 'patronymic_ru', 'login', 'email', 'isPremium', 'phone'];
             } else if (queryParams.loadData === false && queryParams.lang === 'kz') {

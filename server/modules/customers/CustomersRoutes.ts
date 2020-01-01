@@ -17,9 +17,9 @@ CustomersRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-CustomersRoutes.get('/rest/api/getCustomers', CustomersController.list);
-CustomersRoutes.post('/rest/api/createCustomer', CustomersController.create);
-CustomersRoutes.delete(`/rest/api/deleteCustomer/:id`, CustomersController.remove);
+CustomersRoutes.get('/', CustomersController.list);
+CustomersRoutes.post('/', CustomersController.create);
+CustomersRoutes.delete(`/:id`, CustomersController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*

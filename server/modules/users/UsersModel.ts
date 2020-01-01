@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Users {
@@ -23,7 +23,7 @@ export class Users {
     @Column()
     patronymic_kz: string;
 
-    @Column()
+    @Column('int')
     role_id: number;
 
     @Column({unique: true})
@@ -38,24 +38,24 @@ export class Users {
     @Column({type: "date"})
     b_day: Date;
 
-    @Column({default: false})
+    @Column()
     isPremium: boolean;
 
-    @Column()
+    @Column({nullable: true})
     photo?: string;
 
-    @Column()
+    @Column('int')
     city_id: number;
 
-    @Column()
-    institution_id: number;
+    @Column('int')
+    customer_id: number;
 
-    @Column()
+    @Column('int')
     gender_id: number;
 
     @Column({
-        type: "int",
-        length: 10,
+        type: 'int',
+        scale: 10,
         unique: true,
     })
     phone: number;

@@ -17,9 +17,9 @@ FaqsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-FaqsRoutes.get('/rest/api/getFaqs', FaqsController.list);
-FaqsRoutes.post('/rest/api/createFaq', FaqsController.create);
-FaqsRoutes.delete(`/rest/api/deleteFaq/:id`, FaqsController.remove);
+FaqsRoutes.get('/', FaqsController.list);
+FaqsRoutes.post('/', FaqsController.create);
+FaqsRoutes.delete(`/:id`, FaqsController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*

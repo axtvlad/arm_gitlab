@@ -17,9 +17,9 @@ CitiesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-CitiesRoutes.get('/rest/api/getCities', CitiesController.list);
-CitiesRoutes.post('/rest/api/createCity', CitiesController.create);
-CitiesRoutes.delete(`/rest/api/deleteCity/:id`, CitiesController.remove);
+CitiesRoutes.get('/', CitiesController.list);
+CitiesRoutes.post('/', CitiesController.create);
+CitiesRoutes.delete(`/:id`, CitiesController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*

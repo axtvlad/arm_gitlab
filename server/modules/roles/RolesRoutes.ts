@@ -17,9 +17,9 @@ RolesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-RolesRoutes.get('/rest/api/getRoles', RolesController.list);
-RolesRoutes.post('/rest/api/createRole', RolesController.create);
-RolesRoutes.delete(`/rest/api/deleteRole/:id`, RolesController.remove);
+RolesRoutes.get('/', RolesController.list);
+RolesRoutes.post('/', RolesController.create);
+RolesRoutes.delete(`/:id`, RolesController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*

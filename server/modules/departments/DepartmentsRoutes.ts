@@ -17,9 +17,9 @@ DepartmentsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-DepartmentsRoutes.get('/rest/api/getDepartments', DepartmentsController.list);
-DepartmentsRoutes.post('/rest/api/createDepartment', DepartmentsController.create);
-DepartmentsRoutes.delete(`/rest/api/deleteDepartment/:id`, DepartmentsController.remove);
+DepartmentsRoutes.get('/', DepartmentsController.list);
+DepartmentsRoutes.post('/', DepartmentsController.create);
+DepartmentsRoutes.delete(`/:id`, DepartmentsController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*
