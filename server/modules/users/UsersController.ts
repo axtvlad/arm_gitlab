@@ -27,7 +27,7 @@ interface IRestUsersCreate {
     password: string;
     phone: number;
     isPremium: boolean;
-    photo: string;
+    photo?: string;
     city_id: number;
     institution_id: number;
     gender_id: number;
@@ -44,11 +44,11 @@ export default new class UsersController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestUsersCreate>rest.getBody();
 
-            if (!bodyParams.login && !bodyParams.password && !bodyParams.firstName) {
+            if (!bodyParams.login && !bodyParams.password) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Parameters not passed `login`, `password`, `email`, `firstName`'
+                    message: 'Parameters not passed `login` or `password`'
                 });
             } else if (!bodyParams.login) {
                 return res.status(400).send({
@@ -68,17 +68,83 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Email parameter not passed'
                 });
-            } else if (!bodyParams.firstName) {
+            } else if (!bodyParams.firstName_kz) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'FirstName parameter not passed'
+                    message: 'FirstName_kz parameter not passed'
                 });
-            } else if (!bodyParams.username) {
+            } else if (!bodyParams.firstName_ru) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_USERNAME',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Username parameter not passed'
+                    message: 'FirstName_ru parameter not passed'
+                });
+            } else if (!bodyParams.lastName_kz) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME_KZ',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'LastName_kz parameter not passed'
+                });
+            } else if (!bodyParams.lastName_ru) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME_RU',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'LastName_ru parameter not passed'
+                });
+            } else if (!bodyParams.patronymic_ru) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC_RU',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Patronymic_ru parameter not passed'
+                });
+            } else if (!bodyParams.patronymic_kz) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC_KZ',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Patronymic_kz parameter not passed'
+                });
+            } else if (!bodyParams.b_day) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_B_DAY',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'B_day parameter not passed'
+                });
+            } else if (!bodyParams.role_id) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_ROLE_ID',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Role_id parameter not passed'
+                });
+            } else if (!bodyParams.phone) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PHONE',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'PHONE parameter not passed'
+                });
+            } else if (!bodyParams.isPremium) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_isPremium',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'isPremium parameter not passed'
+                });
+            } else if (!bodyParams.city_id) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CITY_ID',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'City_id parameter not passed'
+                });
+            } else if (!bodyParams.institution_id) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CITY_ID',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'City_id parameter not passed'
+                });
+            } else if (!bodyParams.gender_id) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_GENDER_ID',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Gender_id parameter not passed'
                 });
             }
 
@@ -91,18 +157,25 @@ export default new class UsersController {
             }
 
             const User = new Users;
-            User.firstName = bodyParams.firstName;
+            User.firstName_ru = bodyParams.firstName_ru;
+            User.firstName_kz = bodyParams.firstName_kz;
             User.login = bodyParams.login;
             User.password = passwordHash.generate(bodyParams.password);
             User.email = bodyParams.email;
-            User.username = bodyParams.username;
+            User.lastName_kz = bodyParams.lastName_kz;
+            User.lastName_ru = bodyParams.lastName_ru;
+            User.patronymic_kz = bodyParams.patronymic_kz;
+            User.patronymic_ru = bodyParams.patronymic_ru;
+            User.gender_id = bodyParams.gender_id;
+            User.role_id = bodyParams.role_id;
+            User.phone = bodyParams.phone;
+            User.b_day = bodyParams.b_day;
+            User.isPremium = bodyParams.b_day;
+            User.city_id = bodyParams.city_id;
+            User.institution_id = bodyParams.institution_id;
 
-            if (bodyParams.lastName) {
-                User.lastName = bodyParams.lastName;
-            }
-
-            if (bodyParams.patronymic) {
-                User.patronymic = bodyParams.patronymic;
+            if (bodyParams.photo) {
+                User.photo = bodyParams.photo;
             }
 
             const existUser = await getManager().getRepository(Users).findOne({
@@ -111,7 +184,7 @@ export default new class UsersController {
                 }, {
                     email: bodyParams.email
                 }, {
-                    username: bodyParams.username
+                    phone: bodyParams.phone
                 }]
             });
 
@@ -127,11 +200,11 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_USER_WITH_EMAIL_EXISTS,
                     message: 'A user with that email already exists.'
                 });
-            } else if (existUser && existUser.username === bodyParams.username) {
+            } else if (existUser && existUser.phone === bodyParams.phone) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_USER_WITH_USERNAME_EXISTS',
-                    errorCode: ERROR_CODE_USER_WITH_USERNAME_EXISTS,
-                    message: 'A user with that username already exists.'
+                    code: 'ERROR_CODE_USER_WITH_PHONE_EXISTS',
+                    errorCode: ERROR_CODE_USER_WITH_PHONE_EXISTS,
+                    message: 'A user with that phone already exists.'
                 });
             }
 
