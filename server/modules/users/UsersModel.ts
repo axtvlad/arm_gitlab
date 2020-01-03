@@ -23,7 +23,7 @@ export class Users {
     @Column()
     patronymic_kz: string;
 
-    @Column('int')
+    @Column({type: 'int'})
     role_id: number;
 
     @Column({unique: true})
@@ -44,13 +44,13 @@ export class Users {
     @Column({nullable: true})
     photo?: string;
 
-    @Column('int')
+    @Column({type: 'int'})
     city_id: number;
 
-    @Column('int')
+    @Column({type: 'int'})
     customer_id: number;
 
-    @Column('int')
+    @Column({type: 'int'})
     gender_id: number;
 
     @Column({

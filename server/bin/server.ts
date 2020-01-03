@@ -10,13 +10,18 @@ import FaqsRoutes from "../modules/faqs/FaqsRoutes";
 import RolesRoutes from "../modules/roles/RolesRoutes";
 import StatusesRoutes from "../modules/statuses/StatusesRoutes";
 import UsersRoutes from "../modules/users/UsersRoutes";
+import DescriptionsRoutes from "../modules/descriptions/DescriptionsRoutes";
+import GendersRoutes from "../modules/genders/GendersRoutes";
+import TypesRoutes from "../modules/types/TypesRoutes";
+import TemplatesRoutes from "../modules/templates/TemplatesRoutes";
+import OtherDocsRoutes from "../modules/other_docs/OtherDocsRoutes";
 
 const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
-const port = +process.env.PORT || 3000;
+const port = +process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -35,6 +40,11 @@ app.use('/rest/api/faqs', FaqsRoutes);
 app.use('/rest/api/roles', RolesRoutes);
 app.use('/rest/api/statuses', StatusesRoutes);
 app.use('/rest/api/users', UsersRoutes);
+app.use('/rest/api/descriptions', DescriptionsRoutes);
+app.use('/rest/api/genders', GendersRoutes);
+app.use('/rest/api/types', TypesRoutes);
+app.use('/rest/api/templates', TemplatesRoutes);
+app.use('/rest/api/otherDocs', OtherDocsRoutes);
 
 app.get('*', (req: Request, res: Response) => {
     return res.status(500).send({
