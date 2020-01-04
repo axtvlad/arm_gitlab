@@ -4,13 +4,12 @@ import ServiceRest from "../../services/ServiceRest";
 import {OtherDocs} from "./OtherDocsModel";
 import {
     ERROR_CODE_BAD_REQUEST,
-    ERROR_CODE_NONE,
+    ERROR_CODE_NONE, ERROR_CODE_OTHER_DOC_NOT_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_F_NAME_KZ_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_F_NAME_RU_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_NAME_RU_EXISTS,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_CODE_TEMPLATE_NOT_EXISTS,
     ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
@@ -203,9 +202,9 @@ export default new class OtherDocsController {
 
             if (!otherDocs) {
                 return res.send({
-                    code: 'ERROR_CODE_TEMPLATE_NOT_EXISTS',
-                    errorCode: ERROR_CODE_TEMPLATE_NOT_EXISTS,
-                    message: `Template by id ${id} is not exists`
+                    code: 'ERROR_CODE_OTHER_DOC_NOT_EXISTS',
+                    errorCode: ERROR_CODE_OTHER_DOC_NOT_EXISTS,
+                    message: `Other_doc by id ${id} is not exists`
                 });
             }
             await getManager().getRepository(OtherDocs).remove(otherDocs);
