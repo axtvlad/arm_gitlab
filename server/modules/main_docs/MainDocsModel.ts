@@ -48,9 +48,6 @@ export class MainDocs {
     f_name_kz: string;
 
     @Column()
-    author_id: number;
-
-    @Column()
     description_id: number;
 
     @Column()
