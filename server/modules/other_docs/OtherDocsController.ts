@@ -16,7 +16,6 @@ import {
 interface IRestOtherDocsCreate {
     name_ru: string;
     name_kz: string;
-    author_id: number;
     path_ru: string;
     path_kz: string;
     f_name_kz: string;
@@ -45,12 +44,6 @@ export default new class OtherDocsController {
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Name_kz parameter not passed'
-                });
-            } else if (!bodyParams.author_id) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_AUTHOR_ID',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Author_id parameter not passed'
                 });
             } else if (!bodyParams.path_kz) {
                 return res.status(400).send({
@@ -81,7 +74,6 @@ export default new class OtherDocsController {
             const OtherDoc = new OtherDocs;
             OtherDoc.name_kz = bodyParams.name_kz;
             OtherDoc.name_ru = bodyParams.name_ru;
-            OtherDoc.author_id = bodyParams.author_id;
             OtherDoc.path_kz = bodyParams.path_kz;
             OtherDoc.path_ru = bodyParams.path_ru;
             OtherDoc.f_name_kz = bodyParams.f_name_kz;
@@ -133,7 +125,6 @@ export default new class OtherDocsController {
                     id: otherDoc.id,
                     name_kz: otherDoc.name_kz,
                     name_ru: otherDoc.name_ru,
-                    author_id: otherDoc.author_id,
                     path_ru: otherDoc.path_ru,
                     path_kz: otherDoc.path_kz,
                     f_name_kz: otherDoc.f_name_kz,
@@ -166,7 +157,7 @@ export default new class OtherDocsController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'author_id', 'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru'];
 
             const otherDocs = await getManager().getRepository(OtherDocs).find(config);
 

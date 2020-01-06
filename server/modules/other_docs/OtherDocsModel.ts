@@ -22,7 +22,4 @@ export class OtherDocs {
 
     @Column()
     f_name_kz: string;
-
-    @Column()
-    author_id: number;
 }

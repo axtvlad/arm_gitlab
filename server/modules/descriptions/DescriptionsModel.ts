@@ -12,12 +12,6 @@ export class Descriptions {
     name_kz: string;
 
     @Column()
-    text_ru: string;
-
-    @Column()
-    text_kz: string;
-
-    @Column()
     path_ru: string;
 
     @Column()
