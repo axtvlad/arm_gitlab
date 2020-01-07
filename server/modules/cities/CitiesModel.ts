@@ -5,9 +5,9 @@ export class Cities {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 50, unique: true, update: true})
     name_ru: string;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 50, unique: true, update: true})
     name_kz: string;
 }

@@ -5,24 +5,24 @@ export class Templates {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 150, unique: true, update: true})
     name_ru: string;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 150, unique: true, update: true})
     name_kz: string;
 
-    @Column()
+    @Column({type: "int", length: 3, update: true})
     category_id: number;
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     path_ru: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     path_kz: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100, unique: true})
     f_name_ru: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100, unique: true})
     f_name_kz: string;
 }

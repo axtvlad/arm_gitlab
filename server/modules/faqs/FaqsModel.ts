@@ -5,15 +5,15 @@ export class Faqs {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 200, unique: true, update: true})
     question_ru: string;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 200, unique: true, update: true})
     question_kz: string;
 
-    @Column()
+    @Column({type: "varchar", length: 2000, update: true})
     answer_ru: string;
 
-    @Column()
+    @Column({type: "varchar", length: 2000, update: true})
     answer_kz: string;
 }
