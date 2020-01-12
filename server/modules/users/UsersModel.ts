@@ -23,7 +23,7 @@ export class Users {
     @Column({type: "varchar", length: 100, update: true})
     patronymic_kz: string;
 
-    @Column({type: 'int', length: 2, update: true})
+    @Column({type: 'int', precision: 2, update: true})
     role_id: number;
 
     @Column({type: "varchar", length: 50, unique: true, update: true})
@@ -35,7 +35,7 @@ export class Users {
     @Column({type: "varchar", length: 100, unique: true, update: true})
     email: string;
 
-    @Column({type: "date", length: 10, update: true})
+    @Column({type: "date", update: true})
     b_day: Date;
 
     @Column({type: "boolean", default: false, update: true})
@@ -47,15 +47,15 @@ export class Users {
     @Column({type: "varchar", length: 100, nullable: true, unique: true})
     photo_name?: string;
 
-    @Column({type: 'int', length: 3, update: true})
+    @Column({type: 'int', precision: 3, update: true})
     city_id: number;
 
-    @Column({type: 'int', length: 3, update: true})
+    @Column({type: 'int', precision: 3, update: true})
     customer_id: number;
 
-    @Column({type: 'int', length: 2, update: true})
+    @Column({type: 'int', precision: 2, update: true})
     gender_id: number;
 
-    @Column({type: 'int', length: 10, unique: true, update: true})
+    @Column({type: 'int', precision: 10, unique: true, update: true})
     phone: number;
 }

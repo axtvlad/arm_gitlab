@@ -8,19 +8,19 @@ export class MainDocs {
     @Column({type: "varchar", length: 20, unique: true, update: true})
     number: string;
 
-    @Column({type: "int", length: 3, update: true})
+    @Column({type: "int", precision: 3, update: true})
     department_id: number;
 
-    @Column({type: "int", length: 2, update: true})
+    @Column({type: "int", precision: 2, update: true})
     status_id: number;
 
-    @Column({type: "date", length: 10, update: true})
+    @Column({type: "date", update: true})
     begin_date: Date;
 
-    @Column({type: "date", length: 10, update: true})
+    @Column({type: "date", update: true})
     finish_date: Date;
 
-    @Column({type: "date", length: 10, update: true})
+    @Column({type: "date", update: true})
     pub_date: Date;
 
     @Column({type: "varchar", length: 150, unique: true, update: true})
@@ -47,10 +47,10 @@ export class MainDocs {
     @Column({type: "varchar", length: 100, unique: true})
     f_name_kz: string;
 
-    @Column({type: "int", length: 5, unique: true, update: true})
+    @Column({type: "int", precision: 5, unique: true, update: true})
     description_id: number;
 
-    @Column({type: "int", length: 2, update: true})
+    @Column({type: "int", precision: 2, update: true})
     type_id: number;
 
     @Column({type: "varchar", length: 300, unique: true, nullable: true, update: true})

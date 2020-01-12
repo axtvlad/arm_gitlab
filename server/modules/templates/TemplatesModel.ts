@@ -11,7 +11,7 @@ export class Templates {
     @Column({type: "varchar", length: 150, unique: true, update: true})
     name_kz: string;
 
-    @Column({type: "int", length: 3, update: true})
+    @Column({type: "int", precision: 3, update: true})
     category_id: number;
 
     @Column({type: "varchar", length: 100})

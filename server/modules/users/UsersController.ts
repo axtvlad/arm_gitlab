@@ -30,7 +30,8 @@ interface IRestUsersCreate {
     password: string;
     phone: number;
     isPremium: boolean;
-    photo?: string;
+    photo_name?: string;
+    photo_path?: string;
     city_id: number;
     customer_id: number;
     gender_id: number;
@@ -179,8 +180,9 @@ export default new class UsersController {
             User.city_id = bodyParams.city_id;
             User.customer_id = bodyParams.customer_id;
 
-            if (bodyParams.photo) {
-                User.photo = bodyParams.photo;
+            if (bodyParams.photo_name && bodyParams.photo_path) {
+                User.photo_name = bodyParams.photo_name;
+                User.photo_path = bodyParams.photo_path;
             }
 
             const existUser = await getManager().getRepository(Users).findOne({
@@ -265,7 +267,7 @@ export default new class UsersController {
             if (queryParams.loadData === true) {
                 config.select = ['id', 'lastName_kz', 'lastName_ru', 'firstName_ru', 'firstName_kz', 'patronymic_kz',
                     'patronymic_ru', 'role_id', 'login', 'b_day', 'email', 'isPremium', 'city_id', 'customer_id',
-                    'gender_id', 'phone'];
+                    'gender_id', 'phone', 'photo_path', 'photo_name'];
             } else {
                 config.select = ['id', 'firstName_ru', 'firstName_kz', 'patronymic_kz', 'patronymic_ru', 'login',
                     'email', 'isPremium', 'phone'];
