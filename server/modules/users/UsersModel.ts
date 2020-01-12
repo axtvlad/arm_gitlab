@@ -6,16 +6,16 @@ export class Users {
     id: number;
 
     @Column({type: "varchar", length: 100, update: true})
-    firstName_ru: string;
+    firstname_ru: string;
 
     @Column({type: "varchar", length: 100, update: true})
-    firstName_kz: string;
+    firstname_kz: string;
 
     @Column({type: "varchar", length: 100, update: true})
-    lastName_ru: string;
+    lastname_ru: string;
 
     @Column({type: "varchar", length: 100, update: true})
-    lastName_kz: string;
+    lastname_kz: string;
 
     @Column({type: "varchar", length: 100, update: true})
     patronymic_ru: string;
@@ -29,7 +29,7 @@ export class Users {
     @Column({type: "varchar", length: 50, unique: true, update: true})
     login: string;
 
-    @Column({type: "varchar", length: 50, default: 'qwerty1234', update: true})
+    @Column({type: "varchar", length: 150, default: 'qwerty1234', update: true})
     password: string;
 
     @Column({type: "varchar", length: 100, unique: true, update: true})
@@ -56,6 +56,6 @@ export class Users {
     @Column({type: 'int', precision: 2, update: true})
     gender_id: number;
 
-    @Column({type: 'int', precision: 10, unique: true, update: true})
+    @Column({type: 'bigint', precision: 10, unique: true, update: true})
     phone: number;
 }
