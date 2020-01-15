@@ -1,4 +1,7 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Departments} from "../departments/DepartmentsModel";
+import {Statuses} from "../statuses/StatusesModel";
+import {Types} from "../types/TypesModel";
 
 @Entity()
 export class MainDocs {
@@ -8,9 +11,11 @@ export class MainDocs {
     @Column({type: "varchar", length: 20, unique: true, update: true})
     number: string;
 
+    @OneToOne(type => Departments)
     @Column({type: "int", precision: 3, update: true})
     department_id: number;
 
+    @OneToOne(type => Statuses)
     @Column({type: "int", precision: 2, update: true})
     status_id: number;
 
@@ -36,10 +41,7 @@ export class MainDocs {
     header_kz: string;
 
     @Column({type: "varchar", length: 100})
-    path_ru: string;
-
-    @Column({type: "varchar", length: 100})
-    path_kz: string;
+    path: string;
 
     @Column({type: "varchar", length: 100, unique: true})
     f_name_ru: string;
@@ -50,6 +52,7 @@ export class MainDocs {
     @Column({type: "int", precision: 5, unique: true, update: true})
     description_id: number;
 
+    @OneToOne(type => Types)
     @Column({type: "int", precision: 2, update: true})
     type_id: number;
 

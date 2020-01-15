@@ -26,8 +26,7 @@ interface IRestMainDocsCreate {
     header_kz: string;
     text_ru?: string;
     text_kz?: string;
-    path_ru: string;
-    path_kz: string;
+    path: string;
     f_name_kz: string;
     f_name_ru: string;
     description_id: number;
@@ -107,17 +106,11 @@ export default new class MainDocsController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Pub_date parameter not passed'
                 });
-            } else if (!bodyParams.path_kz) {
+            } else if (!bodyParams.path) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_kz parameter not passed'
-                });
-            } else if (!bodyParams.path_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_ru parameter not passed'
+                    message: 'Path parameter not passed'
                 });
             } else if (!bodyParams.f_name_kz) {
                 return res.status(400).send({
@@ -154,8 +147,7 @@ export default new class MainDocsController {
             MainDoc.pub_date = bodyParams.pub_date;
             MainDoc.name_kz = bodyParams.name_kz;
             MainDoc.name_ru = bodyParams.name_ru;
-            MainDoc.path_kz = bodyParams.path_kz;
-            MainDoc.path_ru = bodyParams.path_ru;
+            MainDoc.path = bodyParams.path;
             MainDoc.f_name_kz = bodyParams.f_name_kz;
             MainDoc.f_name_ru = bodyParams.f_name_ru;
             MainDoc.description_id = bodyParams.description_id;
@@ -213,8 +205,7 @@ export default new class MainDocsController {
                     name_ru: mainDoc.name_ru,
                     header_ru: mainDoc.header_ru,
                     header_kz: mainDoc.header_kz,
-                    path_ru: mainDoc.path_ru,
-                    path_kz: mainDoc.path_kz,
+                    path: mainDoc.path,
                     f_name_kz: mainDoc.f_name_kz,
                     f_name_ru: mainDoc.f_name_ru,
                     description_id: mainDoc.description_id,
@@ -250,23 +241,23 @@ export default new class MainDocsController {
             if (queryParams.loadData === true) {
                 config.select = ['id', 'number', 'department_id', 'status_id', 'begin_date', 'finish_date',
                     'pub_date', 'name_ru', 'name_kz', 'header_ru', 'header_kz', 'text_ru', 'text_kz',
-                    'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru', 'description_id', 'type_id'];
+                    'path', 'f_name_kz', 'f_name_ru', 'description_id', 'type_id'];
             } else {
                 config.select = ['id', 'number', 'department_id', 'name_ru', 'name_kz',
-                    'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru', 'description_id', 'type_id'];
+                    'path', 'f_name_kz', 'f_name_ru', 'description_id', 'type_id'];
             }
 
             if (queryParams.loadData === true && queryParams.lang === 'ru') {
                 config.select = ['id', 'number', 'department_id', 'status_id', 'begin_date', 'finish_date', 'pub_date',
-                    'name_ru', 'header_ru', 'text_ru', 'path_ru', 'f_name_ru', 'description_id', 'type_id'];
+                    'name_ru', 'header_ru', 'text_ru', 'path', 'f_name_ru', 'description_id', 'type_id'];
             } else if (queryParams.loadData === true && queryParams.lang === 'kz') {
                 config.select = ['id', 'number', 'department_id', 'status_id', 'begin_date', 'finish_date', 'pub_date',
-                    'name_kz', 'header_kz', 'text_kz', 'path_kz', 'f_name_kz', 'description_id', 'type_id'];
+                    'name_kz', 'header_kz', 'text_kz', 'path', 'f_name_kz', 'description_id', 'type_id'];
             } else if (queryParams.loadData === false && queryParams.lang === 'ru') {
-                config.select = ['id', 'number', 'department_id', 'name_ru', 'path_ru', 'f_name_ru',
+                config.select = ['id', 'number', 'department_id', 'name_ru', 'path', 'f_name_ru',
                     'description_id', 'type_id'];
             } else if (queryParams.loadData === false && queryParams.lang === 'kz') {
-                config.select = ['id', 'number', 'department_id', 'name_kz', 'path_kz', 'f_name_kz',
+                config.select = ['id', 'number', 'department_id', 'name_kz', 'path', 'f_name_kz',
                     'description_id', 'type_id'];
             }
             const mainDocs = await getManager().getRepository(MainDocs).find(config);

@@ -4,7 +4,8 @@ import ServiceRest from "../../services/ServiceRest";
 import {OtherDocs} from "./OtherDocsModel";
 import {
     ERROR_CODE_BAD_REQUEST,
-    ERROR_CODE_NONE, ERROR_CODE_OTHER_DOC_NOT_EXISTS,
+    ERROR_CODE_NONE,
+    ERROR_CODE_OTHER_DOC_NOT_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_F_NAME_KZ_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_F_NAME_RU_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS,
@@ -16,8 +17,7 @@ import {
 interface IRestOtherDocsCreate {
     name_ru: string;
     name_kz: string;
-    path_ru: string;
-    path_kz: string;
+    path: string;
     f_name_kz: string;
     f_name_ru: string;
 }
@@ -45,17 +45,11 @@ export default new class OtherDocsController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Name_kz parameter not passed'
                 });
-            } else if (!bodyParams.path_kz) {
+            } else if (!bodyParams.path) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_kz parameter not passed'
-                });
-            } else if (!bodyParams.path_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_ru parameter not passed'
+                    message: 'Path parameter not passed'
                 });
             } else if (!bodyParams.f_name_kz) {
                 return res.status(400).send({
@@ -74,8 +68,7 @@ export default new class OtherDocsController {
             const OtherDoc = new OtherDocs;
             OtherDoc.name_kz = bodyParams.name_kz;
             OtherDoc.name_ru = bodyParams.name_ru;
-            OtherDoc.path_kz = bodyParams.path_kz;
-            OtherDoc.path_ru = bodyParams.path_ru;
+            OtherDoc.path = bodyParams.path;
             OtherDoc.f_name_kz = bodyParams.f_name_kz;
             OtherDoc.f_name_ru = bodyParams.f_name_ru;
 
@@ -125,8 +118,7 @@ export default new class OtherDocsController {
                     id: otherDoc.id,
                     name_kz: otherDoc.name_kz,
                     name_ru: otherDoc.name_ru,
-                    path_ru: otherDoc.path_ru,
-                    path_kz: otherDoc.path_kz,
+                    path: otherDoc.path,
                     f_name_kz: otherDoc.f_name_kz,
                     f_name_ru: otherDoc.f_name_ru
                 },
@@ -157,7 +149,7 @@ export default new class OtherDocsController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'path', 'f_name_kz', 'f_name_ru'];
 
             const otherDocs = await getManager().getRepository(OtherDocs).find(config);
 

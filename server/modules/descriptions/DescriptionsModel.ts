@@ -12,10 +12,7 @@ export class Descriptions {
     name_kz: string;
 
     @Column({type: "varchar", length: 100})
-    path_ru: string;
-
-    @Column({type: "varchar", length: 100})
-    path_kz: string;
+    path: string;
 
     @Column({type: "varchar", length: 100, unique: true})
     f_name_ru: string;

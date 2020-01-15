@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Categories} from "../categories/CategoriesModel";
 
 @Entity()
 export class Templates {
@@ -11,14 +12,12 @@ export class Templates {
     @Column({type: "varchar", length: 150, unique: true, update: true})
     name_kz: string;
 
+    @OneToOne(type => Categories)
     @Column({type: "int", precision: 3, update: true})
     category_id: number;
 
     @Column({type: "varchar", length: 100})
-    path_ru: string;
-
-    @Column({type: "varchar", length: 100})
-    path_kz: string;
+    path: string;
 
     @Column({type: "varchar", length: 100, unique: true})
     f_name_ru: string;

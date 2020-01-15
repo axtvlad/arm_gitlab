@@ -17,12 +17,9 @@ import {
 } from '../../services/ServiceRestCodes';
 
 interface IRestUsersCreate {
-    firstname_ru: string;
-    firstname_kz: string;
-    lastname_kz: string;
-    lastname_ru: string;
-    patronymic_ru: string;
-    patronymic_kz: string;
+    firstname: string;
+    lastname: string;
+    patronymic: string;
     b_day: Date;
     role_id: number;
     email: string;
@@ -35,6 +32,7 @@ interface IRestUsersCreate {
     city_id: number;
     customer_id: number;
     gender_id: number;
+    locale: string;
 }
 
 interface IRestUsersList {
@@ -74,41 +72,23 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Email parameter not passed'
                 });
-            } else if (!bodyParams.firstname_kz) {
+            } else if (!bodyParams.firstname) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Firstname_kz parameter not passed'
+                    message: 'Firstname parameter not passed'
                 });
-            } else if (!bodyParams.firstname_ru) {
+            } else if (!bodyParams.lastname) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME_RU',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Firstname_ru parameter not passed'
+                    message: 'Lastname parameter not passed'
                 });
-            } else if (!bodyParams.lastname_kz) {
+            } else if (!bodyParams.patronymic) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Lastname_kz parameter not passed'
-                });
-            } else if (!bodyParams.lastname_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Lastname_ru parameter not passed'
-                });
-            } else if (!bodyParams.patronymic_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Patronymic_ru parameter not passed'
-                });
-            } else if (!bodyParams.patronymic_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Patronymic_kz parameter not passed'
+                    message: 'Patronymic parameter not passed'
                 });
             } else if (!bodyParams.b_day) {
                 return res.status(400).send({
@@ -152,6 +132,12 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Gender_id parameter not passed'
                 });
+            } else if (!bodyParams.locale) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LOCALE',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Locale parameter not passed'
+                });
             }
 
             if (!isEmail(bodyParams.email)) {
@@ -163,15 +149,12 @@ export default new class UsersController {
             }
 
             const User = new Users;
-            User.firstname_ru = bodyParams.firstname_ru;
-            User.firstname_kz = bodyParams.firstname_kz;
+            User.firstname = bodyParams.firstname;
             User.login = bodyParams.login;
             User.password = passwordHash.generate(bodyParams.password);
             User.email = bodyParams.email;
-            User.lastname_kz = bodyParams.lastname_kz;
-            User.lastname_ru = bodyParams.lastname_ru;
-            User.patronymic_kz = bodyParams.patronymic_kz;
-            User.patronymic_ru = bodyParams.patronymic_ru;
+            User.lastname = bodyParams.lastname;
+            User.patronymic = bodyParams.patronymic;
             User.gender_id = bodyParams.gender_id;
             User.role_id = bodyParams.role_id;
             User.phone = bodyParams.phone;
@@ -179,6 +162,7 @@ export default new class UsersController {
             User.isPremium = bodyParams.isPremium;
             User.city_id = bodyParams.city_id;
             User.customer_id = bodyParams.customer_id;
+            User.locale = bodyParams.locale;
 
             if (bodyParams.photo_name && bodyParams.photo_path) {
                 User.photo_name = bodyParams.photo_name;
@@ -221,12 +205,9 @@ export default new class UsersController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: user.id,
-                    firstName_kz: user.firstname_kz,
-                    firstName_ru: user.firstname_ru,
-                    lastName_ru: user.lastname_ru,
-                    lastName_kz: user.lastname_kz,
-                    patronymic_ru: user.patronymic_ru,
-                    patronymic_kz: user.patronymic_kz,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    patronymic: user.patronymic,
                     b_day: user.b_day,
                     role_id: user.role_id,
                     email: user.email,
@@ -235,7 +216,8 @@ export default new class UsersController {
                     isPremium: user.isPremium,
                     city_id: user.city_id,
                     customer_id: user.customer_id,
-                    gender_id: user.gender_id
+                    gender_id: user.gender_id,
+                    locale: user.locale,
                 },
                 message: ERROR_MESSAGE_OK
             });
@@ -265,24 +247,10 @@ export default new class UsersController {
             }
 
             if (queryParams.loadData === true) {
-                config.select = ['id', 'lastname_kz', 'lastname_ru', 'firstname_ru', 'firstname_kz', 'patronymic_kz',
-                    'patronymic_ru', 'role_id', 'login', 'b_day', 'email', 'isPremium', 'city_id', 'customer_id',
-                    'gender_id', 'phone', 'photo_path', 'photo_name'];
+                config.select = ['id', 'lastname', 'firstname', 'patronymic', 'role_id', 'login', 'b_day', 'email',
+                    'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone', 'photo_path', 'photo_name', 'locale'];
             } else {
-                config.select = ['id', 'firstname_ru', 'firstname_kz', 'patronymic_kz', 'patronymic_ru', 'login',
-                    'email', 'isPremium', 'phone'];
-            }
-
-            if (queryParams.loadData === true && queryParams.lang === 'ru') {
-                config.select = ['id', 'lastname_ru', 'firstname_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
-                    'email', 'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone'];
-            } else if (queryParams.loadData === true && queryParams.lang === 'kz') {
-                config.select = ['id', 'lastname_ru', 'firstname_ru', 'patronymic_ru', 'role_id', 'login', 'b_day',
-                    'email', 'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone'];
-            } else if (queryParams.loadData === false && queryParams.lang === 'ru') {
-                config.select = ['id', 'firstname_ru', 'patronymic_ru', 'login', 'email', 'isPremium', 'phone'];
-            } else if (queryParams.loadData === false && queryParams.lang === 'kz') {
-                config.select = ['id', 'firstname_kz', 'patronymic_kz', 'login', 'email', 'isPremium', 'phone'];
+                config.select = ['id', 'firstname', 'patronymic', 'login', 'email', 'isPremium', 'phone'];
             }
 
             const users = await getManager().getRepository(Users).find(config);

@@ -17,8 +17,7 @@ import {
 interface IRestDescriptionsCreate {
     name_ru: string;
     name_kz: string;
-    path_ru: string;
-    path_kz: string;
+    path: string;
     f_name_kz: string;
     f_name_ru: string;
 }
@@ -46,17 +45,11 @@ export default new class DescriptionsController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Name_kz parameter not passed'
                 });
-            } else if (!bodyParams.path_kz) {
+            } else if (!bodyParams.path) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_kz parameter not passed'
-                });
-            } else if (!bodyParams.path_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_ru parameter not passed'
+                    message: 'Path parameter not passed'
                 });
             } else if (!bodyParams.f_name_kz) {
                 return res.status(400).send({
@@ -75,8 +68,7 @@ export default new class DescriptionsController {
             const Description = new Descriptions;
             Description.name_kz = bodyParams.name_kz;
             Description.name_ru = bodyParams.name_ru;
-            Description.path_kz = bodyParams.path_kz;
-            Description.path_ru = bodyParams.path_ru;
+            Description.path = bodyParams.path;
             Description.f_name_kz = bodyParams.f_name_kz;
             Description.f_name_ru = bodyParams.f_name_ru;
 
@@ -126,8 +118,7 @@ export default new class DescriptionsController {
                     id: description.id,
                     name_kz: description.name_kz,
                     name_ru: description.name_ru,
-                    path_ru: description.path_ru,
-                    path_kz: description.path_kz,
+                    path: description.path,
                     f_name_kz: description.f_name_kz,
                     f_name_ru: description.f_name_ru
                 },
@@ -158,7 +149,7 @@ export default new class DescriptionsController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'path', 'f_name_kz', 'f_name_ru'];
 
             const descriptions = await getManager().getRepository(Descriptions).find(config);
 

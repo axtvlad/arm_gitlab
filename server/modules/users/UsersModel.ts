@@ -1,4 +1,8 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Cities} from "../cities/CitiesModel";
+import {Customers} from "../customers/CustomersModel";
+import {Genders} from "../genders/GendersModel";
+import {Types} from "../types/TypesModel";
 
 @Entity()
 export class Users {
@@ -6,23 +10,15 @@ export class Users {
     id: number;
 
     @Column({type: "varchar", length: 100, update: true})
-    firstname_ru: string;
+    firstname: string;
 
     @Column({type: "varchar", length: 100, update: true})
-    firstname_kz: string;
+    lastname: string;
 
     @Column({type: "varchar", length: 100, update: true})
-    lastname_ru: string;
+    patronymic: string;
 
-    @Column({type: "varchar", length: 100, update: true})
-    lastname_kz: string;
-
-    @Column({type: "varchar", length: 100, update: true})
-    patronymic_ru: string;
-
-    @Column({type: "varchar", length: 100, update: true})
-    patronymic_kz: string;
-
+    @OneToOne(type => Types)
     @Column({type: 'int', precision: 2, update: true})
     role_id: number;
 
@@ -47,15 +43,21 @@ export class Users {
     @Column({type: "varchar", length: 100, nullable: true, unique: true})
     photo_name?: string;
 
+    @OneToOne(type => Cities)
     @Column({type: 'int', precision: 3, update: true})
     city_id: number;
 
+    @OneToOne(type => Customers)
     @Column({type: 'int', precision: 3, update: true})
     customer_id: number;
 
+    @OneToOne(type => Genders)
     @Column({type: 'int', precision: 2, update: true})
     gender_id: number;
 
     @Column({type: 'bigint', precision: 10, unique: true, update: true})
     phone: number;
+
+    @Column({type: 'varchar', length: 2, unique: true, update: true})
+    locale: string;
 }

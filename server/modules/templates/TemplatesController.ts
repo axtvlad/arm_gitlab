@@ -18,8 +18,7 @@ interface IRestTemplatesCreate {
     name_ru: string;
     name_kz: string;
     category_id: number;
-    path_ru: string;
-    path_kz: string;
+    path: string;
     f_name_kz: string;
     f_name_ru: string;
 }
@@ -53,17 +52,11 @@ export default new class TemplatesController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: 'Category_id parameter not passed'
                 });
-            } else if (!bodyParams.path_kz) {
+            } else if (!bodyParams.path) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_kz parameter not passed'
-                });
-            } else if (!bodyParams.path_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path_ru parameter not passed'
+                    message: 'Path parameter not passed'
                 });
             } else if (!bodyParams.f_name_kz) {
                 return res.status(400).send({
@@ -83,8 +76,7 @@ export default new class TemplatesController {
             Template.name_kz = bodyParams.name_kz;
             Template.name_ru = bodyParams.name_ru;
             Template.category_id = bodyParams.category_id;
-            Template.path_kz = bodyParams.path_kz;
-            Template.path_ru = bodyParams.path_ru;
+            Template.path = bodyParams.path;
             Template.f_name_kz = bodyParams.f_name_kz;
             Template.f_name_ru = bodyParams.f_name_ru;
 
@@ -135,8 +127,7 @@ export default new class TemplatesController {
                     name_kz: template.name_kz,
                     name_ru: template.name_ru,
                     category_id: template.category_id,
-                    path_ru: template.path_ru,
-                    path_kz: template.path_kz,
+                    path: template.path,
                     f_name_kz: template.f_name_kz,
                     f_name_ru: template.f_name_ru
                 },
@@ -167,7 +158,7 @@ export default new class TemplatesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'path_ru', 'path_kz', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'path', 'f_name_kz', 'f_name_ru'];
 
             const templates = await getManager().getRepository(Templates).find(config);
 
