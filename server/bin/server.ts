@@ -16,6 +16,7 @@ import TypesRoutes from "../modules/types/TypesRoutes";
 import TemplatesRoutes from "../modules/templates/TemplatesRoutes";
 import OtherDocsRoutes from "../modules/other_docs/OtherDocsRoutes";
 import MainDocsRoutes from "../modules/main_docs/MainDocsRoutes";
+import LocalesRoutes from "../modules/locales/LocalesRoutes";
 
 const cors = require('cors');
 
@@ -47,6 +48,7 @@ app.use('/rest/api/types', TypesRoutes);
 app.use('/rest/api/templates', TemplatesRoutes);
 app.use('/rest/api/otherDocs', OtherDocsRoutes);
 app.use('/rest/api/mainDocs', MainDocsRoutes);
+app.use('/rest/api/locales', LocalesRoutes);
 
 app.get('*', (req: Request, res: Response) => {
     return res.status(500).send({

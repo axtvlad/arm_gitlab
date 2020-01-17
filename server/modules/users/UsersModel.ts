@@ -3,6 +3,7 @@ import {Cities} from "../cities/CitiesModel";
 import {Customers} from "../customers/CustomersModel";
 import {Genders} from "../genders/GendersModel";
 import {Types} from "../types/TypesModel";
+import {Locales} from "../locales/LocalesModel";
 
 @Entity()
 export class Users {
@@ -58,6 +59,7 @@ export class Users {
     @Column({type: 'bigint', precision: 10, unique: true, update: true})
     phone: number;
 
-    @Column({type: 'varchar', length: 2, unique: true, update: true})
-    locale: string;
+    @OneToOne(type => Locales)
+    @Column({type: 'int', precision: 3, update: true})
+    locale_id: string;
 }
