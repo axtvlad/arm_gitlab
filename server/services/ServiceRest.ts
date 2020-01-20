@@ -16,50 +16,33 @@ export default class ServiceRest implements IRestApi {
         this.req = req;
     }
 
-    public getBasicAuth(): object | boolean {
-        try {
-            if (this.req && this.req.headers && this.req.headers.authorization) {
-                let basic: any = this.req.headers.authorization.split(' ');
+    private treatment(data: IQuery): object {
+        return Object.keys(data).reduce((list, item) => {
+            switch (data[item].toString().toLowerCase()) {
+                case 'true':
+                    list[item] = true;
+                    break;
+                case 'false':
+                    list[item] = false;
+                    break;
+                default:
+                    let number: number = +data[item];
 
-                if (basic.length > 1) {
-                    basic = Buffer.from(basic[1], 'base64').toString().split(':');
-
-                    return {
-                        login: basic[0],
-                        password: basic[1]
+                    if(!isNaN(number)){
+                        list[item] = number;
+                    }else{
+                        list[item] = data[item];
                     }
-                }
             }
-        }catch (e) {
-            console.error(path.basename(__filename), 'getBasicAuth', e);
-            return false;
-        }
+
+            return list;
+        }, {} as IQuery);
     }
 
     public getQuery(): object {
         try {
-            const query: IQuery = this.req.query;
-
-            return Object.keys(query).reduce((list, item) => {
-                switch (query[item].toString().toLowerCase()) {
-                    case 'true':
-                        list[item] = true;
-                        break;
-                    case 'false':
-                        list[item] = false;
-                        break;
-                    default:
-                        let number: number = <number>query[item];
-
-                        if(!isNaN(number)){
-                            list[item] = number;
-                        }else{
-                            list[item] = query[item];
-                        }
-                }
-
-                return list;
-            }, {} as IQuery);
+            const { query } = this.req;
+            return this.treatment(query);
         }catch (e) {
             console.error(path.basename(__filename), 'getQuery', e);
             return {};
@@ -68,7 +51,18 @@ export default class ServiceRest implements IRestApi {
 
     public getBody(): object {
         try {
-            return this.req.body;
+            const { body } = this.req;
+            return this.treatment(body);
+        } catch (e) {
+            console.error(path.basename(__filename), 'getBody', e);
+            return {};
+        }
+    }
+
+    public getKeys(): object {
+        try {
+            const { params } = this.req;
+            return this.treatment(params);
         } catch (e) {
             console.error(path.basename(__filename), 'getBody', e);
             return {};

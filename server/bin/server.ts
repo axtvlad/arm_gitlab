@@ -2,6 +2,9 @@ import express, {Request, Response} from 'express';
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import RoutesRestApi from "./routes/RoutesRestApi";
+import Initial from "./initial";
+import i18n from 'i18n';
+import cookieParser from 'cookie-parser';
 
 const cors = require('cors');
 require('dotenv').config();
@@ -9,7 +12,18 @@ require('dotenv').config();
 const app = express();
 const port = +process.env.PORT || 3001;
 
+i18n.configure({
+    defaultLocale: 'ru',
+    queryParameter: 'locale',
+    locales:['ru', 'en', 'kz'],
+    autoReload: true,
+    syncFiles: true,
+    directory: __dirname + '/locales'
+});
+
 app.use(cors());
+app.use(cookieParser());
+app.use(i18n.init);
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -28,7 +42,9 @@ app.get('*', (req: Request, res: Response) => {
 });
 
 createConnection()
-    .then(async () => {
+    .then(() => {
+        new Initial();
+
         app.listen(port, err => {
             if (err) {
                 return console.error(err);

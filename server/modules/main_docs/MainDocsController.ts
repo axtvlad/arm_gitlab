@@ -10,7 +10,6 @@ import {
     ERROR_CODE_MAIN_DOC_WITH_NUMBER_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestMainDocsCreate {
@@ -211,7 +210,7 @@ export default new class MainDocsController {
                     description_id: mainDoc.description_id,
                     type_id: mainDoc.type_id,
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -270,7 +269,7 @@ export default new class MainDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: mainDocs,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -304,7 +303,7 @@ export default new class MainDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

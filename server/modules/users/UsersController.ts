@@ -12,22 +12,21 @@ import {
     ERROR_CODE_USER_NOT_EXISTS,
     ERROR_CODE_USER_WITH_EMAIL_EXISTS,
     ERROR_CODE_USER_WITH_LOGIN_EXISTS,
-    ERROR_CODE_USER_WITH_PHONE_EXISTS,
-    ERROR_MESSAGE_OK
+    ERROR_CODE_USER_WITH_PHONE_EXISTS
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestUsersCreate {
     firstname: string;
     lastname: string;
-    patronymic: string;
+    patronymic?: string;
     b_day: Date;
     role_id: number;
     email: string;
     login: string;
     password: string;
-    phone: number;
+    phone?: number;
     isPremium: boolean;
-    photo_name?: string;
     photo_path?: string;
     city_id: number;
     customer_id: number;
@@ -42,6 +41,14 @@ interface IRestUsersList {
     loadData?: boolean;
 }
 
+interface IRestUserById {
+    loadData?: boolean;
+}
+
+interface IRestUserByIdKeys {
+    userId: string;
+}
+
 export default new class UsersController {
     async create(req: Request, res: Response) {
         try {
@@ -52,121 +59,119 @@ export default new class UsersController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Parameters not passed `login` or `password`'
+                    message: req.__('PASSED_PARAMS_LOGIN_OR_PASSWORD')
                 });
             } else if (!bodyParams.login) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LOGIN',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Login parameter not passed'
+                    message: req.__('PASSED_PARAM_LOGIN_NOT')
                 });
             } else if (!bodyParams.password) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PASSWORD',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Password parameter not passed'
+                    message: req.__("PASSED_PARAM_PASSWORD_NOT")
                 });
             } else if (!bodyParams.email) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_EMAIL',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Email parameter not passed'
+                    message: req.__("PASSED_PARAM_EMAIL_NOT")
                 });
             } else if (!bodyParams.firstname) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FIRSTNAME',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Firstname parameter not passed'
+                    message: req.__("PASSED_PARAM_FIRST_NAME_NOT")
                 });
             } else if (!bodyParams.lastname) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LASTNAME',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Lastname parameter not passed'
+                    message: req.__("PASSED_PARAM_LAST_NAME_NOT")
                 });
-            } else if (!bodyParams.patronymic) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Patronymic parameter not passed'
-                });
+            // } else if (!bodyParams.patronymic) {
+            //     return res.status(400).send({
+            //         code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATRONYMIC',
+            //         errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+            //         message: req.__("PASSED_PARAM_PATRONYMIC_NOT")
+            //     });
             } else if (!bodyParams.b_day) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_B_DAY',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'B_day parameter not passed'
+                    message: req.__("PASSED_PARAM_BIRTH_DATE_NOT")
                 });
             } else if (!bodyParams.role_id) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_ROLE_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Role_id parameter not passed'
+                    message: req.__("PASSED_PARAM_ROLE_ID_NOT")
                 });
-            } else if (!bodyParams.phone) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PHONE',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'PHONE parameter not passed'
-                });
+            // } else if (!bodyParams.phone) {
+            //     return res.status(400).send({
+            //         code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PHONE',
+            //         errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+            //         message: req.__("PASSED_PARAM_PHONE_NOT")
+            //     });
             } else if (!bodyParams.isPremium) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_isPremium',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'isPremium parameter not passed'
+                    message: req.__("PASSED_PARAM_IS_PREMIUM_NOT")
                 });
             } else if (!bodyParams.city_id) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CITY_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'City_id parameter not passed'
+                    message: req.__("PASSED_PARAM_CITY_ID_NOT")
                 });
             } else if (!bodyParams.customer_id) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CUSTOMER_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Customer_id parameter not passed'
+                    message: req.__("PASSED_PARAM_CUSTOMER_ID_NOT")
                 });
             } else if (!bodyParams.gender_id) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_GENDER_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Gender_id parameter not passed'
+                    message: req.__("PASSED_PARAM_GENDER_ID_NOT")
                 });
             } else if (!bodyParams.locale) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LOCALE',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Locale parameter not passed'
+                    message: req.__("PASSED_PARAM_LOCALE_NOT")
                 });
-            }
-
-            if (!isEmail(bodyParams.email)) {
+            } else if (!isEmail(bodyParams.email)) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_INVALID_EMAIL',
                     errorCode: ERROR_CODE_INVALID_EMAIL,
-                    message: 'Invalid email address'
+                    message: req.__('INVALID_EMAIL_ADDRESS')
                 });
             }
 
-            const User = new Users;
-            User.firstname = bodyParams.firstname;
-            User.login = bodyParams.login;
-            User.password = passwordHash.generate(bodyParams.password);
-            User.email = bodyParams.email;
-            User.lastname = bodyParams.lastname;
-            User.patronymic = bodyParams.patronymic;
-            User.gender_id = bodyParams.gender_id;
-            User.role_id = bodyParams.role_id;
-            User.phone = bodyParams.phone;
-            User.b_day = bodyParams.b_day;
-            User.isPremium = bodyParams.isPremium;
-            User.city_id = bodyParams.city_id;
-            User.customer_id = bodyParams.customer_id;
-            User.locale = bodyParams.locale;
+            const user = new Users();
 
-            if (bodyParams.photo_name && bodyParams.photo_path) {
-                User.photo_name = bodyParams.photo_name;
-                User.photo_path = bodyParams.photo_path;
+            user.firstName = bodyParams.firstname;
+            user.login = bodyParams.login;
+            user.password = passwordHash.generate(bodyParams.password);
+            user.email = bodyParams.email;
+            user.lastName = bodyParams.lastname;
+            user.patronymic = bodyParams.patronymic;
+            user.gender_id = bodyParams.gender_id;
+            user.role_id = bodyParams.role_id;
+            user.phone = bodyParams.phone;
+            user.birthAt = bodyParams.b_day;
+            user.isPremium = bodyParams.isPremium;
+            user.city_id = bodyParams.city_id;
+            user.customer_id = bodyParams.customer_id;
+            user.locale = bodyParams.locale;
+
+            if (bodyParams.photo_path) {
+                user.photo = bodyParams.photo_path;
             }
 
             const existUser = await getManager().getRepository(Users).findOne({
@@ -183,74 +188,55 @@ export default new class UsersController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_LOGIN_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_LOGIN_EXISTS,
-                    message: 'An user with that login already exists.'
+                    message: req.__('EXISTS_ALREADY_LOGIN')
                 });
             } else if (existUser && existUser.email === bodyParams.email) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_EMAIL_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_EMAIL_EXISTS,
-                    message: 'An user with that email already exists.'
+                    message: req.__('EXISTS_ALREADY_EMAIL')
                 });
             } else if (existUser && existUser.phone === bodyParams.phone) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_USER_WITH_PHONE_EXISTS',
                     errorCode: ERROR_CODE_USER_WITH_PHONE_EXISTS,
-                    message: 'An user with that phone already exists.'
+                    message: req.__('EXISTS_ALREADY_PHONE')
                 });
             }
 
-            const user = await getManager().getRepository(Users).save(User);
+            const { userId } = await getManager().getRepository(Users).save(user);
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: {
-                    id: user.id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    patronymic: user.patronymic,
-                    b_day: user.b_day,
-                    role_id: user.role_id,
-                    email: user.email,
-                    login: user.login,
-                    phone: user.phone,
-                    isPremium: user.isPremium,
-                    city_id: user.city_id,
-                    customer_id: user.customer_id,
-                    gender_id: user.gender_id,
-                    locale: user.locale,
-                },
-                message: ERROR_MESSAGE_OK
+                data: { userId },
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getUsersList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestUsersList = <IRestUsersList>rest.getQuery();
+            const config = <FindManyOptions<Users>> {};
 
-            const config = {} as FindManyOptions;
+            config.skip = queryParams.offset ? queryParams.offset : 0;
+            config.take = queryParams.count ? queryParams.count : 30;
+            config.select = ["userId", "firstName", "lastName", "locale"];
 
-            if (queryParams.offset && queryParams.count) {
-                config.skip = queryParams.offset;
-                config.take = queryParams.count;
-            } else {
-                config.skip = 0;
-                config.take = 30;
-            }
-
-            if (queryParams.loadData === true) {
-                config.select = ['id', 'lastname', 'firstname', 'patronymic', 'role_id', 'login', 'b_day', 'email',
-                    'isPremium', 'city_id', 'customer_id', 'gender_id', 'phone', 'photo_path', 'photo_name', 'locale'];
-            } else {
-                config.select = ['id', 'firstname', 'patronymic', 'login', 'email', 'isPremium', 'phone'];
+            if (queryParams.loadData && queryParams.loadData === true) {
+                config.select = [
+                    ...config.select,
+                    "patronymic", "phone", "email", "role_id", "city_id", "customer_id", "gender_id", "locale_id",
+                    "photo", "birthAt", "createdAt", "isPremium", "isAdmin"
+                ];
             }
 
             const users = await getManager().getRepository(Users).find(config);
@@ -263,25 +249,68 @@ export default new class UsersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: users,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getUserById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const queryParams: IRestUsersList = <IRestUserById>rest.getQuery();
+            const config = <FindManyOptions<Users>> {};
+            const { userId } = <IRestUserByIdKeys>rest.getKeys();
+
+            config.select = ["userId", "firstName", "lastName", "locale"];
+            config.where = { userId };
+
+            if (queryParams.loadData && queryParams.loadData === true) {
+                config.select = [
+                    ...config.select,
+                    "patronymic", "phone", "email", "role_id", "city_id", "customer_id", "gender_id", "locale_id",
+                    "photo", "birthAt", "createdAt", "isPremium", "isAdmin"
+                ];
+            }
+
+            const user = await getManager().getRepository(Users).findOne(config);
+
+            if (!user) {
+                return res.send({
+                    code: 'ERROR_CODE_USER_NOT_EXISTS',
+                    errorCode: ERROR_CODE_USER_NOT_EXISTS,
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_USER_ID'), userId)
+                });
+            }
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: user,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
 
     async remove(req: Request, res: Response) {
         try {
-            const {id} = req.params;
+            const { userId } = req.params;
 
             const user = await getManager().getRepository(Users).findOne({
                 where: {
-                    id
+                    userId
                 }
             });
 
@@ -289,7 +318,7 @@ export default new class UsersController {
                 return res.send({
                     code: 'ERROR_CODE_USER_NOT_EXISTS',
                     errorCode: ERROR_CODE_USER_NOT_EXISTS,
-                    message: `User by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_USER_ID'), userId)
                 });
             }
 
@@ -297,11 +326,16 @@ export default new class UsersController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: id,
-                message: ERROR_MESSAGE_OK
+                data: userId,
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
-
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

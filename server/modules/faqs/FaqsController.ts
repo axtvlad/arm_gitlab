@@ -7,8 +7,7 @@ import {
     ERROR_CODE_FAQ_WITH_QUESTION_KZ_EXISTS,
     ERROR_CODE_FAQ_WITH_QUESTION_RU_EXISTS,
     ERROR_CODE_NONE,
-    ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK
+    ERROR_CODE_PARAMETER_NOT_PASSED
 } from '../../services/ServiceRestCodes';
 import {Faqs} from "./FaqsModel";
 
@@ -95,7 +94,7 @@ export default new class FaqsController {
                     answer_kz: faq.answer_kz,
                     answer_ru: faq.answer_ru,
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -134,7 +133,7 @@ export default new class FaqsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: faqs,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -169,7 +168,7 @@ export default new class FaqsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

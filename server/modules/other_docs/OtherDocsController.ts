@@ -11,7 +11,6 @@ import {
     ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_NAME_RU_EXISTS,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestOtherDocsCreate {
@@ -122,7 +121,7 @@ export default new class OtherDocsController {
                     f_name_kz: otherDoc.f_name_kz,
                     f_name_ru: otherDoc.f_name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -161,7 +160,7 @@ export default new class OtherDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: otherDocs,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -195,7 +194,7 @@ export default new class OtherDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

@@ -9,7 +9,6 @@ import {
     ERROR_CODE_STATUS_NOT_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestStatusesCreate {
@@ -77,7 +76,7 @@ export default new class StatusesController {
                     name_kz: status.name_kz,
                     name_ru: status.name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -116,7 +115,7 @@ export default new class StatusesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: statuses,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -150,7 +149,7 @@ export default new class StatusesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

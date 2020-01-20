@@ -9,7 +9,6 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_CODE_USER_NOT_EXISTS,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestCitiesCreate {
@@ -77,7 +76,7 @@ export default new class CitiesController {
                     name_kz: user.name_kz,
                     name_ru: user.name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -116,7 +115,7 @@ export default new class CitiesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: cities,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -150,7 +149,7 @@ export default new class CitiesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

@@ -68,5 +68,3 @@ export const ERROR_CODE_MAIN_DOC_NOT_EXISTS = 146;
 
 export const ERROR_CODE_LOCALE_NOT_EXISTS = 147;
 export const ERROR_CODE_LOCALE_WITH_NAME_EXISTS = 148;
-
-export const ERROR_MESSAGE_OK = 'OK';
