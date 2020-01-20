@@ -11,7 +11,6 @@ import {
     ERROR_CODE_DESCRIPTION_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestDescriptionsCreate {
@@ -122,7 +121,7 @@ export default new class DescriptionsController {
                     f_name_kz: description.f_name_kz,
                     f_name_ru: description.f_name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -161,7 +160,7 @@ export default new class DescriptionsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: descriptions,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -195,7 +194,7 @@ export default new class DescriptionsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

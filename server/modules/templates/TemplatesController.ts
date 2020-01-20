@@ -11,7 +11,6 @@ import {
     ERROR_CODE_TEMPLATE_WITH_F_NAME_RU_EXISTS,
     ERROR_CODE_TEMPLATE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestTemplatesCreate {
@@ -131,7 +130,7 @@ export default new class TemplatesController {
                     f_name_kz: template.f_name_kz,
                     f_name_ru: template.f_name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -170,7 +169,7 @@ export default new class TemplatesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: templates,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -204,7 +203,7 @@ export default new class TemplatesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

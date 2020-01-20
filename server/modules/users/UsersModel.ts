@@ -1,65 +1,80 @@
-import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Cities} from "../cities/CitiesModel";
-import {Customers} from "../customers/CustomersModel";
-import {Genders} from "../genders/GendersModel";
-import {Types} from "../types/TypesModel";
-import {Locales} from "../locales/LocalesModel";
+import {Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
 @Entity()
 export class Users {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 100, update: true})
-    firstname: string;
+    @Column()
+    @Generated('uuid')
+    userId: string;
 
-    @Column({type: "varchar", length: 100, update: true})
-    lastname: string;
+    @Column({length: 100})
+    firstName: string;
 
-    @Column({type: "varchar", length: 100, update: true})
-    patronymic: string;
+    @Column({length: 100})
+    lastName: string;
 
-    @OneToOne(type => Types)
-    @Column({type: 'int', precision: 2, update: true})
-    role_id: number;
+    @Column({default: null, length: 100})
+    patronymic?: string;
 
-    @Column({type: "varchar", length: 50, unique: true, update: true})
+    @Column({length: 50, unique: true})
     login: string;
 
-    @Column({type: "varchar", length: 150, default: 'qwerty1234', update: true})
+    @Column({length: 150})
     password: string;
 
-    @Column({type: "varchar", length: 100, unique: true, update: true})
+    @Column({length: 100, unique: true})
     email: string;
 
-    @Column({type: "date", update: true})
-    b_day: Date;
+    @Column({default: null})
+    photo?: string;
 
-    @Column({type: "boolean", default: false, update: true})
-    isPremium: boolean;
+    // @OneToOne(type => Types)
+    @Column({precision: 2, default: null})
+    role_id: number;
 
-    @Column({type: "varchar", length: 100, nullable: true})
-    photo_path?: string;
-
-    @Column({type: "varchar", length: 100, nullable: true, unique: true})
-    photo_name?: string;
-
-    @OneToOne(type => Cities)
-    @Column({type: 'int', precision: 3, update: true})
+    // @OneToOne(type => Cities)
+    @Column({precision: 3, default: null})
     city_id: number;
 
-    @OneToOne(type => Customers)
-    @Column({type: 'int', precision: 3, update: true})
+    // @OneToOne(type => Customers)
+    @Column({precision: 3, default: null})
     customer_id: number;
 
-    @OneToOne(type => Genders)
-    @Column({type: 'int', precision: 2, update: true})
+    // @OneToOne(type => Genders)
+    @Column({precision: 2, default: null})
     gender_id: number;
 
-    @Column({type: 'bigint', precision: 10, unique: true, update: true})
-    phone: number;
+    @Column({type: 'bigint', precision: 10, unique: true, default: null})
+    phone?: number;
 
-    @OneToOne(type => Locales)
-    @Column({type: 'int', precision: 3, update: true})
-    locale_id: string;
+    // @OneToOne(type => Locales)
+    @Column({precision: 3, default: null})
+    locale_id: number;
+
+    @Column({
+        type: 'varchar',
+        length: 2,
+        default: 'ru'
+    })
+    locale?: string;
+
+    @Column({type: 'timestamp', default: null})
+    birthAt?: Date;
+
+    @CreateDateColumn({type: 'timestamp'})
+    createdAt?: Date;
+
+    @UpdateDateColumn({type: 'timestamp'})
+    updatedAt?: Date;
+
+    @Column({default: false})
+    isAdmin: boolean;
+
+    @Column({default: false})
+    isPremium: boolean;
+
+    @Column({default: false})
+    isBanned: boolean;
 }

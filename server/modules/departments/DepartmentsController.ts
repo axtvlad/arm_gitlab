@@ -9,7 +9,6 @@ import {
     ERROR_CODE_DEPARTMENT_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestDepartmentsCreate {
@@ -77,7 +76,7 @@ export default new class DepartmentsController {
                     name_kz: department.name_kz,
                     name_ru: department.name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -116,7 +115,7 @@ export default new class DepartmentsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: departments,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -150,7 +149,7 @@ export default new class DepartmentsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

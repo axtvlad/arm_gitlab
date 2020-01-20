@@ -9,7 +9,6 @@ import {
     ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestCustomersCreate {
@@ -77,7 +76,7 @@ export default new class CustomersController {
                     name_kz: customer.name_kz,
                     name_ru: customer.name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -116,7 +115,7 @@ export default new class CustomersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: customers,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -150,7 +149,7 @@ export default new class CustomersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

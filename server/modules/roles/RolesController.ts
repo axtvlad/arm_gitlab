@@ -9,7 +9,6 @@ import {
     ERROR_CODE_ROLE_NOT_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestRolesCreate {
@@ -77,7 +76,7 @@ export default new class RolesController {
                     name_kz: role.name_kz,
                     name_ru: role.name_ru
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -116,7 +115,7 @@ export default new class RolesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: roles,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -150,7 +149,7 @@ export default new class RolesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 
