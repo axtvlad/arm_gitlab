@@ -8,7 +8,6 @@ import {
     ERROR_CODE_LOCALE_WITH_NAME_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
-    ERROR_MESSAGE_OK,
 } from '../../services/ServiceRestCodes';
 
 interface IRestLocalesCreate {
@@ -59,7 +58,7 @@ export default new class LocalesController {
                     id: locale.id,
                     name: locale.name,
                 },
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -98,7 +97,7 @@ export default new class LocalesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: locales,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
             console.error(err);
@@ -132,7 +131,7 @@ export default new class LocalesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: id,
-                message: ERROR_MESSAGE_OK
+                message: req.__('MESSAGE_OK')
             });
         } catch (err) {
 

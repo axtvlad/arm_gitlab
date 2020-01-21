@@ -17,9 +17,10 @@ UsersRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-UsersRoutes.get('/', UsersController.list);
+UsersRoutes.get('/', UsersController.getUsersList);
+UsersRoutes.get('/:userId', UsersController.getUserById);
 UsersRoutes.post('/', UsersController.create);
-UsersRoutes.delete(`/:id`, UsersController.remove);
+UsersRoutes.delete(`/:userId`, UsersController.remove);
 
 /**
  * Error All Request to URL: /rest/api/users/*
