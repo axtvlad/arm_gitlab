@@ -7,4 +7,4 @@
 * cd ../arm/
 * npm i
 * npm start
-* go to page (http://localhost:3001)[localhost:3001]
+* go to page [localhost:3001](http://localhost:3001)
