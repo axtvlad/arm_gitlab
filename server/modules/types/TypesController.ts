@@ -7,9 +7,9 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_CODE_TYPE_NOT_EXISTS,
-    ERROR_CODE_TYPE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_TYPE_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestTypesCreate {
     name_ru: string;
@@ -31,39 +31,40 @@ export default new class TypesController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             } else if (!bodyParams.name_kz) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_KZ')
                 });
             }
 
             const Type = new Types;
-            Type.name_kz = bodyParams.name_kz;
             Type.name_ru = bodyParams.name_ru;
+            Type.name_kz = bodyParams.name_kz;
+
 
             const existType = await getManager().getRepository(Types).findOne({
                 where: [{
-                    name_kz: bodyParams.name_kz
-                }, {
                     name_ru: bodyParams.name_ru
+                }, {
+                    name_kz: bodyParams.name_kz
                 }]
             });
 
-            if (existType && existType.name_kz === bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_TYPE_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_TYPE_WITH_NAME_KZ_EXISTS,
-                    message: 'A type with that name_kz already exists.'
-                });
-            } else if (existType && existType.name_ru === bodyParams.name_ru) {
+            if (existType && existType.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_TYPE_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_TYPE_WITH_NAME_RU_EXISTS,
-                    message: 'A type with that name_ru already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
+                });
+            } else if (existType && existType.name_kz === bodyParams.name_kz) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_TYPE_WITH_NAME_KZ_EXISTS',
+                    errorCode: ERROR_CODE_TYPE_WITH_NAME_RU_EXISTS,
+                    message: req.__('EXISTS_ALREADY_NAME_KZ')
                 });
             }
 
@@ -83,7 +84,7 @@ export default new class TypesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -122,7 +123,7 @@ export default new class TypesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -141,7 +142,7 @@ export default new class TypesController {
                 return res.send({
                     code: 'ERROR_CODE_TYPE_NOT_EXISTS',
                     errorCode: ERROR_CODE_TYPE_NOT_EXISTS,
-                    message: `Type by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_TYPE_ID'), id)
                 });
             }
             await getManager().getRepository(Types).remove(type);

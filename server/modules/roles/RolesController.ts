@@ -14,6 +14,7 @@ import {
 interface IRestRolesCreate {
     name_ru: string;
     name_kz: string;
+    num: number;
 }
 
 interface IRestRolesList {
@@ -83,7 +84,7 @@ export default new class RolesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }

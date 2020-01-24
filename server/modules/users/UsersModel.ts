@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {Column, Entity, Generated, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Users {

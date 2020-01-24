@@ -3,17 +3,19 @@
   "PASSED_PARAM_LOGIN_NOT": "Параметр {login} не передан",
   "PASSED_PARAM_PASSWORD_NOT": "Параметр {password} не передан",
   "PASSED_PARAM_EMAIL_NOT": "Параметр {email} не передан",
-  "PASSED_PARAM_FIRST_NAME_NOT": "Параметр {firstname} не передан",
-  "PASSED_PARAM_LAST_NAME_NOT": "Параметр {lastname} не передан",
+  "PASSED_PARAM_FIRST_NAME_NOT": "Параметр {firstName} не передан",
+  "PASSED_PARAM_LAST_NAME_NOT": "Параметр {lastName} не передан",
   "PASSED_PARAM_PATRONYMIC_NOT": "Параметр {Patronymic} не передан",
-  "PASSED_PARAM_BIRTH_DATE_NOT": "Параметр {B_day} не передан",
-  "PASSED_PARAM_ROLE_ID_NOT": "Параметр {Role_id} не передан",
+  "PASSED_PARAM_BIRTH_DATE_NOT": "Параметр {birthAt} не передан",
+  "PASSED_PARAM_ROLE_ID_NOT": "Параметр {role_id} не передан",
   "PASSED_PARAM_PHONE_NOT": "Параметр {phone} не передан",
   "PASSED_PARAM_IS_PREMIUM_NOT": "Параметр {isPremium} не передан",
-  "PASSED_PARAM_CITY_ID_NOT": "Параметр {City_id} не передан",
-  "PASSED_PARAM_CUSTOMER_ID_NOT": "Параметр {Customer_id} не передан",
-  "PASSED_PARAM_GENDER_ID_NOT": "Параметр {Gender_id} не передан",
+  "PASSED_PARAM_CITY_ID_NOT": "Параметр {city_id} не передан",
+  "PASSED_PARAM_CUSTOMER_ID_NOT": "Параметр {customer_id} не передан",
+  "PASSED_PARAM_GENDER_ID_NOT": "Параметр {gender_id} не передан",
   "PASSED_PARAM_LOCALE_NOT": "Параметр {locale} не передан",
+  "PASSED_PARAM_NAME_RU": "Параметр {name_ru} не передан",
+  "PASSED_PARAM_NAME_KZ": "Параметр {name_kz} не передан",
 
 
   "INVALID_EMAIL_ADDRESS": "Неверный адрес электронной почты",
@@ -23,10 +25,12 @@
   "EXISTS_ALREADY_EMAIL": "Пользователь с таким адресом электронной почты уже существует.",
   "EXISTS_ALREADY_PHONE": "Пользователь с таким телефоном уже существует.",
   "EXISTS_NOT_BY_USER_ID": "Пользователь с идентификатором {{userId}} не существует",
+  "EXISTS_ALREADY_NAME_RU": "Запись с параметром {{name_ru}} уже существует",
+  "EXISTS_ALREADY_NAME_KZ": "Запись с параметром {{name_kz}} уже существует",
 
 
   "UNKNOWN_ERROR": "Произошла неизвестная ошибка.",
 
 
-  "MESSAGE_OK": "ок"
+  "MESSAGE_OK": "ОК"
 }
