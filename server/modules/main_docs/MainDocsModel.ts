@@ -1,6 +1,4 @@
 import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Departments} from "../departments/DepartmentsModel";
-import {Statuses} from "../statuses/StatusesModel";
 import {Types} from "../types/TypesModel";
 
 @Entity()
@@ -8,57 +6,51 @@ export class MainDocs {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 20, unique: true, update: true})
+    @Column({length: 20, unique: true})
     number: string;
 
-    @OneToOne(type => Departments)
-    @Column({type: "int", precision: 3, update: true})
+    @Column({precision: 3})
     department_id: number;
 
-    @OneToOne(type => Statuses)
-    @Column({type: "int", precision: 2, update: true})
-    status_id: number;
+    @Column({precision: 2, default: 1})
+    status_id?: number;
 
-    @Column({type: "date", update: true})
-    begin_date: Date;
+    @Column({type: 'date', default: null})
+    begin_date?: Date;
 
-    @Column({type: "date", update: true})
-    finish_date: Date;
+    @Column({type: "date", default: null})
+    finish_date?: Date;
 
-    @Column({type: "date", update: true})
-    pub_date: Date;
+    @Column({type: "date", default: null})
+    pub_date?: Date;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
+    @Column({length: 150, unique: true})
     name_ru: string;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
-    name_kz: string;
+    @Column({length: 150, default: null})
+    name_kz?: string;
 
-    @Column({type: "varchar", length: 300, unique: true, update: true})
+    @Column({length: 300, unique: true})
     header_ru: string;
 
-    @Column({type: "varchar", length: 300, unique: true, update: true})
-    header_kz: string;
+    @Column({length: 300, default: null})
+    header_kz?: string;
 
-    @Column({type: "varchar", length: 100})
-    path: string;
+    @Column({length: 100})
+    file_ru: string;
 
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_ru: string;
+    @Column({length: 100, default: null})
+    file_kz?: string;
 
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_kz: string;
+    @Column({precision: 5, unique: true, default: null})
+    description_id?: number;
 
-    @Column({type: "int", precision: 5, unique: true, update: true})
-    description_id: number;
-
-    @OneToOne(type => Types)
-    @Column({type: "int", precision: 2, update: true})
+    @Column({precision: 2})
     type_id: number;
 
-    @Column({type: "varchar", length: 300, unique: true, nullable: true, update: true})
+    @Column({length: 300, unique: true, default: null})
     text_ru?: string;
 
-    @Column({type: "varchar", length: 300, unique: true, nullable: true, update: true})
+    @Column({length: 300, unique: true, default: null})
     text_kz?: string;
 }

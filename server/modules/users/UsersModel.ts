@@ -30,30 +30,29 @@ export class Users {
     @Column({default: null})
     photo?: string;
 
-    // @OneToOne(type => Types)
     @Column({precision: 2, default: 1})
     role_id?: number;
 
-    // @OneToOne(type => Cities)
     @Column({precision: 3, default: null})
     city_id?: number;
 
-    // @OneToOne(type => Customers)
     @Column({precision: 3, default: null})
     customer_id?: number;
 
-    // @OneToOne(type => Genders)
     @Column({precision: 2, default: null})
     gender_id?: number;
 
     @Column({type: 'bigint', precision: 10, unique: true, default: null})
     phone?: number;
 
-    // @OneToOne(type => Locales)
-    @Column({precision: 2, default: 1})
-    locale_id?: number;
+    @Column({
+        type: 'varchar',
+        length: 2,
+        default: 'ru'
+    })
+    locale?: string;
 
-    @Column({type: 'timestamp', default: null})
+    @Column({type: 'date', default: null})
     birthAt?: Date;
 
     @Column({default: false})

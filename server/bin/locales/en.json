@@ -27,7 +27,6 @@
   "EXISTS_NOT_BY_USER_ID": "User by id {{userId}} is not exists",
   "EXISTS_ALREADY_NAME_RU": "An item with that {name_ru} already exist",
   "EXISTS_ALREADY_NAME_KZ": "An item with that {name_kz} already exist",
-  "EXISTS_NOT_BY_TYPE_ID": "Type by id {{id}} is not exists",
 
 
   "UNKNOWN_ERROR": "An unknown error has occurred.",

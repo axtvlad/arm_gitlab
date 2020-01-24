@@ -1,27 +1,22 @@
-import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Categories} from "../categories/CategoriesModel";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Templates {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
+    @Column({length: 150, unique: true})
     name_ru: string;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
+    @Column({length: 150, unique: true})
     name_kz: string;
 
-    @OneToOne(type => Categories)
-    @Column({type: "int", precision: 3, update: true})
+    @Column({precision: 3})
     category_id: number;
 
-    @Column({type: "varchar", length: 100})
-    path: string;
+    @Column({length: 100})
+    file_ru: string;
 
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_ru: string;
-
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_kz: string;
+     @Column({length: 100, default: null})
+    file_kz?: string;
 }

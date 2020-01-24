@@ -7,19 +7,16 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_CODE_TEMPLATE_NOT_EXISTS,
-    ERROR_CODE_TEMPLATE_WITH_F_NAME_KZ_EXISTS,
-    ERROR_CODE_TEMPLATE_WITH_F_NAME_RU_EXISTS,
-    ERROR_CODE_TEMPLATE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestTemplatesCreate {
     name_ru: string;
     name_kz: string;
     category_id: number;
-    path: string;
-    f_name_kz: string;
-    f_name_ru: string;
+    file_ru: string;
+    file_kz?: string;
 }
 
 interface IRestTemplatesList {
@@ -37,83 +34,50 @@ export default new class TemplatesController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             } else if (!bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_KZ')
                 });
             } else if (!bodyParams.category_id) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_CATEGORY_ID',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Category_id parameter not passed'
+                    message: req.__('PASSED_PARAM_CATEGORY_ID')
                 });
-            } else if (!bodyParams.path) {
+            } else if (!bodyParams.file_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path parameter not passed'
-                });
-            } else if (!bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_kz parameter not passed'
-                });
-            } else if (!bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_ru parameter not passed'
+                    message: req.__('PASSED_PARAM_FILE_RU')
                 });
             }
 
             const Template = new Templates;
+
             Template.name_kz = bodyParams.name_kz;
             Template.name_ru = bodyParams.name_ru;
             Template.category_id = bodyParams.category_id;
-            Template.path = bodyParams.path;
-            Template.f_name_kz = bodyParams.f_name_kz;
-            Template.f_name_ru = bodyParams.f_name_ru;
+            Template.file_ru = bodyParams.file_ru;
+
+            if (bodyParams.file_kz) {
+                Template.file_kz = bodyParams.file_kz;
+            }
 
             const existTemplate = await getManager().getRepository(Templates).findOne({
                 where: [{
-                    name_kz: bodyParams.name_kz
-                }, {
                     name_ru: bodyParams.name_ru
-                }, {
-                    f_name_ru: bodyParams.f_name_ru
-                }, {
-                    f_name_kz: bodyParams.f_name_kz
                 }]
             });
 
-            if (existTemplate && existTemplate.name_kz === bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_TEMPLATE_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_TEMPLATE_WITH_NAME_KZ_EXISTS,
-                    message: 'A template with that name_kz already exists.'
-                });
-            } else if (existTemplate && existTemplate.name_ru === bodyParams.name_ru) {
+            if (existTemplate && existTemplate.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS,
-                    message: 'A template with that name_ru already exists.'
-                });
-            } else if (existTemplate && existTemplate.f_name_ru === bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_TEMPLATE_WITH_F_NAME_RU_EXISTS',
-                    errorCode: ERROR_CODE_TEMPLATE_WITH_F_NAME_RU_EXISTS,
-                    message: 'A template with that f_name_ru already exists.'
-                });
-            } else if (existTemplate && existTemplate.f_name_kz === bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_TEMPLATE_WITH_F_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_TEMPLATE_WITH_F_NAME_KZ_EXISTS,
-                    message: 'A template with that f_name_kz already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
                 });
             }
 
@@ -126,9 +90,8 @@ export default new class TemplatesController {
                     name_kz: template.name_kz,
                     name_ru: template.name_ru,
                     category_id: template.category_id,
-                    path: template.path,
-                    f_name_kz: template.f_name_kz,
-                    f_name_ru: template.f_name_ru
+                    file_ru: template.file_ru,
+                    file_kz: template.file_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -137,7 +100,7 @@ export default new class TemplatesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -157,7 +120,7 @@ export default new class TemplatesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'path', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'file_ru', 'file_kz'];
 
             const templates = await getManager().getRepository(Templates).find(config);
 
@@ -176,7 +139,7 @@ export default new class TemplatesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -195,7 +158,7 @@ export default new class TemplatesController {
                 return res.send({
                     code: 'ERROR_CODE_TEMPLATE_NOT_EXISTS',
                     errorCode: ERROR_CODE_TEMPLATE_NOT_EXISTS,
-                    message: `Template by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Templates).remove(templates);

@@ -142,7 +142,7 @@ export default new class TypesController {
                 return res.send({
                     code: 'ERROR_CODE_TYPE_NOT_EXISTS',
                     errorCode: ERROR_CODE_TYPE_NOT_EXISTS,
-                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_TYPE_ID'), id)
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Types).remove(type);

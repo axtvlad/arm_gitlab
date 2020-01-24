@@ -9,7 +9,9 @@ import {
     ERROR_CODE_ROLE_NOT_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_ROLE_WITH_NUM_EXISTS,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestRolesCreate {
     name_ru: string;
@@ -28,43 +30,59 @@ export default new class RolesController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestRolesCreate>rest.getBody();
 
-            if (!bodyParams.name_ru) {
+            if (!bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUM',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_NUM')
+                });
+            } else if (!bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             } else if (!bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_KZ')
                 });
             }
 
             const Role = new Roles;
+
+            Role.num = bodyParams.num;
             Role.name_kz = bodyParams.name_kz;
             Role.name_ru = bodyParams.name_ru;
 
             const existRole = await getManager().getRepository(Roles).findOne({
                 where: [{
+                    num: bodyParams.num
+                }, {
                     name_kz: bodyParams.name_kz
                 }, {
                     name_ru: bodyParams.name_ru
                 }]
             });
 
-            if (existRole && existRole.name_kz === bodyParams.name_kz) {
+            if (existRole && existRole.num === bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_ROLE_WITH_NUM_EXISTS',
+                    errorCode: ERROR_CODE_ROLE_WITH_NUM_EXISTS,
+                    message: req.__('EXIST_ALREADY_NUM')
+                });
+            } else if (existRole && existRole.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS,
-                    message: 'A role with that name_kz already exists.'
+                    message: req.__('EXIST_ALREADY_NAME_KZ')
                 });
             } else if (existRole && existRole.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS,
-                    message: 'A role with that name_ru already exists.'
+                    message: req.__('EXIST_ALREADY_NAME_RU')
                 });
             }
 
@@ -74,6 +92,7 @@ export default new class RolesController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: role.id,
+                    num: role.num,
                     name_kz: role.name_kz,
                     name_ru: role.name_ru
                 },
@@ -104,7 +123,7 @@ export default new class RolesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz'];
+            config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const roles = await getManager().getRepository(Roles).find(config);
 
@@ -123,7 +142,7 @@ export default new class RolesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -142,7 +161,7 @@ export default new class RolesController {
                 return res.send({
                     code: 'ERROR_CODE_ROLE_NOT_EXISTS',
                     errorCode: ERROR_CODE_ROLE_NOT_EXISTS,
-                    message: `Role by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Roles).remove(role);

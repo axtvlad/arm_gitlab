@@ -28,7 +28,7 @@ interface IRestUsersCreate {
     customer_id?: number;
     gender_id?: number;
     phone?: number;
-    locale_id?: number;
+    locale?: string;
     birthAt?: Date;
     isAdmin?: boolean;
     isPremium?: boolean;
@@ -110,20 +110,20 @@ export default new class UsersController {
                 user.role_id = bodyParams.role_id;
             } else if (bodyParams.city_id) {
                 user.city_id = bodyParams.city_id
-            } else if (bodyParams.customer_id){
+            } else if (bodyParams.customer_id) {
                 user.customer_id = bodyParams.customer_id;
             } else if (bodyParams.gender_id) {
-                user.gender_id =  bodyParams.gender_id
+                user.gender_id = bodyParams.gender_id
             } else if (bodyParams.phone) {
                 user.phone = bodyParams.phone;
-            } else if (bodyParams.locale_id) {
-                user.locale_id = bodyParams.locale_id;
+            } else if (bodyParams.locale) {
+                user.locale = bodyParams.locale;
             } else if (bodyParams.isAdmin) {
                 user.isAdmin = bodyParams.isAdmin;
             } else if (bodyParams.isPremium) {
                 user.isPremium = bodyParams.isPremium;
             } else if (bodyParams.isBanned) {
-                user.isBanned =  bodyParams.isBanned;
+                user.isBanned = bodyParams.isBanned;
             } else if (bodyParams.birthAt) {
                 user.birthAt = bodyParams.birthAt;
             }
@@ -175,13 +175,13 @@ export default new class UsersController {
 
             config.skip = queryParams.offset ? queryParams.offset : 0;
             config.take = queryParams.count ? queryParams.count : 30;
-            config.select = ["userId", "firstName", "lastName", "login", "email", "phone", "locale_id"];
+            config.select = ["userId", "firstName", "lastName", "login", "email", "phone", "locale"];
 
             if (queryParams.loadData && queryParams.loadData === true) {
                 config.select = [
                     ...config.select,
                     "patronymic", "photo", "role_id", "city_id", "gender_id", "customer_id",
-                    "locale_id", "birthAt", "isPremium", "isAdmin", "isBanned"
+                    "birthAt", "isPremium", "isAdmin", "isBanned"
                 ];
             }
 
@@ -214,14 +214,14 @@ export default new class UsersController {
             const config = <FindManyOptions<Users>>{};
             const {userId} = <IRestUserByIdKeys>rest.getKeys();
 
-            config.select = ["userId", "firstName", "lastName", "login", "email", "phone", "locale_id"];
+            config.select = ["userId", "firstName", "lastName", "login", "email", "phone", "locale"];
             config.where = {userId};
 
             if (queryParams.loadData && queryParams.loadData === true) {
                 config.select = [
                     ...config.select,
                     "patronymic", "photo", "role_id", "city_id", "gender_id", "customer_id",
-                    "locale_id", "birthAt", "isPremium", "isAdmin", "isBanned"
+                    "birthAt", "isPremium", "isAdmin", "isBanned"
                 ];
             }
 

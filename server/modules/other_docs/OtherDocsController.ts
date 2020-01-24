@@ -6,19 +6,16 @@ import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_NONE,
     ERROR_CODE_OTHER_DOC_NOT_EXISTS,
-    ERROR_CODE_OTHER_DOC_WITH_F_NAME_KZ_EXISTS,
-    ERROR_CODE_OTHER_DOC_WITH_F_NAME_RU_EXISTS,
-    ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_OTHER_DOC_WITH_NAME_RU_EXISTS,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestOtherDocsCreate {
     name_ru: string;
-    name_kz: string;
-    path: string;
-    f_name_kz: string;
-    f_name_ru: string;
+    name_kz?: string;
+    file_ru: string;
+    file_kz?: string;
 }
 
 interface IRestOtherDocsList {
@@ -36,76 +33,38 @@ export default new class OtherDocsController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
-            } else if (!bodyParams.name_kz) {
+            } else if (!bodyParams.file_ru) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FILE_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
-                });
-            } else if (!bodyParams.path) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path parameter not passed'
-                });
-            } else if (!bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_kz parameter not passed'
-                });
-            } else if (!bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_ru parameter not passed'
+                    message: req.__('PASSED_PARAM_FILE_RU')
                 });
             }
 
             const OtherDoc = new OtherDocs;
-            OtherDoc.name_kz = bodyParams.name_kz;
+
             OtherDoc.name_ru = bodyParams.name_ru;
-            OtherDoc.path = bodyParams.path;
-            OtherDoc.f_name_kz = bodyParams.f_name_kz;
-            OtherDoc.f_name_ru = bodyParams.f_name_ru;
+            OtherDoc.file_ru = bodyParams.name_ru;
+
+            if (bodyParams.name_kz) {
+                OtherDoc.name_kz = bodyParams.name_kz;
+            } else if (bodyParams.file_kz) {
+                OtherDoc.file_kz = bodyParams.file_kz;
+            }
 
             const existOtherDoc = await getManager().getRepository(OtherDocs).findOne({
                 where: [{
-                    name_kz: bodyParams.name_kz
-                }, {
                     name_ru: bodyParams.name_ru
-                }, {
-                    f_name_ru: bodyParams.f_name_ru
-                }, {
-                    f_name_kz: bodyParams.f_name_kz
                 }]
             });
 
-            if (existOtherDoc && existOtherDoc.name_kz === bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_OTHER_DOC_WITH_NAME_KZ_EXISTS,
-                    message: 'A other_doc with that name_kz already exists.'
-                });
-            } else if (existOtherDoc && existOtherDoc.name_ru === bodyParams.name_ru) {
+            if (existOtherDoc && existOtherDoc.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_OTHER_DOC_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_OTHER_DOC_WITH_NAME_RU_EXISTS,
-                    message: 'A other_doc with that name_ru already exists.'
-                });
-            } else if (existOtherDoc && existOtherDoc.f_name_ru === bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_OTHER_DOC_WITH_F_NAME_RU_EXISTS',
-                    errorCode: ERROR_CODE_OTHER_DOC_WITH_F_NAME_RU_EXISTS,
-                    message: 'A other_doc with that f_name_ru already exists.'
-                });
-            } else if (existOtherDoc && existOtherDoc.f_name_kz === bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_OTHER_DOC_WITH_F_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_OTHER_DOC_WITH_F_NAME_KZ_EXISTS,
-                    message: 'A other_doc with that f_name_kz already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
                 });
             }
 
@@ -115,11 +74,10 @@ export default new class OtherDocsController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: otherDoc.id,
-                    name_kz: otherDoc.name_kz,
                     name_ru: otherDoc.name_ru,
-                    path: otherDoc.path,
-                    f_name_kz: otherDoc.f_name_kz,
-                    f_name_ru: otherDoc.f_name_ru
+                    name_kz: OtherDoc.name_kz,
+                    file_ru: OtherDoc.file_ru,
+                    file_kz: OtherDoc.file_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -128,7 +86,7 @@ export default new class OtherDocsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -148,7 +106,7 @@ export default new class OtherDocsController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'path', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
 
             const otherDocs = await getManager().getRepository(OtherDocs).find(config);
 
@@ -167,7 +125,7 @@ export default new class OtherDocsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -186,7 +144,7 @@ export default new class OtherDocsController {
                 return res.send({
                     code: 'ERROR_CODE_OTHER_DOC_NOT_EXISTS',
                     errorCode: ERROR_CODE_OTHER_DOC_NOT_EXISTS,
-                    message: `Other_doc by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(OtherDocs).remove(otherDocs);

@@ -9,9 +9,12 @@ import {
     ERROR_CODE_STATUS_NOT_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_STATUS_WITH_NUM_EXIST,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestStatusesCreate {
+    num: number;
     name_ru: string;
     name_kz: string;
 }
@@ -27,43 +30,59 @@ export default new class StatusesController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestStatusesCreate>rest.getBody();
 
-            if (!bodyParams.name_ru) {
+            if (!bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUM',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_NUM')
+                });
+            } else if (!bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             } else if (!bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_KZ')
                 });
             }
 
             const Status = new Statuses;
+
+            Status.num = bodyParams.num;
             Status.name_kz = bodyParams.name_kz;
             Status.name_ru = bodyParams.name_ru;
 
             const existStatus = await getManager().getRepository(Statuses).findOne({
                 where: [{
+                    num: bodyParams.num
+                }, {
                     name_kz: bodyParams.name_kz
                 }, {
                     name_ru: bodyParams.name_ru
                 }]
             });
 
-            if (existStatus && existStatus.name_kz === bodyParams.name_kz) {
+            if (existStatus && existStatus.num === bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_STATUS_WITH_NUM_EXIST',
+                    errorCode: ERROR_CODE_STATUS_WITH_NUM_EXIST,
+                    message: req.__('EXIST_ALREADY_NUM')
+                });
+            } else if (existStatus && existStatus.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
-                    message: 'A status with that name_kz already exists.'
+                    message: req.__('EXIST_ALREADY_NAME_KZ')
                 });
             } else if (existStatus && existStatus.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
-                    message: 'A status with that name_ru already exists.'
+                    message: req.__('EXIST_ALREADY_NAME_RU')
                 });
             }
 
@@ -73,6 +92,7 @@ export default new class StatusesController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: status.id,
+                    num: status.num,
                     name_kz: status.name_kz,
                     name_ru: status.name_ru
                 },
@@ -83,7 +103,7 @@ export default new class StatusesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -103,7 +123,7 @@ export default new class StatusesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz'];
+            config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const statuses = await getManager().getRepository(Statuses).find(config);
 
@@ -122,7 +142,7 @@ export default new class StatusesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -141,7 +161,7 @@ export default new class StatusesController {
                 return res.send({
                     code: 'ERROR_CODE_STATUS_NOT_EXISTS',
                     errorCode: ERROR_CODE_STATUS_NOT_EXISTS,
-                    message: `Status by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Statuses).remove(status);

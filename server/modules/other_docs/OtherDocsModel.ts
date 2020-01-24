@@ -5,18 +5,15 @@ export class OtherDocs {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
+    @Column({length: 150, unique: true})
     name_ru: string;
 
-    @Column({type: "varchar", length: 150, unique: true, update: true})
-    name_kz: string;
+    @Column({length: 150, unique: true, default: null})
+    name_kz?: string;
 
-    @Column({type: "varchar", length: 100})
-    path: string;
+    @Column({length: 100})
+    file_ru: string;
 
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_ru: string;
-
-    @Column({type: "varchar", length: 100, unique: true})
-    f_name_kz: string;
+    @Column({length: 100, default: null})
+    file_kz?: string;
 }

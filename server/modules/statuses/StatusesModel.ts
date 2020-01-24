@@ -5,9 +5,12 @@ export class Statuses {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 50, unique: true, update: true})
+    @Column({precision: 2, unique: true})
+    num: number;
+
+    @Column({length: 50, unique: true})
     name_ru: string;
 
-    @Column({type: "varchar", length: 50, unique: true, update: true})
+    @Column({length: 50, unique: true})
     name_kz: string;
 }
