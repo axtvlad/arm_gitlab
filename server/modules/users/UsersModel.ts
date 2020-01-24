@@ -31,50 +31,37 @@ export class Users {
     photo?: string;
 
     // @OneToOne(type => Types)
-    @Column({precision: 2, default: null})
-    role_id: number;
+    @Column({precision: 2, default: 1})
+    role_id?: number;
 
     // @OneToOne(type => Cities)
     @Column({precision: 3, default: null})
-    city_id: number;
+    city_id?: number;
 
     // @OneToOne(type => Customers)
     @Column({precision: 3, default: null})
-    customer_id: number;
+    customer_id?: number;
 
     // @OneToOne(type => Genders)
     @Column({precision: 2, default: null})
-    gender_id: number;
+    gender_id?: number;
 
     @Column({type: 'bigint', precision: 10, unique: true, default: null})
     phone?: number;
 
     // @OneToOne(type => Locales)
-    @Column({precision: 3, default: null})
-    locale_id: number;
-
-    @Column({
-        type: 'varchar',
-        length: 2,
-        default: 'ru'
-    })
-    locale?: string;
+    @Column({precision: 2, default: 1})
+    locale_id?: number;
 
     @Column({type: 'timestamp', default: null})
     birthAt?: Date;
 
-    @CreateDateColumn({type: 'timestamp'})
-    createdAt?: Date;
-
-    @UpdateDateColumn({type: 'timestamp'})
-    updatedAt?: Date;
+    @Column({default: false})
+    isAdmin?: boolean;
 
     @Column({default: false})
-    isAdmin: boolean;
+    isPremium?: boolean;
 
     @Column({default: false})
-    isPremium: boolean;
-
-    @Column({default: false})
-    isBanned: boolean;
+    isBanned?: boolean;
 }
