@@ -17,6 +17,6 @@ export class Templates {
     @Column({length: 100})
     file_ru: string;
 
-     @Column({length: 100, default: null})
+    @Column({length: 100, default: null})
     file_kz?: string;
 }

@@ -4,6 +4,8 @@ import {Users} from "../modules/users/UsersModel";
 import {Roles} from "../modules/roles/RolesModel";
 import {Statuses} from "../modules/statuses/StatusesModel";
 import {Genders} from "../modules/genders/GendersModel";
+import {Customers} from "../modules/customers/CustomersModel";
+import {Cities} from "../modules/cities/CitiesModel";
 
 export default class Initial {
     constructor() {
@@ -11,6 +13,8 @@ export default class Initial {
         this.checkRoles();
         this.checkStatuses();
         this.checkGenders();
+        this.checkCustomers();
+        this.checkCities();
     }
 
     async checkUsers() {
@@ -90,6 +94,31 @@ export default class Initial {
 
             await getManager().getRepository(Genders).save(gender1);
             await getManager().getRepository(Genders).save(gender2);
+        }
+    }
+
+    async checkCustomers() {
+        const count = await getManager().getRepository(Customers).count();
+
+        if (!count) {
+            const customer = new Genders();
+
+            customer.name_ru = 'ГККП "Политехнический колледж"';
+
+            await getManager().getRepository(Customers).save(customer);
+        }
+    }
+
+    async checkCities() {
+        const count = await getManager().getRepository(Cities).count();
+
+        if (!count) {
+            const city = new Genders();
+
+            city.name_ru = 'Нур-Султан';
+            city.name_kz = 'Нур-Султан';
+
+            await getManager().getRepository(Cities).save(city);
         }
     }
 }

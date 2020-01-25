@@ -10,6 +10,7 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestCategoriesCreate {
     name_ru: string;
@@ -31,13 +32,13 @@ export default new class CategoriesController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             } else if (!bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_KZ')
                 });
             }
 
@@ -57,13 +58,13 @@ export default new class CategoriesController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_CATEGORY_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_CATEGORY_WITH_NAME_KZ_EXISTS,
-                    message: 'A category with that name_kz already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_KZ')
                 });
             } else if (existCategory && existCategory.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_CATEGORY_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_CATEGORY_WITH_NAME_RU_EXISTS,
-                    message: 'A category with that name_ru already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
                 });
             }
 
@@ -73,8 +74,8 @@ export default new class CategoriesController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: category.id,
-                    name_kz: category.name_kz,
-                    name_ru: category.name_ru
+                    name_ru: category.name_ru,
+                    name_kz: category.name_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -83,7 +84,7 @@ export default new class CategoriesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -122,7 +123,7 @@ export default new class CategoriesController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -141,7 +142,7 @@ export default new class CategoriesController {
                 return res.send({
                     code: 'ERROR_CODE_CATEGORY_NOT_EXISTS',
                     errorCode: ERROR_CODE_CATEGORY_NOT_EXISTS,
-                    message: `Category by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Categories).remove(category);

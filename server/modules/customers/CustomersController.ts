@@ -5,15 +5,15 @@ import {Customers} from "./CustomersModel";
 import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_CUSTOMER_NOT_EXISTS,
-    ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestCustomersCreate {
     name_ru: string;
-    name_kz: string;
+    name_kz?: string;
 }
 
 interface IRestCustomersList {
@@ -31,39 +31,29 @@ export default new class CustomersController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
-                });
-            } else if (!bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             }
 
             const Customer = new Customers;
-            Customer.name_kz = bodyParams.name_kz;
+
             Customer.name_ru = bodyParams.name_ru;
+
+            if (bodyParams.name_kz) {
+                Customer.name_kz = bodyParams.name_kz
+            }
 
             const existCustomer = await getManager().getRepository(Customers).findOne({
                 where: [{
-                    name_kz: bodyParams.name_kz
-                }, {
                     name_ru: bodyParams.name_ru
                 }]
             });
 
-            if (existCustomer && existCustomer.name_kz === bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_CUSTOMER_WITH_NAME_KZ_EXISTS,
-                    message: 'A customer with that name_kz already exists.'
-                });
-            } else if (existCustomer && existCustomer.name_ru === bodyParams.name_ru) {
+            if (existCustomer && existCustomer.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_CUSTOMER_WITH_NAME_RU_EXISTS,
-                    message: 'A customer with that name_ru already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
                 });
             }
 
@@ -73,8 +63,8 @@ export default new class CustomersController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: customer.id,
-                    name_kz: customer.name_kz,
-                    name_ru: customer.name_ru
+                    name_ru: customer.name_ru,
+                    name_kz: customer.name_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -83,7 +73,7 @@ export default new class CustomersController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -122,7 +112,7 @@ export default new class CustomersController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -141,7 +131,7 @@ export default new class CustomersController {
                 return res.send({
                     code: 'ERROR_CODE_CUSTOMER_NOT_EXISTS',
                     errorCode: ERROR_CODE_CUSTOMER_NOT_EXISTS,
-                    message: `Customer by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Customers).remove(customer);

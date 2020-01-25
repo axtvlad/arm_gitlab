@@ -4,18 +4,18 @@ import ServiceRest from "../../services/ServiceRest";
 import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_FAQ_NOT_EXISTS,
-    ERROR_CODE_FAQ_WITH_QUESTION_KZ_EXISTS,
     ERROR_CODE_FAQ_WITH_QUESTION_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED
 } from '../../services/ServiceRestCodes';
 import {Faqs} from "./FaqsModel";
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestFaqsCreate {
     question_ru: string;
-    question_kz: string;
+    question_kz?: string;
     answer_ru: string;
-    answer_kz: string;
+    answer_kz?: string;
 }
 
 interface IRestFaqsList {
@@ -33,39 +33,30 @@ export default new class FaqsController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_QUESTION_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Question_ru parameter not passed'
-                });
-            } else if (!bodyParams.question_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_QUESTION_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Question_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_QUESTION_RU')
                 });
             } else if (!bodyParams.answer_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_ANSWER_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Answer_ru parameter not passed'
-                });
-            } else if (!bodyParams.answer_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_ANSWER_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Answer_kz parameter not passed'
+                    message: req.__('PASSED_PARAM_ANSWER_RU')
                 });
             }
 
             const Faq = new Faqs;
-            Faq.question_kz = bodyParams.question_kz;
+
             Faq.question_ru = bodyParams.question_ru;
-            Faq.answer_kz = bodyParams.answer_kz;
             Faq.answer_ru = bodyParams.answer_ru;
+
+            if (bodyParams.question_kz) {
+                Faq.question_kz = bodyParams.question_kz;
+            } else if (bodyParams.answer_kz) {
+                Faq.answer_kz = bodyParams.answer_kz;
+            }
 
             const existFaq = await getManager().getRepository(Faqs).findOne({
                 where: [{
                     question_ru: bodyParams.question_ru
-                }, {
-                    question_kz: bodyParams.question_kz
                 }]
             });
 
@@ -73,13 +64,7 @@ export default new class FaqsController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_FAQ_WITH_QUESTION_RU_EXISTS',
                     errorCode: ERROR_CODE_FAQ_WITH_QUESTION_RU_EXISTS,
-                    message: 'A FAQ with that question_ru already exists.'
-                });
-            } else if (existFaq && existFaq.question_kz === bodyParams.question_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_FAQ_WITH_QUESTION_KZ_EXISTS',
-                    errorCode: ERROR_CODE_FAQ_WITH_QUESTION_KZ_EXISTS,
-                    message: 'A FAQ with that question_kz already exists.'
+                    message: req.__('EXISTS_ALREADY_QUESTION_RU')
                 });
             }
 
@@ -89,10 +74,10 @@ export default new class FaqsController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: faq.id,
-                    question_kz: faq.question_kz,
                     question_ru: faq.question_ru,
-                    answer_kz: faq.answer_kz,
+                    question_kz: faq.question_kz,
                     answer_ru: faq.answer_ru,
+                    answer_kz: faq.answer_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -101,7 +86,7 @@ export default new class FaqsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -140,7 +125,7 @@ export default new class FaqsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -159,7 +144,7 @@ export default new class FaqsController {
                 return res.send({
                     code: 'ERROR_CODE_FAQ_NOT_EXISTS',
                     errorCode: ERROR_CODE_FAQ_NOT_EXISTS,
-                    message: `FAQ by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
 

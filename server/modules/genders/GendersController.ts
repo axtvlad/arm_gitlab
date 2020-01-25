@@ -7,11 +7,14 @@ import {
     ERROR_CODE_GENDER_NOT_EXISTS,
     ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_GENDER_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_GENDER_WITH_NUM_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestGendersCreate {
+    num: number;
     name_ru: string;
     name_kz: string;
 }
@@ -27,7 +30,13 @@ export default new class GendersController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestGendersCreate>rest.getBody();
 
-            if (!bodyParams.name_ru) {
+            if (!bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: 'Name_ru parameter not passed`'
+                });
+            } else if (!bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
@@ -42,28 +51,38 @@ export default new class GendersController {
             }
 
             const Gender = new Genders;
+
+            Gender.num = bodyParams.num;
             Gender.name_kz = bodyParams.name_kz;
             Gender.name_ru = bodyParams.name_ru;
 
             const existGender = await getManager().getRepository(Genders).findOne({
                 where: [{
+                    num: bodyParams.num
+                }, {
                     name_kz: bodyParams.name_kz
                 }, {
                     name_ru: bodyParams.name_ru
                 }]
             });
 
-            if (existGender && existGender.name_kz === bodyParams.name_kz) {
+            if (existGender && existGender.num === bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_GENDER_WITH_NUM_EXISTS',
+                    errorCode: ERROR_CODE_GENDER_WITH_NUM_EXISTS,
+                    message: req.__('EXISTS_ALREADY_NUM')
+                });
+            } else if (existGender && existGender.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS,
-                    message: 'A gender with that name_kz already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_KZ')
                 });
             } else if (existGender && existGender.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_GENDER_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_GENDER_WITH_NAME_RU_EXISTS,
-                    message: 'A gender with that name_ru already exists.'
+                    message: req.__('EXISTS_ALREADY_NAME_RU')
                 });
             }
 
@@ -73,6 +92,7 @@ export default new class GendersController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: gender.id,
+                    num: gender.num,
                     name_kz: gender.name_kz,
                     name_ru: gender.name_ru
                 },
@@ -83,7 +103,7 @@ export default new class GendersController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -103,7 +123,7 @@ export default new class GendersController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz'];
+            config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const genders = await getManager().getRepository(Genders).find(config);
 
@@ -122,7 +142,7 @@ export default new class GendersController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -141,7 +161,7 @@ export default new class GendersController {
                 return res.send({
                     code: 'ERROR_CODE_GENDER_NOT_EXISTS',
                     errorCode: ERROR_CODE_GENDER_NOT_EXISTS,
-                    message: `Gender by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Genders).remove(gender);

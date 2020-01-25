@@ -5,9 +5,9 @@ export class Customers {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type: "varchar", length: 100, unique: true, update: true})
+    @Column({length: 100, unique: true})
     name_ru: string;
 
-    @Column({type: "varchar", length: 100, unique: true, update: true})
-    name_kz: string;
+    @Column({length: 100, unique: true, default: null})
+    name_kz?: string;
 }

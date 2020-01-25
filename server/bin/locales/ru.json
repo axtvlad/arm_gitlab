@@ -23,6 +23,8 @@
   "PASSED_PARAM_DEPARTMENT_ID": "Параметр {department_id} не передан",
   "PASSED_PARAM_HEADER_RU": "Параметр {header_ru} не передан",
   "PASSED_PARAM_TYPE_ID": "Параметр {type_id} не передан",
+  "PASSED_PARAM_QUESTION_RU": "Параметр {question_ru} не передан",
+  "PASSED_PARAM_ANSWER_RU": "Параметр {answer_ru} не передан",
 
 
   "INVALID_EMAIL_ADDRESS": "Неверный адрес электронной почты",
@@ -38,6 +40,7 @@
   "EXISTS_ALREADY_NUM": "Запись с параметром {num} уже существует",
   "EXISTS_ALREADY_NUMBER": "Запись с параметром {number} уже существует",
   "EXISTS_ALREADY_HEADER_RU": "Запись с параметром {header_ru} уже существует",
+  "EXISTS_ALREADY_QUESTION_RU": "Запись с параметром {question_ru} уже существует",
 
 
   "UNKNOWN_ERROR": "Произошла неизвестная ошибка.",

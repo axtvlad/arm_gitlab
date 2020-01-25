@@ -5,20 +5,17 @@ import {Descriptions} from "./DescriptionsModel";
 import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_DESCRIPTION_NOT_EXISTS,
-    ERROR_CODE_DESCRIPTION_WITH_F_NAME_KZ_EXISTS,
-    ERROR_CODE_DESCRIPTION_WITH_F_NAME_RU_EXISTS,
-    ERROR_CODE_DESCRIPTION_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_DESCRIPTION_WITH_NAME_RU_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
+import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestDescriptionsCreate {
     name_ru: string;
-    name_kz: string;
-    path: string;
-    f_name_kz: string;
-    f_name_ru: string;
+    name_kz?: string;
+    file_ru: string;
+    file_kz?: string;
 }
 
 interface IRestDescriptionsList {
@@ -36,76 +33,37 @@ export default new class DescriptionsController {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
-            } else if (!bodyParams.name_kz) {
+            } else if (!bodyParams.file_ru) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_FILE_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_kz parameter not passed'
-                });
-            } else if (!bodyParams.path) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_PATH',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Path parameter not passed'
-                });
-            } else if (!bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_KZ',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_kz parameter not passed'
-                });
-            } else if (!bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_F_NAME_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'F_name_ru parameter not passed'
+                    message: req.__('PASSED_PARAM_FILE_RU')
                 });
             }
 
             const Description = new Descriptions;
             Description.name_kz = bodyParams.name_kz;
-            Description.name_ru = bodyParams.name_ru;
-            Description.path = bodyParams.path;
-            Description.f_name_kz = bodyParams.f_name_kz;
-            Description.f_name_ru = bodyParams.f_name_ru;
+            Description.file_ru = bodyParams.file_ru;
+
+            if (bodyParams.name_kz) {
+                Description.name_kz = bodyParams.name_kz;
+            } else if (bodyParams.file_kz) {
+                Description.file_kz = bodyParams.file_kz;
+            }
 
             const existDescription = await getManager().getRepository(Descriptions).findOne({
                 where: [{
-                    name_kz: bodyParams.name_kz
-                }, {
                     name_ru: bodyParams.name_ru
-                }, {
-                    f_name_ru: bodyParams.f_name_ru
-                }, {
-                    f_name_kz: bodyParams.f_name_kz
                 }]
             });
 
-            if (existDescription && existDescription.name_kz === bodyParams.name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_DESCRIPTION_WITH_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_DESCRIPTION_WITH_NAME_KZ_EXISTS,
-                    message: 'A description with that name_kz already exists.'
-                });
-            } else if (existDescription && existDescription.name_ru === bodyParams.name_ru) {
+            if (existDescription && existDescription.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_DESCRIPTION_WITH_NAME_RU_EXISTS',
                     errorCode: ERROR_CODE_DESCRIPTION_WITH_NAME_RU_EXISTS,
-                    message: 'A description with that name_ru already exists.'
-                });
-            } else if (existDescription && existDescription.f_name_ru === bodyParams.f_name_ru) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_DESCRIPTION_WITH_F_NAME_RU_EXISTS',
-                    errorCode: ERROR_CODE_DESCRIPTION_WITH_F_NAME_RU_EXISTS,
-                    message: 'A description with that f_name_ru already exists.'
-                });
-            } else if (existDescription && existDescription.f_name_kz === bodyParams.f_name_kz) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_DESCRIPTION_WITH_F_NAME_KZ_EXISTS',
-                    errorCode: ERROR_CODE_DESCRIPTION_WITH_F_NAME_KZ_EXISTS,
-                    message: 'A description with that f_name_kz already exists.'
+                    message: req.__('PASSED_PARAM_NAME_RU')
                 });
             }
 
@@ -115,11 +73,10 @@ export default new class DescriptionsController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: description.id,
-                    name_kz: description.name_kz,
                     name_ru: description.name_ru,
-                    path: description.path,
-                    f_name_kz: description.f_name_kz,
-                    f_name_ru: description.f_name_ru
+                    name_kz: description.name_kz,
+                    file_ru: description.file_ru,
+                    file_kz: description.file_kz
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -128,7 +85,7 @@ export default new class DescriptionsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -148,7 +105,7 @@ export default new class DescriptionsController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'name_ru', 'name_kz', 'path', 'f_name_kz', 'f_name_ru'];
+            config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
 
             const descriptions = await getManager().getRepository(Descriptions).find(config);
 
@@ -167,7 +124,7 @@ export default new class DescriptionsController {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
-                message: 'An unknown error has occurred.'
+                message: req.__('UNKNOWN_ERROR')
             });
         }
     }
@@ -186,7 +143,7 @@ export default new class DescriptionsController {
                 return res.send({
                     code: 'ERROR_CODE_DESCRIPTION_NOT_EXISTS',
                     errorCode: ERROR_CODE_DESCRIPTION_NOT_EXISTS,
-                    message: `Description by id ${id} is not exists`
+                    message: ServiceLocale.setVariableValues(req.__('EXISTS_NOT_BY_ID'), id)
                 });
             }
             await getManager().getRepository(Descriptions).remove(description);
