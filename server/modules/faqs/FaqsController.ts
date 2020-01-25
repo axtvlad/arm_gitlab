@@ -23,6 +23,10 @@ interface IRestFaqsList {
     count?: number;
 }
 
+interface IRestFaqByIdKeys {
+    id: number;
+}
+
 export default new class FaqsController {
     async create(req: Request, res: Response) {
         try {
@@ -91,7 +95,7 @@ export default new class FaqsController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getFaqsList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestFaqsList = <IRestFaqsList>rest.getQuery();
@@ -107,6 +111,46 @@ export default new class FaqsController {
             }
 
             config.select = ['id', 'question_ru', 'question_kz', 'answer_ru', 'answer_kz'];
+
+            const faqs = await getManager().getRepository(Faqs).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: faqs,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getFaqById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Faqs>>{};
+            const {id} = <IRestFaqByIdKeys>rest.getKeys();
+            const queryParams: IRestFaqsList = <IRestFaqsList>rest.getQuery();
+
+            config.select = ['id', 'question_ru', 'question_kz', 'answer_ru', 'answer_kz'];
+            config.where = {id};
+
+            if (queryParams.offset && queryParams.count) {
+                config.skip = queryParams.offset;
+                config.take = queryParams.count;
+            } else {
+                config.skip = 0;
+                config.take = 30;
+            }
 
             const faqs = await getManager().getRepository(Faqs).find(config);
 

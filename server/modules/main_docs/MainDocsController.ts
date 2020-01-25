@@ -38,6 +38,10 @@ interface IRestMainDocsList {
     lang?: string;
 }
 
+interface IRestMainDocByIdKeys {
+    id: number;
+}
+
 export default new class MainDocsController {
     async create(req: Request, res: Response) {
         try {
@@ -180,7 +184,7 @@ export default new class MainDocsController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getMainDocsList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestMainDocsList = <IRestMainDocsList>rest.getQuery();
@@ -199,6 +203,50 @@ export default new class MainDocsController {
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
                 "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_id",
                 "type_id", "text_ru", "text_kz"];
+
+            const mainDocs = await getManager().getRepository(MainDocs).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: mainDocs,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getMainDocById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<MainDocs>>{};
+            const {id} = <IRestMainDocByIdKeys>rest.getKeys();
+            const queryParams: IRestMainDocsList = <IRestMainDocsList>rest.getQuery();
+
+            config.select = [
+                "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
+                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_id",
+                "type_id", "text_ru", "text_kz"];
+            config.where = {id};
+
+            if (queryParams.offset && queryParams.count) {
+                config.skip = queryParams.offset;
+                config.take = queryParams.count;
+            } else {
+                config.skip = 0;
+                config.take = 30;
+            }
+
 
             const mainDocs = await getManager().getRepository(MainDocs).find(config);
 

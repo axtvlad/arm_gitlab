@@ -17,7 +17,8 @@ TemplatesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-TemplatesRoutes.get('/', TemplatesController.list);
+TemplatesRoutes.get('/', TemplatesController.getTemplatesList);
+TemplatesRoutes.get('/:id', TemplatesController.getTemplateById);
 TemplatesRoutes.post('/', TemplatesController.create);
 TemplatesRoutes.delete(`/:id`, TemplatesController.remove);
 

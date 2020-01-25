@@ -17,7 +17,8 @@ MainDocsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-MainDocsRoutes.get('/', MainDocsController.list);
+MainDocsRoutes.get('/', MainDocsController.getMainDocsList);
+MainDocsRoutes.get('/:id', MainDocsController.getMainDocById);
 MainDocsRoutes.post('/', MainDocsController.create);
 MainDocsRoutes.delete(`/:id`, MainDocsController.remove);
 

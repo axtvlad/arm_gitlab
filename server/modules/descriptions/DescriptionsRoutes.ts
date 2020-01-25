@@ -17,7 +17,8 @@ DescriptionsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-DescriptionsRoutes.get('/', DescriptionsController.list);
+DescriptionsRoutes.get('/', DescriptionsController.getDescriptionsList);
+DescriptionsRoutes.get('/:id', DescriptionsController.getDescriptionById);
 DescriptionsRoutes.post('/', DescriptionsController.create);
 DescriptionsRoutes.delete(`/:id`, DescriptionsController.remove);
 

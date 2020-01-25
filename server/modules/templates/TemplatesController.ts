@@ -7,9 +7,10 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_CODE_TEMPLATE_NOT_EXISTS,
-    ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS,
+    ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS, ERROR_CODE_USER_NOT_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {Users} from "../users/UsersModel";
 
 interface IRestTemplatesCreate {
     name_ru: string;
@@ -22,6 +23,10 @@ interface IRestTemplatesCreate {
 interface IRestTemplatesList {
     offset?: number;
     count?: number;
+}
+
+interface IRestTemplateByIdKeys {
+    id: number;
 }
 
 export default new class TemplatesController {
@@ -105,7 +110,7 @@ export default new class TemplatesController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getTemplatesList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestTemplatesList = <IRestTemplatesList>rest.getQuery();
@@ -121,6 +126,46 @@ export default new class TemplatesController {
             }
 
             config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'file_ru', 'file_kz'];
+
+            const templates = await getManager().getRepository(Templates).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: templates,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getTemplateById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Templates>>{};
+            const {id} = <IRestTemplateByIdKeys>rest.getKeys();
+            const queryParams: IRestTemplatesList = <IRestTemplatesList>rest.getQuery();
+
+            config.select = ["id", "name_ru", "name_kz", "category_id", "file_ru", "file_kz"];
+            config.where = {id};
+
+            if (queryParams.offset && queryParams.count) {
+                config.skip = queryParams.offset;
+                config.take = queryParams.count;
+            } else {
+                config.skip = 0;
+                config.take = 30;
+            }
 
             const templates = await getManager().getRepository(Templates).find(config);
 

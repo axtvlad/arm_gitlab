@@ -17,7 +17,8 @@ OtherDocsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-OtherDocsRoutes.get('/', OtherDocsController.list);
+OtherDocsRoutes.get('/', OtherDocsController.getOtherDocsList);
+OtherDocsRoutes.get('/:id', OtherDocsController.getOtherDocById);
 OtherDocsRoutes.post('/', OtherDocsController.create);
 OtherDocsRoutes.delete(`/:id`, OtherDocsController.remove);
 

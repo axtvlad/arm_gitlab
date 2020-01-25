@@ -23,6 +23,10 @@ interface IRestOtherDocsList {
     count?: number;
 }
 
+interface IRestOtherDocByIdKeys {
+    id: number;
+}
+
 export default new class OtherDocsController {
     async create(req: Request, res: Response) {
         try {
@@ -91,7 +95,7 @@ export default new class OtherDocsController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getOtherDocsList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestOtherDocsList = <IRestOtherDocsList>rest.getQuery();
@@ -129,6 +133,48 @@ export default new class OtherDocsController {
             });
         }
     }
+
+    async getOtherDocById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<OtherDocs>>{};
+            const {id} = <IRestOtherDocByIdKeys>rest.getKeys();
+            const queryParams: IRestOtherDocsList = <IRestOtherDocsList>rest.getQuery();
+
+            config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
+            config.where = {id};
+
+            if (queryParams.offset && queryParams.count) {
+                config.skip = queryParams.offset;
+                config.take = queryParams.count;
+            } else {
+                config.skip = 0;
+                config.take = 30;
+            }
+
+
+            const otherDocs = await getManager().getRepository(OtherDocs).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: otherDocs,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
 
     async remove(req: Request, res: Response) {
         try {

@@ -17,7 +17,8 @@ FaqsRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-FaqsRoutes.get('/', FaqsController.list);
+FaqsRoutes.get('/', FaqsController.getFaqsList);
+FaqsRoutes.get('/:id', FaqsController.getFaqById);
 FaqsRoutes.post('/', FaqsController.create);
 FaqsRoutes.delete(`/:id`, FaqsController.remove);
 

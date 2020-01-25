@@ -23,6 +23,10 @@ interface IRestDescriptionsList {
     count?: number;
 }
 
+interface IRestDescriptionByIdKeys {
+    id: number;
+}
+
 export default new class DescriptionsController {
     async create(req: Request, res: Response) {
         try {
@@ -90,7 +94,7 @@ export default new class DescriptionsController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getDescriptionsList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestDescriptionsList = <IRestDescriptionsList>rest.getQuery();
@@ -106,6 +110,46 @@ export default new class DescriptionsController {
             }
 
             config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
+
+            const descriptions = await getManager().getRepository(Descriptions).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: descriptions,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getDescriptionById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Descriptions>>{};
+            const {id} = <IRestDescriptionByIdKeys>rest.getKeys();
+            const queryParams: IRestDescriptionsList = <IRestDescriptionsList>rest.getQuery();
+
+            config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
+            config.where = {id};
+
+            if (queryParams.offset && queryParams.count) {
+                config.skip = queryParams.offset;
+                config.take = queryParams.count;
+            } else {
+                config.skip = 0;
+                config.take = 30;
+            }
 
             const descriptions = await getManager().getRepository(Descriptions).find(config);
 
