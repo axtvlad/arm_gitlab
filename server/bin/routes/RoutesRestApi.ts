@@ -13,7 +13,6 @@ import TypesRoutes from "../../modules/types/TypesRoutes";
 import TemplatesRoutes from "../../modules/templates/TemplatesRoutes";
 import OtherDocsRoutes from "../../modules/other_docs/OtherDocsRoutes";
 import MainDocsRoutes from "../../modules/main_docs/MainDocsRoutes";
-import LocalesRoutes from "../../modules/locales/LocalesRoutes";
 import reqAuthSecurity from "../middleware/basicAuth";
 
 const routesRestApi = Router();
@@ -32,7 +31,6 @@ routesRestApi.use('/types', reqAuthSecurity, TypesRoutes);
 routesRestApi.use('/templates', reqAuthSecurity, TemplatesRoutes);
 routesRestApi.use('/otherDocs', reqAuthSecurity, OtherDocsRoutes);
 routesRestApi.use('/mainDocs', reqAuthSecurity, MainDocsRoutes);
-routesRestApi.use('/locales', reqAuthSecurity, LocalesRoutes);
 
 const RoutesRestApi = routesRestApi;
 export default RoutesRestApi;
