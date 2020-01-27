@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import Landing from "./landing/Landing";
-import User from "./user_interface/User";
+import UserInterface from "./UserInterface/UserInterface";
 
 const App = () => {
     return (
         <div className="App">
             {/*<Landing/>*/}
 
-            <User/>
+            <UserInterface/>
             {/*
             <Admin /> */}
         </div>
