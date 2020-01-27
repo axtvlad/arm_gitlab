@@ -1,16 +1,19 @@
 import React from 'react';
 import './App.css';
 import UserInterface from "./UserInterface/UserInterface";
+import {BrowserRouter} from "react-router-dom";
 
 const App = (props) => {
     return (
-        <div className="App">
-            {/*<Landing/>*/}
+        <BrowserRouter>
+            <div className="App">
+                {/*<Landing/>*/}
 
-            <UserInterface/>
-            {/*
+                <UserInterface/>
+                {/*
             <Admin /> */}
-        </div>
+            </div>
+        </BrowserRouter>
     );
 };
 

@@ -1,11 +1,13 @@
 import React from "react";
+import {Route} from "react-router-dom";
+import Orders from "./Orders";
+import Regulations from "./Regulations";
 
 const MainData = (props) => {
     return (
         <div>
-            Основная база
-            <div>Приказы</div>
-            <div>Постановления</div>
+            <Route path={'/orders'} component={Orders}/>
+            <Route path={'/regulations'} component={Regulations}/>
         </div>
     )
 };
