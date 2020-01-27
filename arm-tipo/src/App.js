@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import UserInterface from "./UserInterface/UserInterface";
 
-const App = () => {
+const App = (props) => {
     return (
         <div className="App">
             {/*<Landing/>*/}

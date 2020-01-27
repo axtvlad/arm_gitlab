@@ -1,5 +1,6 @@
 import React from 'react';
 import {Col, Dropdown, Icon, Input, Layout, Menu, Row} from "antd";
+import classes from './UserHeader.module.css';
 
 const {Header} = Layout;
 const {Search} = Input;
@@ -21,11 +22,11 @@ const user = (
     </Menu>
 );
 
-const UserHeader = () => {
+const UserHeader = (props) => {
     return (
         <Header style={{background: '#fff', padding: 0}}>
             <Row type="flex" justify="space-around">
-                <Col span={20} style={{marginTop: 16}}>
+                <Col span={20} className={classes.search}>
                     <Search
                         style={{width: '50%'}}
                         placeholder="Введите текст для поиска"

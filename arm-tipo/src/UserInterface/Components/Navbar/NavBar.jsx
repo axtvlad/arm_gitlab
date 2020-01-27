@@ -1,17 +1,18 @@
 import {Icon, Layout, Menu} from "antd";
 import React from "react";
+import classes from './NavBar.module.css'
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
 
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <Sider collapsible>
-            <div className={'logo'}>
+            <div className={classes.logo}>
                 <img src={require('./w.png')} alt="logo"/>
             </div>
             <Menu
-                style={{textAlign: "left"}}
+                className={classes.menu}
                 defaultSelectedKeys={['1']}
                 mode="inline"
                 theme={'dark'}
