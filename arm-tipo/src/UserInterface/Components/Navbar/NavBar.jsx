@@ -2,6 +2,7 @@ import {Layout, Menu} from "antd";
 import React from "react";
 import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
 import classes from './NavBar.module.css'
+import {NavLink} from "react-router-dom";
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
@@ -19,20 +20,20 @@ const NavBar = (props) => {
                 theme={'dark'}
             >
                 <Menu.Item key={'1'}>
-                    <a href={'/home'}>
-                        <span>
-                            <HomeOutlined/>
-                            <span>Главная</span>
-                        </span>
-                    </a>
+                    <NavLink to={'/home'}>
+                            <span>
+                                <HomeOutlined/>
+                                <span>Главная</span>
+                            </span>
+                    </NavLink>
                 </Menu.Item>
                 <Menu.Item key={'33'}>
-                    <a href={'/base'}>
+                    <NavLink to={'/base'}>
                         <span>
                            <DatabaseOutlined/>
                             <span>Основная база</span>
                         </span>
-                    </a>
+                    </NavLink>
                 </Menu.Item>
                 <SubMenu
                     key={'sub1'}
@@ -44,18 +45,18 @@ const NavBar = (props) => {
                     }
                 >
                     <Menu.Item key={'3'}>
-                        <a href={'/maps'}>
+                        <NavLink to={'/maps'}>
                             <span>Карты развития</span>
-                        </a>
+                        </NavLink>
                     </Menu.Item>
                 </SubMenu>
                 <Menu.Item key={'4'}>
-                    <a href={'/templates'}>
+                    <NavLink to={'templates'}>
                         <span>
                             <FormOutlined/>
                             <span>Шаблоны</span>
                         </span>
-                    </a>
+                    </NavLink>
                 </Menu.Item>
                 <SubMenu
                     key={'sub3'}
@@ -67,9 +68,9 @@ const NavBar = (props) => {
                     }
                 >
                     <Menu.Item key={'6'}>
-                        <a href={'/expert/1'}>
+                        <NavLink to={'/expert'}>
                             <span>Эксперт 1</span>
-                        </a>
+                        </NavLink>
                     </Menu.Item>
                 </SubMenu>
             </Menu>

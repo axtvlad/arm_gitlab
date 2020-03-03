@@ -1,12 +1,13 @@
 import React from "react";
 import {Table, Tag} from 'antd';
+import {NavLink} from "react-router-dom";
 
 const columns = [
     {
         title: 'Название',
         dataIndex: 'name',
         key: 'name',
-        render: text => <a href={'/doc/' + data[0].key}>{text}</a>,
+        render: text => <NavLink to={'/doc/' + data[0].key}>{text}</NavLink>
     },
     {
         title: 'Номер документа',

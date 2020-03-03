@@ -7,11 +7,7 @@ const App = (props) => {
     return (
         <BrowserRouter>
             <div className="App">
-                {/* <Landing/>*/}
-
                 <UserInterface/>
-                {/*
-            <Admin /> */}
             </div>
         </BrowserRouter>
     );

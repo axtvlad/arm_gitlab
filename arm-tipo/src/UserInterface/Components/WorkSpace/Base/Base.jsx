@@ -1,6 +1,6 @@
 import React from "react";
-import Orders from "./Docs/Orders";
-import Regulations from "./Docs/Regulations";
+import Orders from "../Docs/Orders";
+import Regulations from "../Docs/Regulations";
 import {Tabs} from 'antd';
 import {FileDoneOutlined, FileProtectOutlined} from "@ant-design/icons"
 
