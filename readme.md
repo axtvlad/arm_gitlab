@@ -4,7 +4,7 @@
 * cd server/
 * npm i
 * npm start
-* cd ../arm/
+* cd ../arm-tipo/
 * npm i
 * npm start
 * go to page (http://localhost:3001)[localhost:3001]

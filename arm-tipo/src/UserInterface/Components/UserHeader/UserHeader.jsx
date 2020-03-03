@@ -1,6 +1,7 @@
 import React from 'react';
-import {Col, Dropdown, Icon, Input, Layout, Menu, Row} from "antd";
+import {Col, Dropdown, Input, Layout, Menu, Row} from "antd";
 import classes from './UserHeader.module.css';
+import {UserOutlined, SettingOutlined, LogoutOutlined, AppstoreOutlined} from "@ant-design/icons"
 
 const {Header} = Layout;
 const {Search} = Input;
@@ -8,15 +9,15 @@ const {Search} = Input;
 const user = (
     <Menu>
         <Menu.Item key="1">
-            <Icon type="user"/>
+            <UserOutlined />
             Профиль
         </Menu.Item>
         <Menu.Item key="2">
-            <Icon type="setting"/>
+            <SettingOutlined />
             Настройки
         </Menu.Item>
         <Menu.Item key="3">
-            <Icon type="logout"/>
+            <LogoutOutlined />
             Выйти
         </Menu.Item>
     </Menu>
@@ -35,7 +36,7 @@ const UserHeader = (props) => {
                     />
                 </Col>
                 <Col span={4}>
-                    <Dropdown.Button icon={<Icon type="appstore"/>} overlay={user}>
+                    <Dropdown.Button icon={<AppstoreOutlined />} overlay={user}>
                         Admin Admin
                     </Dropdown.Button>
                 </Col>

@@ -1,6 +1,8 @@
 import {Breadcrumb, Layout} from "antd";
 import React from "react";
-import MainData from "./MainData/MainData";
+import Base from "./Base/Base";
+import {Route} from "react-router-dom";
+import Orders from "./Base/Docs/Orders";
 
 const {Content} = Layout;
 
@@ -11,12 +13,9 @@ const WorkSpace = (props) => {
                 <Breadcrumb.Item>Основная база</Breadcrumb.Item>
                 <Breadcrumb.Item>Приказы</Breadcrumb.Item>
             </Breadcrumb>
-
-            {/* <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                Главная
-            </div>*/}
             <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                <MainData />
+                <Route path={'/orders'} component={Orders}/>
+                <Route path={'/base'} component={Base}/>
             </div>
             {/*  <div style={{padding: 24, background: '#fff', minHeight: 360}}>
                 Прочие документы

@@ -1,5 +1,6 @@
-import {Icon, Layout, Menu} from "antd";
+import {Layout, Menu} from "antd";
 import React from "react";
+import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
 import classes from './NavBar.module.css'
 
 const {Sider} = Layout;
@@ -20,8 +21,16 @@ const NavBar = (props) => {
                 <Menu.Item key={'1'}>
                     <a href={'/home'}>
                         <span>
-                            <Icon type={'home'}/>
+                            <HomeOutlined/>
                             <span>Главная</span>
+                        </span>
+                    </a>
+                </Menu.Item>
+                <Menu.Item key={'33'}>
+                    <a href={'/base'}>
+                        <span>
+                           <DatabaseOutlined/>
+                            <span>Основная база</span>
                         </span>
                     </a>
                 </Menu.Item>
@@ -29,41 +38,21 @@ const NavBar = (props) => {
                     key={'sub1'}
                     title={
                         <span>
-                            <Icon type={'file-protect'}/>
-                            <span>Основная база</span>
-                        </span>
-                    }
-                >
-                    <Menu.Item key={'2'}>
-                        <a href={'/orders'}>
-                            <span>Приказы</span>
-                        </a>
-                    </Menu.Item>
-                    <Menu.Item key={'3'}>
-                        <a href={'/regulations'}>
-                            <span>Постановления</span>
-                        </a>
-                    </Menu.Item>
-                </SubMenu>
-                <SubMenu
-                    key={'sub2'}
-                    title={
-                        <span>
-                            <Icon type={'file'}/>
+                            <FileOutlined/>
                             <span>Прочие документы</span>
                         </span>
                     }
                 >
-                    <Menu.Item key={'4'}>
+                    <Menu.Item key={'3'}>
                         <a href={'/maps'}>
                             <span>Карты развития</span>
                         </a>
                     </Menu.Item>
                 </SubMenu>
-                <Menu.Item key={'5'}>
+                <Menu.Item key={'4'}>
                     <a href={'/templates'}>
                         <span>
-                            <Icon type={'form'}/>
+                            <FormOutlined/>
                             <span>Шаблоны</span>
                         </span>
                     </a>
@@ -72,7 +61,7 @@ const NavBar = (props) => {
                     key={'sub3'}
                     title={
                         <span>
-                            <Icon type={'team'}/>
+                            <TeamOutlined/>
                             <span>Эксперты</span>
                         </span>
                     }
