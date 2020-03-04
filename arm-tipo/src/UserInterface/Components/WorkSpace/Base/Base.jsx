@@ -1,8 +1,11 @@
 import React from "react";
 import Orders from "../Docs/Orders";
 import Regulations from "../Docs/Regulations";
-import {Tabs} from 'antd';
-import {FileDoneOutlined, FileProtectOutlined} from "@ant-design/icons"
+import {Button, Tabs} from 'antd';
+import FileDoneOutlined from "@ant-design/icons/lib/icons/FileDoneOutlined";
+import FileProtectOutlined from "@ant-design/icons/lib/icons/FileProtectOutlined";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import {NavLink} from "react-router-dom";
 
 const {TabPane} = Tabs;
 
@@ -33,6 +36,13 @@ const Base = (props) => {
                     <Regulations/>
                 </TabPane>
             </Tabs>
+            <NavLink to={'/addDoc'}>
+                <Button
+                    type="primary"
+                    shape="round"
+                    icon={<PlusOutlined/>}
+                />
+            </NavLink>
         </div>
     )
 };

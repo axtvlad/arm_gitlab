@@ -21,17 +21,17 @@ const NavBar = (props) => {
             >
                 <Menu.Item key={'1'}>
                     <NavLink to={'/home'}>
-                            <span>
-                                <HomeOutlined/>
-                                <span>Главная</span>
-                            </span>
+                        <span>
+                            <HomeOutlined/>
+                            <span>Главная</span>
+                        </span>
                     </NavLink>
                 </Menu.Item>
                 <Menu.Item key={'33'}>
                     <NavLink to={'/base'}>
                         <span>
                            <DatabaseOutlined/>
-                            <span>Основная база</span>
+                           <span>Основная база</span>
                         </span>
                     </NavLink>
                 </Menu.Item>

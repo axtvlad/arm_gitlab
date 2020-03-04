@@ -4,6 +4,7 @@ import Base from "./Base/Base";
 import {Route} from "react-router-dom";
 import Home from "./Home/Home";
 import Doc from "./Doc/Doc";
+import AddDoc from "./Doc/AddDoc";
 
 const {Content} = Layout;
 
@@ -15,22 +16,15 @@ const WorkSpace = (props) => {
                 <Breadcrumb.Item>Приказы</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                <Route exact path={'/home'} component={Home}/>
-                <Route exact path={'/base'} component={Base}/>
-                <Route path={'/doc'} component={Doc}/>
+                <Route exact path={'/home'} render={() => <Home/>}/>
+                <Route exact path={'/base'} render={() => <Base/>}/>
+                <Route path={'/doc'} render={() => <Doc/>}/>
+                <Route exact path={'/addDoc'} render={() => <AddDoc/>}/>
             </div>
-            {/*  <div style={{padding: 24, background: '#fff', minHeight: 360}}>
+            {/*
                 Прочие документы
-                <div>Карты развития</div>
-            </div>
-            <div style={{padding: 24, background: '#fff', minHeight: 360}}>
                 Шаблоны
-                <div>Шаблон</div>
-            </div>
-            <div style={{padding: 24, background: '#fff', minHeight: 360}}>
                 Эксперты
-                <div>Эксперт</div>
-            </div>
             */}
 
         </Content>
