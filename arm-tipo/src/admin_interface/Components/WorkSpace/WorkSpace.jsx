@@ -4,7 +4,7 @@ import Base from "./Base/Base";
 import {Route} from "react-router-dom";
 import Home from "./Home/Home";
 import Doc from "./Doc/Doc";
-import AddDoc from "./Doc/AddDoc";
+import AddMainDoc from "./Doc/AddMainDoc";
 
 const {Content} = Layout;
 
@@ -19,14 +19,17 @@ const WorkSpace = (props) => {
                 <Route exact path={'/home'} render={() => <Home/>}/>
                 <Route exact path={'/base'} render={() => <Base/>}/>
                 <Route path={'/doc'} render={() => <Doc/>}/>
-                <Route exact path={'/addDoc'} render={() => <AddDoc/>}/>
+                <Route exact path={'/addMainDoc'} render={() =>
+                    <AddMainDoc
+                        state={props.state}
+                    />
+                }/>
             </div>
             {/*
                 Прочие документы
                 Шаблоны
                 Эксперты
             */}
-
         </Content>
     )
 };

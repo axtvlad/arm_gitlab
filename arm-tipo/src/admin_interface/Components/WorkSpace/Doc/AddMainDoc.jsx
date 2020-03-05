@@ -2,6 +2,24 @@ import React from 'react';
 import {Button, DatePicker, Form, Input, Select, Upload,} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import * as axios from "axios";
+
+const user = "Admin";
+const pass = "admin";
+
+const authorizationBasic = window.btoa(user + ':' + pass);
+const config = {
+    "headers": {
+        "Authorization": "Basic " + authorizationBasic
+    }
+};
+axios.get('http://localhost:3003/rest/api/types', config)
+    .then(function (response) {
+        return response
+    })
+    .catch(function (error) {
+        console.log('An error occured.' + error);
+    });
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -19,9 +37,13 @@ const normFile = e => {
     return e && e.fileList;
 };
 
-const AddDoc = () => {
+const AddMainDoc = (props) => {
     const onFinish = values => {
         console.log('Received values of form: ', values);
+    };
+
+    const saveDoc = () => {
+        alert('Тут нужно отправить пост запрос')
     };
 
     return (
@@ -38,6 +60,7 @@ const AddDoc = () => {
             >
                 <Input placeholder={'Введите номер документа!'}/>
             </Form.Item>
+
             <Form.Item
                 name={'department_id'}
                 label={'Отдел'}
@@ -45,27 +68,40 @@ const AddDoc = () => {
                 rules={[{required: true, message: 'Пожалуйста, выберите отдел!'}]}
             >
                 <Select placeholder={'Выберите отдел!'}>
-                    <Option value={'МОН РК'}>МОН РК</Option>
-                    <Option value={'МТиСЗ РК'}>МТиСЗ</Option>
-                    <Option value={'МФ РК'}>МФ РК</Option>
+                    {props.state.departments.map(department =>
+                        <Option
+                            key={department.id}
+                            value={department.name_ru}
+                        >
+                            {department.name_ru}
+                        </Option>
+                    )}
                 </Select>
             </Form.Item>
+
             <Form.Item
                 name={'status_id'}
                 label={'Статус документа'}
             >
                 <Select placeholder={'Выберите статус документа'} allowClear>
-                    <Option value={'Активный'}>Активный</Option>
-                    <Option value={'Утратил силу'}>Утратил силу</Option>
-                    <Option value={'Не вступил в силу'}>Не вступил в силу</Option>
+                    {props.state.statuses.map(status =>
+                        <Option
+                            key={status.id}
+                            value={status.name_ru}
+                        >
+                            {status.name_ru}
+                        </Option>
+                    )}
                 </Select>
             </Form.Item>
+
             <Form.Item
                 label={'Срок действия'}
                 name={'begin and finish date'}
             >
                 <RangePicker format={'DD-MM-YYYY'}/>
             </Form.Item>
+
             <Form.Item
                 name={'name_ru'}
                 label={'Наименование (ru)'}
@@ -74,12 +110,14 @@ const AddDoc = () => {
             >
                 <Input placeholder={'Введите наименование документа на русском!'}/>
             </Form.Item>
+
             <Form.Item
                 name={'name_kz'}
                 label={'Наименование (kz)'}
             >
                 <Input/>
             </Form.Item>
+
             <Form.Item
                 name={'type_id'}
                 label={'Тип документа'}
@@ -87,22 +125,31 @@ const AddDoc = () => {
                 hasFeedback
             >
                 <Select placeholder={'Выберите тип документа!'}>
-                    <Option value={'Приказ'}>Приказ</Option>
-                    <Option value={'Постановление'}>Постановление</Option>
+                    {props.state.types.map(type =>
+                        <Option
+                            key={type.id}
+                            value={type.name_ru}
+                        >
+                            {type.name_ru}
+                        </Option>
+                    )}
                 </Select>
             </Form.Item>
+
             <Form.Item
                 name={'text_ru'}
                 label={'Заголовок (кг)'}
             >
                 <Input/>
             </Form.Item>
+
             <Form.Item
                 name={'text_kz'}
                 label={'Заголовок (kz)'}
             >
                 <Input/>
             </Form.Item>
+
             <Form.Item
                 name={'file_ru'}
                 label={'Прикрепите файл (ru)'}
@@ -116,6 +163,7 @@ const AddDoc = () => {
                     </Button>
                 </Upload>
             </Form.Item>
+
             <Form.Item
                 name={'file_kz'}
                 label={'Прикрепите файл (kz)'}
@@ -128,6 +176,7 @@ const AddDoc = () => {
                     </Button>
                 </Upload>
             </Form.Item>
+
             <Form.Item
                 name={'description_ru'}
                 label={'Пояснение к документу (ru)'}
@@ -135,6 +184,7 @@ const AddDoc = () => {
             >
                 <Input.TextArea/>
             </Form.Item>
+
             <Form.Item
                 name={'description_kz'}
                 label={'Пояснение к документу (kz)'}
@@ -142,12 +192,14 @@ const AddDoc = () => {
             >
                 <Input.TextArea/>
             </Form.Item>
+
             <Form.Item wrapperCol={{span: 12, offset: 6}}>
                 <Button
                     type="danger"
                     htmlType="submit"
                     icon={<DownloadOutlined/>}
                     block
+                    onClick={saveDoc}
                 >
                     Сохранить в базу
                 </Button>
@@ -156,4 +208,4 @@ const AddDoc = () => {
     );
 };
 
-export default AddDoc;
+export default AddMainDoc;

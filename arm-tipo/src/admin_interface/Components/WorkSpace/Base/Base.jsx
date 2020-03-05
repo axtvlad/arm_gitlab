@@ -36,7 +36,7 @@ const Base = (props) => {
                     <Regulations/>
                 </TabPane>
             </Tabs>
-            <NavLink to={'/addDoc'}>
+            <NavLink to={'/addMainDoc'}>
                 <Button
                     type="primary"
                     shape="round"

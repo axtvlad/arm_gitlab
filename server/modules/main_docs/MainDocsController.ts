@@ -26,7 +26,8 @@ interface IRestMainDocsCreate {
     header_kz?: string;
     file_ru: string;
     file_kz?: string;
-    description_id?: number;
+    description_ru?: string;
+    description_kz?: string;
     type_id: number;
     text_ru?: string;
     text_kz?: string;
@@ -111,8 +112,10 @@ export default new class MainDocsController {
                 MainDoc.header_kz = bodyParams.header_kz;
             } else if (bodyParams.file_kz) {
                 MainDoc.file_kz = bodyParams.file_kz;
-            } else if (bodyParams.description_id) {
-                MainDoc.description_id = bodyParams.description_id;
+            } else if (bodyParams.description_ru) {
+                MainDoc.description_ru = bodyParams.description_ru;
+            } else if (bodyParams.description_kz) {
+                MainDoc.description_kz = bodyParams.description_kz;
             } else if (bodyParams.text_ru) {
                 MainDoc.text_ru = bodyParams.text_ru;
             } else if (bodyParams.text_kz) {
@@ -167,7 +170,8 @@ export default new class MainDocsController {
                     header_kz: mainDoc.header_kz,
                     file_ru: mainDoc.file_ru,
                     file_kz: mainDoc.file_kz,
-                    description_id: mainDoc.description_id,
+                    description_ru: mainDoc.description_ru,
+                    description_kz: mainDoc.description_kz,
                     type_id: mainDoc.type_id,
                     text_ru: mainDoc.text_ru,
                     text_kz: mainDoc.text_kz
@@ -201,8 +205,8 @@ export default new class MainDocsController {
 
             config.select = [
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
-                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_id",
-                "type_id", "text_ru", "text_kz"];
+                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
+                "description_ru", "type_id", "text_ru", "text_kz"];
 
             const mainDocs = await getManager().getRepository(MainDocs).find(config);
 
@@ -235,8 +239,8 @@ export default new class MainDocsController {
 
             config.select = [
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
-                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_id",
-                "type_id", "text_ru", "text_kz"];
+                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
+                "description_kz", "type_id", "text_ru", "text_kz"];
             config.where = {id};
 
             if (queryParams.offset && queryParams.count) {

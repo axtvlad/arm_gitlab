@@ -41,8 +41,11 @@ export class MainDocs {
     @Column({length: 100, default: null})
     file_kz?: string;
 
-    @Column({precision: 5, unique: true, default: null})
-    description_id?: number;
+    @Column({length: 3000, default: null})
+    description_ru?: string;
+
+    @Column({length: 3000, default: null})
+    description_kz?: string;
 
     @Column({precision: 2})
     type_id: number;

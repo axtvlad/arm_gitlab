@@ -51,7 +51,7 @@ const NavBar = (props) => {
                     </Menu.Item>
                 </SubMenu>
                 <Menu.Item key={'4'}>
-                    <NavLink to={'templates'}>
+                    <NavLink to={'/templates'}>
                         <span>
                             <FormOutlined/>
                             <span>Шаблоны</span>
