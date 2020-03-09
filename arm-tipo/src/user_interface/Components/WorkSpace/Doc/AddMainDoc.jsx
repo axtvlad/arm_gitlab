@@ -58,7 +58,7 @@ const AddMainDoc = (props) => {
                 rules={[{required: true, message: 'Пожалуйста, введите номер документа!'}]}
                 hasFeedback
             >
-                <Input placeholder={'Введите номер документа!'}/>
+                <Input placeholder={'Введите номер документа!'} />
             </Form.Item>
 
             <Form.Item

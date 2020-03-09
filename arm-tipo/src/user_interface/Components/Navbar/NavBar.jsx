@@ -3,6 +3,7 @@ import React from "react";
 import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
 import classes from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
+import CodeSandboxOutlined from "@ant-design/icons/lib/icons/CodeSandboxOutlined";
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
@@ -72,6 +73,32 @@ const NavBar = (props) => {
                             <span>Эксперт 1</span>
                         </NavLink>
                     </Menu.Item>
+                </SubMenu>
+                <SubMenu
+                    key={'sub4'}
+                    title={
+                        <span>
+                            <CodeSandboxOutlined/>
+                            <span>Справочники</span>
+                        </span>
+                    }
+                >
+                    <Menu.Item key={'7'}>
+                        <NavLink to={'/types'}>
+                            <span>Типы документов</span>
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item key={'8'}>
+                        <NavLink to={'/departments'}>
+                            <span>Отделы</span>
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item key={'9'}>
+                        <NavLink to={'/statuses'}>
+                            <span>Статусы</span>
+                        </NavLink>
+                    </Menu.Item>
+
                 </SubMenu>
             </Menu>
         </Sider>

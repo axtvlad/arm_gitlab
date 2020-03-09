@@ -1,5 +1,5 @@
 let state = {
-    mainDocs: {
+    directories: {
         types: [
             {id: 1, name_ru: 'Тип 1'},
             {id: 2, name_ru: 'Тип 2'}

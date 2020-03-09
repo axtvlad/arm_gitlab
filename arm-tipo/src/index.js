@@ -6,5 +6,5 @@ import 'antd/dist/antd.css'
 import * as serviceWorker from './serviceWorker';
 import state from './redux/state'
 
-ReactDOM.render(<App state={state.mainDocs}/>, document.getElementById('root'));
+ReactDOM.render(<App state={state.directories}/>, document.getElementById('root'));
 serviceWorker.unregister();
