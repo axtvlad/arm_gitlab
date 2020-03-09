@@ -1,6 +1,9 @@
 import React from "react";
-import {Table, Tag} from 'antd';
+import {Button, Table, Tag} from 'antd';
 import {NavLink} from "react-router-dom";
+import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
+import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const columns = [
     {
@@ -39,6 +42,17 @@ const columns = [
             </span>
         ),
     },
+    {
+        title: 'Действия',
+        key: 'action',
+        dataIndex: 'actions',
+        render: actions => (
+            <span>
+                <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
+                <Button style={{margin: '0 5px'}} shape="circle" icon={<DeleteOutlined/>} type={"primary"}/>
+            </span>
+        )
+    }
 ];
 
 const data = [
@@ -79,6 +93,16 @@ const data = [
 const Orders = (props) => {
     return (
         <div>
+            <NavLink to={'/addMainDoc'}>
+                <Button
+                    style={{margin: '0 10px 15px'}}
+                    type="danger"
+                    shape="round"
+                    icon={<PlusOutlined/>}
+                >
+                    Добавить новый документ
+                </Button>
+            </NavLink>
             <Table columns={columns} dataSource={data}/>
         </div>
     )

@@ -1,5 +1,7 @@
 import React from "react";
-import {Table} from 'antd';
+import {Button, Table} from 'antd';
+import {NavLink} from "react-router-dom";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const columns = [
     {
@@ -45,6 +47,13 @@ const data = [
 const Regulations = (props) => {
     return (
         <div>
+            <NavLink to={'/addMainDoc'}>
+                <Button
+                    type="primary"
+                    shape="round"
+                    icon={<PlusOutlined/>}
+                />
+            </NavLink>
             <Table columns={columns} dataSource={data}/>
         </div>
     )
