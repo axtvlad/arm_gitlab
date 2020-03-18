@@ -10,13 +10,13 @@ const columns = [
         title: 'Название (ru)',
         dataIndex: 'name_ru',
         key: 'name_ru',
-        render: text => <a href={''}>{text}</a>,
+        render: text => <a href={'/'}>{text}</a>,
     },
     {
         title: 'Название (kz)',
         dataIndex: 'name_kz',
         key: 'name_kz',
-        render: text => <a href={''}>{text}</a>,
+        render: text => <a href={'/'}>{text}</a>,
     },
     {
         title: 'Действия',
@@ -43,7 +43,7 @@ const Statuses = (props) => {
                     Добавить статус
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.state.statuses}/>
+            <Table columns={columns} dataSource={props.directories.statuses}/>
         </div>
     )
 };

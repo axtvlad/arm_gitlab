@@ -7,16 +7,16 @@ import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 
 const columns = [
     {
-        title: 'Название (ru)',
+        title: 'Наименование (ru)',
         dataIndex: 'name_ru',
         key: 'name_ru',
-        render: text => <a href={''}>{text}</a>,
+        render: text => <a href={'/'}>{text}</a>,
     },
     {
-        title: 'Название (kz)',
+        title: 'Наименование (kz)',
         dataIndex: 'name_kz',
         key: 'name_kz',
-        render: text => <a href={''}>{text}</a>,
+        render: text => <a href={'/'}>{text}</a>,
     },
     {
         title: 'Действия',
@@ -43,7 +43,7 @@ const Types = (props) => {
                     Добавить тип документа
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.state.types}/>
+            <Table columns={columns} dataSource={props.directories.types}/>
         </div>
     )
 };

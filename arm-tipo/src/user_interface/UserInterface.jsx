@@ -11,7 +11,12 @@ const UserInterface = (props) => {
             <NavBar/>
             <Layout>
                 <UserHeader/>
-                <WorkSpace state={props.state}/>
+                <WorkSpace
+                    directories={props.state.directories}
+                    addType={props.addType}
+                    updateTypeNameRu={props.updateTypeNameRu}
+                    updateTypeNameKz={props.updateTypeNameKz}
+                />
             </Layout>
         </Layout>
     );

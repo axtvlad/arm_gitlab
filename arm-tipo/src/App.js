@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
 import UserInterface from "./user_interface/UserInterface";
 
 const App = (props) => {
     return (
-        <BrowserRouter>
-            <div className="App">
-                <UserInterface state={props.state}/>
-            </div>
-        </BrowserRouter>
+        <div className="App">
+            <UserInterface
+                state={props.state}
+                addType={props.addType}
+                updateTypeNameRu={props.updateTypeNameRu}
+                updateTypeNameKz={props.updateTypeNameKz}
+            />
+        </div>
     );
 };
 

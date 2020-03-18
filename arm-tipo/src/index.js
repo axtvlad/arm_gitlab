@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import 'antd/dist/antd.css'
 import * as serviceWorker from './serviceWorker';
-import state from './redux/state'
+import {rerender} from "./render";
+import state from "./redux/state";
 
-ReactDOM.render(<App state={state.directories}/>, document.getElementById('root'));
+rerender(state);
+
 serviceWorker.unregister();

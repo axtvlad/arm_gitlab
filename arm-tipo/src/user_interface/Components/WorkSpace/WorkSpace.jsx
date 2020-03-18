@@ -3,12 +3,13 @@ import React from "react";
 import Base from "./Base/Base";
 import {Route} from "react-router-dom";
 import Home from "./Home/Home";
-import Doc from "./Doc/Doc";
-import AddMainDoc from "./Doc/AddMainDoc";
-import Types from "./Directories/Types";
+import Doc from "./Docs/Doc";
+import AddMainDoc from "./Docs/AddMainDoc";
+import Types from "./Directories/Types/Types";
 import Departments from "./Directories/Departments";
 import Statuses from "./Directories/Statuses";
 import DepartmentDescription from "./Departments/DepartmentDescription";
+import AddType from "./Directories/Types/AddType";
 
 const {Content} = Layout;
 
@@ -20,15 +21,89 @@ const WorkSpace = (props) => {
                 <Breadcrumb.Item>Приказы</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                <Route exact path={'/home'} render={() => <Home/>}/>
-                <Route exact path={'/base'} render={() => <Base/>}/>
-                <Route exact path={'/doc'} render={() => <Doc/>}/>
-                <Route exact path={'/types'} render={() => <Types state={props.state}/>}/>
-                <Route exact path={'/departments'} render={() => <Departments state={props.state}/>}/>
-                <Route exact path={'/departmentDescription'} render={() => <DepartmentDescription state={props.state}/>}/>
-                <Route exact path={'/statuses'} render={() => <Statuses state={props.state}/>}/>
-                <Route exact path={'/addMainDoc'} render={() => <AddMainDoc state={props.state}/>
-                }/>
+                <Route
+                    exact
+                    path={'/home'}
+                    render={() =>
+                        <Home/>
+                    }
+                />
+
+                <Route
+                    exact
+                    path={'/base'}
+                    render={() =>
+                        <Base/>
+                    }
+                />
+                <Route
+                    exact
+                    path={'/addMainDoc'}
+                    render={() =>
+                        <AddMainDoc
+                            directories={props.directories}
+                        />
+                    }
+                />
+                <Route
+                    exact
+                    path={'/doc'}
+                    render={() =>
+                        <Doc/>
+                    }
+                />
+
+                <Route
+                    exact
+                    path={'/types'}
+                    render={() =>
+                        <Types
+                            directories={props.directories}
+                        />
+                    }
+                />
+                <Route
+                    exact
+                    path={'/addType'}
+                    render={() =>
+                        <AddType
+                            directories={props.directories}
+                            addType={props.addType}
+                            updateTypeNameRu={props.updateTypeNameRu}
+                            updateTypeNameKz={props.updateTypeNameKz}
+                        />
+                    }
+                />
+
+                <Route
+                    exact
+                    path={'/departments'}
+                    render={() =>
+                        <Departments
+                            directories={props.directories}
+                        />
+                    }
+                />
+                <Route
+                    exact
+                    path={'/departmentDescription'}
+                    render={() =>
+                        <DepartmentDescription
+                            directories={props.directories}
+                        />
+                    }
+                />
+
+                <Route
+                    exact
+                    path={'/statuses'}
+                    render={() =>
+                        <Statuses
+                            directories={props.directories}
+                        />
+                    }
+                />
+
             </div>
             {/*
                 Прочие документы
