@@ -9,7 +9,10 @@ const formItemLayout = {
 
 const AddType = (props) => {
     const [form] = Form.useForm();
-    form.setFieldsValue({name_ru: props.directories.newTypeNameRu, name_kz: props.directories.newTypeNameKz});
+    form.setFieldsValue({
+        name_ru: props.directories.newTypeNameRu,
+        name_kz: props.directories.newTypeNameKz
+    });
 
     console.log('from state: ' + props.directories.newTypeNameRu + ' - ' + props.directories.newTypeNameKz);
 
@@ -17,20 +20,19 @@ const AddType = (props) => {
         console.log('Received values of form: ', values);
     };
 
-    const saveDoc = () => {
-        props.addType();
-        props.updateTypeNameRu('');
-        props.updateTypeNameKz('');
+    const addType = () => {
+        props.dispatch({type: 'ADD_TYPE'});
     };
 
     const onChangeNameRu = () => {
         const ru = form.getFieldValue().name_ru;
-        props.updateTypeNameRu(ru)
+        props.dispatch({type: 'UPDATE_TYPE_NAME_RU', newName: ru});
     };
 
     const onChangeNameKz = () => {
         const kz = form.getFieldValue().name_kz;
-        props.updateTypeNameKz(kz)
+        props.dispatch({type: 'UPDATE_TYPE_NAME_KZ', newName: kz});
+
     };
 
     return (
@@ -67,7 +69,7 @@ const AddType = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={saveDoc}
+                    onClick={addType}
                 >
                     Сохранить в базу
                 </Button>

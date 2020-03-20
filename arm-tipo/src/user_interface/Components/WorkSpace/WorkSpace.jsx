@@ -68,9 +68,7 @@ const WorkSpace = (props) => {
                     render={() =>
                         <AddType
                             directories={props.directories}
-                            addType={props.addType}
-                            updateTypeNameRu={props.updateTypeNameRu}
-                            updateTypeNameKz={props.updateTypeNameKz}
+                            dispatch={props.dispatch}
                         />
                     }
                 />

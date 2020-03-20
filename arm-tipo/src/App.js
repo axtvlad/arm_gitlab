@@ -7,9 +7,7 @@ const App = (props) => {
         <div className="App">
             <UserInterface
                 state={props.state}
-                addType={props.addType}
-                updateTypeNameRu={props.updateTypeNameRu}
-                updateTypeNameKz={props.updateTypeNameKz}
+                dispatch={props.dispatch}
             />
         </div>
     );

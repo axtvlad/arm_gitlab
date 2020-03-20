@@ -13,9 +13,7 @@ const UserInterface = (props) => {
                 <UserHeader/>
                 <WorkSpace
                     directories={props.state.directories}
-                    addType={props.addType}
-                    updateTypeNameRu={props.updateTypeNameRu}
-                    updateTypeNameKz={props.updateTypeNameKz}
+                    dispatch={props.dispatch}
                 />
             </Layout>
         </Layout>
