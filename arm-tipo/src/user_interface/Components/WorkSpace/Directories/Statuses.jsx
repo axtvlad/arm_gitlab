@@ -43,7 +43,7 @@ const Statuses = (props) => {
                     Добавить статус
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.directories.statuses}/>
+            <Table columns={columns} dataSource={props.state.statusesDir.statuses}/>
         </div>
     )
 };

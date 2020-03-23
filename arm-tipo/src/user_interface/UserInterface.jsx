@@ -12,7 +12,8 @@ const UserInterface = (props) => {
             <Layout>
                 <UserHeader/>
                 <WorkSpace
-                    directories={props.state.directories}
+                    state={props.store.getState()}
+                    store={props.store}
                     dispatch={props.dispatch}
                 />
             </Layout>

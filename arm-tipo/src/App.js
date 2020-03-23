@@ -6,7 +6,7 @@ const App = (props) => {
     return (
         <div className="App">
             <UserInterface
-                state={props.state}
+                store={props.store}
                 dispatch={props.dispatch}
             />
         </div>

@@ -12,10 +12,11 @@ let rerender = (state) => {
         <BrowserRouter>
             <App
                 dispatch={store.dispatch.bind(store)}
-                state={state}
+                store={store}
             />
         </BrowserRouter>,
-        document.getElementById('root'));
+        document.getElementById('root')
+    );
 };
 
 rerender(store.getState());

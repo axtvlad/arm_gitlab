@@ -43,7 +43,7 @@ const Departments = (props) => {
                     Добавить отдел
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.directories.departments}/>
+            <Table columns={columns} dataSource={props.state.departmentsDir.departments}/>
         </div>
     )
 };

@@ -1,22 +1,34 @@
+import TypeReducer from "./TypeReducer";
+import DepartmentReducer from "./DepartmentReducer";
+import StatusReducer from "./StatusReducer";
+
 let store = {
     _state: {
-        directories: {
+        typesDir: {
             types: [
                 {id: 1, name_ru: 'Тип 1', name_kz: 'Тип1'},
                 {id: 2, name_ru: 'Тип 2', name_kz: 'Тип2'}
             ],
+            newTypeNameRu: '',
+            newTypeNameKz: '',
+        },
+        statusesDir: {
             statuses: [
-                {id: 1, name_ru: 'Статус 1'},
-                {id: 2, name_ru: 'Статус 2'},
-                {id: 3, name_ru: 'Статус 3'},
+                {id: 1, name_ru: 'Статус 1', name_kz: 'Статус1'},
+                {id: 2, name_ru: 'Статус 2', name_kz: 'Статус2'},
+                {id: 3, name_ru: 'Статус 3', name_kz: 'Статус3'},
             ],
+            newStatusNameRu: '',
+            newStatusNameKz: '',
+        },
+        departmentsDir: {
             departments: [
-                {id: 1, name_ru: 'Отдел 1'},
-                {id: 2, name_ru: 'Отдел 2'},
-                {id: 3, name_ru: 'Отдел 3'},
+                {id: 1, name_ru: 'Отдел 1', name_kz: 'Отдел1'},
+                {id: 2, name_ru: 'Отдел 2', name_kz: 'Отдел2'},
+                {id: 3, name_ru: 'Отдел 3', name_kz: 'Отдел3'},
             ],
-            newTypeNameRu: 'bir',
-            newTypeNameKz: 'eki',
+            newDepartmentNameRu: '',
+            newDepartmentNameKz: '',
         }
     },
     getState() {
@@ -28,25 +40,12 @@ let store = {
     subscribe(observer) {
         this._callSubscriber = observer;
     },
-    dispatch(action){
-        if (action.type === 'ADD_TYPE'){
-            let newType = {
-                id: 3,
-                name_ru: this.getState().directories.newTypeNameRu,
-                name_kz: this.getState().directories.newTypeNameKz,
-            };
-            this.getState().directories.types.push(newType);
-            this.getState().directories.newTypeNameRu = '';
-            this.getState().directories.newTypeNameKz = '';
-            this._callSubscriber(this.getState());
-        } else if (action.type === 'UPDATE_TYPE_NAME_RU'){
-            this.getState().directories.newTypeNameRu = action.newName;
-            this._callSubscriber(this.getState())
-        } else if (action.type === 'UPDATE_TYPE_NAME_KZ'){
-            this.getState().directories.newTypeNameKz = action.newName;
-            this._callSubscriber(this.getState())
-        }
+    dispatch(action) {
+        this._state.typesDir = TypeReducer(this._state.typesDir, action);
+        this._state.departmentsDir = DepartmentReducer(this._state.typesDir, action);
+        this._state.statusesDir = StatusReducer(this._state.typesDir, action);
 
+        this._callSubscriber(this._state);
     },
 };
 

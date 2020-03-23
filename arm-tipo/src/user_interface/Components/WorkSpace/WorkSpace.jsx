@@ -41,7 +41,7 @@ const WorkSpace = (props) => {
                     path={'/addMainDoc'}
                     render={() =>
                         <AddMainDoc
-                            directories={props.directories}
+                            state={props.state}
                         />
                     }
                 />
@@ -58,7 +58,7 @@ const WorkSpace = (props) => {
                     path={'/types'}
                     render={() =>
                         <Types
-                            directories={props.directories}
+                            state={props.state}
                         />
                     }
                 />
@@ -67,7 +67,7 @@ const WorkSpace = (props) => {
                     path={'/addType'}
                     render={() =>
                         <AddType
-                            directories={props.directories}
+                            state={props.state}
                             dispatch={props.dispatch}
                         />
                     }
@@ -78,7 +78,7 @@ const WorkSpace = (props) => {
                     path={'/departments'}
                     render={() =>
                         <Departments
-                            directories={props.directories}
+                            state={props.state}
                         />
                     }
                 />
@@ -87,7 +87,7 @@ const WorkSpace = (props) => {
                     path={'/departmentDescription'}
                     render={() =>
                         <DepartmentDescription
-                            directories={props.directories}
+                            state={props.state}
                         />
                     }
                 />
@@ -97,7 +97,7 @@ const WorkSpace = (props) => {
                     path={'/statuses'}
                     render={() =>
                         <Statuses
-                            directories={props.directories}
+                            state={props.state}
                         />
                     }
                 />
@@ -112,4 +112,5 @@ const WorkSpace = (props) => {
         </Content>
     )
 };
+
 export default WorkSpace;

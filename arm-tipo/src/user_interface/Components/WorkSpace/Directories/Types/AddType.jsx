@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {addTypeCreator, updateTypeNameKzCreator, updateTypeNameRuCreator} from "../../../../../redux/TypeReducer";
 
 const formItemLayout = {
     labelCol: {span: 6},
@@ -10,28 +11,28 @@ const formItemLayout = {
 const AddType = (props) => {
     const [form] = Form.useForm();
     form.setFieldsValue({
-        name_ru: props.directories.newTypeNameRu,
-        name_kz: props.directories.newTypeNameKz
+        name_ru: props.state.typesDir.newTypeNameRu,
+        name_kz: props.state.typesDir.newTypeNameKz
     });
 
-    console.log('from state: ' + props.directories.newTypeNameRu + ' - ' + props.directories.newTypeNameKz);
+    console.log('from state: ' + props.state.typesDir.newTypeNameRu + ' - ' + props.state.typesDir.newTypeNameKz);
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
 
     const addType = () => {
-        props.dispatch({type: 'ADD_TYPE'});
+        props.dispatch(addTypeCreator());
     };
 
     const onChangeNameRu = () => {
         const ru = form.getFieldValue().name_ru;
-        props.dispatch({type: 'UPDATE_TYPE_NAME_RU', newName: ru});
+        props.dispatch(updateTypeNameRuCreator(ru));
     };
 
     const onChangeNameKz = () => {
         const kz = form.getFieldValue().name_kz;
-        props.dispatch({type: 'UPDATE_TYPE_NAME_KZ', newName: kz});
+        props.dispatch(updateTypeNameKzCreator(kz));
 
     };
 
