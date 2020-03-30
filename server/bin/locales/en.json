@@ -1,36 +1,36 @@
 {
-  "PASSED_PARAMS_LOGIN_OR_PASSWORD": "Parameters not passed {login} or {password}",
-  "PASSED_PARAM_LOGIN_NOT": "{login} parameter not passed",
-  "PASSED_PARAM_PASSWORD_NOT": "{password} parameter not passed",
-  "PASSED_PARAM_EMAIL_NOT": "{email} parameter not passed",
-  "PASSED_PARAM_FIRST_NAME_NOT": "{firstName} parameter not passed",
-  "PASSED_PARAM_LAST_NAME_NOT": "{lastName} parameter not passed",
-  "PASSED_PARAM_PATRONYMIC_NOT": "{patronymic} parameter not passed",
-  "PASSED_PARAM_BIRTH_DATE_NOT": "{birthAt} parameter not passed",
-  "PASSED_PARAM_ROLE_ID_NOT": "{role_id} parameter not passed",
-  "PASSED_PARAM_PHONE_NOT": "{phone} parameter not passed",
-  "PASSED_PARAM_IS_PREMIUM_NOT": "{isPremium} parameter not passed",
-  "PASSED_PARAM_CITY_ID_NOT": "{city_id} parameter not passed",
-  "PASSED_PARAM_CUSTOMER_ID_NOT": "{customer_id} parameter not passed",
-  "PASSED_PARAM_GENDER_ID_NOT": "{gender_id} parameter not passed",
-  "PASSED_PARAM_LOCALE_NOT": "{locale} parameter not passed",
-  "PASSED_PARAM_NAME_RU": "{name_ru} parameter not passed",
-  "PASSED_PARAM_NAME_KZ": "{name_kz} parameter not passed",
+  "PASSED_PARAMS_LOGIN_OR_PASSWORD": "Parameters not passed {{login}} or {{password}}",
+  "PASSED_PARAM_LOGIN_NOT": "{{login}} parameter not passed",
+  "PASSED_PARAM_PASSWORD_NOT": "{{password}} parameter not passed",
+  "PASSED_PARAM_EMAIL_NOT": "{{email}} parameter not passed",
+  "PASSED_PARAM_FIRST_NAME_NOT": "{{firstName}} parameter not passed",
+  "PASSED_PARAM_LAST_NAME_NOT": "{{lastName}} parameter not passed",
+  "PASSED_PARAM_PATRONYMIC_NOT": "{{patronymic}} parameter not passed",
+  "PASSED_PARAM_BIRTH_DATE_NOT": "{{birthAt}} parameter not passed",
+  "PASSED_PARAM_ROLE_ID_NOT": "{{role_id}} parameter not passed",
+  "PASSED_PARAM_PHONE_NOT": "{{phone}} parameter not passed",
+  "PASSED_PARAM_IS_PREMIUM_NOT": "{{isPremium}} parameter not passed",
+  "PASSED_PARAM_CITY_ID_NOT": "{{city_id}} parameter not passed",
+  "PASSED_PARAM_CUSTOMER_ID_NOT": "{{customer_id}} parameter not passed",
+  "PASSED_PARAM_GENDER_ID_NOT": "{{gender_id}} parameter not passed",
+  "PASSED_PARAM_LOCALE_NOT": "{{locale}} parameter not passed",
+  "PASSED_PARAM_NAME_RU": "{{name_ru}} parameter not passed",
+  "PASSED_PARAM_NAME_KZ": "{{name_kz}} parameter not passed",
 
 
   "INVALID_EMAIL_ADDRESS": "Invalid email address",
 
 
-  "EXISTS_ALREADY_LOGIN": "An user with that {login} already exists.",
-  "EXISTS_ALREADY_EMAIL": "An user with that {email} already exists.",
-  "EXISTS_ALREADY_PHONE": "An user with that {phone} already exists.",
+  "EXISTS_ALREADY_LOGIN": "A user with that {{login}} already exists.",
+  "EXISTS_ALREADY_EMAIL": "A user with that {{email}} already exists.",
+  "EXISTS_ALREADY_PHONE": "A user with that {{phone}} already exists.",
   "EXISTS_NOT_BY_USER_ID": "User by id {{userId}} is not exists",
-  "EXISTS_ALREADY_NAME_RU": "An item with that {name_ru} already exist",
-  "EXISTS_ALREADY_NAME_KZ": "An item with that {name_kz} already exist",
+  "EXISTS_ALREADY_NAME_RU": "An item with that {{name_ru}} already exist",
+  "EXISTS_ALREADY_NAME_KZ": "An item with that {{name_kz}} already exist",
 
 
   "UNKNOWN_ERROR": "An unknown error has occurred.",
 
 
-  "MESSAGE_OK": "success"
+  "MESSAGE_OK": "Success"
 }
