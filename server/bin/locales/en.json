@@ -16,6 +16,15 @@
   "PASSED_PARAM_LOCALE_NOT": "{{locale}} parameter not passed",
   "PASSED_PARAM_NAME_RU": "{{name_ru}} parameter not passed",
   "PASSED_PARAM_NAME_KZ": "{{name_kz}} parameter not passed",
+  "PASSED_PARAM_CATEGORY_ID": "{{category_id}} parameter not passed",
+  "PASSED_PARAM_FILE_RU": "{{file_ru}} parameter not passed",
+  "PASSED_PARAM_NUM": "{{num}} parameter not passed",
+  "PASSED_PARAM_NUMBER": "{{number}} parameter not passed",
+  "PASSED_PARAM_DEPARTMENT_ID": "{{department_id}} parameter not passed",
+  "PASSED_PARAM_HEADER_RU": "{{header_ru}} parameter not passed",
+  "PASSED_PARAM_TYPE_ID": "{{type_id}} parameter not passed",
+  "PASSED_PARAM_QUESTION_RU": "{{question_ru}} parameter not passed",
+  "PASSED_PARAM_ANSWER_RU": "{{answer_ru}} parameter not passed",
 
 
   "INVALID_EMAIL_ADDRESS": "Invalid email address",
@@ -24,9 +33,14 @@
   "EXISTS_ALREADY_LOGIN": "A user with that {{login}} already exists.",
   "EXISTS_ALREADY_EMAIL": "A user with that {{email}} already exists.",
   "EXISTS_ALREADY_PHONE": "A user with that {{phone}} already exists.",
-  "EXISTS_NOT_BY_USER_ID": "User by id {{userId}} is not exists",
-  "EXISTS_ALREADY_NAME_RU": "An item with that {{name_ru}} already exist",
-  "EXISTS_ALREADY_NAME_KZ": "An item with that {{name_kz}} already exist",
+  "EXISTS_NOT_BY_USER_ID": "User by id {{userId}} is not exists.",
+  "EXISTS_ALREADY_NAME_RU": "An item with that {{name_ru}} already exist.",
+  "EXISTS_ALREADY_NAME_KZ": "An item with that {{name_kz}} already exist.",
+  "EXISTS_NOT_BY_ID": "An item with that {{id}} is not exists.",
+  "EXISTS_ALREADY_NUM": "An item with that {{num}} already exists.",
+  "EXISTS_ALREADY_NUMBER": "An item with that {{number}} already exists.",
+  "EXISTS_ALREADY_HEADER_RU": "An item with that {{header_ru}} already exists.",
+  "EXISTS_ALREADY_QUESTION_RU": "An item with that {{question_ru}} already exists.",
 
 
   "UNKNOWN_ERROR": "An unknown error has occurred.",
