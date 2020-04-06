@@ -2,7 +2,17 @@ const ADD_STATUS = 'add_status';
 const UPDATE_STATUS_NAME_RU = 'update_status_name_ru';
 const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
 
-const StatusReducer = (state, action) => {
+let initialState = {
+    statuses: [
+        {id: 1, name_ru: 'Статус 1', name_kz: 'Статус1'},
+        {id: 2, name_ru: 'Статус 2', name_kz: 'Статус2'},
+        {id: 3, name_ru: 'Статус 3', name_kz: 'Статус3'},
+    ],
+    newStatusNameRu: '',
+    newStatusNameKz: '',
+};
+
+const StatusReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_STATUS: {
             let newStatus = {

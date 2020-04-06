@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import {addTypeCreator, updateTypeNameKzCreator, updateTypeNameRuCreator} from "../../../../../redux/TypeReducer";
 
 const formItemLayout = {
     labelCol: {span: 6},
@@ -11,29 +10,26 @@ const formItemLayout = {
 const AddType = (props) => {
     const [form] = Form.useForm();
     form.setFieldsValue({
-        name_ru: props.state.typesDir.newTypeNameRu,
-        name_kz: props.state.typesDir.newTypeNameKz
+        name_ru: props.typesDir.newTypeNameRu,
+        name_kz: props.typesDir.newTypeNameKz
     });
-
-    console.log('from state: ' + props.state.typesDir.newTypeNameRu + ' - ' + props.state.typesDir.newTypeNameKz);
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
 
     const addType = () => {
-        props.dispatch(addTypeCreator());
+        props.addType();
     };
 
-    const onChangeNameRu = () => {
+    const changeNameRu = () => {
         const ru = form.getFieldValue().name_ru;
-        props.dispatch(updateTypeNameRuCreator(ru));
+        props.updateTypeNameRu(ru);
     };
 
-    const onChangeNameKz = () => {
+    const changeNameKz = () => {
         const kz = form.getFieldValue().name_kz;
-        props.dispatch(updateTypeNameKzCreator(kz));
-
+        props.updateTypeNameKz(kz);
     };
 
     return (
@@ -49,7 +45,7 @@ const AddType = (props) => {
                 rules={[{required: true, message: 'Пожалуйста, введите наименование типа на русском!'}]}
                 hasFeedback
             >
-                <Input placeholder={'Введите наименование типа на русском!'} onChange={onChangeNameRu}/>
+                <Input placeholder={'Введите наименование типа на русском!'} onChange={changeNameRu}/>
             </Form.Item>
 
             <Form.Item
@@ -60,7 +56,7 @@ const AddType = (props) => {
             >
                 <Input
                     placeholder={'Введите наименование типа на казахском!'}
-                    onChange={onChangeNameKz}
+                    onChange={changeNameKz}
                 />
             </Form.Item>
 

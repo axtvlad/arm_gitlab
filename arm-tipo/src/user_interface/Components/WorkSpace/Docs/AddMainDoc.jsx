@@ -2,24 +2,6 @@ import React from 'react';
 import {Button, DatePicker, Form, Input, Select, Upload,} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import * as axios from "axios";
-
-const user = "Admin";
-const pass = "admin";
-
-const authorizationBasic = window.btoa(user + ':' + pass);
-const config = {
-    "headers": {
-        "Authorization": "Basic " + authorizationBasic
-    }
-};
-axios.get('http://localhost:3003/rest/api/types', config)
-    .then(function (response) {
-        return response
-    })
-    .catch(function (error) {
-        console.log('An error occured.' + error);
-    });
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;

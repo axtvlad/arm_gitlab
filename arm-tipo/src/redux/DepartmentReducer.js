@@ -2,7 +2,17 @@ const ADD_DEPARTMENT = 'add_department';
 const UPDATE_DEPARTMENT_NAME_RU = 'update_department_name_ru';
 const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
 
-const DepartmentReducer = (state, action) => {
+let initialState = {
+    departments: [
+        {id: 1, name_ru: 'Отдел 1', name_kz: 'Отдел1'},
+        {id: 2, name_ru: 'Отдел 2', name_kz: 'Отдел2'},
+        {id: 3, name_ru: 'Отдел 3', name_kz: 'Отдел3'},
+    ],
+    newDepartmentNameRu: '',
+    newDepartmentNameKz: '',
+};
+
+const DepartmentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_DEPARTMENT: {
             let newDepartment = {

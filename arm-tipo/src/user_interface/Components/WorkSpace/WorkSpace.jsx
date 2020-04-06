@@ -9,7 +9,7 @@ import Types from "./Directories/Types/Types";
 import Departments from "./Directories/Departments";
 import Statuses from "./Directories/Statuses";
 import DepartmentDescription from "./Departments/DepartmentDescription";
-import AddType from "./Directories/Types/AddType";
+import AddTypeContainer from "./Directories/Types/AddTypeContainer";
 
 const {Content} = Layout;
 
@@ -66,7 +66,7 @@ const WorkSpace = (props) => {
                     exact
                     path={'/addType'}
                     render={() =>
-                        <AddType
+                        <AddTypeContainer
                             state={props.state}
                             dispatch={props.dispatch}
                         />
@@ -110,7 +110,7 @@ const WorkSpace = (props) => {
                 Пользователи
             */}
         </Content>
-    )
+    );
 };
 
 export default WorkSpace;
