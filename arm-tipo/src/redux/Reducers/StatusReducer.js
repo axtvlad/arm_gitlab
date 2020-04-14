@@ -26,11 +26,11 @@ const StatusReducer = (state = initialState, action) => {
             return state;
         }
         case UPDATE_STATUS_NAME_RU: {
-            state.newStatusNameRu = action.newName;
+            state.newStatusNameRu = action.newNameRu;
             return state;
         }
         case UPDATE_STATUS_NAME_KZ: {
-            state.newStatusNameKz = action.newName;
+            state.newStatusNameKz = action.newNameKz;
             return state;
         }
         default: {
@@ -44,14 +44,14 @@ export const addStatusCreator = () => ({
     type: ADD_STATUS
 });
 
-export const updateStatusNameRuCreator = (newName) => ({
+export const updateStatusNameRuCreator = (newNameRu) => ({
     type: UPDATE_STATUS_NAME_RU,
-    newName
+    newNameRu
 });
 
-export const updateStatusNameKzCreator = (newName) => ({
+export const updateStatusNameKzCreator = (newNameKz) => ({
     type: UPDATE_STATUS_NAME_KZ,
-    newName
+    newNameKz
 });
 
 export default StatusReducer;

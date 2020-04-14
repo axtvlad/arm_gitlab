@@ -2,13 +2,10 @@ import React from 'react';
 import './App.css';
 import UserInterface from "./user_interface/UserInterface";
 
-const App = (props) => {
+const App = () => {
     return (
         <div className="App">
-            <UserInterface
-                store={props.store}
-                dispatch={props.dispatch}
-            />
+            <UserInterface/>
         </div>
     );
 };

@@ -26,32 +26,31 @@ const DepartmentReducer = (state = initialState, action) => {
             return state;
         }
         case UPDATE_DEPARTMENT_NAME_RU: {
-            state.newDepartmentNameRu = action.newName;
+            state.newDepartmentNameRu = action.newNameRu;
             return state;
         }
         case UPDATE_DEPARTMENT_NAME_KZ: {
-            state.newDepartmentNameKz = action.newName;
+            state.newDepartmentNameKz = action.newNameKz;
             return state;
         }
         default: {
             return state;
         }
     }
-};
-
+}
 
 export const addDepartmentCreator = () => ({
     type: ADD_DEPARTMENT
 });
 
-export const updateDepartmentNameRuCreator = (newName) => ({
+export const updateDepartmentNameRuCreator = (newNameRu) => ({
     type: UPDATE_DEPARTMENT_NAME_RU,
-    newName
+    newNameRu
 });
 
-export const updateDepartmentNameKzCreator = (newName) => ({
+export const updateDepartmentNameKzCreator = (newNameKz) => ({
     type: UPDATE_DEPARTMENT_NAME_KZ,
-    newName
+    newNameKz
 });
 
 export default DepartmentReducer;

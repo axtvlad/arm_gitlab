@@ -1,13 +1,13 @@
 import React from "react";
-import Orders from "../Docs/Orders";
-import Regulations from "../Docs/Regulations";
+import Orders from "./Orders";
+import Regulations from "./Regulations";
 import {Tabs} from 'antd';
 import FileDoneOutlined from "@ant-design/icons/lib/icons/FileDoneOutlined";
 import FileProtectOutlined from "@ant-design/icons/lib/icons/FileProtectOutlined";
 
 const {TabPane} = Tabs;
 
-const Base = (props) => {
+const Base = () => {
     return (
         <div>
             <Tabs defaultActiveKey="1">

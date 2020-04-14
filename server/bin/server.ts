@@ -10,7 +10,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = +process.env.PORT || 3003;
+const port = +process.env.PORT || 3333;
 
 i18n.configure({
   defaultLocale: 'ru',

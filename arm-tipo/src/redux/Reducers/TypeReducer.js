@@ -25,11 +25,11 @@ const TypeReducer = (state = initialState, action) => {
             return state;
         }
         case UPDATE_TYPE_NAME_RU: {
-            state.newTypeNameRu = action.newName;
+            state.newTypeNameRu = action.newNameRu;
             return state;
         }
         case UPDATE_TYPE_NAME_KZ: {
-            state.newTypeNameKz = action.newName;
+            state.newTypeNameKz = action.newNameKz;
             return state;
         }
         default: {
@@ -42,14 +42,14 @@ export const addTypeCreator = () => ({
     type: ADD_TYPE
 });
 
-export const updateTypeNameRuCreator = (newName) => ({
+export const updateTypeNameRuCreator = (newNameRu) => ({
     type: UPDATE_TYPE_NAME_RU,
-    newName
+    newNameRu
 });
 
-export const updateTypeNameKzCreator = (newName) => ({
+export const updateTypeNameKzCreator = (newNameKz) => ({
     type: UPDATE_TYPE_NAME_KZ,
-    newName
+    newNameKz
 });
 
 export default TypeReducer;

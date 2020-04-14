@@ -1,114 +1,45 @@
 import {Breadcrumb, Layout} from "antd";
 import React from "react";
-import Base from "./Base/Base";
+import Base from "./MainDocs/Base";
 import {Route} from "react-router-dom";
 import Home from "./Home/Home";
 import Doc from "./Docs/Doc";
-import AddMainDoc from "./Docs/AddMainDoc";
-import Types from "./Directories/Types/Types";
-import Departments from "./Directories/Departments";
-import Statuses from "./Directories/Statuses";
-import DepartmentDescription from "./Departments/DepartmentDescription";
+import DepartmentDescription from "./Descriptions/DepartmentDescription";
 import AddTypeContainer from "./Directories/Types/AddTypeContainer";
+import AddMainDocContainer from "./MainDocs/AddMainDocContainer";
+import TypesContainer from "./Directories/Types/TypesContainer";
+import DepartmentsContainer from "./Directories/Departments/DepartmentsContainer";
+import StatusesContainer from "./Directories/Statuses/StatusesContainer";
+import AddStatusContainer from "./Directories/Statuses/AddStatusContainer";
+import AddDepartmentContainer from "./Directories/Departments/AddDepartmentContainer";
 
 const {Content} = Layout;
 
-const WorkSpace = (props) => {
+const WorkSpace = () => {
     return (
         <Content style={{margin: '0 16px'}}>
             <Breadcrumb style={{margin: '16px 0', textAlign: 'left'}}>
-                <Breadcrumb.Item>Основная база</Breadcrumb.Item>
-                <Breadcrumb.Item>Приказы</Breadcrumb.Item>
+                <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
+                <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{padding: 24, background: '#fff', minHeight: 360}}>
-                <Route
-                    exact
-                    path={'/home'}
-                    render={() =>
-                        <Home/>
-                    }
-                />
+                <Route exact path={'/'} render={() => <Home/>}/>
 
-                <Route
-                    exact
-                    path={'/base'}
-                    render={() =>
-                        <Base/>
-                    }
-                />
-                <Route
-                    exact
-                    path={'/addMainDoc'}
-                    render={() =>
-                        <AddMainDoc
-                            state={props.state}
-                        />
-                    }
-                />
-                <Route
-                    exact
-                    path={'/doc'}
-                    render={() =>
-                        <Doc/>
-                    }
-                />
+                <Route exact path={'/base'} render={() => <Base/>}/>
 
-                <Route
-                    exact
-                    path={'/types'}
-                    render={() =>
-                        <Types
-                            state={props.state}
-                        />
-                    }
-                />
-                <Route
-                    exact
-                    path={'/addType'}
-                    render={() =>
-                        <AddTypeContainer
-                            state={props.state}
-                            dispatch={props.dispatch}
-                        />
-                    }
-                />
+                <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
+                <Route exact path={'/doc'} render={() => <Doc/>}/>
 
-                <Route
-                    exact
-                    path={'/departments'}
-                    render={() =>
-                        <Departments
-                            state={props.state}
-                        />
-                    }
-                />
-                <Route
-                    exact
-                    path={'/departmentDescription'}
-                    render={() =>
-                        <DepartmentDescription
-                            state={props.state}
-                        />
-                    }
-                />
+                <Route exact path={'/types'} render={() => <TypesContainer/>}/>
+                <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
 
-                <Route
-                    exact
-                    path={'/statuses'}
-                    render={() =>
-                        <Statuses
-                            state={props.state}
-                        />
-                    }
-                />
+                <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
+                <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
+                <Route exact path={'/departmentDescription'} render={() => <DepartmentDescription/>}/>
 
+                <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
+                <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
             </div>
-            {/*
-                Прочие документы
-                Шаблоны
-                Эксперты
-                Пользователи
-            */}
         </Content>
     );
 };

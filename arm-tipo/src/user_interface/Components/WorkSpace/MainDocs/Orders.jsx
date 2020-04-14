@@ -7,9 +7,9 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const columns = [
     {
-        title: 'Название',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Название (ru)',
+        dataIndex: 'name_ru',
+        key: 'name_ru',
         render: text => <NavLink to={'/doc/' + data[0].key}>{text}</NavLink>
     },
     {
@@ -19,8 +19,8 @@ const columns = [
     },
     {
         title: 'Отдел',
-        dataIndex: 'department',
-        key: 'department',
+        dataIndex: 'department_id',
+        key: 'department_id',
     },
     {
         title: 'Статус',
@@ -90,7 +90,7 @@ const data = [
     },
 ];
 
-const Orders = (props) => {
+const Orders = () => {
     return (
         <div>
             <NavLink to={'/addMainDoc'}>
@@ -100,7 +100,7 @@ const Orders = (props) => {
                     shape="round"
                     icon={<PlusOutlined/>}
                 >
-                    Добавить новый документ
+                    Добавить новый приказ
                 </Button>
             </NavLink>
             <Table columns={columns} dataSource={data}/>

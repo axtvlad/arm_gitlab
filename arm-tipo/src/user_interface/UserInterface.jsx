@@ -11,11 +11,7 @@ const UserInterface = (props) => {
             <NavBar/>
             <Layout>
                 <UserHeader/>
-                <WorkSpace
-                    state={props.store.getState()}
-                    store={props.store}
-                    dispatch={props.dispatch}
-                />
+                <WorkSpace/>
             </Layout>
         </Layout>
     );

@@ -21,7 +21,7 @@ const NavBar = (props) => {
                 theme={'dark'}
             >
                 <Menu.Item key={'1'}>
-                    <NavLink to={'/home'}>
+                    <NavLink to={'/'}>
                         <span>
                             <HomeOutlined/>
                             <span>Главная</span>

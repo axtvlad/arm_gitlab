@@ -7,32 +7,32 @@ const formItemLayout = {
     wrapperCol: {span: 14},
 };
 
-const AddType = (props) => {
+const AddStatus = (props) => {
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.typesDir.newTypeNameRu + ' - ' + props.typesDir.newTypeNameKz);
+    console.log('from state: ' + props.statusesDir.newStatusNameRu + ' - ' + props.statusesDir.newStatusNameKz);
 
     form.setFieldsValue({
-        name_ru: props.typesDir.newTypeNameRu,
-        name_kz: props.typesDir.newTypeNameKz
+        name_ru: props.statusesDir.newTypeNameRu,
+        name_kz: props.statusesDir.newTypeNameKz
     });
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
 
-    const addType = () => {
-        props.addType();
+    const addStatus = () => {
+        props.addStatus();
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateTypeNameRu(name_ru);
+        props.updateStatusNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateTypeNameKz(name_kz);
+        props.updateStatusNameKz(name_kz);
     };
 
     return (
@@ -45,20 +45,20 @@ const AddType = (props) => {
             <Form.Item
                 name={'name_ru'}
                 label={'Наименование (ru)'}
-                rules={[{required: true, message: 'Пожалуйста, введите наименование типа на русском!'}]}
+                rules={[{required: true, message: 'Пожалуйста, введите наименование статуса документа на русском!'}]}
                 hasFeedback
             >
-                <Input placeholder={'Введите наименование типа на русском!'} onChange={changeNameRu}/>
+                <Input placeholder={'Введите наименование статуса документа на русском!'} onChange={changeNameRu}/>
             </Form.Item>
 
             <Form.Item
                 name={'name_kz'}
                 label={'Наименование (kz)'}
-                rules={[{required: true, message: 'Пожалуйста, введите наименование типа на казахском!'}]}
+                rules={[{required: true, message: 'Пожалуйста, введите наименование статуса документа на казахском!'}]}
                 hasFeedback
             >
                 <Input
-                    placeholder={'Введите наименование типа на казахском!'}
+                    placeholder={'Введите наименование статуса документа на казахском!'}
                     onChange={changeNameKz}
                 />
             </Form.Item>
@@ -69,7 +69,7 @@ const AddType = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={addType}
+                    onClick={addStatus}
                 >
                     Сохранить в базу
                 </Button>
@@ -78,4 +78,4 @@ const AddType = (props) => {
     );
 };
 
-export default AddType;
+export default AddStatus;

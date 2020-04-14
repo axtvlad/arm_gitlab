@@ -7,32 +7,32 @@ const formItemLayout = {
     wrapperCol: {span: 14},
 };
 
-const AddType = (props) => {
+const AddDepartment = (props) => {
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.typesDir.newTypeNameRu + ' - ' + props.typesDir.newTypeNameKz);
+    console.log('from state: ' + props.departmentsDir.newDepartmentNameRu + ' - ' + props.departmentsDir.newTypeNameKz);
 
     form.setFieldsValue({
-        name_ru: props.typesDir.newTypeNameRu,
-        name_kz: props.typesDir.newTypeNameKz
+        name_ru: props.departmentsDir.newTypeNameRu,
+        name_kz: props.departmentsDir.newTypeNameKz
     });
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
 
-    const addType = () => {
-        props.addType();
+    const addDepartment = () => {
+        props.addDepartment();
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateTypeNameRu(name_ru);
+        props.updateDepartmentNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateTypeNameKz(name_kz);
+        props.updateDepartmentNameKz(name_kz);
     };
 
     return (
@@ -45,20 +45,20 @@ const AddType = (props) => {
             <Form.Item
                 name={'name_ru'}
                 label={'Наименование (ru)'}
-                rules={[{required: true, message: 'Пожалуйста, введите наименование типа на русском!'}]}
+                rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на русском!'}]}
                 hasFeedback
             >
-                <Input placeholder={'Введите наименование типа на русском!'} onChange={changeNameRu}/>
+                <Input placeholder={'Введите наименование отдела на русском!'} onChange={changeNameRu}/>
             </Form.Item>
 
             <Form.Item
                 name={'name_kz'}
                 label={'Наименование (kz)'}
-                rules={[{required: true, message: 'Пожалуйста, введите наименование типа на казахском!'}]}
+                rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на казахском!'}]}
                 hasFeedback
             >
                 <Input
-                    placeholder={'Введите наименование типа на казахском!'}
+                    placeholder={'Введите наименование отдела на казахском!'}
                     onChange={changeNameKz}
                 />
             </Form.Item>
@@ -69,7 +69,7 @@ const AddType = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={addType}
+                    onClick={addDepartment}
                 >
                     Сохранить в базу
                 </Button>
@@ -78,4 +78,4 @@ const AddType = (props) => {
     );
 };
 
-export default AddType;
+export default AddDepartment;

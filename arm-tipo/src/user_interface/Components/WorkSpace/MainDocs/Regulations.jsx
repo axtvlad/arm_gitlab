@@ -52,7 +52,9 @@ const Regulations = (props) => {
                     type="primary"
                     shape="round"
                     icon={<PlusOutlined/>}
-                />
+                >
+                    Добавить новое постановление
+                </Button>
             </NavLink>
             <Table columns={columns} dataSource={data}/>
         </div>

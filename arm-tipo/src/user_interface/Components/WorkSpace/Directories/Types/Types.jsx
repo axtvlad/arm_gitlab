@@ -43,7 +43,7 @@ const Types = (props) => {
                     Добавить тип документа
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.state.typesDir.types}/>
+            <Table columns={columns} dataSource={props.types}/>
         </div>
     )
 };

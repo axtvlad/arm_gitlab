@@ -7,13 +7,13 @@ import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 
 const columns = [
     {
-        title: 'Название (ru)',
+        title: 'Наименование (ru)',
         dataIndex: 'name_ru',
         key: 'name_ru',
         render: text => <a href={'/'}>{text}</a>,
     },
     {
-        title: 'Название (kz)',
+        title: 'Наименование (kz)',
         dataIndex: 'name_kz',
         key: 'name_kz',
         render: text => <a href={'/'}>{text}</a>,
@@ -31,21 +31,21 @@ const columns = [
     }
 ];
 
-const Departments = (props) => {
+const Statuses = (props) => {
     return (
         <div>
-            <NavLink to={'/addDepartment'}>
+            <NavLink to={'/addStatus'}>
                 <Button
                     type="danger"
                     shape="round"
                     icon={<PlusOutlined/>}
                 >
-                    Добавить отдел
+                    Добавить статус
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.state.departmentsDir.departments}/>
+            <Table columns={columns} dataSource={props.statuses}/>
         </div>
     )
 };
 
-export default Departments;
+export default Statuses;
