@@ -12,29 +12,31 @@ let initialState = {
 };
 
 const TypeReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case ADD_TYPE: {
-            let newType = {
-                id: 3,
-                name_ru: state.newTypeNameRu,
-                name_kz: state.newTypeNameKz,
+        case ADD_TYPE:
+            return {
+                ...state,
+                newTypeNameRu: '',
+                newTypeNameKz: '',
+                types: [...state.types, {
+                    id: 3,
+                    name_ru: state.newTypeNameRu,
+                    name_kz: state.newTypeNameKz,
+                }]
             };
-            state.types.push(newType);
-            state.newTypeNameRu = '';
-            state.newTypeNameKz = '';
+        case UPDATE_TYPE_NAME_RU:
+            return {
+                ...state,
+                newTypeNameRu: action.newNameRu
+            };
+        case UPDATE_TYPE_NAME_KZ:
+            return {
+                ...state,
+                newTypeNameKz: action.newNameKz
+            };
+        default:
             return state;
-        }
-        case UPDATE_TYPE_NAME_RU: {
-            state.newTypeNameRu = action.newNameRu;
-            return state;
-        }
-        case UPDATE_TYPE_NAME_KZ: {
-            state.newTypeNameKz = action.newNameKz;
-            return state;
-        }
-        default: {
-            return state;
-        }
     }
 };
 

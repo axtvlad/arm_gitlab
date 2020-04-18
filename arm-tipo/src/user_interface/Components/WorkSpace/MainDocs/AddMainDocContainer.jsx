@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {
     addMainDocCreator,
     updateMainDocBeginDateCreator,
-    updateMainDocDepartmentIdCreator, updateMainDocDescriptionKzCreator,
+    updateMainDocDepartmentIdCreator,
+    updateMainDocDescriptionKzCreator,
     updateMainDocDescriptionRuCreator,
     updateMainDocFileKzCreator,
     updateMainDocFileRuCreator,
@@ -14,10 +15,13 @@ import {
     updateMainDocNameRuCreator,
     updateMainDocNumberCreator,
     updateMainDocPubDateCreator,
-    updateMainDocStatusIdCreator, updateMainDocTextKzCreator, updateMainDocTextRuCreator, updateMainDocTypeIdCreator
+    updateMainDocStatusIdCreator,
+    updateMainDocTextKzCreator,
+    updateMainDocTextRuCreator,
+    updateMainDocTypeIdCreator
 } from "../../../../redux/Reducers/MainDocReducer";
 
-const nowDate = () => {
+const dateNow = () => {
     let date = new Date();
 
     let dd = date.getDate();
@@ -28,15 +32,15 @@ const nowDate = () => {
 
     let yyyy = date.getFullYear();
 
-    return dd + '/' + mm + '/' + yyyy;
+    return dd + '-' + mm + '-' + yyyy;
 };
 
 let mapStateToProps = (state) => {
     return {
         mainDocsDir: state.mainDocsDir,
-        typesDir: state.typesDir,
-        departmentsDir: state.departmentsDir,
-        statusesDir: state.statusesDir
+        types: state.typesDir.types,
+        departments: state.departmentsDir.departments,
+        statuses: state.statusesDir.statuses
     }
 };
 
@@ -67,7 +71,7 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(updateMainDocFinishDateCreator(finish_date));
         },
         changeMainDocPubDate: () => {
-            let pub_date = nowDate();
+            let pub_date = dateNow();
             dispatch(updateMainDocPubDateCreator(pub_date));
         },
         changeMainDocHeaderRu: (header_ru) => {

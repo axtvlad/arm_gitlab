@@ -10,18 +10,17 @@ const formItemLayout = {
 const AddType = (props) => {
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.typesDir.newTypeNameRu + ' - ' + props.typesDir.newTypeNameKz);
-
-    form.setFieldsValue({
+    let fromState = {
         name_ru: props.typesDir.newTypeNameRu,
         name_kz: props.typesDir.newTypeNameKz
-    });
-
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
     };
 
-    const addType = () => {
+    console.log(fromState);
+
+    form.setFieldsValue(fromState);
+
+    const addType = (values) => {
+        console.log('Received values of form: ', values);
         props.addType();
     };
 
@@ -39,7 +38,7 @@ const AddType = (props) => {
         <Form
             name="validate_other"
             {...formItemLayout}
-            onFinish={onFinish}
+            onFinish={addType}
             form={form}
         >
             <Form.Item
@@ -69,7 +68,6 @@ const AddType = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={addType}
                 >
                     Сохранить в базу
                 </Button>

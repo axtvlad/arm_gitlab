@@ -60,119 +60,136 @@ let initialState = {
 };
 
 const MainDocReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case ADD_MAIN_DOC: {
-            let newMainDoc = {
-                id: 1,
-                number: state.newMainDocNumber,
-                department_id: state.newMainDocDepartmentId,
-                status_id: state.newMainDocStatusId,
-                name_ru: state.newMainDocNameRu,
-                name_kz: state.newMainDocNameKz,
-                begin_date: state.newMainDocBeginDate,
-                finish_date: state.newMainDocFinishDate,
-                pub_date: state.newMainDocPubDate,
-                header_ru: state.newMainDocHeaderRu,
-                header_kz: state.newMainDocHeaderKz,
-                file_ru: state.newMainDocFileRu,
-                file_kz: state.newMainDocFileKz,
-                description_ru: state.newMainDocDescriptionRu,
-                description_kz: state.newMainDocDescriptionKz,
-                type_id: state.newMainDocTypeId,
-                text_ru: state.newMainDocTextRu,
-                text_kz: state.newMainDocTextKz,
+        case ADD_MAIN_DOC:
+            return {
+                ...state,
+                newMainDocNumber: '',
+                newMainDocDepartmentId: null,
+                newMainDocStatusId: null,
+                newMainDocNameRu: '',
+                newMainDocNameKz: '',
+                newMainDocBeginDate: null,
+                newMainDocFinishDate: null,
+                newMainDocPubDate: null,
+                newMainDocHeaderRu: '',
+                newMainDocHeaderKz: '',
+                newMainDocFileRu: '',
+                newMainDocFileKz: '',
+                newMainDocDescriptionRu: '',
+                newMainDocDescriptionKz: '',
+                newMainDocTypeId: null,
+                newMainDocTextRu: '',
+                newMainDocTextKz: '',
+                mainDocs: [...state.mainDocs, {
+                    id: 2,
+                    number: state.newMainDocNumber,
+                    department_id: state.newMainDocDepartmentId,
+                    status_id: state.newMainDocStatusId,
+                    name_ru: state.newMainDocNameRu,
+                    name_kz: state.newMainDocNameKz,
+                    begin_date: state.newMainDocBeginDate,
+                    finish_date: state.newMainDocFinishDate,
+                    pub_date: state.newMainDocPubDate,
+                    header_ru: state.newMainDocHeaderRu,
+                    header_kz: state.newMainDocHeaderKz,
+                    file_ru: state.newMainDocFileRu,
+                    file_kz: state.newMainDocFileKz,
+                    description_ru: state.newMainDocDescriptionRu,
+                    description_kz: state.newMainDocDescriptionKz,
+                    type_id: state.newMainDocTypeId,
+                    text_ru: state.newMainDocTextRu,
+                    text_kz: state.newMainDocTextKz,
+                }],
             };
-            state.mainDocs.push(newMainDoc);
-            state.newMainDocNumber = '';
-            state.newMainDocDepartmentId = null;
-            state.newMainDocStatusId = null;
-            state.newMainDocNameRu = '';
-            state.newMainDocNameKz = '';
-            state.newMainDocBeginDate = null;
-            state.newMainDocFinishDate = null;
-            state.newMainDocPubDate = null;
-            state.newMainDocHeaderRu = '';
-            state.newMainDocHeaderKz = '';
-            state.newMainDocFileRu = '';
-            state.newMainDocFileKz = '';
-            state.newMainDocDescriptionRu = '';
-            state.newMainDocDescriptionKz = '';
-            state.newMainDocTypeId = null;
-            state.newMainDocTextRu = '';
-            state.newMainDocTextKz = '';
+        case UPDATE_MAIN_DOC_NAME_RU:
+            return {
+                ...state,
+                newMainDocNameRu: action.newNameRu
+            };
+        case UPDATE_MAIN_DOC_NAME_KZ:
+            return {
+                ...state,
+                newMainDocNameKz: action.newNameKz
+            };
+        case UPDATE_MAIN_DOC_BEGIN_DATE:
+            return {
+                ...state,
+                newMainDocBeginDate: action.newBeginDate
+            };
+        case UPDATE_MAIN_DOC_FINISH_DATE:
+            return {
+                ...state,
+                newMainDocFinishDate: action.newFinishDate
+            };
+        case UPDATE_MAIN_DOC_PUB_DATE:
+            return {
+                ...state,
+                newMainDocPubDate: action.newPubDate
+            };
+        case UPDATE_MAIN_DOC_NUMBER:
+            return {
+                ...state,
+                newMainDocNumber: action.newNumber
+            };
+        case UPDATE_MAIN_DOC_DEPARTMENT_ID:
+            return {
+                ...state,
+                newMainDocDepartmentId: action.newDepartmentId
+            };
+        case UPDATE_MAIN_DOC_STATUS_ID:
+            return {
+                ...state,
+                newMainDocStatusId: action.newStatusId
+            };
+        case UPDATE_MAIN_DOC_HEADER_RU:
+            return {
+                ...state,
+                newMainDocHeaderRu: action.newHeaderRu
+            };
+        case UPDATE_MAIN_DOC_HEADER_KZ:
+            return {
+                ...state,
+                newMainDocHeaderKz: action.newHeaderKz
+            };
+        case UPDATE_MAIN_DOC_FILE_RU:
+            return {
+                ...state,
+                newMainDocFileRu: action.newFileRu
+            };
+        case UPDATE_MAIN_DOC_FILE_KZ:
+            return {
+                ...state,
+                newMainDocFileRu: action.newFileKz
+            };
+        case UPDATE_MAIN_DOC_DESCRIPTION_RU:
+            return {
+                ...state,
+                newMainDocDescriptionRu: action.newDescriptionRu
+            };
+        case UPDATE_MAIN_DOC_DESCRIPTION_KZ:
+            return {
+                ...state,
+                newMainDocDescriptionKz: action.newDescriptionKz
+            };
+        case UPDATE_MAIN_DOC_TEXT_RU:
+            return {
+                ...state,
+                newMainDocTextRu: action.newTextRu
+            };
+        case UPDATE_MAIN_DOC_TEXT_KZ:
+            return {
+                ...state,
+                newMainDocTextKz: action.newTextKz
+            };
+        case UPDATE_MAIN_DOC_TYPE_ID:
+            return {
+                ...state,
+                newMainDocTypeId: action.newTypeId
+            };
+        default:
             return state;
-        }
-        case UPDATE_MAIN_DOC_NAME_RU: {
-            state.newMainDocNameRu = action.newNameRu;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_NAME_KZ: {
-            state.newMainDocNameKz = action.newNameKz;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_BEGIN_DATE: {
-            state.newMainDocBeginDate = action.newBeginDate;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_FINISH_DATE: {
-            state.newMainDocFinishDate = action.newFinishDate;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_PUB_DATE: {
-            state.newMainDocPubDate = action.newPubDate;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_NUMBER: {
-            state.newMainDocNumber = action.newNumber;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_DEPARTMENT_ID: {
-            state.newMainDocDepartmentId = action.newDepartmentId;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_STATUS_ID: {
-            state.newMainDocStatusId = action.newStatusId;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_HEADER_RU: {
-            state.newMainDocHeaderRu = action.newHeaderRu;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_HEADER_KZ: {
-            state.newMainDocHeaderKz = action.newHeaderKz;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_FILE_RU: {
-            state.newMainDocFileRu = action.newFileRu;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_FILE_KZ: {
-            state.newMainDocFileRu = action.newFileKz;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_DESCRIPTION_RU: {
-            state.newMainDocDescriptionRu = action.newDescriptionRu;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_DESCRIPTION_KZ: {
-            state.newMainDocDescriptionKz = action.newDescriptionKz;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_TEXT_RU: {
-            state.newMainDocTextRu = action.newTextRu;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_TEXT_KZ: {
-            state.newMainDocTextRu = action.newTextKz;
-            return state;
-        }
-        case UPDATE_MAIN_DOC_TYPE_ID: {
-            state.newMainDocTypeId = action.newTypeId;
-            return state;
-        }
-        default: {
-            return state;
-        }
     }
 };
 
@@ -261,9 +278,9 @@ export const updateMainDocTextRuCreator = (newTextRu) => ({
     newTextRu
 });
 
-export const updateMainDocTextKzCreator = (newTextRu) => ({
-    type: UPDATE_MAIN_DOC_TEXT_RU,
-    newTextRu
+export const updateMainDocTextKzCreator = (newTextKz) => ({
+    type: UPDATE_MAIN_DOC_TEXT_KZ,
+    newTextKz
 });
 
 export default MainDocReducer;

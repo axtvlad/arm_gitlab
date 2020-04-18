@@ -10,18 +10,17 @@ const formItemLayout = {
 const AddDepartment = (props) => {
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.departmentsDir.newDepartmentNameRu + ' - ' + props.departmentsDir.newTypeNameKz);
-
-    form.setFieldsValue({
-        name_ru: props.departmentsDir.newTypeNameRu,
-        name_kz: props.departmentsDir.newTypeNameKz
-    });
-
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    let fromState = {
+        name_ru: props.departmentsDir.newDepartmentNameRu,
+        name_kz: props.departmentsDir.newDepartmentNameKz
     };
 
-    const addDepartment = () => {
+    console.log(fromState);
+
+    form.setFieldsValue(fromState);
+
+    const addDepartment = (values) => {
+        console.log('Received values of form: ', values);
         props.addDepartment();
     };
 
@@ -39,7 +38,7 @@ const AddDepartment = (props) => {
         <Form
             name="validate_other"
             {...formItemLayout}
-            onFinish={onFinish}
+            onFinish={addDepartment}
             form={form}
         >
             <Form.Item
@@ -69,7 +68,6 @@ const AddDepartment = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={addDepartment}
                 >
                     Сохранить в базу
                 </Button>

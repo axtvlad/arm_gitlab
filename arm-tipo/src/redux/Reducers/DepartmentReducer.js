@@ -13,31 +13,33 @@ let initialState = {
 };
 
 const DepartmentReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case ADD_DEPARTMENT: {
-            let newDepartment = {
-                id: 4,
-                name_ru: state.newDepartmentNameRu,
-                name_kz: state.newDepartmentNameKz,
+        case ADD_DEPARTMENT:
+            return {
+                ...state,
+                newDepartmentNameRu: '',
+                newDepartmentNameKz: '',
+                departments: [...state.departments, {
+                    id: 4,
+                    name_ru: state.newDepartmentNameRu,
+                    name_kz: state.newDepartmentNameKz,
+                }]
             };
-            state.departments.push(newDepartment);
-            state.newDepartmentNameRu = '';
-            state.newDepartmentNameKz = '';
+        case UPDATE_DEPARTMENT_NAME_RU:
+            return {
+                ...state,
+                newDepartmentNameRu: action.newNameRu
+            };
+        case UPDATE_DEPARTMENT_NAME_KZ:
+            return {
+                ...state,
+                newDepartmentNameKz: action.newNameKz
+            };
+        default:
             return state;
-        }
-        case UPDATE_DEPARTMENT_NAME_RU: {
-            state.newDepartmentNameRu = action.newNameRu;
-            return state;
-        }
-        case UPDATE_DEPARTMENT_NAME_KZ: {
-            state.newDepartmentNameKz = action.newNameKz;
-            return state;
-        }
-        default: {
-            return state;
-        }
     }
-}
+};
 
 export const addDepartmentCreator = () => ({
     type: ADD_DEPARTMENT

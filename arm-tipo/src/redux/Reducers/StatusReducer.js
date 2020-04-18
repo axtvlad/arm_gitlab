@@ -13,29 +13,31 @@ let initialState = {
 };
 
 const StatusReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case ADD_STATUS: {
-            let newStatus = {
-                id: 4,
-                name_ru: state.newStatusNameRu,
-                name_kz: state.newStatusNameKz,
+        case ADD_STATUS:
+            return {
+                ...state,
+                newStatusNameRu: '',
+                newStatusNameKz: '',
+                statuses: [...state.statuses, {
+                    id: 4,
+                    name_ru: state.newStatusNameRu,
+                    name_kz: state.newStatusNameKz,
+                }]
             };
-            state.statuses.push(newStatus);
-            state.newStatusNameRu = '';
-            state.newStatusNameKz = '';
+        case UPDATE_STATUS_NAME_RU:
+            return {
+                ...state,
+                newStatusNameRu: action.newNameRu
+            };
+        case UPDATE_STATUS_NAME_KZ:
+            return {
+                ...state,
+                newStatusNameKz: action.newNameKz
+            };
+        default:
             return state;
-        }
-        case UPDATE_STATUS_NAME_RU: {
-            state.newStatusNameRu = action.newNameRu;
-            return state;
-        }
-        case UPDATE_STATUS_NAME_KZ: {
-            state.newStatusNameKz = action.newNameKz;
-            return state;
-        }
-        default: {
-            return state;
-        }
     }
 };
 

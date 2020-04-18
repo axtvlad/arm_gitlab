@@ -20,11 +20,10 @@ const normFile = e => {
 };
 
 const AddMainDoc = (props) => {
+
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.typesDir.newTypeNameRu + ' - ' + props.typesDir.newTypeNameKz);
-
-    form.setFieldsValue({
+    let fromState = {
         number: props.mainDocsDir.newMainDocNumber,
         department_id: props.mainDocsDir.newMainDocDepartmentId,
         status_id: props.mainDocsDir.newMainDocStatusId,
@@ -42,14 +41,15 @@ const AddMainDoc = (props) => {
         type_id: props.mainDocsDir.newMainDocTypeId,
         text_ru: props.mainDocsDir.newMainDocTextRu,
         text_kz: props.mainDocsDir.newMainDocTextKz,
-    });
-
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
     };
 
-    const saveDoc = () => {
+    console.log(fromState);
+
+    form.setFieldsValue(fromState);
+
+    const saveDoc = (values) => {
         props.changeMainDocPubDate();
+        console.log('Received values of form: ', values);
         props.addMainDoc();
     };
 
@@ -79,10 +79,35 @@ const AddMainDoc = (props) => {
     };
 
     const changeBeginAndFinishDate = () => {
-        const begin_date = form.getFieldValue().begin_and_finish_date;
-        const finish_date = form.getFieldValue().begin_and_finish_date;
+        const date = form.getFieldValue().begin_and_finish_date;
+
+        let date1 = date[0]._d;
+        let date2 = date[1]._d;
+
+
+        let dd1 = date1.getDate();
+        if (dd1 < 10) dd1 = '0' + dd1;
+
+        let dd2 = date2.getDate();
+        if (dd2 < 10) dd2 = '0' + dd1;
+
+        let mm1 = date1.getMonth() + 1;
+        if (mm1 < 10) mm1 = '0' + mm1;
+
+        let mm2 = date2.getMonth() + 1;
+        if (mm2 < 10) mm2 = '0' + mm2;
+
+        let yyyy1 = date1.getFullYear();
+        let yyyy2 = date2.getFullYear();
+
+        const begin_date = dd1 + '-' + mm1 + '-' + yyyy1;
+        const finish_date = dd2 + '-' + mm2 + '-' + yyyy2;
+
+        console.log('begin_date: ' + begin_date);
+        console.log('finish_date: ' + finish_date);
+
         props.changeMainDocBeginDate(begin_date);
-        props.changeMainDocFinishDate(finish_date);
+        props.changeMainDocFinishDate(begin_date);
     };
 
     const changeHeaderRu = () => {
@@ -134,7 +159,8 @@ const AddMainDoc = (props) => {
         <Form
             name="validate_other"
             {...formItemLayout}
-            onFinish={onFinish}
+            onFinish={saveDoc}
+            form={form}
         >
             <Form.Item
                 name={'number'}
@@ -152,7 +178,7 @@ const AddMainDoc = (props) => {
                 rules={[{required: true, message: 'Пожалуйста, выберите отдел!'}]}
             >
                 <Select placeholder={'Выберите отдел!'} onChange={changeDepartmentId}>
-                    {props.departmentsDir.departments.map(department =>
+                    {props.departments.map(department =>
                         <Option
                             key={department.id}
                             value={department.name_ru}
@@ -168,7 +194,7 @@ const AddMainDoc = (props) => {
                 label={'Статус документа'}
             >
                 <Select placeholder={'Выберите статус документа'} onChange={changeStatusId} allowClear>
-                    {props.statusesDir.statuses.map(status =>
+                    {props.statuses.map(status =>
                         <Option
                             key={status.id}
                             value={status.name_ru}
@@ -208,8 +234,8 @@ const AddMainDoc = (props) => {
                 rules={[{required: true, message: 'Пожалуйста, выберите тип документа!'}]}
                 hasFeedback
             >
-                <Select placeholder={'Выберите тип документа!'} onChange={changeTypeId()}>
-                    {props.typesDir.types.map(type =>
+                <Select placeholder={'Выберите тип документа!'} onChange={changeTypeId}>
+                    {props.types.map(type =>
                         <Option
                             key={type.id}
                             value={type.name_ru}
@@ -241,7 +267,7 @@ const AddMainDoc = (props) => {
                 label={'Прикрепите файл (ru)'}
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
+                // rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
             >
                 <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>
                     <Button>
@@ -297,7 +323,6 @@ const AddMainDoc = (props) => {
                     htmlType="submit"
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={saveDoc}
                 >
                     Сохранить в базу
                 </Button>

@@ -10,18 +10,17 @@ const formItemLayout = {
 const AddStatus = (props) => {
     const [form] = Form.useForm();
 
-    console.log('from state: ' + props.statusesDir.newStatusNameRu + ' - ' + props.statusesDir.newStatusNameKz);
-
-    form.setFieldsValue({
-        name_ru: props.statusesDir.newTypeNameRu,
-        name_kz: props.statusesDir.newTypeNameKz
-    });
-
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    let fromState = {
+        name_ru: props.statusesDir.newStatusNameRu,
+        name_kz: props.statusesDir.newStatusNameKz
     };
 
-    const addStatus = () => {
+    console.log(fromState);
+
+    form.setFieldsValue(fromState);
+
+    const addStatus = (values) => {
+        console.log('Received values of form: ', values);
         props.addStatus();
     };
 
@@ -39,7 +38,7 @@ const AddStatus = (props) => {
         <Form
             name="validate_other"
             {...formItemLayout}
-            onFinish={onFinish}
+            onFinish={addStatus}
             form={form}
         >
             <Form.Item
@@ -69,7 +68,6 @@ const AddStatus = (props) => {
                     htmlType={'submit'}
                     icon={<DownloadOutlined/>}
                     block
-                    onClick={addStatus}
                 >
                     Сохранить в базу
                 </Button>
