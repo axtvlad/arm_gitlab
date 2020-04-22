@@ -25,11 +25,7 @@
 	"PASSED_PARAM_TYPE_ID": "{{type_id}} параметрі өткен жоқ",
 	"PASSED_PARAM_QUESTION_RU": "{{question_ru}} параметрі өткен жоқ",
 	"PASSED_PARAM_ANSWER_RU": "{{answer_ru}} параметрі өткен жоқ",
-
-
 	"INVALID_EMAIL_ADDRESS": "Электрондық пошта мекенжайы дұрыс емес",
-
-
 	"EXISTS_ALREADY_LOGIN": "Бұл логині қолданушы болғалы қашан.",
 	"EXISTS_ALREADY_EMAIL": "Бұл электрондық пошта қолданушы болғалы қашан.",
 	"EXISTS_ALREADY_PHONE": "Бұл телефон нөмірі қолданушы болғалы қашан.",
@@ -41,10 +37,7 @@
 	"EXISTS_ALREADY_NUMBER": "Жазба {{number}} параметрмен болғалы қашан.",
 	"EXISTS_ALREADY_HEADER_RU": "Жазба {{header_ru}} параметрмен болғалы қашан.",
 	"EXISTS_ALREADY_QUESTION_RU": "Жазба {{question_ru}} параметрмен болғалы қашан.",
-
-
 	"UNKNOWN_ERROR": "Беймәлім қате кетті.",
-
-
-	"MESSAGE_OK": "ОК"
+	"MESSAGE_OK": "ОК",
+	"EXIST_ALREADY_NUM": "EXIST_ALREADY_NUM"
 }
