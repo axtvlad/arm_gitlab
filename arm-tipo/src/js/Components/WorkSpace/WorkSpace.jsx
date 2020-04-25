@@ -12,6 +12,8 @@ import StatusesContainer from "./Directories/Statuses/StatusesContainer";
 import AddStatusContainer from "./Directories/Statuses/AddStatusContainer";
 import AddDepartmentContainer from "./Directories/Departments/AddDepartmentContainer";
 import MainDocsContainer from "./MainDocs/MainDocsContainer";
+import RolesContainer from "./Directories/Roles/RolesContainer";
+import AddRoleContainer from "./Directories/Roles/AddRoleContainer";
 
 const {Content} = Layout;
 
@@ -39,6 +41,8 @@ const WorkSpace = () => {
 
                 <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
                 <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
+                <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
+                <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
             </div>
         </Content>
     );

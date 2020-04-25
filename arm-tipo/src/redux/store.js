@@ -2,6 +2,8 @@ import TypeReducer from "./Reducers/TypeReducer";
 import DepartmentReducer from "./Reducers/DepartmentReducer";
 import StatusReducer from "./Reducers/StatusReducer";
 import MainDocReducer from "./Reducers/MainDocReducer";
+import {Roles} from "../../../server/modules/roles/RolesModel";
+import RolesReducer from "./Reducers/RolesReducer";
 
 let store = {
     _state: {
@@ -21,6 +23,15 @@ let store = {
             ],
             newStatusNameRu: '',
             newStatusNameKz: '',
+        },
+        rolesDir: {
+            roles: [
+                {id: 1, name_ru: 'Роль 1', name_kz: 'Роль1'},
+                {id: 2, name_ru: 'Роль 2', name_kz: 'Роль2'},
+                {id: 3, name_ru: 'Роль 3', name_kz: 'Роль3'},
+            ],
+            newRoleNameRu: '',
+            newRoleNameKz: '',
         },
         departmentsDir: {
             departments: [
@@ -86,6 +97,7 @@ let store = {
         this._state.typesDir = TypeReducer(this._state.typesDir, action);
         this._state.departmentsDir = DepartmentReducer(this._state.typesDir, action);
         this._state.statusesDir = StatusReducer(this._state.typesDir, action);
+        this._state.rolesDir = RolesReducer(this._state.rolesDir, action);
         this._state.mainDocsDir = MainDocReducer(this._state.mainDocsDir, action);
 
         this._callSubscriber(this._state);
