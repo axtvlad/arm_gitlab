@@ -105,6 +105,11 @@ const NavBar = (props) => {
                     </Menu.Item>
 
                 </SubMenu>
+                <Menu.Item key={'11'}>
+                    <NavLink to={'/faqs'}>
+                        <span>FAQ</span>
+                    </NavLink>
+                </Menu.Item>
             </Menu>
         </Sider>
     )
