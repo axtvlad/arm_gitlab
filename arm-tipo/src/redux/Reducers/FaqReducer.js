@@ -64,24 +64,24 @@ export const addFaqCreator = () => ({
     type: ADD_FAQ
 });
 
-export const updateFaqQuestionRuCreator = (newQuestionRu) => ({
+export const updateFaqQuestionRuCreator = (newFaqQuestionRu) => ({
     type: UPDATE_FAQ_QUESTION_RU,
-    newQuestionRu
+    newFaqQuestionRu
 });
 
-export const updateFaqQuestionKzCreator = (newQuestionKz) => ({
+export const updateFaqQuestionKzCreator = (newFaqQuestionKz) => ({
     type: UPDATE_FAQ_QUESTION_KZ,
-    newQuestionKz
+    newFaqQuestionKz
 });
 
-export const updateFaqAnswerRuCreator = (newAnswerRu) => ({
-    type: UPDATE_FAQ_QUESTION_RU,
-    newAnswerRu
+export const updateFaqAnswerRuCreator = (newFaqAnswerRu) => ({
+    type: UPDATE_FAQ_ANSWER_RU,
+    newFaqAnswerRu
 });
 
-export const updateFaqAnswerKzCreator = (newAnswerKz) => ({
-    type: UPDATE_FAQ_QUESTION_KZ,
-    newAnswerKz
+export const updateFaqAnswerKzCreator = (newFaqAnswerKz) => ({
+    type: UPDATE_FAQ_ANSWER_KZ,
+    newFaqAnswerKz
 });
 
 export default FaqsReducer;

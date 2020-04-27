@@ -87,7 +87,7 @@ const AddFaq = (props) => {
                      name={'answer_ru'}
                      label={'Ответ (ru)'}
                      rules={[{
-                         required: false,
+                         required: true,
                          message: 'Пожалуйста, введите ответ на русском!'
                      }]}
                      hasFeedback
