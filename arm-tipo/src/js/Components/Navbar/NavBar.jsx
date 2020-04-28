@@ -4,6 +4,7 @@ import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined
 import classes from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import CodeSandboxOutlined from "@ant-design/icons/lib/icons/CodeSandboxOutlined";
+import ReadOutlined from "@ant-design/icons/lib/icons/ReadOutlined";
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
@@ -107,6 +108,7 @@ const NavBar = (props) => {
                 </SubMenu>
                 <Menu.Item key={'11'}>
                     <NavLink to={'/faqs'}>
+                        <ReadOutlined />
                         <span>FAQ</span>
                     </NavLink>
                 </Menu.Item>
