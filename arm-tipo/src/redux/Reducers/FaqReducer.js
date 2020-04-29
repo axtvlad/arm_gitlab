@@ -16,7 +16,7 @@ let initialState = {
     newFaqAnswerKz: '',
 };
 
-const FaqsReducer = (state = initialState, action) => {
+const FaqReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_FAQ:
@@ -83,4 +83,4 @@ export const updateFaqAnswerKzCreator = (newFaqAnswerKz) => ({
     newFaqAnswerKz
 });
 
-export default FaqsReducer;
+export default FaqReducer;

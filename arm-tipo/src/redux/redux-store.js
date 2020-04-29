@@ -4,7 +4,7 @@ import DepartmentReducer from "./Reducers/DepartmentReducer";
 import StatusReducer from "./Reducers/StatusReducer";
 import MainDocReducer from "./Reducers/MainDocReducer";
 import RoleReducer from "./Reducers/RoleReducer";
-import FaqsReducer from "./Reducers/FaqReducer";
+import FaqReducer from "./Reducers/FaqReducer";
 import CustomerReducer from "./Reducers/CustomerReducer";
 
 let reducers = combineReducers({
@@ -13,7 +13,7 @@ let reducers = combineReducers({
     statusesDir: StatusReducer,
     rolesDir: RoleReducer,
     mainDocsDir: MainDocReducer,
-    faqsDir: FaqsReducer,
+    faqsDir: FaqReducer,
     customersDir: CustomerReducer
 });
 

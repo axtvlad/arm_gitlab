@@ -10,7 +10,7 @@ let initialState = {
     newCustomerNameKz: '',
 };
 
-const CustomersReducer = (state = initialState, action) => {
+const CustomerReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_CUSTOMER:
@@ -54,4 +54,4 @@ export const updateCustomerNameKzCreator = (newNameKz) => ({
     newNameKz
 });
 
-export default CustomersReducer;
+export default CustomerReducer;
