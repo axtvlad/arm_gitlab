@@ -4,7 +4,7 @@ import {
     addRoleCreator,
     updateRoleNameKzCreator,
     updateRoleNameRuCreator
-} from "../../../../../redux/Reducers/RolesReducer";
+} from "../../../../../redux/Reducers/RoleReducer";
 
 let MapStateToProps = (state) => {
     return {

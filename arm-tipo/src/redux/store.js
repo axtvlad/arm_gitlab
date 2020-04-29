@@ -2,7 +2,7 @@ import TypeReducer from "./Reducers/TypeReducer";
 import DepartmentReducer from "./Reducers/DepartmentReducer";
 import StatusReducer from "./Reducers/StatusReducer";
 import MainDocReducer from "./Reducers/MainDocReducer";
-import RolesReducer from "./Reducers/RolesReducer";
+import RoleReducer from "./Reducers/RoleReducer";
 import FaqsReducer from "./Reducers/FaqReducer";
 
 let store = {
@@ -115,7 +115,7 @@ let store = {
         this._state.typesDir = TypeReducer(this._state.typesDir, action);
         this._state.departmentsDir = DepartmentReducer(this._state.typesDir, action);
         this._state.statusesDir = StatusReducer(this._state.typesDir, action);
-        this._state.rolesDir = RolesReducer(this._state.rolesDir, action);
+        this._state.rolesDir = RoleReducer(this._state.rolesDir, action);
         this._state.faqsDir = FaqsReducer(this._state.faqsDir, action);
         this._state.mainDocsDir = MainDocReducer(this._state.mainDocsDir, action);
 

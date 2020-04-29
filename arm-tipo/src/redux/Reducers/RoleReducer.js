@@ -12,7 +12,7 @@ let initialState = {
     newRoleNameKz: '',
 };
 
-const RolesReducer = (state = initialState, action) => {
+const RoleReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_ROLE:
@@ -56,4 +56,4 @@ export const updateRoleNameKzCreator = (newNameKz) => ({
     newNameKz
 });
 
-export default RolesReducer;
+export default RoleReducer;
