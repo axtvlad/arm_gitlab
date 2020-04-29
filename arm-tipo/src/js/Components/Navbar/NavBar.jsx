@@ -104,9 +104,14 @@ const NavBar = (props) => {
                             <span>Роли пользователей</span>
                         </NavLink>
                     </Menu.Item>
+                    <Menu.Item key={'11'}>
+                        <NavLink to={'/customers'}>
+                            <span>Клиенты</span>
+                        </NavLink>
+                    </Menu.Item>
 
                 </SubMenu>
-                <Menu.Item key={'11'}>
+                <Menu.Item key={'12'}>
                     <NavLink to={'/faqs'}>
                         <ReadOutlined />
                         <span>FAQ</span>

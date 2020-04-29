@@ -53,6 +53,13 @@ let store = {
             newDepartmentNameRu: '',
             newDepartmentNameKz: '',
         },
+        customersDir: {
+            customers: [
+                {id: 1, name_ru: 'Клиент 1', name_kz: 'Клиент1'},
+            ],
+            newCustomerNameRu: '',
+            newCustomerNameKz: '',
+        },
         mainDocsDir: {
             mainDocs: [
                 {
