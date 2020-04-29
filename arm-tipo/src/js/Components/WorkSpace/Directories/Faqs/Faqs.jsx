@@ -20,8 +20,8 @@ const Faqs = (props) => {
 
             <Collapse accordion>
                 {props.faqs.map((faq, index) => (
-                    <Panel header={faq.question_kz} key={index}>
-                        <p>{faq.answer_kz}</p>
+                    <Panel header={faq.question_ru} key={index}>
+                        <p>{faq.answer_ru}</p>
                     </Panel>
                 ))}
             </Collapse>
