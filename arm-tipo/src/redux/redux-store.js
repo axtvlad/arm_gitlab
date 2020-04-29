@@ -6,6 +6,7 @@ import MainDocReducer from "./Reducers/MainDocReducer";
 import RoleReducer from "./Reducers/RoleReducer";
 import FaqReducer from "./Reducers/FaqReducer";
 import CustomerReducer from "./Reducers/CustomerReducer";
+import CategoryReducer from "./Reducers/CategoryReducer";
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     rolesDir: RoleReducer,
     mainDocsDir: MainDocReducer,
     faqsDir: FaqReducer,
-    customersDir: CustomerReducer
+    customersDir: CustomerReducer,
+    categoriesDir: CategoryReducer
 });
 
 let store = createStore(reducers);

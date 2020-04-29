@@ -3,7 +3,8 @@ import DepartmentReducer from "./Reducers/DepartmentReducer";
 import StatusReducer from "./Reducers/StatusReducer";
 import MainDocReducer from "./Reducers/MainDocReducer";
 import RoleReducer from "./Reducers/RoleReducer";
-import FaqsReducer from "./Reducers/FaqReducer";
+import FaqReducer from "./Reducers/FaqReducer";
+import CategoryReducer from "./Reducers/CategoryReducer";
 
 let store = {
     _state: {
@@ -59,6 +60,14 @@ let store = {
             ],
             newCustomerNameRu: '',
             newCustomerNameKz: '',
+        },
+        categoriesDir: {
+            categories: [
+                {id: 1, name_ru: 'Тип 1', name_kz: 'Тип1'},
+                {id: 2, name_ru: 'Тип 2', name_kz: 'Тип2'}
+            ],
+            newCategoriesNameRu: '',
+            newCategoriesNameKz: '',
         },
         mainDocsDir: {
             mainDocs: [
@@ -116,7 +125,8 @@ let store = {
         this._state.departmentsDir = DepartmentReducer(this._state.typesDir, action);
         this._state.statusesDir = StatusReducer(this._state.typesDir, action);
         this._state.rolesDir = RoleReducer(this._state.rolesDir, action);
-        this._state.faqsDir = FaqsReducer(this._state.faqsDir, action);
+        this._state.faqsDir = FaqReducer(this._state.faqsDir, action);
+        this._state.categoriesDir = CategoryReducer(this._state.categoriesDir, action);
         this._state.mainDocsDir = MainDocReducer(this._state.mainDocsDir, action);
 
         this._callSubscriber(this._state);

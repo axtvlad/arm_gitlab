@@ -18,6 +18,8 @@ import FaqsContainer from "./Directories/Faqs/FaqsContainer";
 import AddFaqContainer from "./Directories/Faqs/AddFaqContainer";
 import CustomersContainer from "./Directories/Customers/CustomersContainer";
 import AddCustomerContainer from "./Directories/Customers/AddCustomerContainer";
+import CategoriesContainer from "./Directories/Categories/CategoriesContainer";
+import AddCategoryContainer from "./Directories/Categories/AddCategoryContainer";
 
 const {Content} = Layout;
 
@@ -54,6 +56,9 @@ const WorkSpace = () => {
 
                 <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
                 <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>
+
+                <Route exact path={'/categories'} render={() => <CategoriesContainer/>}/>
+                <Route exact path={'/addCategory'} render={() => <AddCategoryContainer/>}/>
             </div>
         </Content>
     );
