@@ -59,7 +59,6 @@ const FaqsReducer = (state = initialState, action) => {
     }
 };
 
-
 export const addFaqCreator = () => ({
     type: ADD_FAQ
 });

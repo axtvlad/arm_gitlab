@@ -26,10 +26,13 @@ export default class Initial {
             user.login = 'admin';
             user.password = passwordHash.generate('admin');
 
-            user.firstName = 'Admin';
-            user.lastName = 'Admin';
-            user.email = 'admin@example.com';
+            user.firstName = 'Vladislav';
+            user.lastName = 'Axt';
+            user.email = 'new-life-2020@mail.ru';
+            user.phone = 7473381815;
 
+            user.locale = 'ru';
+            user.role_id = 2;
             user.isPremium = true;
             user.isAdmin = true;
 
@@ -67,13 +70,25 @@ export default class Initial {
         const count = await getManager().getRepository(Statuses).count();
 
         if (!count) {
-            const status = new Statuses();
+            const status1 = new Statuses();
+            const status2 = new Statuses();
+            const status3 = new Statuses();
 
-            status.num = 1;
-            status.name_ru = 'Активный';
-            status.name_kz = 'Белсенді';
+            status1.num = 1;
+            status1.name_ru = 'Актуальный';
+            status1.name_kz = 'Нақты';
 
-            await getManager().getRepository(Statuses).save(status);
+            status2.num = 2;
+            status2.name_ru = 'Утратил силу';
+            status2.name_kz = 'Мерзімі біткен';
+
+            status3.num = 3;
+            status3.name_ru = 'Не вступил в силу';
+            status3.name_kz = 'Күшіне енген жоқ';
+
+            await getManager().getRepository(Statuses).save(status1);
+            await getManager().getRepository(Statuses).save(status2);
+            await getManager().getRepository(Statuses).save(status3);
         }
     }
 
@@ -101,7 +116,7 @@ export default class Initial {
         const count = await getManager().getRepository(Customers).count();
 
         if (!count) {
-            const customer = new Genders();
+            const customer = new Customers();
 
             customer.name_ru = 'ГККП "Политехнический колледж"';
 
@@ -113,7 +128,7 @@ export default class Initial {
         const count = await getManager().getRepository(Cities).count();
 
         if (!count) {
-            const city = new Genders();
+            const city = new Cities();
 
             city.name_ru = 'Нур-Султан';
             city.name_kz = 'Нур-Султан';
