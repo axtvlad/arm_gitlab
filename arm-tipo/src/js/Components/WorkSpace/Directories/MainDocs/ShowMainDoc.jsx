@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Doc =(props) => {
+const ShowMainDoc = (props) => {
     return (
         <div className={'content'}>
             privit
@@ -8,4 +8,4 @@ const Doc =(props) => {
     )
 };
 
-export default Doc;
+export default ShowMainDoc;

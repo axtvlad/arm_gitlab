@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import Cities from "./Cities";
+import {setCitiesCreator} from "../../../../../redux/Reducers/CityReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -7,6 +8,14 @@ let mapStateToProps = (state) => {
     }
 };
 
-const CitiesContainer = connect(mapStateToProps, null)(Cities);
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setCities: (cities) => {
+            dispatch(setCitiesCreator(cities))
+        }
+    }
+};
+
+const CitiesContainer = connect(mapStateToProps, mapDispatchToProps)(Cities);
 
 export default CitiesContainer;

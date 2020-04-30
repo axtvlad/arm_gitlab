@@ -19,7 +19,7 @@ import {
     updateMainDocTextKzCreator,
     updateMainDocTextRuCreator,
     updateMainDocTypeIdCreator
-} from "../../../../redux/Reducers/MainDocReducer";
+} from "../../../../../redux/Reducers/MainDocReducer";
 
 const dateNow = () => {
     let date = new Date();

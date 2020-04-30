@@ -4,6 +4,7 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import React from "react";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,20 +32,46 @@ const columns = [
     }
 ];
 
-const Categories = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/addCategory'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить категорию
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.categories}/>
-        </div>
-    )
-};
+class Categories extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.categories.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/categories', config)
+                .then(response => {
+                    this.props.setCategories(response.data.data);
+                    console.log('categories: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/addCategory'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить категорию
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.categories}/>
+            </div>
+        )
+    }
+}
+
 export default Categories;

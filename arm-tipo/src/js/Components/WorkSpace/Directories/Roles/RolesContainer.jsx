@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import Roles from "./Roles";
+import {setRolesCreator} from "../../../../../redux/Reducers/RoleReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -7,6 +8,14 @@ let mapStateToProps = (state) => {
     }
 };
 
-const RolesContainer = connect(mapStateToProps, null)(Roles);
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setRoles: (roles) => {
+            dispatch(setRolesCreator(roles))
+        }
+    }
+};
+
+const RolesContainer = connect(mapStateToProps, mapDispatchToProps)(Roles);
 
 export default RolesContainer;

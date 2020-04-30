@@ -3,6 +3,7 @@ const UPDATE_FAQ_QUESTION_RU = 'update_faq_question_ru';
 const UPDATE_FAQ_QUESTION_KZ = 'update_faq_question_kz';
 const UPDATE_FAQ_ANSWER_RU = 'update_faq_answer_ru';
 const UPDATE_FAQ_ANSWER_KZ = 'update_faq_answer_kz';
+const SET_FAQS = 'set_faqs';
 
 let initialState = {
     faqs: [
@@ -53,7 +54,12 @@ const FaqReducer = (state = initialState, action) => {
             return {
                 ...state,
                 newFaqAnswerKz: action.newFaqAnswerKz
-        };
+            };
+        case SET_FAQS:
+            return {
+                ...state,
+                faqs: [...state.faqs, ...action.faqs]
+            };
         default:
             return state;
     }
@@ -81,6 +87,11 @@ export const updateFaqAnswerRuCreator = (newFaqAnswerRu) => ({
 export const updateFaqAnswerKzCreator = (newFaqAnswerKz) => ({
     type: UPDATE_FAQ_ANSWER_KZ,
     newFaqAnswerKz
+});
+
+export const setFaqsCreator = (faqs) => ({
+    type: SET_FAQS,
+    faqs
 });
 
 export default FaqReducer;

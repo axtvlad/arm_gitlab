@@ -4,6 +4,7 @@ import {Button, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,21 +32,46 @@ const columns = [
     }
 ];
 
-const Roles = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/addRole'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить роль
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.roles}/>
-        </div>
-    )
-};
+class Roles extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.roles.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/roles', config)
+                .then(response => {
+                    this.props.setRoles(response.data.data);
+                    console.log('roles: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/addRole'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить роль
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.roles}/>
+            </div>
+        )
+    }
+}
 
 export default Roles;

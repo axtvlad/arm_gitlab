@@ -4,6 +4,7 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {NavLink} from "react-router-dom";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,21 +32,46 @@ const columns = [
     }
 ];
 
-const Types = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/addType'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить тип документа
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.types}/>
-        </div>
-    )
-};
+class Types extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.types.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/types', config)
+                .then(response => {
+                    this.props.setTypes(response.data.data);
+                    console.log('types: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/addType'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить тип документа
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.types}/>
+            </div>
+        )
+    }
+}
 
 export default Types;

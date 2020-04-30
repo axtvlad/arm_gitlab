@@ -1,13 +1,10 @@
 const ADD_STATUS = 'add_status';
 const UPDATE_STATUS_NAME_RU = 'update_status_name_ru';
 const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
+const SET_STATUSES = 'set_statuses';
 
 let initialState = {
-    statuses: [
-        {id: 1, name_ru: 'Статус 1', name_kz: 'Статус1'},
-        {id: 2, name_ru: 'Статус 2', name_kz: 'Статус2'},
-        {id: 3, name_ru: 'Статус 3', name_kz: 'Статус3'},
-    ],
+    statuses: [],
     newStatusNameRu: '',
     newStatusNameKz: '',
 };
@@ -36,6 +33,11 @@ const StatusReducer = (state = initialState, action) => {
                 ...state,
                 newStatusNameKz: action.newNameKz
             };
+        case SET_STATUSES:
+            return {
+                ...state,
+                statuses: [...state.statuses, ...action.statuses]
+            };
         default:
             return state;
     }
@@ -54,6 +56,11 @@ export const updateStatusNameRuCreator = (newNameRu) => ({
 export const updateStatusNameKzCreator = (newNameKz) => ({
     type: UPDATE_STATUS_NAME_KZ,
     newNameKz
+});
+
+export const setStatusesCreator = (statuses) => ({
+    type: SET_STATUSES,
+    statuses
 });
 
 export default StatusReducer;

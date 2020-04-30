@@ -4,6 +4,7 @@ import {Button, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,21 +32,46 @@ const columns = [
     }
 ];
 
-const Statuses = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/addStatus'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить статус
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.statuses}/>
-        </div>
-    )
-};
+class Statuses extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.statuses.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/statuses', config)
+                .then(response => {
+                    this.props.setStatuses(response.data.data);
+                    console.log('statuses: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/addStatus'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить статус
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.statuses}/>
+            </div>
+        )
+    }
+}
 
 export default Statuses;

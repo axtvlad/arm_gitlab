@@ -4,6 +4,7 @@ import {Button, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,21 +32,46 @@ const columns = [
     }
 ];
 
-const Departments = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/addDepartment'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить отдел
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.departments}/>
-        </div>
-    )
-};
+class Departments extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.departments.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/departments', config)
+                .then(response => {
+                    this.props.setDepartments(response.data.data);
+                    console.log('departments: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/addDepartment'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить отдел
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.departments}/>
+            </div>
+        )
+    }
+}
 
 export default Departments;

@@ -1,18 +1,19 @@
 import React from 'react'
 import {Col, Row, Statistic} from 'antd';
-import {LikeOutlined} from '@ant-design/icons';
+import TeamOutlined from "@ant-design/icons/lib/icons/TeamOutlined";
+import CopyOutlined from "@ant-design/icons/lib/icons/CopyOutlined";
 
-const Home = (props) => {
+const Home = () => {
     return (
         <div className={'content'}>
             <Row gutter={16}>
-            <Col span={12}>
-                <Statistic title="Feedback" value={1128} prefix={<LikeOutlined/>}/>
-            </Col>
-            <Col span={12}>
-                <Statistic title="Unmerged" value={93} suffix="/ 100"/>
-            </Col>
-        </Row></div>
+                <Col span={12}>
+                    <Statistic title="Пользователей в системе" value={6} prefix={<TeamOutlined/>}/>
+                </Col>
+                <Col span={12}>
+                    <Statistic title="Всего документов" value={45} prefix={<CopyOutlined/>}/>
+                </Col>
+            </Row></div>
 
     )
 };

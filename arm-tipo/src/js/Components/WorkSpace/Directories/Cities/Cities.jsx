@@ -4,6 +4,7 @@ import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import React from "react";
 import {NavLink} from "react-router-dom";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import * as axios from "axios";
 
 const columns = [
     {
@@ -31,20 +32,46 @@ const columns = [
     }
 ];
 
-const Cities = (props) => {
-    return (
-        <div className={'content'}>
-            <NavLink to={'/AddCity'}>
-                <Button
-                    type="danger"
-                    shape="round"
-                    icon={<PlusOutlined/>}
-                >
-                    Добавить город
-                </Button>
-            </NavLink>
-            <Table columns={columns} dataSource={props.cities}/>
-        </div>
-    )
-};
+class Cities extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.cities.length === 0) {
+            const user = "Admin";
+            const pass = "admin";
+
+            const authorizationBasic = window.btoa(user + ':' + pass);
+            const config = {
+                "headers": {
+                    "Authorization": "Basic " + authorizationBasic
+                }
+            };
+
+            axios
+                .get('http://185.22.66.183:8080/rest/api/cities', config)
+                .then(response => {
+                    this.props.setCities(response.data.data);
+                    console.log('cities: ', response.data.data);
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div className={'content'}>
+                <NavLink to={'/AddCity'}>
+                    <Button
+                        type="danger"
+                        shape="round"
+                        icon={<PlusOutlined/>}
+                    >
+                        Добавить город
+                    </Button>
+                </NavLink>
+                <Table columns={columns} dataSource={this.props.cities}/>
+            </div>
+        )
+    }
+}
+
 export default Cities;

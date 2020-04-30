@@ -2,16 +2,16 @@ import {Breadcrumb, Layout} from "antd";
 import React from "react";
 import {Route} from "react-router-dom";
 import Home from "./Home/Home";
-import Doc from "./Docs/Doc";
+import ShowMainDoc from "./Directories/MainDocs/ShowMainDoc";
 import DepartmentDescription from "./Descriptions/DepartmentDescription";
 import AddTypeContainer from "./Directories/Types/AddTypeContainer";
-import AddMainDocContainer from "./MainDocs/AddMainDocContainer";
+import AddMainDocContainer from "./Directories/MainDocs/AddMainDocContainer";
 import TypesContainer from "./Directories/Types/TypesContainer";
 import DepartmentsContainer from "./Directories/Departments/DepartmentsContainer";
 import StatusesContainer from "./Directories/Statuses/StatusesContainer";
 import AddStatusContainer from "./Directories/Statuses/AddStatusContainer";
 import AddDepartmentContainer from "./Directories/Departments/AddDepartmentContainer";
-import MainDocsContainer from "./MainDocs/MainDocsContainer";
+import MainDocsContainer from "./Directories/MainDocs/MainDocsContainer";
 import RolesContainer from "./Directories/Roles/RolesContainer";
 import AddRoleContainer from "./Directories/Roles/AddRoleContainer";
 import FaqsContainer from "./Directories/Faqs/FaqsContainer";
@@ -38,7 +38,7 @@ const WorkSpace = () => {
                 <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
 
                 <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
-                <Route exact path={'/doc'} render={() => <Doc/>}/>
+                <Route exact path={'/doc'} render={() => <ShowMainDoc/>}/>
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>

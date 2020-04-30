@@ -1,6 +1,7 @@
 const ADD_CATEGORY = 'add_category';
 const UPDATE_CATEGORY_NAME_RU = 'update_category_name_ru';
 const UPDATE_CATEGORY_NAME_KZ = 'update_category_name_kz';
+const SET_CATEGORIES = 'set_categories';
 
 let initialState = {
     categories: [
@@ -34,6 +35,11 @@ const CategoryReducer = (state = initialState, action) => {
                 ...state,
                 newCategoryNameKz: action.newNameKz
             };
+        case SET_CATEGORIES:
+            return {
+                ...state,
+                categories: [...state.categories, ...action.categories]
+            };
         default:
             return state;
     }
@@ -52,6 +58,11 @@ export const updateCategoryNameRuCreator = (newNameRu) => ({
 export const updateCategoryNameKzCreator = (newNameKz) => ({
     type: UPDATE_CATEGORY_NAME_KZ,
     newNameKz
+});
+
+export const setCategoriesCreator = (categories) => ({
+    type: SET_CATEGORIES,
+    categories
 });
 
 export default CategoryReducer;

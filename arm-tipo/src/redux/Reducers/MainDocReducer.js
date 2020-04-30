@@ -1,21 +1,22 @@
-const ADD_MAIN_DOC = 'add_main_doc',
-    UPDATE_MAIN_DOC_NAME_RU = 'update_main_doc_name_ru',
-    UPDATE_MAIN_DOC_NAME_KZ = 'update_main_doc_name_kz',
-    UPDATE_MAIN_DOC_NUMBER = 'update_main_doc_number',
-    UPDATE_MAIN_DOC_DEPARTMENT_ID = 'update_main_doc_department_id',
-    UPDATE_MAIN_DOC_STATUS_ID = 'update_main_doc_status_id',
-    UPDATE_MAIN_DOC_BEGIN_DATE = 'update_main_doc_begin_date',
-    UPDATE_MAIN_DOC_FINISH_DATE = 'update_main_doc_finish_date',
-    UPDATE_MAIN_DOC_PUB_DATE = 'update_main_doc_pub_date',
-    UPDATE_MAIN_DOC_HEADER_RU = 'update_main_doc_header_ru',
-    UPDATE_MAIN_DOC_HEADER_KZ = 'update_main_doc_header_kz',
-    UPDATE_MAIN_DOC_FILE_RU = 'update_main_doc_file_ru',
-    UPDATE_MAIN_DOC_FILE_KZ = 'update_main_doc_file_kz',
-    UPDATE_MAIN_DOC_DESCRIPTION_RU = 'update_main_doc_description_ru',
-    UPDATE_MAIN_DOC_DESCRIPTION_KZ = 'update_main_doc_description_kz',
-    UPDATE_MAIN_DOC_TYPE_ID = 'update_main_doc_type_id',
-    UPDATE_MAIN_DOC_TEXT_RU = 'update_main_doc_text_ru',
-    UPDATE_MAIN_DOC_TEXT_KZ = 'update_main_doc_text_kz';
+const ADD_MAIN_DOC = 'add_main_doc';
+const UPDATE_MAIN_DOC_NAME_RU = 'update_main_doc_name_ru';
+const UPDATE_MAIN_DOC_NAME_KZ = 'update_main_doc_name_kz';
+const UPDATE_MAIN_DOC_NUMBER = 'update_main_doc_number';
+const UPDATE_MAIN_DOC_DEPARTMENT_ID = 'update_main_doc_department_id';
+const UPDATE_MAIN_DOC_STATUS_ID = 'update_main_doc_status_id';
+const UPDATE_MAIN_DOC_BEGIN_DATE = 'update_main_doc_begin_date';
+const UPDATE_MAIN_DOC_FINISH_DATE = 'update_main_doc_finish_date';
+const UPDATE_MAIN_DOC_PUB_DATE = 'update_main_doc_pub_date';
+const UPDATE_MAIN_DOC_HEADER_RU = 'update_main_doc_header_ru';
+const UPDATE_MAIN_DOC_HEADER_KZ = 'update_main_doc_header_kz';
+const UPDATE_MAIN_DOC_FILE_RU = 'update_main_doc_file_ru';
+const UPDATE_MAIN_DOC_FILE_KZ = 'update_main_doc_file_kz';
+const UPDATE_MAIN_DOC_DESCRIPTION_RU = 'update_main_doc_description_ru';
+const UPDATE_MAIN_DOC_DESCRIPTION_KZ = 'update_main_doc_description_kz';
+const UPDATE_MAIN_DOC_TYPE_ID = 'update_main_doc_type_id';
+const UPDATE_MAIN_DOC_TEXT_RU = 'update_main_doc_text_ru';
+const UPDATE_MAIN_DOC_TEXT_KZ = 'update_main_doc_text_kz';
+const SET_MAIN_DOCS = 'set_main_docs';
 
 let initialState = {
     mainDocs: [
@@ -248,6 +249,11 @@ const MainDocReducer = (state = initialState, action) => {
                 ...state,
                 newMainDocTypeId: action.newTypeId
             };
+        case SET_MAIN_DOCS:
+            return {
+                ...state,
+                mainDocs: [...state.mainDocs, ...action.mainDocs]
+            };
         default:
             return state;
     }
@@ -341,6 +347,11 @@ export const updateMainDocTextRuCreator = (newTextRu) => ({
 export const updateMainDocTextKzCreator = (newTextKz) => ({
     type: UPDATE_MAIN_DOC_TEXT_KZ,
     newTextKz
+});
+
+export const setMainDocsCreator = (mainDocs) => ({
+    type: SET_MAIN_DOCS,
+    mainDocs
 });
 
 export default MainDocReducer;

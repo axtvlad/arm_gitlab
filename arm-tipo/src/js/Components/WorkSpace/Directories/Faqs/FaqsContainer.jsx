@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import Faqs from "./Faqs"
+import {setFaqsCreator} from "../../../../../redux/Reducers/FaqReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -7,6 +8,14 @@ let mapStateToProps = (state) => {
     }
 };
 
-const FaqsContainer = connect(mapStateToProps, null)(Faqs);
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setFaqs: (faqs) => {
+            dispatch(setFaqsCreator(faqs))
+        }
+    }
+};
+
+const FaqsContainer = connect(mapStateToProps, mapDispatchToProps)(Faqs);
 
 export default FaqsContainer;

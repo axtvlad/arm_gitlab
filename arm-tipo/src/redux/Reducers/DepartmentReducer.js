@@ -1,6 +1,7 @@
 const ADD_DEPARTMENT = 'add_department';
 const UPDATE_DEPARTMENT_NAME_RU = 'update_department_name_ru';
 const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
+const SET_DEPARTMENTS = 'set_departments';
 
 let initialState = {
     departments: [
@@ -36,6 +37,11 @@ const DepartmentReducer = (state = initialState, action) => {
                 ...state,
                 newDepartmentNameKz: action.newNameKz
             };
+        case SET_DEPARTMENTS:
+            return {
+                ...state,
+                departments: [...state.departments, ...action.departments]
+            };
         default:
             return state;
     }
@@ -53,6 +59,11 @@ export const updateDepartmentNameRuCreator = (newNameRu) => ({
 export const updateDepartmentNameKzCreator = (newNameKz) => ({
     type: UPDATE_DEPARTMENT_NAME_KZ,
     newNameKz
+});
+
+export const setDepartmentsCreator = (departments) => ({
+    type: SET_DEPARTMENTS,
+    departments
 });
 
 export default DepartmentReducer;
