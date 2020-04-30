@@ -1,37 +1,38 @@
+import React from "react";
 import {Button, Form, Input} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import React from "react";
+
 
 const formItemLayout = {
     labelCol: {span: 6},
     wrapperCol: {span: 14},
 };
 
-const AddCategory = (props) => {
+const AddCity = (props) => {
     const [form] = Form.useForm();
 
     let fromState = {
-        name_ru: props.categoriesDir.newCategoryNameRu,
-        name_kz: props.categoriesDir.newCategoryNameKz
+        name_ru: props.citiesDir.newCityNameRu,
+        name_kz: props.citiesDir.newCityNameKz
     };
 
     console.log(fromState);
 
     form.setFieldsValue(fromState);
 
-    const addCategory = (values) => {
+    const addCity = (values) => {
         console.log('Received values of form: ', values);
-        props.addCategory();
+        props.addCity();
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateCategoryNameRu(name_ru);
+        props.updateCityNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateCategoryNameKz(name_kz);
+        props.updateCityNameKz(name_kz);
     };
 
     return (
@@ -39,7 +40,7 @@ const AddCategory = (props) => {
             <Form
                 name="validate_other"
                 {...formItemLayout}
-                onFinish={addCategory}
+                onFinish={addCity}
                 form={form}
             >
                 <Form.Item
@@ -47,11 +48,11 @@ const AddCategory = (props) => {
                     label={'Наименование (ru)'}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите наименование категории на русском!'
+                        message: 'Пожалуйста, введите наименование города на русском!'
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите категорию на русском!'} onChange={changeNameRu}/>
+                    <Input placeholder={'Введите город на русском!'} onChange={changeNameRu}/>
                 </Form.Item>
 
                 <Form.Item
@@ -59,12 +60,12 @@ const AddCategory = (props) => {
                     label={'Наименование (kz)'}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите категорию на казахском!'
+                        message: 'Пожалуйста, введите город на казахском!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите категорию на казахском!'}
+                        placeholder={'Введите город на казахском!'}
                         onChange={changeNameKz}
                     />
                 </Form.Item>
@@ -84,4 +85,4 @@ const AddCategory = (props) => {
     );
 };
 
-export default AddCategory;
+export default AddCity;

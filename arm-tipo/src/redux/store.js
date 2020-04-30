@@ -5,6 +5,7 @@ import MainDocReducer from "./Reducers/MainDocReducer";
 import RoleReducer from "./Reducers/RoleReducer";
 import FaqReducer from "./Reducers/FaqReducer";
 import CategoryReducer from "./Reducers/CategoryReducer";
+import CityReducer from "./Reducers/CityReducer";
 
 let store = {
     _state: {
@@ -66,8 +67,16 @@ let store = {
                 {id: 1, name_ru: 'Тип 1', name_kz: 'Тип1'},
                 {id: 2, name_ru: 'Тип 2', name_kz: 'Тип2'}
             ],
-            newCategoriesNameRu: '',
-            newCategoriesNameKz: '',
+            newCategoryNameRu: '',
+            newCategoryNameKz: '',
+        },
+        citiesDir: {
+            cities: [
+                {id: 1, name_ru: 'Город 1', name_kz: 'Қала 1'},
+                {id: 2, name_ru: 'Город 2', name_kz: 'Қала 2'}
+            ],
+            newCityNameRu: '',
+            newCityNameKz: '',
         },
         mainDocsDir: {
             mainDocs: [
@@ -126,6 +135,7 @@ let store = {
         this._state.statusesDir = StatusReducer(this._state.typesDir, action);
         this._state.rolesDir = RoleReducer(this._state.rolesDir, action);
         this._state.faqsDir = FaqReducer(this._state.faqsDir, action);
+        this._state.citiessDir = CityReducer(this._state.faqsDir, action);
         this._state.categoriesDir = CategoryReducer(this._state.categoriesDir, action);
         this._state.mainDocsDir = MainDocReducer(this._state.mainDocsDir, action);
 

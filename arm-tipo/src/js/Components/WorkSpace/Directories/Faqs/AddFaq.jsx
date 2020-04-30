@@ -72,7 +72,7 @@ const AddFaq = (props) => {
                     name={'question_kz'}
                     label={'Вопрос (kz)'}
                     rules={[{
-                        required: false,
+                        required: true,
                         message: 'Пожалуйста, введите вопрос на казахском!'
                     }]}
                     hasFeedback
@@ -101,7 +101,7 @@ const AddFaq = (props) => {
                     name={'answer_kz'}
                     label={'Ответ (kz)'}
                     rules={[{
-                        required: false,
+                        required: true,
                         message: 'Пожалуйста, введите ответ на казахском!'
                     }]}
                     hasFeedback
