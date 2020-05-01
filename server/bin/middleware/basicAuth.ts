@@ -7,7 +7,7 @@ import {Users} from "../../modules/users/UsersModel";
 const reqAuthSecurity = async (req: Request, res: Response, next?: Function) => {
     const authorization = req.get('Authorization');
 
-    if(!authorization){
+    if (!authorization) {
         return res.sendStatus(401);
     }
 
@@ -21,7 +21,7 @@ const reqAuthSecurity = async (req: Request, res: Response, next?: Function) => 
         }
     });
 
-    if(!user || !passwordHash.verify(basic[1], user.password)){
+    if (!user || !passwordHash.verify(basic[1], user.password)) {
         return res.sendStatus(403);
     }
 
@@ -29,6 +29,6 @@ const reqAuthSecurity = async (req: Request, res: Response, next?: Function) => 
     req.setLocale(user.locale);
 
     next();
-}
+};
 
 export default reqAuthSecurity;
