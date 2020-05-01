@@ -2,11 +2,13 @@ const ADD_ROLE = 'add_role';
 const UPDATE_ROLE_NAME_RU = 'update_role_name_ru';
 const UPDATE_ROLE_NAME_KZ = 'update_role_name_kz';
 const SET_ROLES = 'set_roles';
+const SET_ROLES_COUNT = 'set_roles_count';
 
 let initialState = {
     roles: [],
     newRoleNameRu: '',
     newRoleNameKz: '',
+    rolesCount: 0,
 };
 
 const RoleReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ const RoleReducer = (state = initialState, action) => {
                 ...state,
                 roles: [...state.roles, ...action.roles]
             };
+        case SET_ROLES_COUNT:
+            return {
+                ...state,
+                rolesCount: action.rolesCount
+            };
         default:
             return state;
     }
@@ -61,6 +68,11 @@ export const updateRoleNameKzCreator = (newNameKz) => ({
 export const setRolesCreator = (roles) => ({
     type: SET_ROLES,
     roles
+});
+
+export const setRolesCountCreator = (rolesCount) => ({
+    type: SET_ROLES_COUNT,
+    rolesCount
 });
 
 export default RoleReducer;

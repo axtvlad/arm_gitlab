@@ -2,11 +2,13 @@ const ADD_CUSTOMER = 'add_customer';
 const UPDATE_CUSTOMER_NAME_RU = 'update_customer_name_ru';
 const UPDATE_CUSTOMER_NAME_KZ = 'update_customer_name_kz';
 const SET_CUSTOMERS = 'set_customers';
+const SET_CUSTOMERS_COUNT = 'set_customers_count';
 
 let initialState = {
     customers: [],
     newCustomerNameRu: '',
     newCustomerNameKz: '',
+    customersCount: 0,
 };
 
 const CustomerReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ const CustomerReducer = (state = initialState, action) => {
                 ...state,
                 customers: [...state.customers, ...action.customers]
             };
+        case SET_CUSTOMERS_COUNT:
+            return {
+                ...state,
+                customersCount: action.customersCount
+            };
         default:
             return state;
     }
@@ -60,6 +67,11 @@ export const updateCustomerNameKzCreator = (newNameKz) => ({
 export const setCustomersCreator = (customers) => ({
     type: SET_CUSTOMERS,
     customers
+});
+
+export const setCustomersCountCreator = (customersCount) => ({
+    type: SET_CUSTOMERS_COUNT,
+    customersCount
 });
 
 export default CustomerReducer;

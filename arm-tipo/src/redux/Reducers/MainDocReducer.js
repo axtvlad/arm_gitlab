@@ -17,6 +17,7 @@ const UPDATE_MAIN_DOC_TYPE_ID = 'update_main_doc_type_id';
 const UPDATE_MAIN_DOC_TEXT_RU = 'update_main_doc_text_ru';
 const UPDATE_MAIN_DOC_TEXT_KZ = 'update_main_doc_text_kz';
 const SET_MAIN_DOCS = 'set_main_docs';
+const SET_MAIN_DOCS_COUNT = 'set_main_docs_count';
 
 let initialState = {
     mainDocs: [
@@ -118,6 +119,7 @@ let initialState = {
     newMainDocTypeId: null,
     newMainDocTextRu: '',
     newMainDocTextKz: '',
+    mainDocsCount: 0,
 };
 
 const MainDocReducer = (state = initialState, action) => {
@@ -254,6 +256,11 @@ const MainDocReducer = (state = initialState, action) => {
                 ...state,
                 mainDocs: [...state.mainDocs, ...action.mainDocs]
             };
+        case SET_MAIN_DOCS_COUNT:
+            return {
+                ...state,
+                mainDocsCount: action.mainDocsCount
+            };
         default:
             return state;
     }
@@ -352,6 +359,11 @@ export const updateMainDocTextKzCreator = (newTextKz) => ({
 export const setMainDocsCreator = (mainDocs) => ({
     type: SET_MAIN_DOCS,
     mainDocs
+});
+
+export const setMainDocsCountCreator = (mainDocsCount) => ({
+    type: SET_MAIN_DOCS_COUNT,
+    mainDocsCount
 });
 
 export default MainDocReducer;

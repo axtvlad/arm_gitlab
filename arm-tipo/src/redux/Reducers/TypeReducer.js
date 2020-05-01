@@ -2,11 +2,13 @@ const ADD_TYPE = 'add_type';
 const UPDATE_TYPE_NAME_RU = 'update_type_name_ru';
 const UPDATE_TYPE_NAME_KZ = 'update_type_name_kz';
 const SET_TYPES = 'set_types';
+const SET_TYPES_COUNT = 'set_types_count';
 
 let initialState = {
     types: [],
     newTypeNameRu: '',
     newTypeNameKz: '',
+    typesCount: 0,
 };
 
 const TypeReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ const TypeReducer = (state = initialState, action) => {
                 ...state,
                 types: [...state.types, ...action.types]
             };
+        case SET_TYPES_COUNT:
+            return {
+                ...state,
+                typesCount: action.typesCount
+            };
         default:
             return state;
     }
@@ -60,6 +67,11 @@ export const updateTypeNameKzCreator = (newNameKz) => ({
 export const setTypesCreator = (types) => ({
     type: SET_TYPES,
     types
+});
+
+export const setTypesCountCreator = (typesCount) => ({
+    type: SET_TYPES_COUNT,
+    typesCount
 });
 
 export default TypeReducer;

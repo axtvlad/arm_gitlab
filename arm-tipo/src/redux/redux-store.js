@@ -8,6 +8,7 @@ import FaqReducer from "./Reducers/FaqReducer";
 import CustomerReducer from "./Reducers/CustomerReducer";
 import CategoryReducer from "./Reducers/CategoryReducer";
 import CityReducer from "./Reducers/CityReducer";
+import UserReducer from "./Reducers/UserReducer";
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -18,7 +19,8 @@ let reducers = combineReducers({
     faqsDir: FaqReducer,
     customersDir: CustomerReducer,
     categoriesDir: CategoryReducer,
-    citiesDir: CityReducer
+    citiesDir: CityReducer,
+    usersDir: UserReducer
 });
 
 let store = createStore(reducers);

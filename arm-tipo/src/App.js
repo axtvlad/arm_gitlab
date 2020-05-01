@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import UserInterface from "./js/UserInterface";
+import UserInterface from "./components/UserInterface";
 
 const App = () => {
     return (

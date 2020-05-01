@@ -2,11 +2,13 @@ const ADD_STATUS = 'add_status';
 const UPDATE_STATUS_NAME_RU = 'update_status_name_ru';
 const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
 const SET_STATUSES = 'set_statuses';
+const SET_STATUSES_COUNT = 'set_statuses_count';
 
 let initialState = {
     statuses: [],
     newStatusNameRu: '',
     newStatusNameKz: '',
+    statusesCount: 0,
 };
 
 const StatusReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ const StatusReducer = (state = initialState, action) => {
                 ...state,
                 statuses: [...state.statuses, ...action.statuses]
             };
+        case SET_STATUSES_COUNT:
+            return {
+                ...state,
+                statusesCount: action.statusesCount
+            };
         default:
             return state;
     }
@@ -61,6 +68,11 @@ export const updateStatusNameKzCreator = (newNameKz) => ({
 export const setStatusesCreator = (statuses) => ({
     type: SET_STATUSES,
     statuses
+});
+
+export const setStatusesCountCreator = (statusesCount) => ({
+    type: SET_STATUSES_COUNT,
+    statusesCount
 });
 
 export default StatusReducer;
