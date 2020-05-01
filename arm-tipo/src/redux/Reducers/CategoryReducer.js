@@ -4,9 +4,7 @@ const UPDATE_CATEGORY_NAME_KZ = 'update_category_name_kz';
 const SET_CATEGORIES = 'set_categories';
 
 let initialState = {
-    categories: [
-        {id: 1, name_ru: 'Закон', name_kz: 'Заң'},
-    ],
+    categories: [],
     newCategoryNameRu: '',
     newCategoryNameKz: '',
 };

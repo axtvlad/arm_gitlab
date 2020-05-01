@@ -4,11 +4,7 @@ const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
 const SET_DEPARTMENTS = 'set_departments';
 
 let initialState = {
-    departments: [
-        {id: 1, name_ru: 'Отдел 1', name_kz: 'Отдел1'},
-        {id: 2, name_ru: 'Отдел 2', name_kz: 'Отдел2'},
-        {id: 3, name_ru: 'Отдел 3', name_kz: 'Отдел3'},
-    ],
+    departments: [],
     newDepartmentNameRu: '',
     newDepartmentNameKz: '',
 };
