@@ -126,6 +126,7 @@ export default new class StatusesController {
             config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const statuses = await getManager().getRepository(Statuses).find(config);
+            const totalCount = await getManager().getRepository(Statuses).count();
 
             /**
              * custom sql
@@ -135,6 +136,7 @@ export default new class StatusesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: statuses,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

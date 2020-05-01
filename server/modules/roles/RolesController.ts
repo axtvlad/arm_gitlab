@@ -126,6 +126,7 @@ export default new class RolesController {
             config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const roles = await getManager().getRepository(Roles).find(config);
+            const totalCount = await getManager().getRepository(Roles).count();
 
             /**
              * custom sql
@@ -135,6 +136,7 @@ export default new class RolesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: roles,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

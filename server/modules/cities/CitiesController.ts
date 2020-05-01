@@ -107,15 +107,14 @@ export default new class CitiesController {
             config.select = ['id', 'name_ru', 'name_kz'];
 
             const cities = await getManager().getRepository(Cities).find(config);
+            const totalCount = await getManager().getRepository(Cities).count();
 
-            /**
-             * custom sql
-             */
-            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+           // const totalCount = await getManager().query('SELECT COUNT(*) FROM cities');
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: cities,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

@@ -100,6 +100,7 @@ export default new class CustomersController {
             config.select = ['id', 'name_ru', 'name_kz'];
 
             const customers = await getManager().getRepository(Customers).find(config);
+            const totalCount = await getManager().getRepository(Customers).count();
 
             /**
              * custom sql
@@ -109,6 +110,7 @@ export default new class CustomersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: customers,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

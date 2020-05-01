@@ -186,6 +186,7 @@ export default new class UsersController {
             }
 
             const users = await getManager().getRepository(Users).find(config);
+            const totalCount = await getManager().getRepository(Users).count();
 
             /**
              * custom sql
@@ -195,6 +196,7 @@ export default new class UsersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: users,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

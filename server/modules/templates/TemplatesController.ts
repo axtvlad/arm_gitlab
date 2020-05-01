@@ -128,6 +128,7 @@ export default new class TemplatesController {
             config.select = ['id', 'name_ru', 'name_kz', 'category_id', 'file_ru', 'file_kz'];
 
             const templates = await getManager().getRepository(Templates).find(config);
+            const totalCount = await getManager().getRepository(Templates).count();
 
             /**
              * custom sql
@@ -137,6 +138,7 @@ export default new class TemplatesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: templates,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

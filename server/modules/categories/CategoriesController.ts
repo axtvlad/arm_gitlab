@@ -107,15 +107,12 @@ export default new class CategoriesController {
             config.select = ['id', 'name_ru', 'name_kz'];
 
             const categories = await getManager().getRepository(Categories).find(config);
-
-            /**
-             * custom sql
-             */
-            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+            const totalCount = await getManager().getRepository(Categories).count();
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: categories,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

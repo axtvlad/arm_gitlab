@@ -113,6 +113,7 @@ export default new class OtherDocsController {
             config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
 
             const otherDocs = await getManager().getRepository(OtherDocs).find(config);
+            const totalCount = await getManager().getRepository(OtherDocs).count();
 
             /**
              * custom sql
@@ -122,6 +123,7 @@ export default new class OtherDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: otherDocs,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

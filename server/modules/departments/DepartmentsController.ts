@@ -107,6 +107,7 @@ export default new class DepartmentsController {
             config.select = ['id', 'name_ru', 'name_kz'];
 
             const departments = await getManager().getRepository(Departments).find(config);
+            const totalCount = await getManager().getRepository(Departments).count();
 
             /**
              * custom sql
@@ -116,6 +117,7 @@ export default new class DepartmentsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: departments,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

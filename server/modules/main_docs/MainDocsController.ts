@@ -209,6 +209,7 @@ export default new class MainDocsController {
                 "description_ru", "type_id", "text_ru", "text_kz"];
 
             const mainDocs = await getManager().getRepository(MainDocs).find(config);
+            const totalCount = await getManager().getRepository(MainDocs).count();
 
             /**
              * custom sql
@@ -218,6 +219,7 @@ export default new class MainDocsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: mainDocs,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

@@ -113,6 +113,7 @@ export default new class FaqsController {
             config.select = ['id', 'question_ru', 'question_kz', 'answer_ru', 'answer_kz'];
 
             const faqs = await getManager().getRepository(Faqs).find(config);
+            const totalCount = await getManager().getRepository(Faqs).count();
 
             /**
              * custom sql
@@ -122,6 +123,7 @@ export default new class FaqsController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: faqs,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

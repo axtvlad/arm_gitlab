@@ -107,6 +107,7 @@ export default new class TypesController {
             config.select = ['id', 'name_ru', 'name_kz'];
 
             const types = await getManager().getRepository(Types).find(config);
+            const totalCount = await getManager().getRepository(Types).count();
 
             /**
              * custom sql
@@ -116,6 +117,7 @@ export default new class TypesController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: types,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

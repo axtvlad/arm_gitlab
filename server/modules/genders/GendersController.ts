@@ -126,6 +126,7 @@ export default new class GendersController {
             config.select = ['id', 'num', 'name_ru', 'name_kz'];
 
             const genders = await getManager().getRepository(Genders).find(config);
+            const totalCount = await getManager().getRepository(Genders).count();
 
             /**
              * custom sql
@@ -135,6 +136,7 @@ export default new class GendersController {
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: genders,
+                totalCount,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {
