@@ -114,7 +114,7 @@ export default new class GendersController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'num', 'name_ru', 'name_kz'];
+            config.select = ['id', 'name_ru', 'name_kz'];
 
             const genders = await getManager().getRepository(Genders).find(config);
             const totalCount = await getManager().getRepository(Genders).count();

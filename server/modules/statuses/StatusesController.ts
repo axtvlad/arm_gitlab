@@ -114,7 +114,7 @@ export default new class StatusesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'num', 'name_ru', 'name_kz'];
+            config.select = ['id', 'name_ru', 'name_kz'];
 
             const statuses = await getManager().getRepository(Statuses).find(config);
             const totalCount = await getManager().getRepository(Statuses).count();

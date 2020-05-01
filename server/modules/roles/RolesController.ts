@@ -114,7 +114,7 @@ export default new class RolesController {
                 config.take = 30;
             }
 
-            config.select = ['id', 'num', 'name_ru', 'name_kz'];
+            config.select = ['id', 'name_ru', 'name_kz'];
 
             const roles = await getManager().getRepository(Roles).find(config);
             const totalCount = await getManager().getRepository(Roles).count();
