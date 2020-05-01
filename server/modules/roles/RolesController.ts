@@ -9,7 +9,6 @@ import {
     ERROR_CODE_ROLE_NOT_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS,
-    ERROR_CODE_ROLE_WITH_NUM_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
 
@@ -52,7 +51,6 @@ export default new class RolesController {
 
             const Role = new Roles;
 
-            Role.num = bodyParams.num;
             Role.name_kz = bodyParams.name_kz;
             Role.name_ru = bodyParams.name_ru;
 
@@ -66,13 +64,7 @@ export default new class RolesController {
                 }]
             });
 
-            if (existRole && existRole.num === bodyParams.num) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_ROLE_WITH_NUM_EXISTS',
-                    errorCode: ERROR_CODE_ROLE_WITH_NUM_EXISTS,
-                    message: req.__('EXIST_ALREADY_NUM')
-                });
-            } else if (existRole && existRole.name_kz === bodyParams.name_kz) {
+            if (existRole && existRole.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_ROLE_WITH_NAME_KZ_EXISTS,
@@ -92,7 +84,6 @@ export default new class RolesController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: role.id,
-                    num: role.num,
                     name_kz: role.name_kz,
                     name_ru: role.name_ru
                 },

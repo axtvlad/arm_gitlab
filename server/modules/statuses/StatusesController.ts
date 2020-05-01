@@ -9,7 +9,6 @@ import {
     ERROR_CODE_STATUS_NOT_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
-    ERROR_CODE_STATUS_WITH_NUM_EXIST,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
 
@@ -52,7 +51,6 @@ export default new class StatusesController {
 
             const Status = new Statuses;
 
-            Status.num = bodyParams.num;
             Status.name_kz = bodyParams.name_kz;
             Status.name_ru = bodyParams.name_ru;
 
@@ -66,13 +64,7 @@ export default new class StatusesController {
                 }]
             });
 
-            if (existStatus && existStatus.num === bodyParams.num) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_STATUS_WITH_NUM_EXIST',
-                    errorCode: ERROR_CODE_STATUS_WITH_NUM_EXIST,
-                    message: req.__('EXIST_ALREADY_NUM')
-                });
-            } else if (existStatus && existStatus.name_kz === bodyParams.name_kz) {
+            if (existStatus && existStatus.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_STATUS_WITH_NAME_KZ_EXISTS,
@@ -92,7 +84,6 @@ export default new class StatusesController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: status.id,
-                    num: status.num,
                     name_kz: status.name_kz,
                     name_ru: status.name_ru
                 },

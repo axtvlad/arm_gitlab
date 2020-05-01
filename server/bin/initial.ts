@@ -6,6 +6,9 @@ import {Statuses} from "../modules/statuses/StatusesModel";
 import {Genders} from "../modules/genders/GendersModel";
 import {Customers} from "../modules/customers/CustomersModel";
 import {Cities} from "../modules/cities/CitiesModel";
+import {Categories} from "../modules/categories/CategoriesModel";
+import {Departments} from "../modules/departments/DepartmentsModel";
+import {Types} from "../modules/types/TypesModel";
 
 export default class Initial {
     constructor() {
@@ -15,6 +18,9 @@ export default class Initial {
         this.checkGenders();
         this.checkCustomers();
         this.checkCities();
+        this.checkCategories();
+        this.checkDepartments();
+        this.checkTypes();
     }
 
     async checkUsers() {
@@ -28,8 +34,12 @@ export default class Initial {
 
             user.firstName = 'Vladislav';
             user.lastName = 'Axt';
+            user.patronymic = 'Vadimovich';
+
             user.email = 'new-life-2020@mail.ru';
             user.phone = 7473381815;
+            user.city_id = 1;
+            user.gender_id = 1;
 
             user.locale = 'ru';
             user.role_id = 2;
@@ -48,15 +58,12 @@ export default class Initial {
             const role2 = new Roles();
             const role3 = new Roles();
 
-            role1.num = 1;
             role1.name_ru = 'Пользователь';
             role1.name_kz = 'Пайдаланушы';
 
-            role2.num = 2;
             role2.name_ru = 'Администратор';
             role2.name_kz = 'Әкімші';
 
-            role3.num = 3;
             role3.name_ru = 'Эксперт';
             role3.name_kz = 'Эксперт';
 
@@ -74,21 +81,36 @@ export default class Initial {
             const status2 = new Statuses();
             const status3 = new Statuses();
 
-            status1.num = 1;
             status1.name_ru = 'Актуальный';
             status1.name_kz = 'Нақты';
 
-            status2.num = 2;
             status2.name_ru = 'Утратил силу';
             status2.name_kz = 'Мерзімі біткен';
 
-            status3.num = 3;
             status3.name_ru = 'Не вступил в силу';
             status3.name_kz = 'Күшіне енген жоқ';
 
             await getManager().getRepository(Statuses).save(status1);
             await getManager().getRepository(Statuses).save(status2);
             await getManager().getRepository(Statuses).save(status3);
+        }
+    }
+
+    async checkCategories() {
+        const count = await getManager().getRepository(Categories).count();
+
+        if (!count) {
+            const category1 = new Categories();
+            const category2 = new Categories();
+
+            category1.name_ru = 'Объясниетельная';
+            category1.name_kz = 'Түсіндірме';
+
+            category2.name_ru = 'Приказ';
+            category2.name_kz = 'Бұйрық';
+
+            await getManager().getRepository(Categories).save(category1);
+            await getManager().getRepository(Categories).save(category2);
         }
     }
 
@@ -99,11 +121,9 @@ export default class Initial {
             const gender1 = new Genders();
             const gender2 = new Genders();
 
-            gender1.num = 1;
             gender1.name_ru = 'Мужчина';
             gender1.name_kz = 'Ер';
 
-            gender2.num = 2;
             gender2.name_ru = 'Женщина';
             gender2.name_kz = 'Әйел';
 
@@ -118,7 +138,8 @@ export default class Initial {
         if (!count) {
             const customer = new Customers();
 
-            customer.name_ru = 'ГККП "Политехнический колледж"';
+            customer.name_ru = 'Astana Polytechnic College';
+            customer.name_kz = 'Astana Polytechnic College';
 
             await getManager().getRepository(Customers).save(customer);
         }
@@ -131,9 +152,40 @@ export default class Initial {
             const city = new Cities();
 
             city.name_ru = 'Нур-Султан';
-            city.name_kz = 'Нур-Султан';
+            city.name_kz = 'Нұр-Сұлтан';
 
             await getManager().getRepository(Cities).save(city);
+        }
+    }
+
+    async checkDepartments() {
+        const count = await getManager().getRepository(Departments).count();
+
+        if (!count) {
+            const department = new Departments();
+
+            department.name_ru = 'МОН РК';
+            department.name_kz = 'ҚР БҒМ';
+
+            await getManager().getRepository(Departments).save(department);
+        }
+    }
+
+    async checkTypes() {
+        const count = await getManager().getRepository(Types).count();
+
+        if (!count) {
+            const type1 = new Types();
+            const type2 = new Types();
+
+            type1.name_ru = 'Приказ';
+            type1.name_kz = 'Бұйрық';
+
+            type2.name_ru = 'Постановление';
+            type2.name_kz = 'Қаулы';
+
+            await getManager().getRepository(Types).save(type1);
+            await getManager().getRepository(Types).save(type2);
         }
     }
 }

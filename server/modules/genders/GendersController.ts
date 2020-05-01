@@ -7,7 +7,6 @@ import {
     ERROR_CODE_GENDER_NOT_EXISTS,
     ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS,
     ERROR_CODE_GENDER_WITH_NAME_RU_EXISTS,
-    ERROR_CODE_GENDER_WITH_NUM_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
@@ -52,7 +51,6 @@ export default new class GendersController {
 
             const Gender = new Genders;
 
-            Gender.num = bodyParams.num;
             Gender.name_kz = bodyParams.name_kz;
             Gender.name_ru = bodyParams.name_ru;
 
@@ -66,13 +64,7 @@ export default new class GendersController {
                 }]
             });
 
-            if (existGender && existGender.num === bodyParams.num) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_GENDER_WITH_NUM_EXISTS',
-                    errorCode: ERROR_CODE_GENDER_WITH_NUM_EXISTS,
-                    message: req.__('EXISTS_ALREADY_NUM')
-                });
-            } else if (existGender && existGender.name_kz === bodyParams.name_kz) {
+            if (existGender && existGender.name_kz === bodyParams.name_kz) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS',
                     errorCode: ERROR_CODE_GENDER_WITH_NAME_KZ_EXISTS,
@@ -92,7 +84,6 @@ export default new class GendersController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: gender.id,
-                    num: gender.num,
                     name_kz: gender.name_kz,
                     name_ru: gender.name_ru
                 },
