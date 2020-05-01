@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Departments extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.departments.length === 0) {
             const user = "Admin";
             const pass = "admin";

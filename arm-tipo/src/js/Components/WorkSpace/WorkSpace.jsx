@@ -25,48 +25,50 @@ import CitiesContainer from "./Directories/Cities/CitiesContainer";
 
 const {Content} = Layout;
 
-const WorkSpace = () => {
-    return (
-        <Content style={{margin: '0 16px'}}>
-            <Breadcrumb style={{margin: '16px 0', textAlign: 'left'}}>
-                <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
-                <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
-            </Breadcrumb>
-            <div>
-                <Route exact path={'/'} render={() => <Home/>}/>
+class WorkSpace extends React.Component {
+    render() {
+        return (
+            <Content style={{margin: '0 16px'}}>
+                <Breadcrumb style={{margin: '16px 0', textAlign: 'left'}}>
+                    <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
+                    <Breadcrumb.Item>ARM_TIPO</Breadcrumb.Item>
+                </Breadcrumb>
+                <div>
+                    <Route exact path={'/'} render={() => <Home/>}/>
 
-                <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
+                    <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
 
-                <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
-                <Route exact path={'/doc'} render={() => <ShowMainDoc/>}/>
+                    <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
+                    <Route exact path={'/doc'} render={() => <ShowMainDoc/>}/>
 
-                <Route exact path={'/types'} render={() => <TypesContainer/>}/>
-                <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
+                    <Route exact path={'/types'} render={() => <TypesContainer/>}/>
+                    <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
 
-                <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
-                <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
-                <Route exact path={'/departmentDescription'} render={() => <DepartmentDescription/>}/>
+                    <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
+                    <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
+                    <Route exact path={'/departmentDescription'} render={() => <DepartmentDescription/>}/>
 
-                <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
-                <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
+                    <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
+                    <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
 
-                <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
-                <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
+                    <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
+                    <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
 
-                <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
-                <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>
+                    <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
+                    <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>
 
-                <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
-                <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>
+                    <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
+                    <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>
 
-                <Route exact path={'/categories'} render={() => <CategoriesContainer/>}/>
-                <Route exact path={'/addCategory'} render={() => <AddCategoryContainer/>}/>
+                    <Route exact path={'/categories'} render={() => <CategoriesContainer/>}/>
+                    <Route exact path={'/addCategory'} render={() => <AddCategoryContainer/>}/>
 
-                <Route exact path={'/cities'} render={() => <CitiesContainer/>}/>
-                <Route exact path={'/addCity'} render={() => <AddCityContainer/>}/>
-            </div>
-        </Content>
-    );
-};
+                    <Route exact path={'/cities'} render={() => <CitiesContainer/>}/>
+                    <Route exact path={'/addCity'} render={() => <AddCityContainer/>}/>
+                </div>
+            </Content>
+        )
+    }
+}
 
 export default WorkSpace;

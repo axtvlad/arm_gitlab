@@ -89,9 +89,7 @@ const Content = ({children, extraContent}) => {
 };
 
 class MainDocs extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.mainDocs.length === 0) {
             const user = "Admin";
             const pass = "admin";

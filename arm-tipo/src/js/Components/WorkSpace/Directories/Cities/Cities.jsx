@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Cities extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.cities.length === 0) {
             const user = "Admin";
             const pass = "admin";
@@ -59,7 +57,7 @@ class Cities extends React.Component {
     render() {
         return (
             <div className={'content'}>
-                <NavLink to={'/AddCity'}>
+                <NavLink to={'/addCity'}>
                     <Button
                         type="danger"
                         shape="round"

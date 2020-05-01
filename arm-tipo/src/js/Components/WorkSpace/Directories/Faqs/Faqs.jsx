@@ -7,9 +7,7 @@ import * as axios from "axios";
 const {Panel} = Collapse;
 
 class Faqs extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.faqs.length === 0) {
             const user = "Admin";
             const pass = "admin";

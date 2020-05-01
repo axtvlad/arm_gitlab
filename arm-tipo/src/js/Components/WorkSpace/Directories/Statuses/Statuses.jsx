@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Statuses extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.statuses.length === 0) {
             const user = "Admin";
             const pass = "admin";

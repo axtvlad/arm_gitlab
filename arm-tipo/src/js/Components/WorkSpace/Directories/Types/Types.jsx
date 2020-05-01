@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Types extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.types.length === 0) {
             const user = "Admin";
             const pass = "admin";

@@ -22,21 +22,23 @@ const user = (
     </Menu>
 );
 
-const UserHeader = () => {
-    return (
-        <Header style={{background: '#fff', padding: 0}}>
+class UserHeader extends React.Component {
+    render() {
+        return (
+            <Header style={{background: '#fff', padding: 0}}>
             <span style={{float: 'left', marginLeft: 30}}>
                 <Button danger>Помощь пользователю</Button>
                 <Text style={{marginLeft: 30}}>Почта для запросов: </Text>
                 <Text copyable>info@arm-tipo.kz</Text>
             </span>
-            <span style={{float: 'right', marginRight: 30}}>
+                <span style={{float: 'right', marginRight: 30}}>
                 <Dropdown.Button icon={<AppstoreOutlined/>} overlay={user}>
                     Admin Admin
                 </Dropdown.Button>
             </span>
-        </Header>
-    )
-};
+            </Header>
+        )
+    }
+}
 
 export default UserHeader;

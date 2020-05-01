@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Roles extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.roles.length === 0) {
             const user = "Admin";
             const pass = "admin";

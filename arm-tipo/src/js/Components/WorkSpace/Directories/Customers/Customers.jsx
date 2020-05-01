@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Customers extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.customers.length === 0) {
             const user = "Admin";
             const pass = "admin";

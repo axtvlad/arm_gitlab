@@ -33,9 +33,7 @@ const columns = [
 ];
 
 class Categories extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         if (this.props.categories.length === 0) {
             const user = "Admin";
             const pass = "admin";
