@@ -7,10 +7,9 @@ import {
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
     ERROR_CODE_TEMPLATE_NOT_EXISTS,
-    ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS, ERROR_CODE_USER_NOT_EXISTS,
+    ERROR_CODE_TEMPLATE_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
-import {Users} from "../users/UsersModel";
 
 interface IRestTemplatesCreate {
     name_ru: string;
@@ -156,20 +155,11 @@ export default new class TemplatesController {
             const rest = new ServiceRest(req);
             const config = <FindManyOptions<Templates>>{};
             const {id} = <IRestTemplateByIdKeys>rest.getKeys();
-            const queryParams: IRestTemplatesList = <IRestTemplatesList>rest.getQuery();
 
             config.select = ["id", "name_ru", "name_kz", "category_id", "file_ru", "file_kz"];
             config.where = {id};
 
-            if (queryParams.offset && queryParams.count) {
-                config.skip = queryParams.offset;
-                config.take = queryParams.count;
-            } else {
-                config.skip = 0;
-                config.take = 30;
-            }
-
-            const templates = await getManager().getRepository(Templates).find(config);
+            const template = await getManager().getRepository(Templates).find(config);
 
             /**
              * custom sql
@@ -178,7 +168,7 @@ export default new class TemplatesController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: templates,
+                data: template,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

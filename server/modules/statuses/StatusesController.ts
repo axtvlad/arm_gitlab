@@ -11,6 +11,7 @@ import {
     ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {OtherDocs} from "../other_docs/OtherDocsModel";
 
 interface IRestStatusesCreate {
     num: number;
@@ -21,6 +22,10 @@ interface IRestStatusesCreate {
 interface IRestStatusesList {
     offset?: number;
     count?: number;
+}
+
+interface IRestStatusByIdKeys {
+    id: number;
 }
 
 export default new class StatusesController {
@@ -99,7 +104,7 @@ export default new class StatusesController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getStatusesList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestStatusesList = <IRestStatusesList>rest.getQuery();
@@ -128,6 +133,37 @@ export default new class StatusesController {
                 errorCode: ERROR_CODE_NONE,
                 data: statuses,
                 totalCount,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getStatusById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Statuses>>{};
+            const {id} = <IRestStatusByIdKeys>rest.getKeys();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const status = await getManager().getRepository(OtherDocs).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: status,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

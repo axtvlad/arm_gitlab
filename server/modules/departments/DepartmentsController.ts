@@ -22,6 +22,10 @@ interface IRestDepartmentsList {
     count?: number;
 }
 
+interface IRestDepartmentByIdKeys {
+    id: number;
+}
+
 export default new class DepartmentsController {
     async create(req: Request, res: Response) {
         try {
@@ -89,7 +93,7 @@ export default new class DepartmentsController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getDepartmentsList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestDepartmentsList = <IRestDepartmentsList>rest.getQuery();
@@ -118,6 +122,37 @@ export default new class DepartmentsController {
                 errorCode: ERROR_CODE_NONE,
                 data: departments,
                 totalCount,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getDepartmentById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Departments>>{};
+            const {id} = <IRestDepartmentByIdKeys>rest.getKeys();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const department = await getManager().getRepository(Departments).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: department,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

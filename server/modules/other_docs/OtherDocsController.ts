@@ -141,21 +141,11 @@ export default new class OtherDocsController {
             const rest = new ServiceRest(req);
             const config = <FindManyOptions<OtherDocs>>{};
             const {id} = <IRestOtherDocByIdKeys>rest.getKeys();
-            const queryParams: IRestOtherDocsList = <IRestOtherDocsList>rest.getQuery();
 
             config.select = ['id', 'name_ru', 'name_kz', 'file_ru', 'file_kz'];
             config.where = {id};
 
-            if (queryParams.offset && queryParams.count) {
-                config.skip = queryParams.offset;
-                config.take = queryParams.count;
-            } else {
-                config.skip = 0;
-                config.take = 30;
-            }
-
-
-            const otherDocs = await getManager().getRepository(OtherDocs).find(config);
+            const otherDoc = await getManager().getRepository(OtherDocs).find(config);
 
             /**
              * custom sql
@@ -164,7 +154,7 @@ export default new class OtherDocsController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: otherDocs,
+                data: otherDoc,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {
@@ -176,7 +166,6 @@ export default new class OtherDocsController {
             });
         }
     }
-
 
     async remove(req: Request, res: Response) {
         try {

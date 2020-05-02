@@ -17,7 +17,8 @@ GendersRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-GendersRoutes.get('/', GendersController.list);
+GendersRoutes.get('/', GendersController.getGendersList);
+GendersRoutes.get('/:id', GendersController.getGenderById);
 GendersRoutes.post('/', GendersController.create);
 GendersRoutes.delete(`/:id`, GendersController.remove);
 

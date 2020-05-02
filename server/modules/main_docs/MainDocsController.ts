@@ -237,7 +237,6 @@ export default new class MainDocsController {
             const rest = new ServiceRest(req);
             const config = <FindManyOptions<MainDocs>>{};
             const {id} = <IRestMainDocByIdKeys>rest.getKeys();
-            const queryParams: IRestMainDocsList = <IRestMainDocsList>rest.getQuery();
 
             config.select = [
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
@@ -245,16 +244,7 @@ export default new class MainDocsController {
                 "description_kz", "type_id", "text_ru", "text_kz"];
             config.where = {id};
 
-            if (queryParams.offset && queryParams.count) {
-                config.skip = queryParams.offset;
-                config.take = queryParams.count;
-            } else {
-                config.skip = 0;
-                config.take = 30;
-            }
-
-
-            const mainDocs = await getManager().getRepository(MainDocs).find(config);
+            const mainDoc = await getManager().getRepository(MainDocs).find(config);
 
             /**
              * custom sql
@@ -263,7 +253,7 @@ export default new class MainDocsController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: mainDocs,
+                data: mainDoc,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

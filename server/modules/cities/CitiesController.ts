@@ -22,6 +22,10 @@ interface IRestCitiesList {
     count?: number;
 }
 
+interface IRestCityByIdKeys {
+    id: number;
+}
+
 export default new class CitiesController {
     async create(req: Request, res: Response) {
         try {
@@ -89,7 +93,7 @@ export default new class CitiesController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getCitiesList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestCitiesList = <IRestCitiesList>rest.getQuery();
@@ -109,12 +113,43 @@ export default new class CitiesController {
             const cities = await getManager().getRepository(Cities).find(config);
             const totalCount = await getManager().getRepository(Cities).count();
 
-           // const totalCount = await getManager().query('SELECT COUNT(*) FROM cities');
+            // const totalCount = await getManager().query('SELECT COUNT(*) FROM cities');
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
                 data: cities,
                 totalCount,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getCityById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Cities>>{};
+            const {id} = <IRestCityByIdKeys>rest.getKeys();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const city = await getManager().getRepository(Cities).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: city,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

@@ -23,6 +23,10 @@ interface IRestGendersList {
     count?: number;
 }
 
+interface IRestGenderByIdKeys {
+    id: number;
+}
+
 export default new class GendersController {
     async create(req: Request, res: Response) {
         try {
@@ -99,7 +103,7 @@ export default new class GendersController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getGendersList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestGendersList = <IRestGendersList>rest.getQuery();
@@ -128,6 +132,37 @@ export default new class GendersController {
                 errorCode: ERROR_CODE_NONE,
                 data: genders,
                 totalCount,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getGenderById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Genders>>{};
+            const {id} = <IRestGenderByIdKeys>rest.getKeys();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const gender = await getManager().getRepository(Genders).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: gender,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

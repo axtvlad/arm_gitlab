@@ -17,7 +17,8 @@ CategoriesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-CategoriesRoutes.get('/', CategoriesController.list);
+CategoriesRoutes.get('/', CategoriesController.getCategoriesList);
+CategoriesRoutes.get('/:id', CategoriesController.getCategoryById);
 CategoriesRoutes.post('/', CategoriesController.create);
 CategoriesRoutes.delete(`/:id`, CategoriesController.remove);
 

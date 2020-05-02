@@ -11,6 +11,7 @@ import {
     ERROR_CODE_ROLE_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {OtherDocs} from "../other_docs/OtherDocsModel";
 
 interface IRestRolesCreate {
     name_ru: string;
@@ -21,6 +22,10 @@ interface IRestRolesCreate {
 interface IRestRolesList {
     offset?: number;
     count?: number;
+}
+
+interface IRestRoleByIdKeys {
+    id: number;
 }
 
 export default new class RolesController {
@@ -99,7 +104,7 @@ export default new class RolesController {
         }
     }
 
-    async list(req: Request, res: Response) {
+    async getRolesList(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const queryParams: IRestRolesList = <IRestRolesList>rest.getQuery();
@@ -128,6 +133,37 @@ export default new class RolesController {
                 errorCode: ERROR_CODE_NONE,
                 data: roles,
                 totalCount,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async getRoleDocById(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const config = <FindManyOptions<Roles>>{};
+            const {id} = <IRestRoleByIdKeys>rest.getKeys();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const role = await getManager().getRepository(OtherDocs).find(config);
+
+            /**
+             * custom sql
+             */
+            // const users = await getManager().query('SELECT userId, username, createdDate FROM users LIMIT 5 OFFSET 0');
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: role,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

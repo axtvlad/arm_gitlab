@@ -17,7 +17,8 @@ StatusesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-StatusesRoutes.get('/', StatusesController.list);
+StatusesRoutes.get('/', StatusesController.getStatusesList);
+StatusesRoutes.get('/:id', StatusesController.getStatusById);
 StatusesRoutes.post('/', StatusesController.create);
 StatusesRoutes.delete(`/:id`, StatusesController.remove);
 

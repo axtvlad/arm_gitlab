@@ -128,20 +128,11 @@ export default new class CustomersController {
             const rest = new ServiceRest(req);
             const config = <FindManyOptions<Customers>>{};
             const {id} = <IRestCustomerByIdKeys>rest.getKeys();
-            const queryParams: IRestCustomersList = <IRestCustomersList>rest.getQuery();
 
             config.select = ['id', 'name_ru', 'name_kz'];
             config.where = {id};
 
-            if (queryParams.offset && queryParams.count) {
-                config.skip = queryParams.offset;
-                config.take = queryParams.count;
-            } else {
-                config.skip = 0;
-                config.take = 30;
-            }
-
-            const customers = await getManager().getRepository(Customers).find(config);
+            const customer = await getManager().getRepository(Customers).find(config);
 
             /**
              * custom sql
@@ -150,7 +141,7 @@ export default new class CustomersController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: customers,
+                data: customer,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

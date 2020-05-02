@@ -17,7 +17,8 @@ TypesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-TypesRoutes.get('/', TypesController.list);
+TypesRoutes.get('/', TypesController.getTypesList);
+TypesRoutes.get('/:id', TypesController.getTypeById);
 TypesRoutes.post('/', TypesController.create);
 TypesRoutes.delete(`/:id`, TypesController.remove);
 

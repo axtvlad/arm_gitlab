@@ -17,7 +17,8 @@ CitiesRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-CitiesRoutes.get('/', CitiesController.list);
+CitiesRoutes.get('/', CitiesController.getCitiesList);
+CitiesRoutes.get('/:id', CitiesController.getCityById);
 CitiesRoutes.post('/', CitiesController.create);
 CitiesRoutes.delete(`/:id`, CitiesController.remove);
 
