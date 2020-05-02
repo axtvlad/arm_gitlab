@@ -1,5 +1,9 @@
 import {connect} from "react-redux";
-import {setStatusesCountCreator, setStatusesCreator} from "../../../../redux/Reducers/StatusReducer";
+import {
+    setStatusesCountCreator,
+    setStatusesCreator,
+    setStatusesIsFetchingCreator
+} from "../../../../redux/Reducers/StatusReducer";
 import React from "react";
 import * as axios from "axios";
 import Statuses from "./Statuses";
@@ -18,26 +22,35 @@ class StatusesContainer extends React.Component {
                 }
             };
 
+            this.props.setStatusesIsFetching(true);
+
             axios
                 .get(BASE_URL + '/statuses', config)
                 .then(response => {
                     this.props.setStatuses(response.data.data);
                     this.props.setStatusesCount(response.data.totalCount);
+
                     console.log('statuses: ', response.data.data);
+
+                    this.props.setStatusesIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <Statuses statuses={this.props.statuses}/>
+            <Statuses
+                statuses={this.props.statuses}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        statuses: state.statusesDir.statuses
+        statuses: state.statusesDir.statuses,
+        isFetching: state.statusesDir.isFetching
     }
 };
 
@@ -48,6 +61,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setStatusesCount: (statusesCount) => {
             dispatch(setStatusesCountCreator(statusesCount))
+        },
+        setStatusesIsFetching: (isFetching) => {
+            dispatch(setStatusesIsFetchingCreator(isFetching))
         }
     }
 };

@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-import {Button, Collapse} from "antd";
+import {Button, Collapse, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const {Panel} = Collapse;
@@ -17,14 +17,15 @@ const Faqs = (props) => {
                     Добавить вопрос
                 </Button>
             </NavLink>
-
-            <Collapse accordion>
-                {props.faqs.map((faq, index) => (
-                    <Panel header={faq.question_ru} key={index}>
-                        <p>{faq.answer_ru}</p>
-                    </Panel>
-                ))}
-            </Collapse>
+            <Spin spinning={props.isFetching}>
+                <Collapse accordion>
+                    {props.faqs.map((faq, index) => (
+                        <Panel header={faq.question_ru} key={index}>
+                            <p>{faq.answer_ru}</p>
+                        </Panel>
+                    ))}
+                </Collapse>
+            </Spin>
         </div>
     )
 };

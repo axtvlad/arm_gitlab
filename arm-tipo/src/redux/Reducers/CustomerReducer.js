@@ -3,12 +3,14 @@ const UPDATE_CUSTOMER_NAME_RU = 'update_customer_name_ru';
 const UPDATE_CUSTOMER_NAME_KZ = 'update_customer_name_kz';
 const SET_CUSTOMERS = 'set_customers';
 const SET_CUSTOMERS_COUNT = 'set_customers_count';
+const SET_CUSTOMERS_IS_FETCHING = 'set_categories_is_fetching';
 
 let initialState = {
     customers: [],
     newCustomerNameRu: '',
     newCustomerNameKz: '',
     customersCount: 0,
+    isFetching: false,
 };
 
 const CustomerReducer = (state = initialState, action) => {
@@ -45,6 +47,11 @@ const CustomerReducer = (state = initialState, action) => {
                 ...state,
                 customersCount: action.customersCount
             };
+        case SET_CUSTOMERS_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -72,6 +79,11 @@ export const setCustomersCreator = (customers) => ({
 export const setCustomersCountCreator = (customersCount) => ({
     type: SET_CUSTOMERS_COUNT,
     customersCount
+});
+
+export const setCustomersIsFetchingCreator = (isFetching) => ({
+    type: SET_CUSTOMERS_IS_FETCHING,
+    isFetching
 });
 
 export default CustomerReducer;

@@ -1,5 +1,9 @@
 import {connect} from "react-redux";
-import {setCategoriesCountCreator, setCategoriesCreator} from "../../../../redux/Reducers/CategoryReducer";
+import {
+    setCategoriesCountCreator,
+    setCategoriesCreator,
+    setCategoriesIsFetchingCreator
+} from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
 import * as axios from "axios";
 import Categories from "./Categories";
@@ -18,26 +22,35 @@ class CategoriesContainer extends React.Component {
                 }
             };
 
+            this.props.setCategoriesIsFetching(true);
+
             axios
                 .get(BASE_URL + '/categories', config)
                 .then(response => {
                     this.props.setCategories(response.data.data);
                     this.props.setCategoriesCount(response.data.totalCount);
+
                     console.log('categories: ', response.data.data);
+
+                    this.props.setCategoriesIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <Categories categories={this.props.categories}/>
+            <Categories
+                categories={this.props.categories}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        categories: state.categoriesDir.categories
+        categories: state.categoriesDir.categories,
+        isFetching: state.categoriesDir.isFetching
     }
 };
 
@@ -48,6 +61,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCategoriesCount: (categoriesCount) => {
             dispatch(setCategoriesCountCreator(categoriesCount))
+        },
+        setCategoriesIsFetching: (isFetching) => {
+            dispatch(setCategoriesIsFetchingCreator(isFetching))
         }
     }
 };

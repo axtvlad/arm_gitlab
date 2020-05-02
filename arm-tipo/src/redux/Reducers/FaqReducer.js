@@ -5,6 +5,7 @@ const UPDATE_FAQ_ANSWER_RU = 'update_faq_answer_ru';
 const UPDATE_FAQ_ANSWER_KZ = 'update_faq_answer_kz';
 const SET_FAQS = 'set_faqs';
 const SET_FAQS_COUNT = 'set_faqs_count';
+const SET_FAQS_IS_FETCHING = 'set_faqs_is_fetching';
 
 let initialState = {
     faqs: [
@@ -17,6 +18,7 @@ let initialState = {
     newFaqAnswerRu: '',
     newFaqAnswerKz: '',
     faqsCount: 0,
+    isFetching: false,
 };
 
 const FaqReducer = (state = initialState, action) => {
@@ -67,6 +69,11 @@ const FaqReducer = (state = initialState, action) => {
                 ...state,
                 faqsCount: action.faqsCount
             };
+        case SET_FAQS_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -105,5 +112,11 @@ export const setFaqsCountCreator = (faqsCount) => ({
     type: SET_FAQS_COUNT,
     faqsCount
 });
+
+export const setFaqsIsFetchingCreator = (isFetching) => ({
+    type: SET_FAQS_IS_FETCHING,
+    isFetching
+});
+
 
 export default FaqReducer;

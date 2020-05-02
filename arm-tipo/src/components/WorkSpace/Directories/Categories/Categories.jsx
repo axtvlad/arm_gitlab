@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {Button, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import React from "react";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
@@ -43,7 +43,9 @@ const Categories = (props) => {
                     Добавить категорию
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.categories}/>
+            <Spin spinning={props.isFetching}>
+                <Table columns={columns} dataSource={props.categories}/>
+            </Spin>
         </div>
     )
 };

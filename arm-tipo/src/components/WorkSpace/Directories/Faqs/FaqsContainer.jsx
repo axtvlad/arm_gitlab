@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setFaqsCountCreator, setFaqsCreator} from "../../../../redux/Reducers/FaqReducer";
+import {setFaqsCountCreator, setFaqsCreator, setFaqsIsFetchingCreator} from "../../../../redux/Reducers/FaqReducer";
 import React from "react";
 import * as axios from "axios";
 import Faqs from "./Faqs";
@@ -18,26 +18,35 @@ class FaqsContainer extends React.Component {
                 }
             };
 
+            this.props.setFaqsIsFetching(true);
+
             axios
                 .get(BASE_URL + '/faqs', config)
                 .then(response => {
                     this.props.setFaqs(response.data.data);
                     this.props.setFaqsCount(response.data.totalCount);
+
                     console.log('faqs: ', response.data.data);
+
+                    this.props.setFaqsIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <Faqs faqs={this.props.faqs}/>
+            <Faqs
+                faqs={this.props.faqs}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        faqs: state.faqsDir.faqs
+        faqs: state.faqsDir.faqs,
+        isFetching: state.faqsDir.isFetching
     }
 };
 
@@ -48,6 +57,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setFaqsCount: (faqsCount) => {
             dispatch(setFaqsCountCreator(faqsCount))
+        },
+        setFaqsIsFetching: (isFetching) => {
+            dispatch(setFaqsIsFetchingCreator(isFetching))
         }
     }
 };

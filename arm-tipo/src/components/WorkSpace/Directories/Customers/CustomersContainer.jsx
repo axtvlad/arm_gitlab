@@ -1,5 +1,9 @@
 import {connect} from "react-redux";
-import {setCustomersCountCreator, setCustomersCreator} from "../../../../redux/Reducers/CustomerReducer";
+import {
+    setCustomersCountCreator,
+    setCustomersCreator,
+    setCustomersIsFetchingCreator
+} from "../../../../redux/Reducers/CustomerReducer";
 import React from "react";
 import * as axios from "axios";
 import Customers from "./Customers";
@@ -18,19 +22,27 @@ class CustomersContainer extends React.Component {
                 }
             };
 
+            this.props.setCustomersIsFetching(true);
+
             axios
                 .get(BASE_URL + '/customers', config)
                 .then(response => {
                     this.props.setCustomers(response.data.data);
                     this.props.setCustomersCount(response.data.totalCount);
+
                     console.log('customers: ', response.data.data);
+
+                    this.props.setCustomersIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <Customers customers={this.props.customers}/>
+            <Customers
+                customers={this.props.customers}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
@@ -39,6 +51,7 @@ class CustomersContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         customers: state.customersDir.customers,
+        isFetching: state.customersDir.isFetching
     }
 };
 
@@ -49,6 +62,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCustomersCount: (customersCount) => {
             dispatch(setCustomersCountCreator(customersCount))
+        },
+        setCustomersIsFetching: (isFetching) => {
+            dispatch(setCustomersIsFetchingCreator(isFetching))
         }
     }
 };

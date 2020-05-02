@@ -3,12 +3,14 @@ const UPDATE_STATUS_NAME_RU = 'update_status_name_ru';
 const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
 const SET_STATUSES = 'set_statuses';
 const SET_STATUSES_COUNT = 'set_statuses_count';
+const SET_STATUSES_IS_FETCHING = 'set_statuses_is_fetching';
 
 let initialState = {
     statuses: [],
     newStatusNameRu: '',
     newStatusNameKz: '',
     statusesCount: 0,
+    isFetching: false,
 };
 
 const StatusReducer = (state = initialState, action) => {
@@ -45,11 +47,15 @@ const StatusReducer = (state = initialState, action) => {
                 ...state,
                 statusesCount: action.statusesCount
             };
+        case SET_STATUSES_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
 };
-
 
 export const addStatusCreator = () => ({
     type: ADD_STATUS
@@ -74,5 +80,11 @@ export const setStatusesCountCreator = (statusesCount) => ({
     type: SET_STATUSES_COUNT,
     statusesCount
 });
+
+export const setStatusesIsFetchingCreator = (isFetching) => ({
+    type: SET_STATUSES_IS_FETCHING,
+    isFetching
+});
+
 
 export default StatusReducer;

@@ -1,5 +1,9 @@
 import {connect} from "react-redux";
-import {setCitiesCountCreator, setCitiesCreator} from "../../../../redux/Reducers/CityReducer";
+import {
+    setCitiesCountCreator,
+    setCitiesCreator,
+    setCitiesIsFetchingCreator
+} from "../../../../redux/Reducers/CityReducer";
 import React from "react";
 import * as axios from "axios";
 import Cities from "./Cities";
@@ -18,27 +22,35 @@ class CitiesContainer extends React.Component {
                 }
             };
 
+            this.props.setCitiesIsFetching(true);
+
             axios
                 .get(BASE_URL + '/cities', config)
                 .then(response => {
                     this.props.setCities(response.data.data);
                     this.props.setCitiesCount(response.data.totalCount);
+
                     console.log('cities: ', response.data.data);
+
+                    this.props.setCitiesIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <Cities cities={this.props.cities}/>
+            <Cities
+                cities={this.props.cities}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
-
 let mapStateToProps = (state) => {
     return {
-        cities: state.citiesDir.cities
+        cities: state.citiesDir.cities,
+        isFetching: state.citiesDir.isFetching
     }
 };
 
@@ -49,6 +61,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCitiesCount: (citiesCount) => {
             dispatch(setCitiesCountCreator(citiesCount))
+        },
+        setCitiesIsFetching: (isFetching) => {
+            dispatch(setCitiesIsFetchingCreator(isFetching))
         }
     }
 };

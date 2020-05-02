@@ -3,13 +3,14 @@ const UPDATE_CITY_NAME_RU = 'update_city_name_ru';
 const UPDATE_CITY_NAME_KZ = 'update_city_name_kz';
 const SET_CITIES = 'set_cities';
 const SET_CITIES_COUNT = 'set_cities_count';
-
+const SET_CITIES_IS_FETCHING = 'set_cities_is_fetching';
 
 let initialState = {
     cities: [],
     newCityNameRu: '',
     newCityNameKz: '',
     citiesCount: 0,
+    isFetching: false,
 };
 
 const CityReducer = (state = initialState, action) => {
@@ -46,6 +47,11 @@ const CityReducer = (state = initialState, action) => {
                 ...state,
                 citiesCount: action.citiesCount
             };
+        case SET_CITIES_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -74,6 +80,11 @@ export const setCitiesCreator = (cities) => ({
 export const setCitiesCountCreator = (citiesCount) => ({
     type: SET_CITIES_COUNT,
     citiesCount
+});
+
+export const setCitiesIsFetchingCreator = (isFetching) => ({
+    type: SET_CITIES_IS_FETCHING,
+    isFetching
 });
 
 export default CityReducer;

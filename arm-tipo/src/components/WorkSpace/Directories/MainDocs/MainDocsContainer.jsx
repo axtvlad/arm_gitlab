@@ -1,5 +1,9 @@
 import {connect} from "react-redux";
-import {setMainDocsCountCreator, setMainDocsCreator} from "../../../../redux/Reducers/MainDocReducer";
+import {
+    setMainDocsCountCreator,
+    setMainDocsCreator,
+    setMainDocsIsFetchingCreator
+} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import * as axios from "axios";
 import MainDocs from "./MainDocs";
@@ -18,26 +22,35 @@ class MainDocsContainer extends React.Component {
                 }
             };
 
+            this.props.setMainDocsIsFetching(true);
+
             axios
                 .get(BASE_URL + '/mainDocs', config)
                 .then(response => {
                     this.props.setMainDocs(response.data.data);
                     this.props.setMainDocsCount(response.data.totalCount);
+
                     console.log('mainDocs: ', response.data.data);
+
+                    this.props.setMainDocsIsFetching(false);
                 });
         }
     }
 
     render() {
         return (
-            <MainDocs mainDocs={this.props.mainDocs}/>
+            <MainDocs
+                mainDocs={this.props.mainDocs}
+                isFetching={this.props.isFetching}
+            />
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        mainDocs: state.mainDocsDir.mainDocs
+        mainDocs: state.mainDocsDir.mainDocs,
+        isFetching: state.mainDocsDir.isFetching
     }
 };
 
@@ -48,6 +61,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setMainDocsCount: (mainDocsCount) => {
             dispatch(setMainDocsCountCreator(mainDocsCount))
+        },
+        setMainDocsIsFetching: (isFetching) => {
+            dispatch(setMainDocsIsFetchingCreator(isFetching))
         }
     }
 

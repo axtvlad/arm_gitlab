@@ -18,6 +18,7 @@ const UPDATE_USER_IS_PREMIUM = 'update_user_is_premium';
 const UPDATE_USER_IS_BANNED = 'update_user_is_banned';
 const SET_USERS = 'set_users';
 const SET_USERS_COUNT = 'set_users_count';
+const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
 
 let initialState = {
     users: [],
@@ -39,6 +40,7 @@ let initialState = {
     newUserIsPremium: false,
     newUserIsBanned: false,
     usersCount: 0,
+    isFetching: false,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -180,6 +182,11 @@ const UserReducer = (state = initialState, action) => {
                 ...state,
                 usersCount: action.usersCount
             };
+        case SET_USERS_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -282,6 +289,11 @@ export const setUsersCreator = (users) => ({
 export const setUsersCountCreator = (usersCount) => ({
     type: SET_USERS_COUNT,
     usersCount
+});
+
+export const setUsersIsFetchingCreator = (isFetching) => ({
+    type: SET_USERS_IS_FETCHING,
+    isFetching
 });
 
 export default UserReducer;

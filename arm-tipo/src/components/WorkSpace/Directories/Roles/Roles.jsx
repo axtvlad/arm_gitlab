@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-import {Button, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
@@ -43,7 +43,9 @@ const Roles = (props) => {
                     Добавить роль
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.roles}/>
+            <Spin spinning={props.isFetching}>
+                <Table columns={columns} dataSource={props.roles}/>
+            </Spin>
         </div>
     )
 };

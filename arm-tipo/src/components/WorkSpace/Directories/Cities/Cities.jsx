@@ -1,4 +1,4 @@
-import {Button, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import React from "react";
@@ -43,7 +43,9 @@ const Cities = (props) => {
                     Добавить город
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.cities}/>
+            <Spin spinning={props.isFetching}>
+                <Table columns={columns} dataSource={props.cities}/>
+            </Spin>
         </div>
     )
 };

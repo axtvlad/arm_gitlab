@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {NavLink} from "react-router-dom";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
@@ -43,7 +43,9 @@ const Types = (props) => {
                     Добавить тип документа
                 </Button>
             </NavLink>
-            <Table columns={columns} dataSource={props.types}/>
+            <Spin spinning={props.isFetching}>
+                <Table columns={columns} dataSource={props.types}/>
+            </Spin>
         </div>
     )
 };

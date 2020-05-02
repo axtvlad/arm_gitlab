@@ -3,12 +3,14 @@ const UPDATE_DEPARTMENT_NAME_RU = 'update_department_name_ru';
 const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
 const SET_DEPARTMENTS = 'set_departments';
 const SET_DEPARTMENTS_COUNT = 'set_departments_count';
+const SET_DEPARTMENTS_IS_FETCHING = 'set_departments_is_fetching';
 
 let initialState = {
     departments: [],
     newDepartmentNameRu: '',
     newDepartmentNameKz: '',
     departmentsCount: 0,
+    isFetching: false,
 };
 
 const DepartmentReducer = (state = initialState, action) => {
@@ -45,6 +47,11 @@ const DepartmentReducer = (state = initialState, action) => {
                 ...state,
                 departmentsCount: action.departmentsCount
             };
+        case SET_DEPARTMENTS_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -73,5 +80,11 @@ export const setDepartmentsCountCreator = (departmentsCount) => ({
     type: SET_DEPARTMENTS_COUNT,
     departmentsCount
 });
+
+export const setDepartmentsIsFetchingCreator = (isFetching) => ({
+    type: SET_DEPARTMENTS_IS_FETCHING,
+    isFetching
+});
+
 
 export default DepartmentReducer;
