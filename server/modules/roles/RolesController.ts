@@ -154,7 +154,7 @@ export default new class RolesController {
             config.select = ['id', 'name_ru', 'name_kz'];
             config.where = {id};
 
-            const role = await getManager().getRepository(OtherDocs).find(config);
+            const role = await getManager().getRepository(Roles).find(config);
 
             /**
              * custom sql

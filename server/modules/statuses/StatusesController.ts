@@ -154,7 +154,7 @@ export default new class StatusesController {
             config.select = ['id', 'name_ru', 'name_kz'];
             config.where = {id};
 
-            const status = await getManager().getRepository(OtherDocs).find(config);
+            const status = await getManager().getRepository(Statuses).find(config);
 
             /**
              * custom sql
