@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    addCustomerCreator,
-    updateCustomerNameKzCreator,
-    updateCustomerNameRuCreator
-} from "../../../../redux/Reducers/CustomerReducer";
+import {addCustomer, updateCustomerNameKz, updateCustomerNameRu} from "../../../../redux/Reducers/CustomerReducer";
 import AddCustomer from "./AddCustomer";
 
 let MapStateToProps = (state) => {
@@ -12,20 +8,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addCustomer: () => {
-            dispatch(addCustomerCreator());
-        },
-        updateCustomerNameRu: (name_ru) => {
-            dispatch(updateCustomerNameRuCreator(name_ru));
-        },
-        updateCustomerNameKz: (name_kz) => {
-            dispatch(updateCustomerNameKzCreator(name_kz));
-        },
+const AddCustomerContainer = connect(MapStateToProps,
+    {
+        addCustomer,
+        updateCustomerNameRu,
+        updateCustomerNameKz,
     }
-};
-
-const AddCustomerContainer = connect(MapStateToProps, MapDispatchToProps)(AddCustomer);
+)(AddCustomer);
 
 export default AddCustomerContainer;

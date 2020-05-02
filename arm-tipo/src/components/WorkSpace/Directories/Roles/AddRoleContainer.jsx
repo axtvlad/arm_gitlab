@@ -1,10 +1,6 @@
 import {connect} from "react-redux";
 import AddRole from "./AddRole";
-import {
-    addRoleCreator,
-    updateRoleNameKzCreator,
-    updateRoleNameRuCreator
-} from "../../../../redux/Reducers/RoleReducer";
+import {addRole, updateRoleNameKz, updateRoleNameRu} from "../../../../redux/Reducers/RoleReducer";
 
 let MapStateToProps = (state) => {
     return {
@@ -12,20 +8,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addRole: () => {
-            dispatch(addRoleCreator());
-        },
-        updateRoleNameRu: (name_ru) => {
-            dispatch(updateRoleNameRuCreator(name_ru));
-        },
-        updateRoleNameKz: (name_kz) => {
-            dispatch(updateRoleNameKzCreator(name_kz));
-        },
+const AddRoleContainer = connect(MapStateToProps,
+    {
+        addRole,
+        updateRoleNameRu,
+        updateRoleNameKz,
     }
-};
-
-const AddRoleContainer = connect(MapStateToProps, MapDispatchToProps)(AddRole);
+)(AddRole);
 
 export default AddRoleContainer;

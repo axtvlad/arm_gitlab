@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import {
-    setCategoriesCountCreator,
-    setCategoriesCreator,
-    setCategoriesIsFetchingCreator
+    setCategoriesCount ,
+    setCategories ,
+    setCategoriesIsFetching
 } from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
 import * as axios from "axios";
@@ -54,18 +54,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setCategories: (categories) => {
-            dispatch(setCategoriesCreator(categories))
-        },
-        setCategoriesCount: (categoriesCount) => {
-            dispatch(setCategoriesCountCreator(categoriesCount))
-        },
-        setCategoriesIsFetching: (isFetching) => {
-            dispatch(setCategoriesIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setCategories,
+        setCategoriesCount,
+        setCategoriesIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer);
+)(CategoriesContainer);

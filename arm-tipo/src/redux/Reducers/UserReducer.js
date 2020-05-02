@@ -192,106 +192,106 @@ const UserReducer = (state = initialState, action) => {
     }
 };
 
-export const addUserCreator = () => ({
+export const addUser  = () => ({
     type: ADD_USER
 });
 
-export const updateUserFirstNameCreator = (newFirstName) => ({
+export const updateUserFirstName  = (newFirstName) => ({
     type: UPDATE_USER_FIRSTNAME,
     newFirstName
 });
 
-export const updateUserLastNameCreator = (newLastName) => ({
+export const updateUserLastName  = (newLastName) => ({
     type: UPDATE_USER_LASTNAME,
     newLastName
 });
 
-export const updateUserPatronymicCreator = (newPatronymic) => ({
+export const updateUserPatronymic  = (newPatronymic) => ({
     type: UPDATE_USER_PATRONYMIC,
     newPatronymic
 });
 
-export const updateUserLoginCreator = (newLogin) => ({
+export const updateUserLogin  = (newLogin) => ({
     type: UPDATE_USER_LOGIN,
     newLogin
 });
 
-export const updateUserPasswordCreator = (newPassword) => ({
+export const updateUserPassword  = (newPassword) => ({
     type: UPDATE_USER_PASSWORD,
     newPassword
 });
 
-export const updateUserEmailCreator = (newEmail) => ({
+export const updateUserEmail  = (newEmail) => ({
     type: UPDATE_USER_EMAIL,
     newEmail
 });
 
-export const updateUserPhotoCreator = (newPhoto) => ({
+export const updateUserPhoto  = (newPhoto) => ({
     type: UPDATE_USER_PHOTO,
     newPhoto
 });
 
-export const updateUserRoleIdCreator = (newRoleId) => ({
+export const updateUserRoleId  = (newRoleId) => ({
     type: UPDATE_USER_ROLE_ID,
     newRoleId
 });
 
-export const updateUserCityIdCreator = (newCityId) => ({
+export const updateUserCityId  = (newCityId) => ({
     type: UPDATE_USER_CITY_ID,
     newCityId
 });
 
-export const updateUserCustomerIdCreator = (newCustomerId) => ({
+export const updateUserCustomerId  = (newCustomerId) => ({
     type: UPDATE_USER_CUSTOMER_ID,
     newCustomerId
 });
 
-export const updateUserGenderIdCreator = (newGenderId) => ({
+export const updateUserGenderId  = (newGenderId) => ({
     type: UPDATE_USER_GENDER_ID,
     newGenderId
 });
 
-export const updateUserPhoneCreator = (newUserPhone) => ({
+export const updateUserPhone  = (newUserPhone) => ({
     type: UPDATE_USER_PHONE,
     newUserPhone
 });
 
-export const updateUserLocaleCreator = (newLocale) => ({
+export const updateUserLocale  = (newLocale) => ({
     type: UPDATE_USER_LOCALE,
     newLocale
 });
 
-export const updateUserBirthAtCreator = (newBirthAt) => ({
+export const updateUserBirthAt  = (newBirthAt) => ({
     type: UPDATE_USER_BIRTH_AT,
     newBirthAt
 });
 
-export const updateUserIsAdminCreator = (newIsAdmin) => ({
+export const updateUserIsAdmin  = (newIsAdmin) => ({
     type: UPDATE_USER_IS_ADMIN,
     newIsAdmin
 });
 
-export const updateUserIsBannedCreator = (newIsBanned) => ({
+export const updateUserIsBanned  = (newIsBanned) => ({
     type: UPDATE_USER_IS_BANNED,
     newIsBanned
 });
 
-export const updateUserIsPremiumCreator = (newIsPremium) => ({
+export const updateUserIsPremium  = (newIsPremium) => ({
     type: UPDATE_USER_IS_PREMIUM,
     newIsPremium
 });
 
-export const setUsersCreator = (users) => ({
+export const setUsers  = (users) => ({
     type: SET_USERS,
     users
 });
 
-export const setUsersCountCreator = (usersCount) => ({
+export const setUsersCount  = (usersCount) => ({
     type: SET_USERS_COUNT,
     usersCount
 });
 
-export const setUsersIsFetchingCreator = (isFetching) => ({
+export const setUsersIsFetching  = (isFetching) => ({
     type: SET_USERS_IS_FETCHING,
     isFetching
 });

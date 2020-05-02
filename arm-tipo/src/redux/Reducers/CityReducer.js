@@ -58,31 +58,31 @@ const CityReducer = (state = initialState, action) => {
 };
 
 
-export const addCityCreator = () => ({
+export const addCity  = () => ({
     type: ADD_CITY
 });
 
-export const updateCityNameRuCreator = (newNameRu) => ({
+export const updateCityNameRu  = (newNameRu) => ({
     type: UPDATE_CITY_NAME_RU,
     newNameRu
 });
 
-export const updateCityNameKzCreator = (newNameKz) => ({
+export const updateCityNameKz  = (newNameKz) => ({
     type: UPDATE_CITY_NAME_KZ,
     newNameKz
 });
 
-export const setCitiesCreator = (cities) => ({
+export const setCities  = (cities) => ({
     type: SET_CITIES,
     cities
 });
 
-export const setCitiesCountCreator = (citiesCount) => ({
+export const setCitiesCount = (citiesCount) => ({
     type: SET_CITIES_COUNT,
     citiesCount
 });
 
-export const setCitiesIsFetchingCreator = (isFetching) => ({
+export const setCitiesIsFetching = (isFetching) => ({
     type: SET_CITIES_IS_FETCHING,
     isFetching
 });

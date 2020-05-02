@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import {
-    setDepartmentsCountCreator,
-    setDepartmentsCreator,
-    setDepartmentsIsFetchingCreator
+    setDepartments,
+    setDepartmentsCount,
+    setDepartmentsIsFetching
 } from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import * as axios from "axios";
@@ -54,18 +54,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setDepartments: (departments) => {
-            dispatch(setDepartmentsCreator(departments))
-        },
-        setDepartmentsCount: (departmentsCount) => {
-            dispatch(setDepartmentsCountCreator(departmentsCount))
-        },
-        setDepartmentsIsFetching: (isFetching) => {
-            dispatch(setDepartmentsIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setDepartments,
+        setDepartmentsCount,
+        setDepartmentsIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DepartmentsContainer);
+)(DepartmentsContainer);

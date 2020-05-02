@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setTypesCountCreator, setTypesCreator, setTypesIsFetchingCreator} from "../../../../redux/Reducers/TypeReducer";
+import {setTypes, setTypesCount, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
 import React from "react";
 import * as axios from "axios";
 import Types from "./Types";
@@ -50,18 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setTypes: (types) => {
-            dispatch(setTypesCreator(types))
-        },
-        setTypesCount: (typesCount) => {
-            dispatch(setTypesCountCreator(typesCount))
-        },
-        setTypesIsFetching: (isFetching) => {
-            dispatch(setTypesIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setTypes,
+        setTypesCount,
+        setTypesIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TypesContainer);
+)(TypesContainer);

@@ -2,7 +2,7 @@ import React from 'react'
 import Home from "./Home";
 import * as axios from "axios";
 import {connect} from "react-redux";
-import {setUsersCountCreator, setUsersIsFetchingCreator} from "../../../redux/Reducers/UserReducer";
+import {setUsersCount, setUsersIsFetching} from "../../../redux/Reducers/UserReducer";
 import {BASE_URL} from "../../../env";
 
 class HomeContainer extends React.Component {
@@ -49,15 +49,9 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setUsersCount: (usersCount) => {
-            dispatch(setUsersCountCreator(usersCount))
-        },
-        setUsersIsFetching: (isFetching) => {
-            dispatch(setUsersIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setUsersCount,
+        setUsersIsFetching
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+)(HomeContainer);

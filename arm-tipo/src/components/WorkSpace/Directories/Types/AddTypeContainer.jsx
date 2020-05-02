@@ -1,8 +1,4 @@
-import {
-    addTypeCreator,
-    updateTypeNameKzCreator,
-    updateTypeNameRuCreator
-} from "../../../../redux/Reducers/TypeReducer";
+import {addType, updateTypeNameKz, updateTypeNameRu} from "../../../../redux/Reducers/TypeReducer";
 import {connect} from "react-redux";
 import AddType from "./AddType";
 
@@ -12,20 +8,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addType: () => {
-            dispatch(addTypeCreator());
-        },
-        updateTypeNameRu: (name_ru) => {
-            dispatch(updateTypeNameRuCreator(name_ru));
-        },
-        updateTypeNameKz: (name_kz) => {
-            dispatch(updateTypeNameKzCreator(name_kz));
-        },
+const AddTypeContainer = connect(MapStateToProps,
+    {
+        addType,
+        updateTypeNameRu,
+        updateTypeNameKz,
     }
-};
-
-const AddTypeContainer = connect(MapStateToProps, MapDispatchToProps)(AddType);
+)(AddType);
 
 export default AddTypeContainer;

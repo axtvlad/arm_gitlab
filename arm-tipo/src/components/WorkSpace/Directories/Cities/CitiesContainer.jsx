@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    setCitiesCountCreator,
-    setCitiesCreator,
-    setCitiesIsFetchingCreator
-} from "../../../../redux/Reducers/CityReducer";
+import {setCities, setCitiesCount, setCitiesIsFetching} from "../../../../redux/Reducers/CityReducer";
 import React from "react";
 import * as axios from "axios";
 import Cities from "./Cities";
@@ -54,18 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setCities: (cities) => {
-            dispatch(setCitiesCreator(cities))
-        },
-        setCitiesCount: (citiesCount) => {
-            dispatch(setCitiesCountCreator(citiesCount))
-        },
-        setCitiesIsFetching: (isFetching) => {
-            dispatch(setCitiesIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setCities,
+        setCitiesCount,
+        setCitiesIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesContainer);
+)(CitiesContainer);

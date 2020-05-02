@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    setStatusesCountCreator,
-    setStatusesCreator,
-    setStatusesIsFetchingCreator
-} from "../../../../redux/Reducers/StatusReducer";
+import {setStatuses, setStatusesCount, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
 import React from "react";
 import * as axios from "axios";
 import Statuses from "./Statuses";
@@ -54,18 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setStatuses: (statuses) => {
-            dispatch(setStatusesCreator(statuses))
-        },
-        setStatusesCount: (statusesCount) => {
-            dispatch(setStatusesCountCreator(statusesCount))
-        },
-        setStatusesIsFetching: (isFetching) => {
-            dispatch(setStatusesIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setStatuses,
+        setStatusesCount,
+        setStatusesIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StatusesContainer);
+)(StatusesContainer);

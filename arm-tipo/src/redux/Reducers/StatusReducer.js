@@ -57,31 +57,31 @@ const StatusReducer = (state = initialState, action) => {
     }
 };
 
-export const addStatusCreator = () => ({
+export const addStatus  = () => ({
     type: ADD_STATUS
 });
 
-export const updateStatusNameRuCreator = (newNameRu) => ({
+export const updateStatusNameRu  = (newNameRu) => ({
     type: UPDATE_STATUS_NAME_RU,
     newNameRu
 });
 
-export const updateStatusNameKzCreator = (newNameKz) => ({
+export const updateStatusNameKz  = (newNameKz) => ({
     type: UPDATE_STATUS_NAME_KZ,
     newNameKz
 });
 
-export const setStatusesCreator = (statuses) => ({
+export const setStatuses  = (statuses) => ({
     type: SET_STATUSES,
     statuses
 });
 
-export const setStatusesCountCreator = (statusesCount) => ({
+export const setStatusesCount  = (statusesCount) => ({
     type: SET_STATUSES_COUNT,
     statusesCount
 });
 
-export const setStatusesIsFetchingCreator = (isFetching) => ({
+export const setStatusesIsFetching  = (isFetching) => ({
     type: SET_STATUSES_IS_FETCHING,
     isFetching
 });

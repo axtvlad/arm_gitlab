@@ -124,6 +124,20 @@ let initialState = {
     isFetching: false,
 };
 
+const dateNow = () => {
+    let date = new Date();
+
+    let dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    let mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    let yyyy = date.getFullYear();
+
+    return dd + '-' + mm + '-' + yyyy;
+};
+
 const MainDocReducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -189,9 +203,10 @@ const MainDocReducer = (state = initialState, action) => {
                 newMainDocFinishDate: action.newFinishDate
             };
         case UPDATE_MAIN_DOC_PUB_DATE:
+            let pub_date = dateNow();
             return {
                 ...state,
-                newMainDocPubDate: action.newPubDate
+                newMainDocPubDate: pub_date
             };
         case UPDATE_MAIN_DOC_NUMBER:
             return {
@@ -274,106 +289,105 @@ const MainDocReducer = (state = initialState, action) => {
 };
 
 
-export const addMainDocCreator = () => ({
+export const addMainDoc = () => ({
     type: ADD_MAIN_DOC
 });
 
-export const updateMainDocNameRuCreator = (newNameRu) => ({
+export const updateMainDocNameRu = (newNameRu) => ({
     type: UPDATE_MAIN_DOC_NAME_RU,
     newNameRu
 });
 
-export const updateMainDocNameKzCreator = (newNameKz) => ({
+export const updateMainDocNameKz = (newNameKz) => ({
     type: UPDATE_MAIN_DOC_NAME_KZ,
     newNameKz
 });
 
-export const updateMainDocNumberCreator = (newNumber) => ({
+export const updateMainDocNumber = (newNumber) => ({
     type: UPDATE_MAIN_DOC_NUMBER,
     newNumber
 });
 
-export const updateMainDocDepartmentIdCreator = (newDepartmentId) => ({
+export const updateMainDocDepartmentId = (newDepartmentId) => ({
     type: UPDATE_MAIN_DOC_DEPARTMENT_ID,
     newDepartmentId
 });
 
-export const updateMainDocStatusIdCreator = (newStatusId) => ({
+export const updateMainDocStatusId = (newStatusId) => ({
     type: UPDATE_MAIN_DOC_STATUS_ID,
     newStatusId
 });
 
-export const updateMainDocBeginDateCreator = (newBeginDate) => ({
+export const updateMainDocBeginDate = (newBeginDate) => ({
     type: UPDATE_MAIN_DOC_BEGIN_DATE,
     newBeginDate
 });
 
-export const updateMainDocFinishDateCreator = (newFinishDate) => ({
+export const updateMainDocFinishDate = (newFinishDate) => ({
     type: UPDATE_MAIN_DOC_FINISH_DATE,
     newFinishDate
 });
 
-export const updateMainDocPubDateCreator = (newPubDate) => ({
+export const updateMainDocPubDate = () => ({
     type: UPDATE_MAIN_DOC_PUB_DATE,
-    newPubDate
 });
 
-export const updateMainDocHeaderRuCreator = (newHeaderRu) => ({
+export const updateMainDocHeaderRu = (newHeaderRu) => ({
     type: UPDATE_MAIN_DOC_HEADER_RU,
     newHeaderRu
 });
 
-export const updateMainDocHeaderKzCreator = (newHeaderKz) => ({
+export const updateMainDocHeaderKz = (newHeaderKz) => ({
     type: UPDATE_MAIN_DOC_HEADER_KZ,
     newHeaderKz
 });
 
-export const updateMainDocFileRuCreator = (newFileRu) => ({
+export const updateMainDocFileRu = (newFileRu) => ({
     type: UPDATE_MAIN_DOC_FILE_RU,
     newFileRu
 });
 
-export const updateMainDocFileKzCreator = (newFileKz) => ({
+export const updateMainDocFileKz = (newFileKz) => ({
     type: UPDATE_MAIN_DOC_FILE_KZ,
     newFileKz
 });
 
-export const updateMainDocDescriptionRuCreator = (newDescriptionRu) => ({
+export const updateMainDocDescriptionRu = (newDescriptionRu) => ({
     type: UPDATE_MAIN_DOC_DESCRIPTION_RU,
     newDescriptionRu
 });
 
-export const updateMainDocDescriptionKzCreator = (newDescriptionKz) => ({
+export const updateMainDocDescriptionKz = (newDescriptionKz) => ({
     type: UPDATE_MAIN_DOC_DESCRIPTION_KZ,
     newDescriptionKz
 });
 
-export const updateMainDocTypeIdCreator = (newTypeId) => ({
+export const updateMainDocTypeId = (newTypeId) => ({
     type: UPDATE_MAIN_DOC_TYPE_ID,
     newTypeId
 });
 
-export const updateMainDocTextRuCreator = (newTextRu) => ({
+export const updateMainDocTextRu = (newTextRu) => ({
     type: UPDATE_MAIN_DOC_TEXT_RU,
     newTextRu
 });
 
-export const updateMainDocTextKzCreator = (newTextKz) => ({
+export const updateMainDocTextKz = (newTextKz) => ({
     type: UPDATE_MAIN_DOC_TEXT_KZ,
     newTextKz
 });
 
-export const setMainDocsCreator = (mainDocs) => ({
+export const setMainDocs = (mainDocs) => ({
     type: SET_MAIN_DOCS,
     mainDocs
 });
 
-export const setMainDocsCountCreator = (mainDocsCount) => ({
+export const setMainDocsCount = (mainDocsCount) => ({
     type: SET_MAIN_DOCS_COUNT,
     mainDocsCount
 });
 
-export const setMainDocsIsFetchingCreator = (isFetching) => ({
+export const setMainDocsIsFetching = (isFetching) => ({
     type: SET_MAIN_DOCS_IS_FETCHING,
     isFetching
 });

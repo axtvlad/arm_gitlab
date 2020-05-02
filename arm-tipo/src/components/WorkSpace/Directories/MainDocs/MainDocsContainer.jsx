@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    setMainDocsCountCreator,
-    setMainDocsCreator,
-    setMainDocsIsFetchingCreator
-} from "../../../../redux/Reducers/MainDocReducer";
+import {setMainDocs, setMainDocsCount, setMainDocsIsFetching} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import * as axios from "axios";
 import MainDocs from "./MainDocs";
@@ -54,19 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setMainDocs: (mainDocs) => {
-            dispatch(setMainDocsCreator(mainDocs))
-        },
-        setMainDocsCount: (mainDocsCount) => {
-            dispatch(setMainDocsCountCreator(mainDocsCount))
-        },
-        setMainDocsIsFetching: (isFetching) => {
-            dispatch(setMainDocsIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setMainDocs,
+        setMainDocsCount,
+        setMainDocsIsFetching,
     }
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainDocsContainer);
+)(MainDocsContainer);

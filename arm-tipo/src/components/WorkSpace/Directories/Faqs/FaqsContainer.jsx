@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setFaqsCountCreator, setFaqsCreator, setFaqsIsFetchingCreator} from "../../../../redux/Reducers/FaqReducer";
+import {setFaqs, setFaqsCount, setFaqsIsFetching} from "../../../../redux/Reducers/FaqReducer";
 import React from "react";
 import * as axios from "axios";
 import Faqs from "./Faqs";
@@ -50,18 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setFaqs: (faqs) => {
-            dispatch(setFaqsCreator(faqs))
-        },
-        setFaqsCount: (faqsCount) => {
-            dispatch(setFaqsCountCreator(faqsCount))
-        },
-        setFaqsIsFetching: (isFetching) => {
-            dispatch(setFaqsIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setFaqs,
+        setFaqsCount,
+        setFaqsIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FaqsContainer);
+)(FaqsContainer);

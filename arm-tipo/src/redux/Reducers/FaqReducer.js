@@ -79,41 +79,41 @@ const FaqReducer = (state = initialState, action) => {
     }
 };
 
-export const addFaqCreator = () => ({
+export const addFaq  = () => ({
     type: ADD_FAQ
 });
 
-export const updateFaqQuestionRuCreator = (newFaqQuestionRu) => ({
+export const updateFaqQuestionRu  = (newFaqQuestionRu) => ({
     type: UPDATE_FAQ_QUESTION_RU,
     newFaqQuestionRu
 });
 
-export const updateFaqQuestionKzCreator = (newFaqQuestionKz) => ({
+export const updateFaqQuestionKz  = (newFaqQuestionKz) => ({
     type: UPDATE_FAQ_QUESTION_KZ,
     newFaqQuestionKz
 });
 
-export const updateFaqAnswerRuCreator = (newFaqAnswerRu) => ({
+export const updateFaqAnswerRu  = (newFaqAnswerRu) => ({
     type: UPDATE_FAQ_ANSWER_RU,
     newFaqAnswerRu
 });
 
-export const updateFaqAnswerKzCreator = (newFaqAnswerKz) => ({
+export const updateFaqAnswerKz  = (newFaqAnswerKz) => ({
     type: UPDATE_FAQ_ANSWER_KZ,
     newFaqAnswerKz
 });
 
-export const setFaqsCreator = (faqs) => ({
+export const setFaqs  = (faqs) => ({
     type: SET_FAQS,
     faqs
 });
 
-export const setFaqsCountCreator = (faqsCount) => ({
+export const setFaqsCount  = (faqsCount) => ({
     type: SET_FAQS_COUNT,
     faqsCount
 });
 
-export const setFaqsIsFetchingCreator = (isFetching) => ({
+export const setFaqsIsFetching  = (isFetching) => ({
     type: SET_FAQS_IS_FETCHING,
     isFetching
 });

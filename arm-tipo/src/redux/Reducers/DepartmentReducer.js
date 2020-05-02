@@ -57,31 +57,31 @@ const DepartmentReducer = (state = initialState, action) => {
     }
 };
 
-export const addDepartmentCreator = () => ({
+export const addDepartment  = () => ({
     type: ADD_DEPARTMENT
 });
 
-export const updateDepartmentNameRuCreator = (newNameRu) => ({
+export const updateDepartmentNameRu  = (newNameRu) => ({
     type: UPDATE_DEPARTMENT_NAME_RU,
     newNameRu
 });
 
-export const updateDepartmentNameKzCreator = (newNameKz) => ({
+export const updateDepartmentNameKz  = (newNameKz) => ({
     type: UPDATE_DEPARTMENT_NAME_KZ,
     newNameKz
 });
 
-export const setDepartmentsCreator = (departments) => ({
+export const setDepartments  = (departments) => ({
     type: SET_DEPARTMENTS,
     departments
 });
 
-export const setDepartmentsCountCreator = (departmentsCount) => ({
+export const setDepartmentsCount  = (departmentsCount) => ({
     type: SET_DEPARTMENTS_COUNT,
     departmentsCount
 });
 
-export const setDepartmentsIsFetchingCreator = (isFetching) => ({
+export const setDepartmentsIsFetching  = (isFetching) => ({
     type: SET_DEPARTMENTS_IS_FETCHING,
     isFetching
 });

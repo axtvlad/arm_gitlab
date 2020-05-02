@@ -57,31 +57,31 @@ const CustomerReducer = (state = initialState, action) => {
     }
 };
 
-export const addCustomerCreator = () => ({
+export const addCustomer  = () => ({
     type: ADD_CUSTOMER
 });
 
-export const updateCustomerNameRuCreator = (newNameRu) => ({
+export const updateCustomerNameRu  = (newNameRu) => ({
     type: UPDATE_CUSTOMER_NAME_RU,
     newNameRu
 });
 
-export const updateCustomerNameKzCreator = (newNameKz) => ({
+export const updateCustomerNameKz  = (newNameKz) => ({
     type: UPDATE_CUSTOMER_NAME_KZ,
     newNameKz
 });
 
-export const setCustomersCreator = (customers) => ({
+export const setCustomers  = (customers) => ({
     type: SET_CUSTOMERS,
     customers
 });
 
-export const setCustomersCountCreator = (customersCount) => ({
+export const setCustomersCount  = (customersCount) => ({
     type: SET_CUSTOMERS_COUNT,
     customersCount
 });
 
-export const setCustomersIsFetchingCreator = (isFetching) => ({
+export const setCustomersIsFetching  = (isFetching) => ({
     type: SET_CUSTOMERS_IS_FETCHING,
     isFetching
 });

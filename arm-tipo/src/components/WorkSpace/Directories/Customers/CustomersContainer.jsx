@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    setCustomersCountCreator,
-    setCustomersCreator,
-    setCustomersIsFetchingCreator
-} from "../../../../redux/Reducers/CustomerReducer";
+import {setCustomers, setCustomersCount, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import React from "react";
 import * as axios from "axios";
 import Customers from "./Customers";
@@ -55,18 +51,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setCustomers: (customers) => {
-            dispatch(setCustomersCreator(customers));
-        },
-        setCustomersCount: (customersCount) => {
-            dispatch(setCustomersCountCreator(customersCount))
-        },
-        setCustomersIsFetching: (isFetching) => {
-            dispatch(setCustomersIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setCustomers,
+        setCustomersCount,
+        setCustomersIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomersContainer);
+)(CustomersContainer);

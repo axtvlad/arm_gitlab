@@ -1,10 +1,6 @@
 import {connect} from "react-redux";
 import AddStatus from "./AddStatus";
-import {
-    addStatusCreator,
-    updateStatusNameKzCreator,
-    updateStatusNameRuCreator
-} from "../../../../redux/Reducers/StatusReducer";
+import {addStatus, updateStatusNameKz, updateStatusNameRu} from "../../../../redux/Reducers/StatusReducer";
 
 let MapStateToProps = (state) => {
     return {
@@ -12,20 +8,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addStatus: () => {
-            dispatch(addStatusCreator());
-        },
-        updateStatusNameRu: (name_ru) => {
-            dispatch(updateStatusNameRuCreator(name_ru));
-        },
-        updateStatusNameKz: (name_kz) => {
-            dispatch(updateStatusNameKzCreator(name_kz));
-        },
+const AddStatusContainer = connect(MapStateToProps,
+    {
+        addStatus,
+        updateStatusNameRu,
+        updateStatusNameKz,
     }
-};
-
-const AddStatusContainer = connect(MapStateToProps, MapDispatchToProps)(AddStatus);
+)(AddStatus);
 
 export default AddStatusContainer;

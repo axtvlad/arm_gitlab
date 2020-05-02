@@ -57,31 +57,31 @@ const RoleReducer = (state = initialState, action) => {
     }
 };
 
-export const addRoleCreator = () => ({
+export const addRole  = () => ({
     type: ADD_ROLE
 });
 
-export const updateRoleNameRuCreator = (newNameRu) => ({
+export const updateRoleNameRu  = (newNameRu) => ({
     type: UPDATE_ROLE_NAME_RU,
     newNameRu
 });
 
-export const updateRoleNameKzCreator = (newNameKz) => ({
+export const updateRoleNameKz  = (newNameKz) => ({
     type: UPDATE_ROLE_NAME_KZ,
     newNameKz
 });
 
-export const setRolesCreator = (roles) => ({
+export const setRoles  = (roles) => ({
     type: SET_ROLES,
     roles
 });
 
-export const setRolesCountCreator = (rolesCount) => ({
+export const setRolesCount  = (rolesCount) => ({
     type: SET_ROLES_COUNT,
     rolesCount
 });
 
-export const setRolesIsFetchingCreator = (isFetching) => ({
+export const setRolesIsFetching  = (isFetching) => ({
     type: SET_ROLES_IS_FETCHING,
     isFetching
 });

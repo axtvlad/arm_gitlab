@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import AddDepartment from "./AddDepartment";
 import {
-    addDepartmentCreator,
-    updateDepartmentNameKzCreator,
-    updateDepartmentNameRuCreator
+    addDepartment,
+    updateDepartmentNameKz,
+    updateDepartmentNameRu
 } from "../../../../redux/Reducers/DepartmentReducer";
 
 let MapStateToProps = (state) => {
@@ -12,20 +12,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addDepartment: () => {
-            dispatch(addDepartmentCreator());
-        },
-        updateDepartmentNameRu: (ru) => {
-            dispatch(updateDepartmentNameRuCreator(ru));
-        },
-        updateDepartmentNameKz: (kz) => {
-            dispatch(updateDepartmentNameKzCreator(kz));
-        },
+const AddDepartmentContainer = connect(MapStateToProps,
+    {
+        addDepartment,
+        updateDepartmentNameRu,
+        updateDepartmentNameKz,
     }
-};
-
-const AddDepartmentContainer = connect(MapStateToProps, MapDispatchToProps)(AddDepartment);
+)(AddDepartment);
 
 export default AddDepartmentContainer;

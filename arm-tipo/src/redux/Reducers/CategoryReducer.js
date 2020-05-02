@@ -58,31 +58,31 @@ const CategoryReducer = (state = initialState, action) => {
 };
 
 
-export const addCategoryCreator = () => ({
+export const addCategory = () => ({
     type: ADD_CATEGORY
 });
 
-export const updateCategoryNameRuCreator = (newNameRu) => ({
+export const updateCategoryNameRu = (newNameRu) => ({
     type: UPDATE_CATEGORY_NAME_RU,
     newNameRu
 });
 
-export const updateCategoryNameKzCreator = (newNameKz) => ({
+export const updateCategoryNameKz = (newNameKz) => ({
     type: UPDATE_CATEGORY_NAME_KZ,
     newNameKz
 });
 
-export const setCategoriesCreator = (categories) => ({
+export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
     categories
 });
 
-export const setCategoriesCountCreator = (categoriesCount) => ({
+export const setCategoriesCount = (categoriesCount) => ({
     type: SET_CATEGORIES_COUNT,
     categoriesCount
 });
 
-export const setCategoriesIsFetchingCreator = (isFetching) => ({
+export const setCategoriesIsFetching = (isFetching) => ({
     type: SET_CATEGORIES_IS_FETCHING,
     isFetching
 });

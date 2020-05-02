@@ -1,9 +1,5 @@
 import {connect} from "react-redux";
-import {
-    addCityCreator,
-    updateCityNameKzCreator,
-    updateCityNameRuCreator
-} from "../../../../redux/Reducers/CityReducer";
+import {addCity, updateCityNameKz, updateCityNameRu} from "../../../../redux/Reducers/CityReducer";
 import AddCity from "./AddCity";
 
 let MapStateToProps = (state) => {
@@ -12,20 +8,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-let MapDispatchToProps = (dispatch) => {
-    return {
-        addCity: () => {
-            dispatch(addCityCreator());
-        },
-        updateCityNameRu: (name_ru) => {
-            dispatch(updateCityNameRuCreator(name_ru));
-        },
-        updateCityNameKz: (name_kz) => {
-            dispatch(updateCityNameKzCreator(name_kz));
-        },
+const AddCityContainer = connect(MapStateToProps,
+    {
+        addCity,
+        updateCityNameRu,
+        updateCityNameKz,
     }
-};
-
-const AddCityContainer = connect(MapStateToProps, MapDispatchToProps)(AddCity);
+)(AddCity);
 
 export default AddCityContainer;

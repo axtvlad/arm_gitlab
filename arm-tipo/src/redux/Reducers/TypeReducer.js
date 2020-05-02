@@ -57,31 +57,31 @@ const TypeReducer = (state = initialState, action) => {
     }
 };
 
-export const addTypeCreator = () => ({
+export const addType  = () => ({
     type: ADD_TYPE
 });
 
-export const updateTypeNameRuCreator = (newNameRu) => ({
+export const updateTypeNameRu  = (newNameRu) => ({
     type: UPDATE_TYPE_NAME_RU,
     newNameRu
 });
 
-export const updateTypeNameKzCreator = (newNameKz) => ({
+export const updateTypeNameKz  = (newNameKz) => ({
     type: UPDATE_TYPE_NAME_KZ,
     newNameKz
 });
 
-export const setTypesCreator = (types) => ({
+export const setTypes  = (types) => ({
     type: SET_TYPES,
     types
 });
 
-export const setTypesCountCreator = (typesCount) => ({
+export const setTypesCount  = (typesCount) => ({
     type: SET_TYPES_COUNT,
     typesCount
 });
 
-export const setTypesIsFetchingCreator = (isFetching) => ({
+export const setTypesIsFetching  = (isFetching) => ({
     type: SET_TYPES_IS_FETCHING,
     isFetching
 });

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setRolesCountCreator, setRolesCreator, setRolesIsFetchingCreator} from "../../../../redux/Reducers/RoleReducer";
+import {setRoles, setRolesCount, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import React from "react";
 import * as axios from "axios";
 import Roles from "./Roles";
@@ -50,18 +50,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setRoles: (roles) => {
-            dispatch(setRolesCreator(roles))
-        },
-        setRolesCount: (rolesCount) => {
-            dispatch(setRolesCountCreator(rolesCount))
-        },
-        setRolesIsFetching: (isFetching) => {
-            dispatch(setRolesIsFetchingCreator(isFetching))
-        }
+export default connect(mapStateToProps,
+    {
+        setRoles,
+        setRolesCount,
+        setRolesIsFetching,
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RolesContainer);
+)(RolesContainer);
