@@ -3,6 +3,7 @@ import {setCustomersCountCreator, setCustomersCreator} from "../../../../redux/R
 import React from "react";
 import * as axios from "axios";
 import Customers from "./Customers";
+import {BASE_URL} from "../../../../env";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class CustomersContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/customers', config)
+                .get(BASE_URL + '/customers', config)
                 .then(response => {
                     this.props.setCustomers(response.data.data);
                     this.props.setCustomersCount(response.data.totalCount);

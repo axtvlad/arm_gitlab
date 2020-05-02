@@ -3,6 +3,7 @@ import {setRolesCountCreator, setRolesCreator} from "../../../../redux/Reducers/
 import React from "react";
 import * as axios from "axios";
 import Roles from "./Roles";
+import {BASE_URL} from "../../../../env";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class RolesContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/roles', config)
+                .get(BASE_URL + '/roles', config)
                 .then(response => {
                     this.props.setRoles(response.data.data);
                     this.props.setRolesCount(response.data.totalCount);

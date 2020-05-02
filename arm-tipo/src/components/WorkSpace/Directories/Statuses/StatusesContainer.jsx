@@ -3,6 +3,7 @@ import {setStatusesCountCreator, setStatusesCreator} from "../../../../redux/Red
 import React from "react";
 import * as axios from "axios";
 import Statuses from "./Statuses";
+import {BASE_URL} from "../../../../env";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class StatusesContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/statuses', config)
+                .get(BASE_URL + '/statuses', config)
                 .then(response => {
                     this.props.setStatuses(response.data.data);
                     this.props.setStatusesCount(response.data.totalCount);

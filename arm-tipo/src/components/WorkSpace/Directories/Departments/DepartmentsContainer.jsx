@@ -3,6 +3,7 @@ import {setDepartmentsCountCreator, setDepartmentsCreator} from "../../../../red
 import React from "react";
 import * as axios from "axios";
 import Departments from "./Departments";
+import {BASE_URL} from "../../../../env";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class DepartmentsContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/departments', config)
+                .get(BASE_URL + '/departments', config)
                 .then(response => {
                     this.props.setDepartments(response.data.data);
                     this.props.setDepartmentsCount(response.data.totalCount);

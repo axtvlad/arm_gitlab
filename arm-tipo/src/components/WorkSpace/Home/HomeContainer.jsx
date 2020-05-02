@@ -3,6 +3,7 @@ import Home from "./Home";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import {setUsersCountCreator} from "../../../redux/Reducers/UserReducer";
+import {BASE_URL} from "../../../env";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class HomeContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/users', config)
+                .get(BASE_URL + '/users', config)
                 .then(response => {
                     this.props.setUsersCount(response.data.totalCount);
                     console.log('users: ', response.data.data);

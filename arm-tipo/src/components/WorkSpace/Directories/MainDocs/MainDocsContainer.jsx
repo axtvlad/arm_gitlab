@@ -3,6 +3,7 @@ import {setMainDocsCountCreator, setMainDocsCreator} from "../../../../redux/Red
 import React from "react";
 import * as axios from "axios";
 import MainDocs from "./MainDocs";
+import {BASE_URL} from "../../../../env";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class MainDocsContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/mainDocs', config)
+                .get(BASE_URL + '/mainDocs', config)
                 .then(response => {
                     this.props.setMainDocs(response.data.data);
                     this.props.setMainDocsCount(response.data.totalCount);

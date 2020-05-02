@@ -3,6 +3,7 @@ import {setFaqsCountCreator, setFaqsCreator} from "../../../../redux/Reducers/Fa
 import React from "react";
 import * as axios from "axios";
 import Faqs from "./Faqs";
+import {BASE_URL} from "../../../../env";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class FaqsContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/faqs', config)
+                .get(BASE_URL + '/faqs', config)
                 .then(response => {
                     this.props.setFaqs(response.data.data);
                     this.props.setFaqsCount(response.data.totalCount);

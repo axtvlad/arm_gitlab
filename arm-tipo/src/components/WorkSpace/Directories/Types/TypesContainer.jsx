@@ -3,6 +3,7 @@ import {setTypesCountCreator, setTypesCreator} from "../../../../redux/Reducers/
 import React from "react";
 import * as axios from "axios";
 import Types from "./Types";
+import {BASE_URL} from "../../../../env";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class TypesContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/types', config)
+                .get(BASE_URL + '/types', config)
                 .then(response => {
                     this.props.setTypes(response.data.data);
                     this.props.setTypesCount(response.data.totalCount);

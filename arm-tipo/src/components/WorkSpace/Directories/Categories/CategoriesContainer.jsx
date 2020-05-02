@@ -3,6 +3,7 @@ import {setCategoriesCountCreator, setCategoriesCreator} from "../../../../redux
 import React from "react";
 import * as axios from "axios";
 import Categories from "./Categories";
+import {BASE_URL} from "../../../../env";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class CategoriesContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/categories', config)
+                .get(BASE_URL + '/categories', config)
                 .then(response => {
                     this.props.setCategories(response.data.data);
                     this.props.setCategoriesCount(response.data.totalCount);

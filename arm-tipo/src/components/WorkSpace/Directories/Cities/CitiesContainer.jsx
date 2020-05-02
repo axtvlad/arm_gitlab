@@ -3,6 +3,7 @@ import {setCitiesCountCreator, setCitiesCreator} from "../../../../redux/Reducer
 import React from "react";
 import * as axios from "axios";
 import Cities from "./Cities";
+import {BASE_URL} from "../../../../env";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class CitiesContainer extends React.Component {
             };
 
             axios
-                .get('http://185.22.66.183:8080/rest/api/cities', config)
+                .get(BASE_URL + '/cities', config)
                 .then(response => {
                     this.props.setCities(response.data.data);
                     this.props.setCitiesCount(response.data.totalCount);
