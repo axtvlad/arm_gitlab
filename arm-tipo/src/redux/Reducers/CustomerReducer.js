@@ -4,6 +4,7 @@ const UPDATE_CUSTOMER_NAME_KZ = 'update_customer_name_kz';
 const SET_CUSTOMERS = 'set_customers';
 const SET_CUSTOMERS_COUNT = 'set_customers_count';
 const SET_CUSTOMERS_IS_FETCHING = 'set_categories_is_fetching';
+const SET_CURRENT_CUSTOMER = 'set_current_customer';
 
 let initialState = {
     customers: [],
@@ -11,6 +12,7 @@ let initialState = {
     newCustomerNameKz: '',
     customersCount: 0,
     isFetching: false,
+    currentCustomer: null,
 };
 
 const CustomerReducer = (state = initialState, action) => {
@@ -52,38 +54,48 @@ const CustomerReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_CUSTOMER:
+            return {
+                ...state,
+                currentCustomer: action.currentCustomer
+            };
         default:
             return state;
     }
 };
 
-export const addCustomer  = () => ({
+export const addCustomer = () => ({
     type: ADD_CUSTOMER
 });
 
-export const updateCustomerNameRu  = (newNameRu) => ({
+export const updateCustomerNameRu = (newNameRu) => ({
     type: UPDATE_CUSTOMER_NAME_RU,
     newNameRu
 });
 
-export const updateCustomerNameKz  = (newNameKz) => ({
+export const updateCustomerNameKz = (newNameKz) => ({
     type: UPDATE_CUSTOMER_NAME_KZ,
     newNameKz
 });
 
-export const setCustomers  = (customers) => ({
+export const setCustomers = (customers) => ({
     type: SET_CUSTOMERS,
     customers
 });
 
-export const setCustomersCount  = (customersCount) => ({
+export const setCustomersCount = (customersCount) => ({
     type: SET_CUSTOMERS_COUNT,
     customersCount
 });
 
-export const setCustomersIsFetching  = (isFetching) => ({
+export const setCustomersIsFetching = (isFetching) => ({
     type: SET_CUSTOMERS_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentCustomer = (currentCustomer) => ({
+    type: SET_CURRENT_CUSTOMER,
+    currentCustomer
 });
 
 export default CustomerReducer;

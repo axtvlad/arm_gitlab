@@ -4,6 +4,7 @@ const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
 const SET_STATUSES = 'set_statuses';
 const SET_STATUSES_COUNT = 'set_statuses_count';
 const SET_STATUSES_IS_FETCHING = 'set_statuses_is_fetching';
+const SET_CURRENT_STATUS = 'set_current_status';
 
 let initialState = {
     statuses: [],
@@ -11,6 +12,7 @@ let initialState = {
     newStatusNameKz: '',
     statusesCount: 0,
     isFetching: false,
+    currentStatus: null,
 };
 
 const StatusReducer = (state = initialState, action) => {
@@ -52,38 +54,48 @@ const StatusReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_STATUS:
+            return {
+                ...state,
+                currentStatus: action.currentStatus
+            };
         default:
             return state;
     }
 };
 
-export const addStatus  = () => ({
+export const addStatus = () => ({
     type: ADD_STATUS
 });
 
-export const updateStatusNameRu  = (newNameRu) => ({
+export const updateStatusNameRu = (newNameRu) => ({
     type: UPDATE_STATUS_NAME_RU,
     newNameRu
 });
 
-export const updateStatusNameKz  = (newNameKz) => ({
+export const updateStatusNameKz = (newNameKz) => ({
     type: UPDATE_STATUS_NAME_KZ,
     newNameKz
 });
 
-export const setStatuses  = (statuses) => ({
+export const setStatuses = (statuses) => ({
     type: SET_STATUSES,
     statuses
 });
 
-export const setStatusesCount  = (statusesCount) => ({
+export const setStatusesCount = (statusesCount) => ({
     type: SET_STATUSES_COUNT,
     statusesCount
 });
 
-export const setStatusesIsFetching  = (isFetching) => ({
+export const setStatusesIsFetching = (isFetching) => ({
     type: SET_STATUSES_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentStatus = (currentStatus) => ({
+    type: SET_CURRENT_STATUS,
+    currentStatus
 });
 
 

@@ -4,6 +4,7 @@ const UPDATE_CITY_NAME_KZ = 'update_city_name_kz';
 const SET_CITIES = 'set_cities';
 const SET_CITIES_COUNT = 'set_cities_count';
 const SET_CITIES_IS_FETCHING = 'set_cities_is_fetching';
+const SET_CURRENT_CITY = 'set_current_city';
 
 let initialState = {
     cities: [],
@@ -11,6 +12,7 @@ let initialState = {
     newCityNameKz: '',
     citiesCount: 0,
     isFetching: false,
+    currentCity: null,
 };
 
 const CityReducer = (state = initialState, action) => {
@@ -52,27 +54,32 @@ const CityReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_CITY:
+            return {
+                ...state,
+                currentCity: action.currentCity
+            };
         default:
             return state;
     }
 };
 
 
-export const addCity  = () => ({
+export const addCity = () => ({
     type: ADD_CITY
 });
 
-export const updateCityNameRu  = (newNameRu) => ({
+export const updateCityNameRu = (newNameRu) => ({
     type: UPDATE_CITY_NAME_RU,
     newNameRu
 });
 
-export const updateCityNameKz  = (newNameKz) => ({
+export const updateCityNameKz = (newNameKz) => ({
     type: UPDATE_CITY_NAME_KZ,
     newNameKz
 });
 
-export const setCities  = (cities) => ({
+export const setCities = (cities) => ({
     type: SET_CITIES,
     cities
 });
@@ -85,6 +92,11 @@ export const setCitiesCount = (citiesCount) => ({
 export const setCitiesIsFetching = (isFetching) => ({
     type: SET_CITIES_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentCity = (currentCity) => ({
+    type: SET_CURRENT_CITY,
+    currentCity
 });
 
 export default CityReducer;

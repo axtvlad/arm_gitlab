@@ -44,7 +44,11 @@ const Categories = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Table columns={columns} dataSource={props.categories}/>
+                <Table
+                    columns={columns}
+                    dataSource={props.categories}
+                    rowKey={'id'}
+                />
             </Spin>
         </div>
     )

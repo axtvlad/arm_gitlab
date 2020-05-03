@@ -4,6 +4,7 @@ const UPDATE_CATEGORY_NAME_KZ = 'update_category_name_kz';
 const SET_CATEGORIES = 'set_categories';
 const SET_CATEGORIES_COUNT = 'set_categories_count';
 const SET_CATEGORIES_IS_FETCHING = 'set_categories_is_fetching';
+const SET_CURRENT_CATEGORY = 'set_current_category';
 
 let initialState = {
     categories: [],
@@ -11,6 +12,7 @@ let initialState = {
     newCategoryNameKz: '',
     categoriesCount: 0,
     isFetching: false,
+    currentCategory: null
 };
 
 const CategoryReducer = (state = initialState, action) => {
@@ -52,6 +54,11 @@ const CategoryReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_CATEGORY:
+            return {
+                ...state,
+                currentCategory: action.currentCategory
+            };
         default:
             return state;
     }
@@ -85,6 +92,11 @@ export const setCategoriesCount = (categoriesCount) => ({
 export const setCategoriesIsFetching = (isFetching) => ({
     type: SET_CATEGORIES_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentCategory = (currentCategory) => ({
+    type: SET_CURRENT_CATEGORY,
+    currentCategory
 });
 
 export default CategoryReducer;

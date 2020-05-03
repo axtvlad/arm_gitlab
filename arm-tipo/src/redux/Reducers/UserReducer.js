@@ -19,6 +19,7 @@ const UPDATE_USER_IS_BANNED = 'update_user_is_banned';
 const SET_USERS = 'set_users';
 const SET_USERS_COUNT = 'set_users_count';
 const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
+const SET_CURRENT_USER = 'set_current_user';
 
 let initialState = {
     users: [],
@@ -41,6 +42,7 @@ let initialState = {
     newUserIsBanned: false,
     usersCount: 0,
     isFetching: false,
+    currentUser: null,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -187,113 +189,123 @@ const UserReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.currentUser
+            };
         default:
             return state;
     }
 };
 
-export const addUser  = () => ({
+export const addUser = () => ({
     type: ADD_USER
 });
 
-export const updateUserFirstName  = (newFirstName) => ({
+export const updateUserFirstName = (newFirstName) => ({
     type: UPDATE_USER_FIRSTNAME,
     newFirstName
 });
 
-export const updateUserLastName  = (newLastName) => ({
+export const updateUserLastName = (newLastName) => ({
     type: UPDATE_USER_LASTNAME,
     newLastName
 });
 
-export const updateUserPatronymic  = (newPatronymic) => ({
+export const updateUserPatronymic = (newPatronymic) => ({
     type: UPDATE_USER_PATRONYMIC,
     newPatronymic
 });
 
-export const updateUserLogin  = (newLogin) => ({
+export const updateUserLogin = (newLogin) => ({
     type: UPDATE_USER_LOGIN,
     newLogin
 });
 
-export const updateUserPassword  = (newPassword) => ({
+export const updateUserPassword = (newPassword) => ({
     type: UPDATE_USER_PASSWORD,
     newPassword
 });
 
-export const updateUserEmail  = (newEmail) => ({
+export const updateUserEmail = (newEmail) => ({
     type: UPDATE_USER_EMAIL,
     newEmail
 });
 
-export const updateUserPhoto  = (newPhoto) => ({
+export const updateUserPhoto = (newPhoto) => ({
     type: UPDATE_USER_PHOTO,
     newPhoto
 });
 
-export const updateUserRoleId  = (newRoleId) => ({
+export const updateUserRoleId = (newRoleId) => ({
     type: UPDATE_USER_ROLE_ID,
     newRoleId
 });
 
-export const updateUserCityId  = (newCityId) => ({
+export const updateUserCityId = (newCityId) => ({
     type: UPDATE_USER_CITY_ID,
     newCityId
 });
 
-export const updateUserCustomerId  = (newCustomerId) => ({
+export const updateUserCustomerId = (newCustomerId) => ({
     type: UPDATE_USER_CUSTOMER_ID,
     newCustomerId
 });
 
-export const updateUserGenderId  = (newGenderId) => ({
+export const updateUserGenderId = (newGenderId) => ({
     type: UPDATE_USER_GENDER_ID,
     newGenderId
 });
 
-export const updateUserPhone  = (newUserPhone) => ({
+export const updateUserPhone = (newUserPhone) => ({
     type: UPDATE_USER_PHONE,
     newUserPhone
 });
 
-export const updateUserLocale  = (newLocale) => ({
+export const updateUserLocale = (newLocale) => ({
     type: UPDATE_USER_LOCALE,
     newLocale
 });
 
-export const updateUserBirthAt  = (newBirthAt) => ({
+export const updateUserBirthAt = (newBirthAt) => ({
     type: UPDATE_USER_BIRTH_AT,
     newBirthAt
 });
 
-export const updateUserIsAdmin  = (newIsAdmin) => ({
+export const updateUserIsAdmin = (newIsAdmin) => ({
     type: UPDATE_USER_IS_ADMIN,
     newIsAdmin
 });
 
-export const updateUserIsBanned  = (newIsBanned) => ({
+export const updateUserIsBanned = (newIsBanned) => ({
     type: UPDATE_USER_IS_BANNED,
     newIsBanned
 });
 
-export const updateUserIsPremium  = (newIsPremium) => ({
+export const updateUserIsPremium = (newIsPremium) => ({
     type: UPDATE_USER_IS_PREMIUM,
     newIsPremium
 });
 
-export const setUsers  = (users) => ({
+export const setUsers = (users) => ({
     type: SET_USERS,
     users
 });
 
-export const setUsersCount  = (usersCount) => ({
+export const setUsersCount = (usersCount) => ({
     type: SET_USERS_COUNT,
     usersCount
 });
 
-export const setUsersIsFetching  = (isFetching) => ({
+export const setUsersIsFetching = (isFetching) => ({
     type: SET_USERS_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentUser = (currentUser) => ({
+    type: SET_CURRENT_USER,
+    currentUser
 });
 
 export default UserReducer;

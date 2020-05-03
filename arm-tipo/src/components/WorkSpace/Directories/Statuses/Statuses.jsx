@@ -44,7 +44,11 @@ const Statuses = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Table columns={columns} dataSource={props.statuses}/>
+                <Table
+                    rowKey={'id'}
+                    columns={columns}
+                    dataSource={props.statuses}
+                />
             </Spin>
         </div>
     )

@@ -4,6 +4,7 @@ const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
 const SET_DEPARTMENTS = 'set_departments';
 const SET_DEPARTMENTS_COUNT = 'set_departments_count';
 const SET_DEPARTMENTS_IS_FETCHING = 'set_departments_is_fetching';
+const SET_CURRENT_DEPARTMENT = 'set_current_department';
 
 let initialState = {
     departments: [],
@@ -11,6 +12,7 @@ let initialState = {
     newDepartmentNameKz: '',
     departmentsCount: 0,
     isFetching: false,
+    currentDepartment: null,
 };
 
 const DepartmentReducer = (state = initialState, action) => {
@@ -52,38 +54,48 @@ const DepartmentReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_DEPARTMENT:
+            return {
+                ...state,
+                currentDepartment: action.currentDepartment
+            };
         default:
             return state;
     }
 };
 
-export const addDepartment  = () => ({
+export const addDepartment = () => ({
     type: ADD_DEPARTMENT
 });
 
-export const updateDepartmentNameRu  = (newNameRu) => ({
+export const updateDepartmentNameRu = (newNameRu) => ({
     type: UPDATE_DEPARTMENT_NAME_RU,
     newNameRu
 });
 
-export const updateDepartmentNameKz  = (newNameKz) => ({
+export const updateDepartmentNameKz = (newNameKz) => ({
     type: UPDATE_DEPARTMENT_NAME_KZ,
     newNameKz
 });
 
-export const setDepartments  = (departments) => ({
+export const setDepartments = (departments) => ({
     type: SET_DEPARTMENTS,
     departments
 });
 
-export const setDepartmentsCount  = (departmentsCount) => ({
+export const setDepartmentsCount = (departmentsCount) => ({
     type: SET_DEPARTMENTS_COUNT,
     departmentsCount
 });
 
-export const setDepartmentsIsFetching  = (isFetching) => ({
+export const setDepartmentsIsFetching = (isFetching) => ({
     type: SET_DEPARTMENTS_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentDepartment = (currentDepartment) => ({
+    type: SET_CURRENT_DEPARTMENT,
+    currentDepartment
 });
 
 

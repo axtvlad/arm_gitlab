@@ -10,18 +10,18 @@ const columns = [
         title: 'Наименование (ru)',
         dataIndex: 'name_ru',
         key: 'name_ru',
-        render: text => <a href={'/'}>{text}</a>,
+        render: (text, i) => <NavLink to={'/role/' + i.id}>{text}</NavLink>,
     },
     {
         title: 'Наименование (kz)',
         dataIndex: 'name_kz',
         key: 'name_kz',
-        render: text => <a href={'/'}>{text}</a>,
+        render: (text, i) => <NavLink to={'/role/' + i.id}>{text}</NavLink>,
     },
     {
         title: 'Действия',
-        key: 'action',
         dataIndex: 'actions',
+        key: 'actions',
         render: actions => (
             <span>
                 <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
@@ -44,7 +44,11 @@ const Roles = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Table columns={columns} dataSource={props.roles}/>
+                <Table
+                    columns={columns}
+                    dataSource={props.roles}
+                    rowKey={'id'}
+                />
             </Spin>
         </div>
     )

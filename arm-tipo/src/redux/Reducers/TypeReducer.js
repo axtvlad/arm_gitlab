@@ -4,6 +4,7 @@ const UPDATE_TYPE_NAME_KZ = 'update_type_name_kz';
 const SET_TYPES = 'set_types';
 const SET_TYPES_COUNT = 'set_types_count';
 const SET_TYPES_IS_FETCHING = 'set_types_is_fetching';
+const SET_CURRENT_TYPE = 'set_type';
 
 let initialState = {
     types: [],
@@ -11,6 +12,7 @@ let initialState = {
     newTypeNameKz: '',
     typesCount: 0,
     isFetching: false,
+    currentType: null,
 };
 
 const TypeReducer = (state = initialState, action) => {
@@ -52,38 +54,48 @@ const TypeReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_TYPE:
+            return {
+                ...state,
+                currentType: action.currentType
+            };
         default:
             return state;
     }
 };
 
-export const addType  = () => ({
+export const addType = () => ({
     type: ADD_TYPE
 });
 
-export const updateTypeNameRu  = (newNameRu) => ({
+export const updateTypeNameRu = (newNameRu) => ({
     type: UPDATE_TYPE_NAME_RU,
     newNameRu
 });
 
-export const updateTypeNameKz  = (newNameKz) => ({
+export const updateTypeNameKz = (newNameKz) => ({
     type: UPDATE_TYPE_NAME_KZ,
     newNameKz
 });
 
-export const setTypes  = (types) => ({
+export const setTypes = (types) => ({
     type: SET_TYPES,
     types
 });
 
-export const setTypesCount  = (typesCount) => ({
+export const setTypesCount = (typesCount) => ({
     type: SET_TYPES_COUNT,
     typesCount
 });
 
-export const setTypesIsFetching  = (isFetching) => ({
+export const setTypesIsFetching = (isFetching) => ({
     type: SET_TYPES_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentType = (currentType) => ({
+    type: SET_CURRENT_TYPE,
+    currentType
 });
 
 

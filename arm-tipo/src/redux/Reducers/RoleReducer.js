@@ -4,6 +4,7 @@ const UPDATE_ROLE_NAME_KZ = 'update_role_name_kz';
 const SET_ROLES = 'set_roles';
 const SET_ROLES_COUNT = 'set_roles_count';
 const SET_ROLES_IS_FETCHING = 'set_roles_is_fetching';
+const SET_CURRENT_ROLE = 'set_current_role';
 
 let initialState = {
     roles: [],
@@ -11,6 +12,7 @@ let initialState = {
     newRoleNameKz: '',
     rolesCount: 0,
     isFetching: false,
+    currentRole: null,
 };
 
 const RoleReducer = (state = initialState, action) => {
@@ -52,38 +54,48 @@ const RoleReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_ROLE:
+            return {
+                ...state,
+                currentRole: action.currentRole
+            };
         default:
             return state;
     }
 };
 
-export const addRole  = () => ({
+export const addRole = () => ({
     type: ADD_ROLE
 });
 
-export const updateRoleNameRu  = (newNameRu) => ({
+export const updateRoleNameRu = (newNameRu) => ({
     type: UPDATE_ROLE_NAME_RU,
     newNameRu
 });
 
-export const updateRoleNameKz  = (newNameKz) => ({
+export const updateRoleNameKz = (newNameKz) => ({
     type: UPDATE_ROLE_NAME_KZ,
     newNameKz
 });
 
-export const setRoles  = (roles) => ({
+export const setRoles = (roles) => ({
     type: SET_ROLES,
     roles
 });
 
-export const setRolesCount  = (rolesCount) => ({
+export const setRolesCount = (rolesCount) => ({
     type: SET_ROLES_COUNT,
     rolesCount
 });
 
-export const setRolesIsFetching  = (isFetching) => ({
+export const setRolesIsFetching = (isFetching) => ({
     type: SET_ROLES_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentRole = (currentRole) => ({
+    type: SET_CURRENT_ROLE,
+    currentRole
 });
 
 

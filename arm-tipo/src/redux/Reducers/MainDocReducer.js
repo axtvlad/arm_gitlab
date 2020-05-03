@@ -19,6 +19,7 @@ const UPDATE_MAIN_DOC_TEXT_KZ = 'update_main_doc_text_kz';
 const SET_MAIN_DOCS = 'set_main_docs';
 const SET_MAIN_DOCS_COUNT = 'set_main_docs_count';
 const SET_MAIN_DOCS_IS_FETCHING = 'set_main_docs_is_fetching';
+const SET_CURRENT_MAIN_DOC = 'set_current_main_doc';
 
 let initialState = {
     mainDocs: [
@@ -283,6 +284,11 @@ const MainDocReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_MAIN_DOC:
+            return {
+                ...state,
+                currentMainDoc: action.currentMainDoc
+            };
         default:
             return state;
     }
@@ -390,6 +396,11 @@ export const setMainDocsCount = (mainDocsCount) => ({
 export const setMainDocsIsFetching = (isFetching) => ({
     type: SET_MAIN_DOCS_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentMainDoc = (currentMainDoc) => ({
+    type: SET_CURRENT_MAIN_DOC,
+    currentMainDoc
 });
 
 

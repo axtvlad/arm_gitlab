@@ -44,7 +44,11 @@ const Departments = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Table columns={columns} dataSource={props.departments}/>
+                <Table
+                    rowKey={'id'}
+                    columns={columns}
+                    dataSource={props.departments}
+                />
             </Spin>
         </div>
     )

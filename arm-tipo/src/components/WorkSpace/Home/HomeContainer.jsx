@@ -25,7 +25,7 @@ class HomeContainer extends React.Component {
                 .then(response => {
                     this.props.setUsersCount(response.data.totalCount);
 
-                    console.log('users: ', response.data.data);
+                    console.log('usersCount: ', response.data.totalCount);
 
                     this.props.setUsersIsFetching(false);
                 });

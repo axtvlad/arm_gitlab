@@ -6,6 +6,7 @@ const UPDATE_FAQ_ANSWER_KZ = 'update_faq_answer_kz';
 const SET_FAQS = 'set_faqs';
 const SET_FAQS_COUNT = 'set_faqs_count';
 const SET_FAQS_IS_FETCHING = 'set_faqs_is_fetching';
+const SET_CURRENT_FAQ = 'set_current_faq';
 
 let initialState = {
     faqs: [
@@ -19,6 +20,7 @@ let initialState = {
     newFaqAnswerKz: '',
     faqsCount: 0,
     isFetching: false,
+    currentFaq: null,
 };
 
 const FaqReducer = (state = initialState, action) => {
@@ -74,48 +76,58 @@ const FaqReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_CURRENT_FAQ:
+            return {
+                ...state,
+                currentFaq: action.currentFaq
+            };
         default:
             return state;
     }
 };
 
-export const addFaq  = () => ({
+export const addFaq = () => ({
     type: ADD_FAQ
 });
 
-export const updateFaqQuestionRu  = (newFaqQuestionRu) => ({
+export const updateFaqQuestionRu = (newFaqQuestionRu) => ({
     type: UPDATE_FAQ_QUESTION_RU,
     newFaqQuestionRu
 });
 
-export const updateFaqQuestionKz  = (newFaqQuestionKz) => ({
+export const updateFaqQuestionKz = (newFaqQuestionKz) => ({
     type: UPDATE_FAQ_QUESTION_KZ,
     newFaqQuestionKz
 });
 
-export const updateFaqAnswerRu  = (newFaqAnswerRu) => ({
+export const updateFaqAnswerRu = (newFaqAnswerRu) => ({
     type: UPDATE_FAQ_ANSWER_RU,
     newFaqAnswerRu
 });
 
-export const updateFaqAnswerKz  = (newFaqAnswerKz) => ({
+export const updateFaqAnswerKz = (newFaqAnswerKz) => ({
     type: UPDATE_FAQ_ANSWER_KZ,
     newFaqAnswerKz
 });
 
-export const setFaqs  = (faqs) => ({
+export const setFaqs = (faqs) => ({
     type: SET_FAQS,
     faqs
 });
 
-export const setFaqsCount  = (faqsCount) => ({
+export const setFaqsCount = (faqsCount) => ({
     type: SET_FAQS_COUNT,
     faqsCount
 });
 
-export const setFaqsIsFetching  = (isFetching) => ({
+export const setFaqsIsFetching = (isFetching) => ({
     type: SET_FAQS_IS_FETCHING,
     isFetching
+});
+
+export const setCurrentFaq = (currentFaq) => ({
+    type: SET_CURRENT_FAQ,
+    currentFaq
 });
 
 

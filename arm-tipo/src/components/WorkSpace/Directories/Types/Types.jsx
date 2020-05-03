@@ -10,13 +10,13 @@ const columns = [
         title: 'Наименование (ru)',
         dataIndex: 'name_ru',
         key: 'name_ru',
-        render: text => <a href={'/'}>{text}</a>,
+        render: (text, i) => <NavLink to={'/type/' + i.id}>{text}</NavLink>,
     },
     {
         title: 'Наименование (kz)',
         dataIndex: 'name_kz',
         key: 'name_kz',
-        render: text => <a href={'/'}>{text}</a>,
+        render: (text, i) => <NavLink to={'/type/' + i.id}>{text}</NavLink>,
     },
     {
         title: 'Действия',
@@ -44,7 +44,11 @@ const Types = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Table columns={columns} dataSource={props.types}/>
+                <Table
+                    rowKey={'id'}
+                    columns={columns}
+                    dataSource={props.types}
+                />
             </Spin>
         </div>
     )
