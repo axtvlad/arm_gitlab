@@ -5,11 +5,14 @@ import classes from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import CodeSandboxOutlined from "@ant-design/icons/lib/icons/CodeSandboxOutlined";
 import ReadOutlined from "@ant-design/icons/lib/icons/ReadOutlined";
+import {useTranslation} from 'react-i18next';
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
 
 const NavBar = () => {
+    const {t, i18n} = useTranslation();
+    i18n.changeLanguage('en');
     return (
         <Sider collapsible>
             <div className={classes.logo}>
@@ -64,9 +67,9 @@ const NavBar = () => {
                     key={'sub3'}
                     title={
                         <span>
-                                <TeamOutlined/>
-                                <span>Эксперты</span>
-                            </span>
+                            <TeamOutlined/>
+                            <span>{t('Experts')}</span>
+                        </span>
                     }
                 >
                     <Menu.Item key={'6'}>
@@ -79,9 +82,9 @@ const NavBar = () => {
                     key={'sub4'}
                     title={
                         <span>
-                                <CodeSandboxOutlined/>
-                                <span>Справочники</span>
-                            </span>
+                            <CodeSandboxOutlined/>
+                            <span>Справочники</span>
+                        </span>
                     }
                 >
                     <Menu.Item key={'7'}>
