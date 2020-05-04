@@ -9,7 +9,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 import './i18n';
-
+// TODO REACTORING
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
