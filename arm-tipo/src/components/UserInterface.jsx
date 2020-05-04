@@ -1,16 +1,16 @@
 import React from 'react';
 import './Navbar/NavBar.module.css';
 import {Layout} from "antd";
-import UserHeader from "../components/UserHeader/UserHeader";
-import NavBar from "../components/Navbar/NavBar";
 import WorkSpace from "../components/WorkSpace/WorkSpace";
+import HeaderContainer from "./UserHeader/AppHeaderContainer";
+import NavBarContainer from "./Navbar/NavBarContainer";
 
 const UserInterface = () => {
     return (
         <Layout style={{minHeight: '100vh'}}>
-            <NavBar/>
+            <NavBarContainer/>
             <Layout>
-                <UserHeader/>
+                <HeaderContainer/>
                 <WorkSpace/>
             </Layout>
         </Layout>

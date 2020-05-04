@@ -1,0 +1,3 @@
+GET https://arm-tipo.jcloud.kz/rest/api/roles
+Authorization: Basic Admin admin
+

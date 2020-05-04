@@ -20,6 +20,8 @@ const SET_USERS = 'set_users';
 const SET_USERS_COUNT = 'set_users_count';
 const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
 const SET_CURRENT_USER = 'set_current_user';
+// Временное решение
+const SET_IS_ADMIN = 'set_is_admin';
 
 let initialState = {
     users: [],
@@ -43,10 +45,10 @@ let initialState = {
     usersCount: 0,
     isFetching: false,
     currentUser: null,
+    isAdmin: false,
 };
 
 const UserReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case ADD_USER:
             return {
@@ -194,6 +196,11 @@ const UserReducer = (state = initialState, action) => {
                 ...state,
                 currentUser: action.currentUser
             };
+        case SET_IS_ADMIN:
+            return {
+                ...state,
+                isAdmin: action.isAdmin
+            };
         default:
             return state;
     }
@@ -306,6 +313,11 @@ export const setUsersIsFetching = (isFetching) => ({
 export const setCurrentUser = (currentUser) => ({
     type: SET_CURRENT_USER,
     currentUser
+});
+
+export const setIsAdmin = (isAdmin) => ({
+    type: SET_IS_ADMIN,
+    isAdmin
 });
 
 export default UserReducer;

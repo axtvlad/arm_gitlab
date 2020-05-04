@@ -8,6 +8,7 @@ import React from "react";
 import * as axios from "axios";
 import Categories from "./Categories";
 import {BASE_URL} from "../../../../env";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -40,6 +41,7 @@ class CategoriesContainer extends React.Component {
     render() {
         return (
             <Categories
+                isAdmin={this.props.isAdmin}
                 categories={this.props.categories}
                 isFetching={this.props.isFetching}
             />
@@ -50,7 +52,8 @@ class CategoriesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         categories: state.categoriesDir.categories,
-        isFetching: state.categoriesDir.isFetching
+        isFetching: state.categoriesDir.isFetching,
+        isAdmin: state.usersDir.isAdmin,
     }
 };
 
@@ -59,5 +62,6 @@ export default connect(mapStateToProps,
         setCategories,
         setCategoriesCount,
         setCategoriesIsFetching,
+        setIsAdmin
     }
 )(CategoriesContainer);

@@ -10,9 +10,8 @@ import {useTranslation} from 'react-i18next';
 const {Sider} = Layout;
 const {SubMenu} = Menu;
 
-const NavBar = () => {
-    const {t, i18n} = useTranslation();
-    i18n.changeLanguage('en');
+const NavBar = (props) => {
+    const {t} = useTranslation();
     return (
         <Sider collapsible>
             <div className={classes.logo}>
@@ -122,7 +121,6 @@ const NavBar = () => {
                             <span>Города</span>
                         </NavLink>
                     </Menu.Item>
-
                 </SubMenu>
                 <Menu.Item key={'14'}>
                     <NavLink to={'/faqs'}>
