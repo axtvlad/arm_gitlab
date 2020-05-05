@@ -1,3 +1,20 @@
 {
-  "Experts": "Сарапшылар"
+  "Experts": "Сарапшылар",
+  "Types": "Түрлері",
+  "Statuses": "Статустар",
+  "Roles": "Рөлдер",
+  "Customers": "Клиенттер",
+  "Categories": "Санаты",
+  "Cities": "Қалалар",
+  "Faqs": "FAQs",
+  "russianName": "Орыс тіліндегі атауы",
+  "kazakhName": "Қазақ тіліндегі атауы",
+  "actions": "Әрекеттер",
+  "addNewType": "Жаңа құжат түрін қосу",
+  "addNewStatus": "Жаңа мәртебені қосу",
+  "addNewRole": "Жаңа пайдаланушы рөлін қосу",
+  "addNewCustomer": "Жаңа клиентті қосу",
+  "addNewCategory": "Жаңа үлгі санатын қосу",
+  "addNewCity": "Жаңа қаланы қосу",
+  "addNewFaq": "Жаңа FAQ қосу"
 }

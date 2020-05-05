@@ -1,3 +1,20 @@
 {
-  "Experts": "Эксперты"
+  "Experts": "Эксперты",
+  "Types": "Типы",
+  "Statuses": "Статусы",
+  "Roles": "Роли",
+  "Customers": "Клиенты",
+  "Categories": "Категории",
+  "Cities": "Города",
+  "Faqs": "FAQs",
+  "russianName": "Наименование на русском",
+  "kazakhName": "Наименование на казахском",
+  "actions": "Действия",
+  "addNewType": "Добавить новый тип документа",
+  "addNewStatus": "Добавить новый статус",
+  "addNewRole": "Добавить новую роль пользователя",
+  "addNewCustomer": "Добавить нового клиента",
+  "addNewCategory": "Добавить новую категорию шаблона",
+  "addNewCity": "Добавить новый город",
+  "addNewFaq": "Добавить новый FAQ"
 }

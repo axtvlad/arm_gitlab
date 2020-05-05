@@ -1,14 +1,10 @@
 import {connect} from "react-redux";
-import {
-    setCategoriesCount ,
-    setCategories ,
-    setCategoriesIsFetching
-} from "../../../../redux/Reducers/CategoryReducer";
+import {setCategories, setCategoriesCount, setCategoriesIsFetching} from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
 import * as axios from "axios";
-import Categories from "./Categories";
 import {BASE_URL} from "../../../../env";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
+import Directory from "../../../common/Directory";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -40,9 +36,9 @@ class CategoriesContainer extends React.Component {
 
     render() {
         return (
-            <Categories
+            <Directory
                 isAdmin={this.props.isAdmin}
-                categories={this.props.categories}
+                directory={this.props.categories}
                 isFetching={this.props.isFetching}
             />
         )

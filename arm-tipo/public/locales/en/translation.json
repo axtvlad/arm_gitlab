@@ -1,3 +1,20 @@
 {
-  "Experts": "Experts"
+  "Experts": "Experts",
+  "Types": "Types",
+  "Statuses": "Statuses",
+  "Roles": "Roles",
+  "Customers": "Customers",
+  "Categories": "Categories",
+  "Cities": "Cities",
+  "Faqs": "FAQs",
+  "russianName": "Russian name",
+  "kazakhName": "Kazakh name",
+  "actions": "Actions",
+  "addNewType": "Add new doc type",
+  "addNewStatus": "Add new status",
+  "addNewRole": "Add new user role",
+  "addNewCustomer": "Add new customer",
+  "addNewCategory": "Add new template category",
+  "addNewCity": "Add new city",
+  "addNewFaq": "Add new FAQ"
 }
