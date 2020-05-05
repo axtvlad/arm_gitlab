@@ -5,6 +5,7 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
+import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class CustomersContainer extends React.Component {
     render() {
         return (
             <Directory
+                type={DirectoriesTypes.CUSTOMERS}
                 isAdmin={this.props.isAdmin}
                 directory={this.props.customers}
                 isFetching={this.props.isFetching}

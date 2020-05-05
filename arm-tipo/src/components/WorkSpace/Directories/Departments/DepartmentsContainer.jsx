@@ -9,6 +9,7 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
+import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
@@ -41,6 +42,7 @@ class DepartmentsContainer extends React.Component {
     render() {
         return (
             <Directory
+                type={DirectoriesTypes.DEPARTMENTS}
                 isAdmin={this.props.isAdmin}
                 directory={this.props.departments}
                 isFetching={this.props.isFetching}

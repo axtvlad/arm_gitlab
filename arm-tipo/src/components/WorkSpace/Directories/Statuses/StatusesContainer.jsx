@@ -5,6 +5,7 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
+import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class StatusesContainer extends React.Component {
     render() {
         return (
             <Directory
+                type={DirectoriesTypes.STATUSES}
                 isAdmin={this.props.isAdmin}
                 directory={this.props.statuses}
                 isFetching={this.props.isFetching}

@@ -5,6 +5,7 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import Directory from "../../../common/Directory";
+import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class CategoriesContainer extends React.Component {
     render() {
         return (
             <Directory
+                type={DirectoriesTypes.CATEGORIES}
                 isAdmin={this.props.isAdmin}
                 directory={this.props.categories}
                 isFetching={this.props.isFetching}

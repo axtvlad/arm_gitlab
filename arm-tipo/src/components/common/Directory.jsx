@@ -5,6 +5,8 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
+import {GetAddAddress} from "./support/AddPagsRoutes";
+import {GetAddButtonText} from "./support/AddButtonText";
 
 const Directory = (props) => {
     const {t} = useTranslation();
@@ -57,13 +59,13 @@ const Directory = (props) => {
     return (
         <div className={'content'}>
             {props.isAdmin && (
-                <NavLink to={'/'}>
+                <NavLink to={GetAddAddress(props.type)}>
                     <Button
                         type="danger"
                         shape="round"
                         icon={<PlusOutlined/>}
                     >
-                        Добавить новую запись
+                        {t(GetAddButtonText(props.type))}
                     </Button>
                 </NavLink>
             )}
