@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {setCustomers, setCustomersCount, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import React from "react";
 import * as axios from "axios";
-import Customers from "./Customers";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -35,8 +36,9 @@ class CustomersContainer extends React.Component {
 
     render() {
         return (
-            <Customers
-                customers={this.props.customers}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.customers}
                 isFetching={this.props.isFetching}
             />
         )
@@ -47,7 +49,8 @@ class CustomersContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         customers: state.customersDir.customers,
-        isFetching: state.customersDir.isFetching
+        isFetching: state.customersDir.isFetching,
+        isAdmin: state.usersDir.isAdmin,
     }
 };
 
@@ -56,5 +59,6 @@ export default connect(mapStateToProps,
         setCustomers,
         setCustomersCount,
         setCustomersIsFetching,
+        setIsAdmin
     }
 )(CustomersContainer);

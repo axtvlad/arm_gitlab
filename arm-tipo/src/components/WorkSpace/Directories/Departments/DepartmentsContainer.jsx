@@ -6,8 +6,9 @@ import {
 } from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import * as axios from "axios";
-import Departments from "./Departments";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
@@ -39,8 +40,9 @@ class DepartmentsContainer extends React.Component {
 
     render() {
         return (
-            <Departments
-                departments={this.props.departments}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.departments}
                 isFetching={this.props.isFetching}
             />
         )
@@ -50,7 +52,8 @@ class DepartmentsContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         departments: state.departmentsDir.departments,
-        isFetching: state.departmentsDir.isFetching
+        isFetching: state.departmentsDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 
@@ -59,5 +62,6 @@ export default connect(mapStateToProps,
         setDepartments,
         setDepartmentsCount,
         setDepartmentsIsFetching,
+        setIsAdmin
     }
 )(DepartmentsContainer);

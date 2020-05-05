@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {setCities, setCitiesCount, setCitiesIsFetching} from "../../../../redux/Reducers/CityReducer";
 import React from "react";
 import * as axios from "axios";
-import Cities from "./Cities";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
@@ -35,8 +36,9 @@ class CitiesContainer extends React.Component {
 
     render() {
         return (
-            <Cities
-                cities={this.props.cities}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.cities}
                 isFetching={this.props.isFetching}
             />
         )
@@ -46,7 +48,8 @@ class CitiesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         cities: state.citiesDir.cities,
-        isFetching: state.citiesDir.isFetching
+        isFetching: state.citiesDir.isFetching,
+        isAdmin: state.usersDir.isAdmin,
     }
 };
 
@@ -55,5 +58,6 @@ export default connect(mapStateToProps,
         setCities,
         setCitiesCount,
         setCitiesIsFetching,
+        setIsAdmin
     }
 )(CitiesContainer);

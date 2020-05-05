@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {setTypes, setTypesCount, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
 import React from "react";
 import * as axios from "axios";
-import Types from "./Types";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
@@ -35,8 +36,9 @@ class TypesContainer extends React.Component {
 
     render() {
         return (
-            <Types
-                types={this.props.types}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.types}
                 isFetching={this.props.isFetching}
             />
         )
@@ -46,7 +48,8 @@ class TypesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         types: state.typesDir.types,
-        isFetching: state.typesDir.isFetching
+        isFetching: state.typesDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 
@@ -55,5 +58,6 @@ export default connect(mapStateToProps,
         setTypes,
         setTypesCount,
         setTypesIsFetching,
+        setIsAdmin
     }
 )(TypesContainer);

@@ -21,8 +21,6 @@ import AddCityContainer from "./Directories/Cities/AddCityContainer";
 import CitiesContainer from "./Directories/Cities/CitiesContainer";
 import HomeContainer from "./Home/HomeContainer";
 import MainDocContainer from "./Directories/MainDocs/MainDocContainer";
-import RoleContainer from "./Directories/Roles/RoleContainer";
-import TypeContainer from "./Directories/Types/TypeContainer";
 
 const {Content} = Layout;
 
@@ -42,7 +40,7 @@ const WorkSpace = () => {
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
-                <Route exact path={'/type/:id'} render={() => <TypeContainer/>}/>
+                <Route exact path={'/type/:id'} render={() => <TypesContainer/>}/>
 
                 <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
                 <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
@@ -54,7 +52,7 @@ const WorkSpace = () => {
 
                 <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
                 <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
-                <Route exact path={'/role/:id?'} render={() => <RoleContainer/>}/>
+                <Route exact path={'/role/:id?'} render={() => <RolesContainer/>}/>
 
                 <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
                 <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>

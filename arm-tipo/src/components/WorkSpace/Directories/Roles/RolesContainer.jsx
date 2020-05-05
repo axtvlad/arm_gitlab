@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {setRoles, setRolesCount, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import React from "react";
 import * as axios from "axios";
-import Roles from "./Roles";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
@@ -35,8 +36,9 @@ class RolesContainer extends React.Component {
 
     render() {
         return (
-            <Roles
-                roles={this.props.roles}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.roles}
                 isFetching={this.props.isFetching}
             />
         )
@@ -46,7 +48,8 @@ class RolesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         roles: state.rolesDir.roles,
-        isFetching: state.rolesDir.isFetching
+        isFetching: state.rolesDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 
@@ -55,5 +58,6 @@ export default connect(mapStateToProps,
         setRoles,
         setRolesCount,
         setRolesIsFetching,
+        setIsAdmin
     }
 )(RolesContainer);

@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {setStatuses, setStatusesCount, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
 import React from "react";
 import * as axios from "axios";
-import Statuses from "./Statuses";
 import {BASE_URL} from "../../../../env";
+import Directory from "../../../common/Directory";
+import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
@@ -35,8 +36,9 @@ class StatusesContainer extends React.Component {
 
     render() {
         return (
-            <Statuses
-                statuses={this.props.statuses}
+            <Directory
+                isAdmin={this.props.isAdmin}
+                directory={this.props.statuses}
                 isFetching={this.props.isFetching}
             />
         )
@@ -46,7 +48,8 @@ class StatusesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         statuses: state.statusesDir.statuses,
-        isFetching: state.statusesDir.isFetching
+        isFetching: state.statusesDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 
@@ -55,5 +58,6 @@ export default connect(mapStateToProps,
         setStatuses,
         setStatusesCount,
         setStatusesIsFetching,
+        setIsAdmin
     }
 )(StatusesContainer);
