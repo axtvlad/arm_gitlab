@@ -4,8 +4,8 @@ import React from "react";
 import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
-import Directory from "../../../common/Directory";
-import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
+import Directory from "../../../common/commonComponents/Directory";
+import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {

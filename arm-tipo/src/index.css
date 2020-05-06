@@ -17,3 +17,8 @@ code {
     background: #fff;
     min-height: 360px;
 }
+
+.addButtonBloc {
+    margin-bottom: 25px;
+    text-align: left;
+}

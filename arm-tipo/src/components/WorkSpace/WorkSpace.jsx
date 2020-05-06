@@ -22,6 +22,7 @@ import CitiesContainer from "./Directories/Cities/CitiesContainer";
 import HomeContainer from "./Home/HomeContainer";
 import MainDocContainer from "./Directories/MainDocs/MainDocContainer";
 import RoleContainer from "./Directories/Roles/RoleContainer";
+import SearchPageContainer from "./Search/SearchPageContainer";
 
 const {Content} = Layout;
 
@@ -34,6 +35,7 @@ const WorkSpace = () => {
             </Breadcrumb>
             <div>
                 <Route exact path={'/'} render={() => <HomeContainer/>}/>
+                <Route exact path={'/search'} render={() => <SearchPageContainer/>}/>
 
                 <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
                 <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>

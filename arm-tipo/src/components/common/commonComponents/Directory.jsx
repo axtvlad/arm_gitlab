@@ -5,20 +5,21 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
-import {GetAddAddress} from "./support/AddPagsRoutes";
-import {GetAddButtonText} from "./support/AddButtonText";
+import {GetAddAddress} from "../utils/AddPagsRoutes";
+import {GetAddButtonText} from "../utils/AddButtonText";
 
 const Directory = (props) => {
     const {t} = useTranslation();
 
     /**
-     *  Для обычного пользователя собираем таблицу из 2 колонок:
+     *  Собираем таблицу из 3 колонок:
      *      1) Наименование на русском
      *      2) Наименование на казахском
+     *      3) Действия (совершаемые над записью: редактирование и удаление)
      *
      *  dataIndex и key - ключи, по которым производится поиск данных из принимаемых параметров
      */
-    const userColumns = [
+    const columns = [
         {
             title: t('russianName'),
             dataIndex: 'name_ru',
@@ -30,19 +31,7 @@ const Directory = (props) => {
             dataIndex: 'name_kz',
             key: 'name_kz',
             render: text => <a href={'/'}>{text}</a>,
-        }
-    ];
-
-    /**
-     *  Для администратора/эксперта собираем таблицу из 3 колонок:
-     *      1) Наименование на русском
-     *      2) Наименование на казахском
-     *      3) Действия (совершаемые над записью: редактирование и удаление)
-     *
-     *  render - отрисовыавет элементы в каждой строке записи
-     */
-    const adminColumns = [
-        ...userColumns,
+        },
         {
             title: t('actions'),
             key: 'action',
@@ -58,20 +47,19 @@ const Directory = (props) => {
 
     return (
         <div className={'content'}>
-            {props.isAdmin && (
+            <div className={'addButtonBloc'}>
                 <NavLink to={GetAddAddress(props.type)}>
                     <Button
-                        type="danger"
-                        shape="round"
+                        type={'danger'}
                         icon={<PlusOutlined/>}
                     >
                         {t(GetAddButtonText(props.type))}
                     </Button>
                 </NavLink>
-            )}
+            </div>
             <Spin spinning={props.isFetching}>
                 <Table
-                    columns={props.isAdmin ? adminColumns : userColumns}
+                    columns={columns}
                     dataSource={props.directory}
                     rowKey={'id'}
                 />

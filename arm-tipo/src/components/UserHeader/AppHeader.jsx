@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Dropdown, Layout, Menu, Switch, Typography} from "antd";
 import {AppstoreOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons"
+import {useTranslation} from "react-i18next";
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -23,6 +24,7 @@ const menu = (
 );
 
 const AppHeader = (props) => {
+    const {t} = useTranslation();
 
     const setIsAdmin = (e) => {
         props.setIsAdmin(e);
@@ -31,8 +33,8 @@ const AppHeader = (props) => {
     return (
         <Header style={{background: '#fff', padding: 0}}>
             <span style={{float: 'left', marginLeft: 30}}>
-                <Button danger>Помощь пользователю</Button>
-                <Text style={{marginLeft: 30}}>Почта для запросов: </Text>
+                <Button danger>{t('help')}</Button>
+                <Text style={{marginLeft: 30}}>{t('mailForRequests')}</Text>
                 <Text copyable>info@arm-tipo.kz</Text>
             </span>
             <span style={{float: 'right', marginRight: 30}}>

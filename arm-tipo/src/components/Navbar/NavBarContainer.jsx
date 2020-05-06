@@ -5,13 +5,15 @@ import NavBar from "./NavBar";
 class NavBarContainer extends React.Component {
     render() {
         return (
-            <NavBar/>
+            <NavBar isAdmin={this.props.isAdmin}/>
         )
     }
 }
 
-let mapStateToProps = () => {
-    return null
+let mapStateToProps = (state) => {
+    return {
+        isAdmin: state.usersDir.isAdmin
+    }
 };
 
 export default connect(mapStateToProps,

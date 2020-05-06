@@ -17,5 +17,11 @@
   "addNewCategory": "Добавить новую категорию шаблона",
   "addNewCity": "Добавить новый город",
   "addNewFaq": "Добавить новый FAQ",
-  "addNewDepartment": "Добавить новый отдел"
+  "addNewDepartment": "Добавить новый отдел",
+  "addNewRecord": "Добавить новую запись",
+  "search": "Поиск",
+  "clear": "Очистить",
+  "main": "Главная",
+  "help": "Помощь",
+  "mailForRequests": "Почта для запросов: "
 }

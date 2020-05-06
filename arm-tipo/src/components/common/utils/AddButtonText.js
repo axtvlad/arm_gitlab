@@ -10,6 +10,7 @@ const ADD_MAIN_DOC = 'addNewMainDoc';
 const ADD_STATUS = 'addNewStatus';
 const ADD_TYPES = 'addNewType';
 const ADD_USER = 'addNewUser';
+const ADD_NEW_RECORD = 'addNewRecord';
 
 export const GetAddButtonText = (directory_type) => {
     switch (directory_type) {
@@ -34,6 +35,6 @@ export const GetAddButtonText = (directory_type) => {
         case DirectoriesTypes.STATUSES:
             return ADD_STATUS;
         default:
-            return '/';
+            return ADD_NEW_RECORD;
     }
 };

@@ -17,5 +17,11 @@
   "addNewCategory": "Add new template category",
   "addNewCity": "Add new city",
   "addNewFaq": "Add new FAQ",
-  "addNewDepartment": "Add new department"
+  "addNewDepartment": "Add new department",
+  "addNewRecord": "Add new record",
+  "search": "Search",
+  "clear": "Clear",
+  "main": "Main",
+  "help": "Help",
+  "mailForRequests": "Mail for requests: "
 }

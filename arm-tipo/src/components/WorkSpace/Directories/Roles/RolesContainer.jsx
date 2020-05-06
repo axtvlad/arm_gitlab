@@ -3,9 +3,9 @@ import {setRoles, setRolesCount, setRolesIsFetching} from "../../../../redux/Red
 import React from "react";
 import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
-import Directory from "../../../common/Directory";
+import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
-import {DirectoriesTypes} from "../../../common/support/DirectoriesTypes";
+import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class RolesContainer extends React.Component {
     componentDidMount() {

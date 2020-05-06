@@ -17,5 +17,11 @@
   "addNewCategory": "Жаңа үлгі санатын қосу",
   "addNewCity": "Жаңа қаланы қосу",
   "addNewFaq": "Жаңа FAQ қосу",
-  "addNewDepartment": "Жаңа бөлім қосу"
+  "addNewDepartment": "Жаңа бөлім қосу",
+  "addNewRecord": "Жаңа жазбаны қосу",
+  "search": "Іздеу",
+  "clear": "Тазарту",
+  "main": "Басты бет",
+  "help": "Көмек",
+  "mailForRequests": "Сұраныс поштасы: "
 }
