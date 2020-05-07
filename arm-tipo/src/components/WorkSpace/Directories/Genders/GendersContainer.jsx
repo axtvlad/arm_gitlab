@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setGendersIsFetching} from "../../../../redux/Reducers/GenderReducer";
+import {setGendersIsFetching, setGenders} from "../../../../redux/Reducers/GenderReducer";
 import React from "react";
 import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
@@ -23,6 +23,7 @@ class GendersContainer extends React.Component {
             axios
                 .get(BASE_URL + '/genders', config)
                 .then(response => {
+                    this.props.setGenders(response.data.data);
 
                     console.log('genders: ', response.data.data);
 
@@ -50,4 +51,4 @@ let mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {setGendersIsFetching})(GendersContainer);
+export default connect(mapStateToProps, {setGendersIsFetching, setGenders})(GendersContainer);

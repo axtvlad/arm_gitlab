@@ -1,9 +1,8 @@
 const SET_GENDERS_IS_FETCHING = 'set_genders_is_fetching';
+const SET_GENDERS = 'set_genders';
 
 let initialState = {
-    genders: [
-        {id: 1, name_ru: "Мужской", name_kz: "Ер"},
-        {id: 2, name_ru: "Женский", name_kz: "Әйел"}],
+    genders: [],
     isFetching: false
 };
 
@@ -15,6 +14,11 @@ const GenderReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_GENDERS:
+            return {
+                ...state,
+                genders: [...state.genders, ...action.genders]
+            };
         default:
             return state;
     }
@@ -23,6 +27,11 @@ const GenderReducer = (state = initialState, action) => {
 export const setGendersIsFetching = (isFetching) => ({
     type: SET_GENDERS_IS_FETCHING,
     isFetching
+});
+
+export const setGenders = (genders) => ({
+    type: SET_GENDERS,
+    genders
 });
 
 
