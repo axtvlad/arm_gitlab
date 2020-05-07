@@ -1,21 +1,21 @@
 import React from 'react'
 import {Descriptions, Spin} from "antd";
 
-const Type = (props) => {
+const DisplayRole = (props) => {
     return (
         <Spin spinning={props.isFetching}>
             <div className={'content'}>
-                {props.currentType && (
-                    <Descriptions title="Тип документа" column={1} colon={true}>
+                {props.currentRole && (
+                    <Descriptions title="Роль" column={1} colon={true}>
                         <Descriptions.Item
                             label={'Наименование (ru)'}
                         >
-                            {props.currentType[0].name_ru}
+                            {props.currentRole[0].name_ru}
                         </Descriptions.Item>
                         <Descriptions.Item
                             label={'Наименование (kz)'}
                         >
-                            {props.currentType[0].name_kz}
+                            {props.currentRole[0].name_kz}
                         </Descriptions.Item>
                     </Descriptions>
                 )}
@@ -24,4 +24,4 @@ const Type = (props) => {
     )
 };
 
-export default Type;
+export default DisplayRole;

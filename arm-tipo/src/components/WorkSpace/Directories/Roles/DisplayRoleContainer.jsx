@@ -4,9 +4,9 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import {withRouter} from "react-router-dom";
-import Role from "./Role";
+import DisplayRole from "./DisplayRole";
 
-class RoleContainer extends React.Component {
+class DisplayRoleContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         if (!id) {
@@ -39,7 +39,7 @@ class RoleContainer extends React.Component {
 
     render() {
         return (
-            <Role {...this.props}/>
+            <DisplayRole {...this.props}/>
         )
     }
 }
@@ -51,7 +51,7 @@ let mapStateToProps = (state) => {
     }
 };
 
-let RoleContainerUrl = withRouter(RoleContainer);
+let RoleContainerUrl = withRouter(DisplayRoleContainer);
 
 export default connect(mapStateToProps,
     {

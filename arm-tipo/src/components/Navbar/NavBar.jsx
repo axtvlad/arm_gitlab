@@ -137,9 +137,14 @@ const NavBar = (props) => {
                                 <span>Города</span>
                             </NavLink>
                         </Menu.Item>
+                        <Menu.Item key={'14'}>
+                            <NavLink to={'/genders'}>
+                                <span>Гендер</span>
+                            </NavLink>
+                        </Menu.Item>
                     </SubMenu>
                 )}
-                <Menu.Item key={'14'}>
+                <Menu.Item key={'15'}>
                     <NavLink to={'/faqs'}>
                         <ReadOutlined/>
                         <span>FAQ</span>

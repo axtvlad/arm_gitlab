@@ -4,9 +4,9 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {withRouter} from "react-router-dom";
 import {setCurrentType, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
-import Type from "./Type";
+import DisplayType from "./DisplayType";
 
-class TypeContainer extends React.Component {
+class DisplayTypeContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         if (!id) {
@@ -39,7 +39,7 @@ class TypeContainer extends React.Component {
 
     render() {
         return (
-            <Type {...this.props}/>
+            <DisplayType {...this.props}/>
         )
     }
 }
@@ -51,7 +51,7 @@ let mapStateToProps = (state) => {
     }
 };
 
-let TypeContainerUrl = withRouter(TypeContainer);
+let TypeContainerUrl = withRouter(DisplayTypeContainer);
 
 export default connect(mapStateToProps,
     {
