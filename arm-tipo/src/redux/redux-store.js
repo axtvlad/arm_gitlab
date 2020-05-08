@@ -10,6 +10,7 @@ import CategoryReducer from "./Reducers/CategoryReducer";
 import CityReducer from "./Reducers/CityReducer";
 import UserReducer from "./Reducers/UserReducer";
 import GenderReducer from "./Reducers/GenderReducer";
+import TemplateReducer from "./Reducers/TemplateReducer";
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -22,7 +23,8 @@ let reducers = combineReducers({
     categoriesDir: CategoryReducer,
     citiesDir: CityReducer,
     usersDir: UserReducer,
-    gendersDir: GenderReducer
+    gendersDir: GenderReducer,
+    templatesDir: TemplateReducer
 });
 
 let store = createStore(reducers);

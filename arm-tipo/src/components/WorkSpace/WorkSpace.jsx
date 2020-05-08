@@ -24,6 +24,8 @@ import MainDocContainer from "./Directories/MainDocs/MainDocContainer";
 import SearchPageContainer from "./Search/SearchPageContainer";
 import DisplayRoleContainer from "./Directories/Roles/DisplayRoleContainer";
 import GendersContainer from "./Directories/Genders/GendersContainer";
+import TemplatesContainer from "./Directories/Templates/TemplatesContainer";
+import AddTemplateContainer from "./Directories/Templates/AddTemplateContainer";
 
 const {Content} = Layout;
 
@@ -75,6 +77,9 @@ const WorkSpace = () => {
                 <Route exact path={'/city/:id'}/>
 
                 <Route exact path={'/genders'} render={() => <GendersContainer/>}/>
+
+                <Route exact path={'/templates'} render={() => <TemplatesContainer/>}/>
+                <Route exact path={'/addTemplate'} render={() => <AddTemplateContainer/>}/>
             </div>
         </Content>
     )
