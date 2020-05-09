@@ -150,6 +150,14 @@ const NavBar = (props) => {
                         <span>FAQ</span>
                     </NavLink>
                 </Menu.Item>
+                {props.isAdmin && (
+                <Menu.Item key={'16'}>
+                    <NavLink to={'/users'}>
+                        <ReadOutlined/>
+                        <span>Пользователи</span>
+                    </NavLink>
+                </Menu.Item>
+                )}
                 <div>
                     <Select style={{width: '100%', marginTop: 30}} onChange={(e) => changeLocale(e)}>
                         <Option value="ru">ru</Option>

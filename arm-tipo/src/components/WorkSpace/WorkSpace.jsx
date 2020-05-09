@@ -26,6 +26,8 @@ import DisplayRoleContainer from "./Directories/Roles/DisplayRoleContainer";
 import GendersContainer from "./Directories/Genders/GendersContainer";
 import TemplatesContainer from "./Directories/Templates/TemplatesContainer";
 import AddTemplateContainer from "./Directories/Templates/AddTemplateContainer";
+import UsersContainer from "./Directories/Users/UsersContainer";
+import AddUserContainer from "./Directories/Users/AddUserContainer";
 
 const {Content} = Layout;
 
@@ -80,6 +82,9 @@ const WorkSpace = () => {
 
                 <Route exact path={'/templates'} render={() => <TemplatesContainer/>}/>
                 <Route exact path={'/addTemplate'} render={() => <AddTemplateContainer/>}/>
+
+                <Route exact path={'/users'} render={() => <UsersContainer/>}/>
+                <Route exact path={'/addUser'} render={() => <AddUserContainer/>}/>
             </div>
         </Content>
     )
