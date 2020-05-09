@@ -152,7 +152,7 @@ const AddUser = (props) => {
             <Form
                 name="validate_other"
                 {...formItemLayout}
-                onFinish={saveUser()}
+                onFinish={saveUser}
                 form={form}
             >
                 <Form.Item
@@ -236,7 +236,7 @@ const AddUser = (props) => {
                     rules={[{required: true, message: 'Пожалуйста, введите дату рождения!'}]}
                     hasFeedback
                 >
-                    <RangePicker format={'DD-MM-YYYY'} onChange={changeBirthAt}/>
+                    <DatePicker format={'DD-MM-YYYY'} onChange={changeBirthAt}/>
                 </Form.Item>
 
                 <Form.Item
