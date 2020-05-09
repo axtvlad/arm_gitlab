@@ -42,12 +42,12 @@ const AddTemplate = (props) => {
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.changeMainDocNameRu(name_ru);
+        props.changeTemplateNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.changeMainDocNameKz(name_kz);
+        props.changeTemplateNameKz(name_kz);
     };
 
     const changeFileRu = () => {

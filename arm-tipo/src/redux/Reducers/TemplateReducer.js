@@ -14,8 +14,8 @@ let initialState = {
             id: 1,
             name_ru: 'Просто шаблон',
             name_kz: 'Жай шаблон',
-            file_ru: '/src/mainDocs/fsdj8f2oh',
-            file_kz: '/src/mainDocs/fsffsoh94',
+            fileName_ru: '/src/mainDocs/fsdj8f2oh',
+            fileName_kz: '/src/mainDocs/fsffsoh94',
             category_id: 1
         }
     ],
@@ -39,8 +39,8 @@ const TemplateReducer = (state = initialState, action) => {
                     id: 4,
                     name_ru: state.newFileNameRu,
                     name_kz: state.newFileNameKz,
-                    file_ru: state.newFileNameRu,
-                    file_kz: state.newFileNameKz,
+                    fileName_ru: state.newFileNameRu,
+                    fileName_kz: state.newFileNameKz,
                     category_id: state.category_id
                 }]
             };
