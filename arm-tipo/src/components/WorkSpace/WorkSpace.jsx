@@ -28,6 +28,12 @@ import TemplatesContainer from "./Directories/Templates/TemplatesContainer";
 import AddTemplateContainer from "./Directories/Templates/AddTemplateContainer";
 import UsersContainer from "./Directories/Users/UsersContainer";
 import AddUserContainer from "./Directories/Users/AddUserContainer";
+import DisplayCategoryContainer from "./Directories/Categories/DisplayCategoryContainer";
+import DisplayCityContainer from "./Directories/Cities/DisplayCityContainer";
+import DisplayCustomerContainer from "./Directories/Customers/DisplayCustomerContainer";
+import DisplayDepartmentContainer from "./Directories/Departments/DisplayDepartmentContainer";
+import DisplayFaqContainer from "./Directories/Faqs/DisplayFaqContainer";
+import DisplayStatusContainer from "./Directories/Statuses/DisplayStatusContainer";
 
 const {Content} = Layout;
 
@@ -52,11 +58,11 @@ const WorkSpace = () => {
 
                 <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
                 <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
-                <Route exact path={'/department/:id'}/>
+                <Route exact path={'/department/:id'} render={() => <DisplayDepartmentContainer/>}/>
 
                 <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
                 <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
-                <Route exact path={'/status/:id'}/>
+                <Route exact path={'/status/:id'} render={() => <DisplayStatusContainer/>}/>
 
                 <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
                 <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
@@ -64,19 +70,19 @@ const WorkSpace = () => {
 
                 <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
                 <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>
-                <Route exact path={'/faq/:id?'}/>
+                <Route exact path={'/faq/:id?'} render={() => <DisplayFaqContainer/>}/>
 
                 <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
                 <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>
-                <Route exact path={'/customer/:id?'}/>
+                <Route exact path={'/customer/:id?'} render={() => <DisplayCustomerContainer/>}/>
 
                 <Route exact path={'/categories'} render={() => <CategoriesContainer/>}/>
                 <Route exact path={'/addCategory'} render={() => <AddCategoryContainer/>}/>
-                <Route exact path={'/category/:id'}/>
+                <Route exact path={'/category/:id'} render={() => <DisplayCategoryContainer/>}/>
 
                 <Route exact path={'/cities'} render={() => <CitiesContainer/>}/>
                 <Route exact path={'/addCity'} render={() => <AddCityContainer/>}/>
-                <Route exact path={'/city/:id'}/>
+                <Route exact path={'/city/:id'} render={() => <DisplayCityContainer/>}/>
 
                 <Route exact path={'/genders'} render={() => <GendersContainer/>}/>
 
