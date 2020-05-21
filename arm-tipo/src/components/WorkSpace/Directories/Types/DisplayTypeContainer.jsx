@@ -4,7 +4,7 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {withRouter} from "react-router-dom";
 import {setCurrentType, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
-import DisplayType from "./DisplayType";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayTypeContainer extends React.Component {
     componentDidMount() {
@@ -39,7 +39,7 @@ class DisplayTypeContainer extends React.Component {
 
     render() {
         return (
-            <DisplayType {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }

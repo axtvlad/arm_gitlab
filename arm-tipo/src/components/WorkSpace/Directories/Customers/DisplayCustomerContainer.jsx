@@ -4,7 +4,7 @@ import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentCustomer, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
-import DisplayCustomer from "./DisplayCustomer";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayCustomerContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +14,16 @@ class DisplayCustomerContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin"
-        const pass = "admin"
+        const user = "Admin";
+        const pass = "admin";
 
-        const authorizationBasic = window.btoa(user + ':' + pass)
+        const authorizationBasic = window.btoa(user + ':' + pass);
 
         const config = {
             'headers': {
                 "Authorization": "Basic " + authorizationBasic
             }
-        }
+        };
 
         this.props.setCustomersIsFetching(true);
 
@@ -40,14 +40,14 @@ class DisplayCustomerContainer extends React.Component {
 
     render() {
         return (
-            <DisplayCustomer {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentCustomer: state.customersDir.currentCustomer,
+        currentItem: state.customersDir.currentCustomer,
         isFetching: state.customersDir.isFetching
     }
 };

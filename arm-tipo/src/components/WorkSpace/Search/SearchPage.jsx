@@ -63,14 +63,13 @@ const SearchPage = (props) => {
                         label={'Выберите, где искать'}
                         rules={[{
                             required: true,
-                            message: 'Введите ключевые слова для поиска!',
+                            message: 'Введите место поиска!',
                         }]}
                     >
                         <Radio.Group defaultValue="a">
                             <Radio value="a">Основная база</Radio>
                             <Radio value="b">Прочие документы</Radio>
                             <Radio value="c">Шаблоны</Radio>
-                            <Radio value="d">Chengdu</Radio>
                         </Radio.Group>
                     </Form.Item>
                     <Button type="primary" htmlType="submit">

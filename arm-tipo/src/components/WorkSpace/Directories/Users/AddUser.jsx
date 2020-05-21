@@ -1,10 +1,9 @@
-import {Button, DatePicker, Form, Input, Select, Upload, Checkbox} from "antd";
+import {Button, Checkbox, DatePicker, Form, Input, Select, Upload} from "antd";
 import React from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
 const {Option} = Select;
-const {RangePicker} = DatePicker;
 
 const formItemLayout = {
     labelCol: {span: 6},
@@ -41,7 +40,7 @@ const AddUser = (props) => {
         isAdmin: props.usersDir.newUserIsAdmin,
         isPremium: props.usersDir.newUserIsPremium,
         isBanned: props.usersDir.newUserIsBanned
-    }
+    };
 
     console.log(fromState);
 
@@ -54,61 +53,61 @@ const AddUser = (props) => {
 
     const changeFirstName = () => {
         const firstName = form.getFieldValue().firstName;
-        props.changeUserFirstName(firstName);
+        props.updateUserFirstName(firstName);
     };
 
     const changeLastName = () => {
         const lastName = form.getFieldValue().lastName;
-        props.changeUserLastName(lastName);
+        props.updateUserLastName(lastName);
     };
 
     const changePatronymic = () => {
         const patronymic = form.getFieldValue().patronymic;
-        props.changeUserPatronymin(patronymic);
+        props.updateUserPatronymic(patronymic);
     };
 
     const changeLogin = () => {
         const login = form.getFieldValue().login;
-        props.changeUserLogin(login);
+        props.updateUserLogin(login);
     };
 
     const changePassword = () => {
         const password = form.getFieldValue().password;
-        props.changeUserPassword(password);
+        props.updateUserPassword(password);
     };
 
     const changeEmail = () => {
         const email = form.getFieldValue().email;
-        props.changeUserEmail(email);
+        props.updateUserEmail(email);
     };
 
     const changePhoto = () => {
         const photo = form.getFieldValue().photo;
-        props.changeUserPhoto(photo);
+        props.updateUserPhoto(photo);
     };
 
     const changeRoleId = () => {
         const role_id = form.getFieldValue().role_id;
-        props.changeUserRoleId(role_id);
+        props.updateUserRoleId(role_id);
     };
     const changeCityId = () => {
         const city_id = form.getFieldValue().city_id;
-        props.changeUserCityId(city_id);
+        props.updateUserCityId(city_id);
     };
 
     const changeCustomerId = () => {
         const customer_id = form.getFieldValue().customer_id;
-        props.changeUserCustomerId(customer_id);
+        props.updateUserCustomerId(customer_id);
     };
 
     const changeGenderId = () => {
         const gender_id = form.getFieldValue().gender_id;
-        props.changeUserGenderId(gender_id);
+        props.updateUserGenderId(gender_id);
     };
 
     const changePhone = () => {
         const phone = form.getFieldValue().phone;
-        props.changeUserPhone(phone);
+        props.updateUserPhone(phone);
     };
 
     const changeBirthAt = () => {
@@ -125,26 +124,26 @@ const AddUser = (props) => {
         let yyyy1 = date1.getFullYear();
 
         const birthAt = dd1 + '-' + mm1 + '-' + yyyy1;
-        props.changeUserBirthAt(birthAt);
+        props.updateUserBirthAt(birthAt);
     };
 
     const changeLocale = () => {
         const locale = form.getFieldValue().locale;
-        props.changeUserLocale(locale);
+        props.updateUserLocale(locale);
     };
     const changeIsAdmin = () => {
         const isAdmin = form.getFieldValue().isAdmin;
-        props.changeUserIsAdmin(isAdmin);
+        props.updateUserIsAdmin(isAdmin);
     };
 
     const changeIsPremium = () => {
         const isPremium = form.getFieldValue().isPremium;
-        props.changeUserIsPremium(isPremium);
+        props.updateUserIsPremium(isPremium);
     };
 
     const changeIsBanned = () => {
         const isBanned = form.getFieldValue().isBanned;
-        props.changeUserIsBanned(isBanned);
+        props.updateUserIsBanned(isBanned);
     };
 
     return (
@@ -216,7 +215,8 @@ const AddUser = (props) => {
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changePhoto}>
                         <Button>
-                            <UploadOutlined/> Выбрать
+                            <UploadOutlined/>
+                            Выбрать
                         </Button>
                     </Upload>
                 </Form.Item>
@@ -335,7 +335,9 @@ const AddUser = (props) => {
                     label={'Является администратором'}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsAdmin}>Является администратором</Checkbox>
+                    <Checkbox onChange={changeIsAdmin}>
+                        Является администратором
+                    </Checkbox>
                 </Form.Item>
 
                 <Form.Item
@@ -343,7 +345,9 @@ const AddUser = (props) => {
                     label={'Является премиум пользователем'}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsPremium}>Является администратором</Checkbox>
+                    <Checkbox onChange={changeIsPremium}>
+                        Является администратором
+                    </Checkbox>
                 </Form.Item>
 
                 <Form.Item
@@ -351,7 +355,9 @@ const AddUser = (props) => {
                     label={'Заблокированный пользователь'}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsBanned}>Заблокированный пользователь</Checkbox>
+                    <Checkbox onChange={changeIsBanned}>
+                        Заблокированный пользователь
+                    </Checkbox>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -366,7 +372,7 @@ const AddUser = (props) => {
                 </Form.Item>
             </Form>
         </div>
-)
-}
+    )
+};
 
 export default AddUser;

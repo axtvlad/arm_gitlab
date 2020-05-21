@@ -4,7 +4,7 @@ import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCitiesIsFetching, setCurrentCity} from "../../../../redux/Reducers/CityReducer";
-import DisplayCity from "./DisplayCity";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +14,16 @@ class DisplayCityContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin"
-        const pass = "admin"
+        const user = "Admin";
+        const pass = "admin";
 
-        const authorizationBasic = window.btoa(user + ':' + pass)
+        const authorizationBasic = window.btoa(user + ':' + pass);
 
         const config = {
             'headers': {
                 "Authorization": "Basic " + authorizationBasic
             }
-        }
+        };
 
         this.props.setCitiesIsFetching(true);
 
@@ -40,19 +40,19 @@ class DisplayCityContainer extends React.Component {
 
     render() {
         return (
-            <DisplayCity {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentCity: state.citiesDir.currentCity,
+        currentItem: state.citiesDir.currentCity,
         isFetching: state.citiesDir.isFetching
     }
 };
 
-let CityContainerUrl = withRouter(DisplayCityContainer)
+let CityContainerUrl = withRouter(DisplayCityContainer);
 
 export default connect(mapStateToProps, {
     setCurrentCity,

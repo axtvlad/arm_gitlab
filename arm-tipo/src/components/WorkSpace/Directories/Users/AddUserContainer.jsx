@@ -29,29 +29,29 @@ let mapStateToProps = (state) => {
         customers: state.customersDir.customers,
         genders: state.gendersDir.genders
     }
-}
+};
 
 const AddUserContainer = connect(mapStateToProps,
     {
-    addUser,
-    updateUserFirstName,
-    updateUserLastName,
-    updateUserPatronymic,
-    updateUserLogin,
-    updateUserPassword,
-    updateUserEmail,
-    updateUserPhoto,
-    updateUserRoleId,
-    updateUserCityId,
-    updateUserCustomerId,
-    updateUserGenderId,
-    updateUserPhone,
-    updateUserLocale,
-    updateUserBirthAt,
-    updateUserIsAdmin,
-    updateUserIsBanned,
-    updateUserIsPremium
-}
+        addUser,
+        updateUserFirstName,
+        updateUserLastName,
+        updateUserPatronymic,
+        updateUserLogin,
+        updateUserPassword,
+        updateUserEmail,
+        updateUserPhoto,
+        updateUserRoleId,
+        updateUserCityId,
+        updateUserCustomerId,
+        updateUserGenderId,
+        updateUserPhone,
+        updateUserLocale,
+        updateUserBirthAt,
+        updateUserIsAdmin,
+        updateUserIsBanned,
+        updateUserIsPremium
+    }
 )(AddUser);
 
 export default AddUserContainer;

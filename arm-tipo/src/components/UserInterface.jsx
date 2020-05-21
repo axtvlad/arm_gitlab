@@ -3,7 +3,7 @@ import './Navbar/NavBar.module.css';
 import {Layout} from "antd";
 import WorkSpace from "../components/WorkSpace/WorkSpace";
 import NavBarContainer from "./Navbar/NavBarContainer";
-import AppHeaderContainer from "./UserHeader/AppHeaderContainer";
+import AppHeaderContainer from "./AppHeader/AppHeaderContainer";
 
 const UserInterface = () => {
     return (

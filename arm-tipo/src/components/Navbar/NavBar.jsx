@@ -1,4 +1,4 @@
-import {Layout, Menu, Select} from "antd";
+import {Layout, Menu} from "antd";
 import React from "react";
 import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
 import classes from './NavBar.module.css'
@@ -10,14 +10,9 @@ import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
-const {Option} = Select;
 
 const NavBar = (props) => {
-    const {t, i18n} = useTranslation();
-
-    const changeLocale = (e) => {
-        i18n.changeLanguage(e);
-    };
+    const {t} = useTranslation();
 
     return (
         <Sider collapsible>
@@ -151,20 +146,13 @@ const NavBar = (props) => {
                     </NavLink>
                 </Menu.Item>
                 {props.isAdmin && (
-                <Menu.Item key={'16'}>
-                    <NavLink to={'/users'}>
-                        <ReadOutlined/>
-                        <span>Пользователи</span>
-                    </NavLink>
-                </Menu.Item>
+                    <Menu.Item key={'16'}>
+                        <NavLink to={'/users'}>
+                            <ReadOutlined/>
+                            <span>Пользователи</span>
+                        </NavLink>
+                    </Menu.Item>
                 )}
-                <div>
-                    <Select style={{width: '100%', marginTop: 30}} onChange={(e) => changeLocale(e)}>
-                        <Option value="ru">ru</Option>
-                        <Option value="en">en</Option>
-                        <Option value="kz">kz</Option>
-                    </Select>
-                </div>
             </Menu>
         </Sider>
     )

@@ -4,7 +4,7 @@ import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentDepartment, setDepartmentsIsFetching} from "../../../../redux/Reducers/DepartmentReducer";
-import DisplayDepartment from "./DisplayDepartment";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayDepartmentContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +14,16 @@ class DisplayDepartmentContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin"
-        const pass = "admin"
+        const user = "Admin";
+        const pass = "admin";
 
-        const authorizationBasic = window.btoa(user + ':' + pass)
+        const authorizationBasic = window.btoa(user + ':' + pass);
 
         const config = {
             'headers': {
                 "Authorization": "Basic " + authorizationBasic
             }
-        }
+        };
 
         this.props.setDepartmentsIsFetching(true);
 
@@ -40,19 +40,19 @@ class DisplayDepartmentContainer extends React.Component {
 
     render() {
         return (
-            <DisplayDepartment {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentDepartment: state.departmentsDir.currentDepartment,
+        currentItem: state.departmentsDir.currentDepartment,
         isFetching: state.departmentsDir.isFetching
     }
 };
 
-let DepartmentContainerUrl = withRouter(DisplayDepartmentContainer)
+let DepartmentContainerUrl = withRouter(DisplayDepartmentContainer);
 
 export default connect(mapStateToProps, {
     setCurrentDepartment,

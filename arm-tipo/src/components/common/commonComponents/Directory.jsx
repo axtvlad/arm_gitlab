@@ -5,7 +5,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
-import {GetAddAddress} from "../utils/AddPagsRoutes";
+import {GetAddAddress} from "../utils/AddPagesRoutes";
 import {GetAddButtonText} from "../utils/AddButtonText";
 
 const Directory = (props) => {
@@ -47,7 +47,7 @@ const Directory = (props) => {
 
     return (
         <div className={'content'}>
-            <div className={'addButtonBloc'}>
+            <div className={'addButtonBlock'}>
                 <NavLink to={GetAddAddress(props.type)}>
                     <Button
                         type={'danger'}

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {setGendersIsFetching, setGenders} from "../../../../redux/Reducers/GenderReducer";
+import {setGenders, setGendersIsFetching} from "../../../../redux/Reducers/GenderReducer";
 import React from "react";
 import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
@@ -29,7 +29,7 @@ class GendersContainer extends React.Component {
 
                     this.props.setGendersIsFetching(false);
                 });
-    }
+        }
     }
 
     render() {

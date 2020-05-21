@@ -4,7 +4,7 @@ import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentStatus, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
-import DisplayStatus from "./DisplayStatus";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayStatusContainer extends React.Component {
     componentDidMount() {
@@ -14,8 +14,8 @@ class DisplayStatusContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin"
-        const pass = "admin"
+        const user = "Admin";
+        const pass = "admin";
 
         const authorizationBasic = window.btoa(user + ':' + pass)
 
@@ -23,7 +23,7 @@ class DisplayStatusContainer extends React.Component {
             'headers': {
                 "Authorization": "Basic " + authorizationBasic
             }
-        }
+        };
 
         this.props.setStatusesIsFetching(true);
 
@@ -40,14 +40,14 @@ class DisplayStatusContainer extends React.Component {
 
     render() {
         return (
-            <DisplayStatus {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentStatus: state.statusesDir.currentStatus,
+        currentItem: state.statusesDir.currentStatus,
         isFetching: state.statusesDir.isFetching
     }
 };

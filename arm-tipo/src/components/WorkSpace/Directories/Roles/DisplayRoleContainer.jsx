@@ -4,11 +4,12 @@ import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
 import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import {withRouter} from "react-router-dom";
-import DisplayRole from "./DisplayRole";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
+
         if (!id) {
             id = 1
         }
@@ -39,14 +40,14 @@ class DisplayRoleContainer extends React.Component {
 
     render() {
         return (
-            <DisplayRole {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentRole: state.rolesDir.currentRole,
+        currentItem: state.rolesDir.currentRole,
         isFetching: state.rolesDir.isFetching,
     }
 };

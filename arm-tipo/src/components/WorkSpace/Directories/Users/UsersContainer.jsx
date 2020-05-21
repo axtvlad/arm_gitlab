@@ -1,9 +1,8 @@
-import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import React from "react";
-import * as axios from "axios";
 import {setUsers, setUsersCount, setUsersIsFetching} from "../../../../redux/Reducers/UserReducer";
 import Users from "./Users";
+import * as axios from "axios";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -21,14 +20,17 @@ class UsersContainer extends React.Component {
             this.props.setUsersIsFetching(true);
 
             axios
-                .get(BASE_URL + '/users?loadData=true', config)
+                .get('http://localhost:8080/rest/api/users', config)
                 .then(response => {
                     this.props.setUsers(response.data.data);
                     this.props.setUsersCount(response.data.totalCount);
 
-                    console.log('mainDocs: ', response.data.data);
+                    console.log('users: ', response.data.data);
 
                     this.props.setUsersIsFetching(false);
+                })
+                .catch(err => {
+                    console.error(err);
                 });
         }
     }
@@ -36,8 +38,8 @@ class UsersContainer extends React.Component {
     render() {
         return (
             <Users
-                users = {this.props.users}
-                isFetching = {this.props.isFetching}
+                users={this.props.users}
+                isFetching={this.props.isFetching}
             />
         )
     }
@@ -46,12 +48,13 @@ class UsersContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         users: state.usersDir.users,
-        isFetching:  state.usersDir.isFetching
+        isFetching: state.usersDir.isFetching
     }
-}
+};
 
 export default connect(mapStateToProps, {
-    setUsers,
-    setUsersCount,
-    setUsersIsFetching
-})(UsersContainer);
+        setUsers,
+        setUsersCount,
+        setUsersIsFetching
+    }
+)(UsersContainer);

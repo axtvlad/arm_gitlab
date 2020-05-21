@@ -20,7 +20,6 @@ import AddCategoryContainer from "./Directories/Categories/AddCategoryContainer"
 import AddCityContainer from "./Directories/Cities/AddCityContainer";
 import CitiesContainer from "./Directories/Cities/CitiesContainer";
 import HomeContainer from "./Home/HomeContainer";
-import MainDocContainer from "./Directories/MainDocs/MainDocContainer";
 import SearchPageContainer from "./Search/SearchPageContainer";
 import DisplayRoleContainer from "./Directories/Roles/DisplayRoleContainer";
 import GendersContainer from "./Directories/Genders/GendersContainer";
@@ -32,8 +31,8 @@ import DisplayCategoryContainer from "./Directories/Categories/DisplayCategoryCo
 import DisplayCityContainer from "./Directories/Cities/DisplayCityContainer";
 import DisplayCustomerContainer from "./Directories/Customers/DisplayCustomerContainer";
 import DisplayDepartmentContainer from "./Directories/Departments/DisplayDepartmentContainer";
-import DisplayFaqContainer from "./Directories/Faqs/DisplayFaqContainer";
 import DisplayStatusContainer from "./Directories/Statuses/DisplayStatusContainer";
+import DisplayTypeContainer from "./Directories/Types/DisplayTypeContainer";
 
 const {Content} = Layout;
 
@@ -50,11 +49,10 @@ const WorkSpace = () => {
 
                 <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
                 <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
-                <Route exact path={'/mainDoc/:id'} render={() => <MainDocContainer/>}/>
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
-                <Route exact path={'/type/:id'} render={() => <AddTypeContainer/>}/>
+                <Route exact path={'/type/:id'} render={() => <DisplayTypeContainer/>}/>
 
                 <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
                 <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
@@ -70,7 +68,6 @@ const WorkSpace = () => {
 
                 <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
                 <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>
-                <Route exact path={'/faq/:id?'} render={() => <DisplayFaqContainer/>}/>
 
                 <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
                 <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>

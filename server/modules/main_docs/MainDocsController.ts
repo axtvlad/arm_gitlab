@@ -12,6 +12,7 @@ import {
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {Users} from "../users/UsersModel";
 
 interface IRestMainDocsCreate {
     number: string;
@@ -31,6 +32,7 @@ interface IRestMainDocsCreate {
     type_id: number;
     text_ru?: string;
     text_kz?: string;
+    tags: string;
 }
 
 interface IRestMainDocsList {
@@ -85,6 +87,12 @@ export default new class MainDocsController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: req.__('PASSED_PARAM_TYPE_ID')
                 });
+            } else if (!bodyParams.tags) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_TAGS',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_TAGS')
+                });
             }
 
             const MainDoc = new MainDocs;
@@ -95,6 +103,7 @@ export default new class MainDocsController {
             MainDoc.header_ru = bodyParams.header_ru;
             MainDoc.file_ru = bodyParams.file_ru;
             MainDoc.type_id = bodyParams.type_id;
+            MainDoc.tags = bodyParams.tags;
 
             if (bodyParams.status_id) {
                 MainDoc.status_id = bodyParams.status_id;
@@ -174,7 +183,8 @@ export default new class MainDocsController {
                     description_kz: mainDoc.description_kz,
                     type_id: mainDoc.type_id,
                     text_ru: mainDoc.text_ru,
-                    text_kz: mainDoc.text_kz
+                    text_kz: mainDoc.text_kz,
+                    tags: mainDoc.tags,
                 },
                 message: req.__('MESSAGE_OK')
             });
@@ -206,7 +216,7 @@ export default new class MainDocsController {
             config.select = [
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
                 "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
-                "description_ru", "type_id", "text_ru", "text_kz"];
+                "description_ru", "type_id", "text_ru", "text_kz", "tags"];
 
             const mainDocs = await getManager().getRepository(MainDocs).find(config);
             const totalCount = await getManager().getRepository(MainDocs).count();
@@ -241,7 +251,7 @@ export default new class MainDocsController {
             config.select = [
                 "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
                 "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
-                "description_kz", "type_id", "text_ru", "text_kz"];
+                "description_kz", "type_id", "text_ru", "text_kz", "tags"];
             config.where = {id};
 
             const mainDoc = await getManager().getRepository(MainDocs).find(config);
@@ -291,7 +301,7 @@ export default new class MainDocsController {
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {
-
+            console.error(err);
         }
     }
 }

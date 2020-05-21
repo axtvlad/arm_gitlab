@@ -1,10 +1,10 @@
 import React from "react";
 import * as axios from "axios";
 import {BASE_URL} from "../../../../env";
-import DisplayCategory from "./DisplayCategory";
-import {setCurrentCategory, setCategoriesIsFetching} from "../../../../redux/Reducers/CategoryReducer"
+import {setCategoriesIsFetching, setCurrentCategory} from "../../../../redux/Reducers/CategoryReducer"
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
+import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +14,16 @@ class DisplayCategoryContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin"
-        const pass = "admin"
+        const user = "Admin";
+        const pass = "admin";
 
-        const authorizationBasic = window.btoa(user + ':' + pass)
+        const authorizationBasic = window.btoa(user + ':' + pass);
 
         const config = {
             'headers': {
                 "Authorization": "Basic " + authorizationBasic
             }
-        }
+        };
 
         this.props.setCategoriesIsFetching(true);
 
@@ -40,19 +40,19 @@ class DisplayCategoryContainer extends React.Component {
 
     render() {
         return (
-            <DisplayCategory {...this.props}/>
+            <DisplayDirectoryItem {...this.props}/>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        currentCategory: state.categoriesDir.currentCategory,
+        currentItem: state.categoriesDir.currentCategory,
         isFetching: state.categoriesDir.isFetching
     }
 };
 
-let CategoryContainerUrl = withRouter(DisplayCategoryContainer)
+let CategoryContainerUrl = withRouter(DisplayCategoryContainer);
 
 export default connect(mapStateToProps, {
     setCurrentCategory,

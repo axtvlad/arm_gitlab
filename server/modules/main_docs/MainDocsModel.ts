@@ -55,4 +55,7 @@ export class MainDocs {
 
     @Column({length: 300, unique: true, default: null})
     text_kz?: string;
+
+    @Column({length: 5000})
+    tags: string;
 }
