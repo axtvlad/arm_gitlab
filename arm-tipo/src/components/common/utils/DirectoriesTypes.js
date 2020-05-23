@@ -49,5 +49,6 @@ export const GetDirectory = (directory_type) => {
         case DirectoriesTypes.STATUSES: return STATUS;
         case DirectoriesTypes.TYPES: return TYPE;
         case DirectoriesTypes.GENDERS: return GENDER;
+        default: return 'none'
     }
 };

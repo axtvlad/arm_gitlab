@@ -21,7 +21,9 @@ i18n.configure({
     directory: __dirname + '/locales',
 });
 
-app.use(cors());
+app.use(cors({
+    "Access-Control-Allow-Origin": "https://arm-tipo.kz"
+}));
 app.use(cookieParser());
 app.use(i18n.init);
 app.use(express.json());
