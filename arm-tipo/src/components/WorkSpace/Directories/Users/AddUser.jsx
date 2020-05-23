@@ -110,20 +110,13 @@ const AddUser = (props) => {
         props.updateUserPhone(phone);
     };
 
-    const changeBirthAt = () => {
-        const date = form.getFieldValue().birthAt;
-
-        let date1 = date[0]._d;
-
-        let dd1 = date1.getDate();
-        if (dd1 < 10) dd1 = '0' + dd1;
-
-        let mm1 = date1.getMonth() + 1;
-        if (mm1 < 10) mm1 = '0' + mm1;
-
-        let yyyy1 = date1.getFullYear();
-
-        const birthAt = dd1 + '-' + mm1 + '-' + yyyy1;
+    const changeBirthAt = (date, dateString) => {
+        /* const date = form.getFieldValue().birthAt;
+         let date1 = date;
+         */
+        let birthAt = date;
+        // console.log(dateString);
+        console.log(birthAt);
         props.updateUserBirthAt(birthAt);
     };
 
@@ -236,7 +229,7 @@ const AddUser = (props) => {
                     rules={[{required: true, message: 'Пожалуйста, введите дату рождения!'}]}
                     hasFeedback
                 >
-                    <DatePicker format={'DD-MM-YYYY'} onChange={changeBirthAt}/>
+                    <DatePicker onChange={changeBirthAt}/>
                 </Form.Item>
 
                 <Form.Item
