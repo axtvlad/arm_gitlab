@@ -23,5 +23,7 @@
   "clear": "Очистить",
   "main": "Главная",
   "help": "Помощь",
-  "mailForRequests": "Почта для запросов: "
+  "mailForRequests": "Почта для запросов: ",
+  "type": "Тип",
+  "customer": "Клиент"
 }

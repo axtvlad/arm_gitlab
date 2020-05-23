@@ -12,7 +12,7 @@ const Directory = (props) => {
     const {t} = useTranslation();
 
     /**
-     *  Собираем таблицу из 3 колонок:
+     *  Собираем таблицу из 3-х колонок:
      *      1) Наименование на русском
      *      2) Наименование на казахском
      *      3) Действия (совершаемые над записью: редактирование и удаление)
@@ -24,13 +24,13 @@ const Directory = (props) => {
             title: t('russianName'),
             dataIndex: 'name_ru',
             key: 'name_ru',
-            render: text => <a href={'/'}>{text}</a>,
+            render: (text, item) => <NavLink to={'/' + props.type + '/' + item.id}>{text}</NavLink>,
         },
         {
             title: t('kazakhName'),
             dataIndex: 'name_kz',
             key: 'name_kz',
-            render: text => <a href={'/'}>{text}</a>,
+            render: (text, item) => <NavLink to={'/' + props.type + '/' + item.id}>{text}</NavLink>,
         },
         {
             title: t('actions'),

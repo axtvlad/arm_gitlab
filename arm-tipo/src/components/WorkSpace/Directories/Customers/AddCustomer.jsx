@@ -44,7 +44,7 @@ const AddCustomer = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование клиента (ru)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование имя клиента на русском!'
@@ -56,7 +56,7 @@ const AddCustomer = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование клиена (kz)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите имя клиента на казахском!'

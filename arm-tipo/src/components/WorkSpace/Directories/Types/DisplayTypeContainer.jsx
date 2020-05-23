@@ -5,6 +5,7 @@ import {BASE_URL} from "../../../../env";
 import {withRouter} from "react-router-dom";
 import {setCurrentType, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayTypeContainer extends React.Component {
     componentDidMount() {
@@ -46,7 +47,8 @@ class DisplayTypeContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        currentType: state.typesDir.currentType,
+        type: GetDirectory(DirectoriesTypes.TYPES),
+        currentItem: state.typesDir.currentType,
         isFetching: state.typesDir.isFetching,
     }
 };

@@ -157,19 +157,19 @@ const AddUser = (props) => {
                 <Form.Item
                     name={'firstName'}
                     label={'Имя'}
-                    rules={[{required: true, message: 'Пожалуйста, введите имя пользователя!'}]}
+                    rules={[{required: true, message: 'Пожалуйста, введите имя!'}]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите имя пользователя!'} onChange={changeFirstName}/>
+                    <Input placeholder={'Введите имя!'} onChange={changeFirstName}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'lastName'}
                     label={'Фамилия'}
-                    rules={[{required: true, message: 'Пожалуйста, введите фамилию пользователя!'}]}
+                    rules={[{required: true, message: 'Пожалуйста, введите фамилию!'}]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите фамилию пользователя!'} onChange={changeLastName}/>
+                    <Input placeholder={'Введите фамилию!'} onChange={changeLastName}/>
                 </Form.Item>
 
                 <Form.Item
@@ -177,16 +177,16 @@ const AddUser = (props) => {
                     label={'Отчество'}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите отчество пользователя!'} onChange={changePatronymic}/>
+                    <Input placeholder={'Введите отчество!'} onChange={changePatronymic}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'login'}
                     label={'Логин'}
-                    rules={[{required: true, message: 'Пожалуйста, введите логин пользователя!'}]}
+                    rules={[{required: true, message: 'Пожалуйста, введите логин!'}]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите логин пользователя!'} onChange={changeLogin}/>
+                    <Input placeholder={'Введите логин!'} onChange={changeLogin}/>
                 </Form.Item>
 
                 <Form.Item
@@ -195,7 +195,7 @@ const AddUser = (props) => {
                     rules={[{required: true, message: 'Пожалуйста, введите пароль!'}]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите пароль!'} onChange={changePassword}/>
+                    <Input type={'password'} placeholder={'Введите пароль!'} onChange={changePassword}/>
                 </Form.Item>
 
                 <Form.Item
@@ -277,11 +277,11 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'customer_id'}
-                    label={'Роль пользователя'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите роль пользователя!'}]}
+                    label={'Клиент'}
+                    rules={[{required: true, message: 'Пожалуйста, выберите клиента!'}]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите роль пользователя!'} onChange={changeCustomerId}>
+                    <Select placeholder={'Выберите клиента!'} onChange={changeCustomerId}>
                         {props.customers.map(customer =>
                             <Option
                                 key={customer.id}
@@ -336,17 +336,17 @@ const AddUser = (props) => {
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsAdmin}>
-                        Является администратором
+                        Да
                     </Checkbox>
                 </Form.Item>
 
                 <Form.Item
                     name={'isPremium'}
-                    label={'Является премиум пользователем'}
+                    label={'Является Premium-пользователем'}
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsPremium}>
-                        Является администратором
+                        Да
                     </Checkbox>
                 </Form.Item>
 
@@ -356,7 +356,7 @@ const AddUser = (props) => {
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsBanned}>
-                        Заблокированный пользователь
+                        Да
                     </Checkbox>
                 </Form.Item>
 

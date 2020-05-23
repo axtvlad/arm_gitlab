@@ -175,6 +175,7 @@ export default new class UsersController {
 
             config.skip = queryParams.offset ? queryParams.offset : 0;
             config.take = queryParams.count ? queryParams.count : 30;
+
             config.select = ["userId", "firstName", "lastName", "login", "email", "phone", "locale"];
 
             if (queryParams.loadData && queryParams.loadData === true) {

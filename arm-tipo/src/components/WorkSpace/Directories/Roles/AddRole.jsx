@@ -43,7 +43,7 @@ const AddRole = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование роли (ru)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование роли на русском языке!'
@@ -55,7 +55,7 @@ const AddRole = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование роли (kz)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование роли пользователя на казахском языке!'

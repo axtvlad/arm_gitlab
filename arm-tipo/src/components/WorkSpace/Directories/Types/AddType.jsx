@@ -44,7 +44,7 @@ const AddType = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование типа (ru)'}
                     rules={[{required: true, message: 'Пожалуйста, введите наименование типа на русском!'}]}
                     hasFeedback
                 >
@@ -53,7 +53,7 @@ const AddType = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование типа (kz)'}
                     rules={[{required: true, message: 'Пожалуйста, введите наименование типа на казахском!'}]}
                     hasFeedback
                 >

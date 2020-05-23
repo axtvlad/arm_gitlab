@@ -23,5 +23,6 @@
   "clear": "Тазарту",
   "main": "Басты бет",
   "help": "Көмек",
-  "mailForRequests": "Сұраныс поштасы: "
+  "mailForRequests": "Сұраныс поштасы: ",
+  "type": "Түрі"
 }

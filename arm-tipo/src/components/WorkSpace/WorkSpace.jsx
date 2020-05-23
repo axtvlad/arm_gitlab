@@ -52,34 +52,34 @@ const WorkSpace = () => {
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>
-                <Route exact path={'/type/:id'} render={() => <DisplayTypeContainer/>}/>
+                <Route exact path={'/types/:id'} render={() => <DisplayTypeContainer/>}/>
 
                 <Route exact path={'/departments'} render={() => <DepartmentsContainer/>}/>
                 <Route exact path={'/addDepartment'} render={() => <AddDepartmentContainer/>}/>
-                <Route exact path={'/department/:id'} render={() => <DisplayDepartmentContainer/>}/>
+                <Route exact path={'/departments/:id'} render={() => <DisplayDepartmentContainer/>}/>
 
                 <Route exact path={'/statuses'} render={() => <StatusesContainer/>}/>
                 <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
-                <Route exact path={'/status/:id'} render={() => <DisplayStatusContainer/>}/>
+                <Route exact path={'/statuses/:id'} render={() => <DisplayStatusContainer/>}/>
 
                 <Route exact path={'/roles'} render={() => <RolesContainer/>}/>
                 <Route exact path={'/addRole'} render={() => <AddRoleContainer/>}/>
-                <Route exact path={'/role/:id?'} render={() => <DisplayRoleContainer/>}/>
+                <Route exact path={'/roles/:id'} render={() => <DisplayRoleContainer/>}/>
 
                 <Route exact path={'/faqs'} render={() => <FaqsContainer/>}/>
                 <Route exact path={'/addFaq'} render={() => <AddFaqContainer/>}/>
 
                 <Route exact path={'/customers'} render={() => <CustomersContainer/>}/>
                 <Route exact path={'/addCustomer'} render={() => <AddCustomerContainer/>}/>
-                <Route exact path={'/customer/:id?'} render={() => <DisplayCustomerContainer/>}/>
+                <Route exact path={'/customers/:id'} render={() => <DisplayCustomerContainer/>}/>
 
                 <Route exact path={'/categories'} render={() => <CategoriesContainer/>}/>
                 <Route exact path={'/addCategory'} render={() => <AddCategoryContainer/>}/>
-                <Route exact path={'/category/:id'} render={() => <DisplayCategoryContainer/>}/>
+                <Route exact path={'/categories/:id'} render={() => <DisplayCategoryContainer/>}/>
 
                 <Route exact path={'/cities'} render={() => <CitiesContainer/>}/>
                 <Route exact path={'/addCity'} render={() => <AddCityContainer/>}/>
-                <Route exact path={'/city/:id'} render={() => <DisplayCityContainer/>}/>
+                <Route exact path={'/cities/:id'} render={() => <DisplayCityContainer/>}/>
 
                 <Route exact path={'/genders'} render={() => <GendersContainer/>}/>
 

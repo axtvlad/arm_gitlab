@@ -45,7 +45,7 @@ const AddCity = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование города (ru)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование города на русском!'
@@ -57,7 +57,7 @@ const AddCity = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование города (kz)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите город на казахском!'

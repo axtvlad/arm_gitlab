@@ -44,7 +44,7 @@ const AddDepartment = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование отдела (ru)'}
                     rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на русском!'}]}
                     hasFeedback
                 >
@@ -53,7 +53,7 @@ const AddDepartment = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование отдела (kz)'}
                     rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на казахском!'}]}
                     hasFeedback
                 >

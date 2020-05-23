@@ -44,7 +44,7 @@ const AddStatus = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование статуса (ru)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование статуса документа на русском!'
@@ -56,7 +56,7 @@ const AddStatus = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование статуса (kz)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование статуса документа на казахском!'

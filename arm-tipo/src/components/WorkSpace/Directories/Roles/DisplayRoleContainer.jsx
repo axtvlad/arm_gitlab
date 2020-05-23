@@ -5,6 +5,7 @@ import {BASE_URL} from "../../../../env";
 import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class DisplayRoleContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        type: GetDirectory(DirectoriesTypes.ROLES),
         currentItem: state.rolesDir.currentRole,
         isFetching: state.rolesDir.isFetching,
     }

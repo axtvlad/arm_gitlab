@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentDepartment, setDepartmentsIsFetching} from "../../../../redux/Reducers/DepartmentReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayDepartmentContainer extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class DisplayDepartmentContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        type: GetDirectory(DirectoriesTypes.DEPARTMENTS),
         currentItem: state.departmentsDir.currentDepartment,
         isFetching: state.departmentsDir.isFetching
     }

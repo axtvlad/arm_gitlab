@@ -23,5 +23,6 @@
   "clear": "Clear",
   "main": "Main",
   "help": "Help",
-  "mailForRequests": "Mail for requests: "
+  "mailForRequests": "Mail for requests: ",
+  "type": "Type"
 }

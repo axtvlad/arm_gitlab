@@ -44,7 +44,7 @@ const AddCategory = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование категории (ru)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите наименование категории на русском!'
@@ -56,7 +56,7 @@ const AddCategory = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование категории (kz)'}
                     rules={[{
                         required: true,
                         message: 'Пожалуйста, введите категорию на казахском!'

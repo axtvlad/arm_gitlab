@@ -10,7 +10,7 @@ const DisplayDirectoryItem = (props) => {
             <div className={'content'}>
                 {props.currentItem && (
                     <Descriptions
-                        title={props.type + ': ' + props.currentItem[0].name_ru}
+                        title={t(props.type) + ': ' + props.currentItem[0].name_ru}
                         column={1}
                         colon={true}
                     >

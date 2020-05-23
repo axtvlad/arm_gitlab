@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCitiesIsFetching, setCurrentCity} from "../../../../redux/Reducers/CityReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class DisplayCityContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        type: GetDirectory(DirectoriesTypes.CITIES),
         currentItem: state.citiesDir.currentCity,
         isFetching: state.citiesDir.isFetching
     }

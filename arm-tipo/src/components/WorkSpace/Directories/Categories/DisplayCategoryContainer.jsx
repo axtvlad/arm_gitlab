@@ -5,6 +5,7 @@ import {setCategoriesIsFetching, setCurrentCategory} from "../../../../redux/Red
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class DisplayCategoryContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        type: GetDirectory(DirectoriesTypes.CATEGORIES),
         currentItem: state.categoriesDir.currentCategory,
         isFetching: state.categoriesDir.isFetching
     }

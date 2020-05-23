@@ -31,4 +31,5 @@ routesRestApi.use('/otherDocs', reqAuthSecurity, OtherDocsRoutes);
 routesRestApi.use('/mainDocs', reqAuthSecurity, MainDocsRoutes);
 
 const RoutesRestApi = routesRestApi;
+
 export default RoutesRestApi;

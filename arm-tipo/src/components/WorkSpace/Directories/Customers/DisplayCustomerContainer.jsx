@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentCustomer, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 
 class DisplayCustomerContainer extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class DisplayCustomerContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        type: GetDirectory(DirectoriesTypes.CUSTOMERS),
         currentItem: state.customersDir.currentCustomer,
         isFetching: state.customersDir.isFetching
     }

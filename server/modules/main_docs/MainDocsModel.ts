@@ -11,7 +11,7 @@ export class MainDocs {
     @Column({precision: 3})
     department_id: number;
 
-    @Column({precision: 2, default: 1})
+    @Column({precision: 2, default: null})
     status_id?: number;
 
     @Column({type: 'date', default: null})

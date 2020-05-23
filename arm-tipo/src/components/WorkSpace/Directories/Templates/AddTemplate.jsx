@@ -92,7 +92,7 @@ const AddTemplate = (props) => {
                 </Form.Item>
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
+                    label={'Наименование шаблона (ru)'}
                     rules={[{required: true, message: 'Пожалуйста, введите наименование шаблона на русском!'}]}
                     hasFeedback
                 >
@@ -101,7 +101,7 @@ const AddTemplate = (props) => {
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={'Наименование шаблона (kz)'}
                 >
                     <Input placeholder={'Введите наименование шаблона на казахском!'} onChange={changeNameKz}/>
                 </Form.Item>

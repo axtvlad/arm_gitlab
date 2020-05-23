@@ -28,9 +28,9 @@ export default class ServiceRest implements IRestApi {
                 default:
                     let number: number = +data[item];
 
-                    if(!isNaN(number)){
+                    if (!isNaN(number)) {
                         list[item] = number;
-                    }else{
+                    } else {
                         list[item] = data[item];
                     }
             }
@@ -41,17 +41,17 @@ export default class ServiceRest implements IRestApi {
 
     public getQuery(): object {
         try {
-            const { query } = this.req;
+            const {query} = this.req;
             return this.treatment(query);
-        }catch (e) {
+        } catch (e) {
             console.error(path.basename(__filename), 'getQuery', e);
-            return {};
+            return {}
         }
     }
 
     public getBody(): object {
         try {
-            const { body } = this.req;
+            const {body} = this.req;
             return this.treatment(body);
         } catch (e) {
             console.error(path.basename(__filename), 'getBody', e);
@@ -61,7 +61,7 @@ export default class ServiceRest implements IRestApi {
 
     public getKeys(): object {
         try {
-            const { params } = this.req;
+            const {params} = this.req;
             return this.treatment(params);
         } catch (e) {
             console.error(path.basename(__filename), 'getBody', e);
