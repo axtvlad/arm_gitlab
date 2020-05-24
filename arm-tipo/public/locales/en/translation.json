@@ -24,7 +24,7 @@
   "home": "Home",
   "mainDocs": "Main docs",
   "otherDocs": "Other docs",
-  "maps": "Road maps",
+  "maps": "Development cards",
   "templates": "Templates",
   "directories": "Directories",
   "docTypes": "Types of documents",
@@ -36,6 +36,7 @@
   "cities": "Cities",
   "genders": "Gender",
   "faqs": "FAQ",
+  "users": "Users",
   "help": "Help",
   "mailForRequests": "Mail for requests: ",
   "type": "Type"
