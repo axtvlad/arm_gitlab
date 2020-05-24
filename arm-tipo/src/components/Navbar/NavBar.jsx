@@ -37,7 +37,7 @@ const NavBar = (props) => {
                     <NavLink to={'/'}>
                         <span>
                             <HomeOutlined/>
-                            <span>{t('main')}</span>
+                            <span>{t('home')}</span>
                         </span>
                     </NavLink>
                 </Menu.Item>
@@ -45,7 +45,7 @@ const NavBar = (props) => {
                     <NavLink to={'/mainDocs'}>
                         <span>
                            <DatabaseOutlined/>
-                           <span>Основная база</span>
+                           <span>{t('mainDocs')}</span>
                         </span>
                     </NavLink>
                 </Menu.Item>
@@ -54,13 +54,13 @@ const NavBar = (props) => {
                     title={
                         <span>
                             <FileOutlined/>
-                            <span>Прочие документы</span>
+                            <span>{t('otherDocs')}</span>
                         </span>
                     }
                 >
                     <Menu.Item key={'3'}>
                         <NavLink to={'/maps'}>
-                            <span>Карты развития</span>
+                            <span>{t('maps')}</span>
                         </NavLink>
                     </Menu.Item>
                 </SubMenu>
@@ -68,7 +68,7 @@ const NavBar = (props) => {
                     <NavLink to={'/templates'}>
                         <span>
                             <FormOutlined/>
-                            <span>Шаблоны</span>
+                            <span>{t('templates')}</span>
                         </span>
                     </NavLink>
                 </Menu.Item>
@@ -93,48 +93,48 @@ const NavBar = (props) => {
                         title={
                             <span>
                                 <CodeSandboxOutlined/>
-                                <span>Справочники</span>
+                                <span>{t('directories')}</span>
                             </span>
                         }
                     >
                         <Menu.Item key={'7'}>
                             <NavLink to={'/types'}>
-                                <span>Типы документов</span>
+                                <span>{t('docTypes')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'8'}>
                             <NavLink to={'/departments'}>
-                                <span>Отделы</span>
+                                <span>{t('departments')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'9'}>
                             <NavLink to={'/statuses'}>
-                                <span>Статусы</span>
+                                <span>{t('statuses')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'10'}>
                             <NavLink to={'/roles'}>
-                                <span>Роли пользователей</span>
+                                <span>{t('roles')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'11'}>
                             <NavLink to={'/customers'}>
-                                <span>Клиенты</span>
+                                <span>{t('customers')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'12'}>
                             <NavLink to={'/categories'}>
-                                <span>Категории</span>
+                                <span>{t('categories')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'13'}>
                             <NavLink to={'/cities'}>
-                                <span>Города</span>
+                                <span>{t('cities')}</span>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key={'14'}>
                             <NavLink to={'/genders'}>
-                                <span>Гендер</span>
+                                <span>{t('genders')}</span>
                             </NavLink>
                         </Menu.Item>
                     </SubMenu>
@@ -142,14 +142,14 @@ const NavBar = (props) => {
                 <Menu.Item key={'15'}>
                     <NavLink to={'/faqs'}>
                         <ReadOutlined/>
-                        <span>FAQ</span>
+                        <span>{t('faqs')}</span>
                     </NavLink>
                 </Menu.Item>
                 {props.isAdmin && (
                     <Menu.Item key={'16'}>
                         <NavLink to={'/users'}>
                             <ReadOutlined/>
-                            <span>Пользователи</span>
+                            <span>{t('users')}</span>
                         </NavLink>
                     </Menu.Item>
                 )}
