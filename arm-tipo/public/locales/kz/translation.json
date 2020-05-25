@@ -1,12 +1,4 @@
 {
-  "Experts": "Сарапшылар",
-  "Types": "Түрлері",
-  "Statuses": "Статустар",
-  "Roles": "Рөлдер",
-  "Customers": "Клиенттер",
-  "Categories": "Санаты",
-  "Cities": "Қалалар",
-  "Faqs": "FAQs",
   "russianName": "Орыс тіліндегі атауы",
   "kazakhName": "Қазақ тіліндегі атауы",
   "actions": "Әрекеттер",
@@ -36,8 +28,13 @@
   "cities": "Қалалар",
   "genders": "Гендер",
   "faqs": "FAQ",
+  "experts": "Сарапшылар",
   "users": "Пайдаланушылар",
   "help": "Көмек",
   "mailForRequests": "Сұраныс поштасы: ",
-  "type": "Түрі"
+  "type": "Түрі",
+  "enterTitle": "Тақырыпты енгізіңіз",
+  "tags": "Түйін сөздер",
+  "whereToSearch": "Қайда іздеу керек:",
+  "searchResult": "Іздеу нәтижелері"
 }

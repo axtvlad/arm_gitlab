@@ -1,12 +1,4 @@
 {
-  "Experts": "Эксперты",
-  "Types": "Типы",
-  "Statuses": "Статусы",
-  "Roles": "Роли",
-  "Customers": "Клиенты",
-  "Categories": "Категории",
-  "Cities": "Города",
-  "Faqs": "FAQs",
   "russianName": "Наименование на русском",
   "kazakhName": "Наименование на казахском",
   "actions": "Действия",
@@ -36,9 +28,14 @@
   "cities": "Города",
   "genders": "Гендер",
   "faqs": "FAQ",
+  "experts": "Эксперты",
   "users": "Пользователи",
   "help": "Помощь",
   "mailForRequests": "Почта для запросов: ",
   "type": "Тип",
-  "customer": "Клиент"
+  "customer": "Клиент",
+  "enterTitle": "Введите заголовок",
+  "tags": "Ключевые слова",
+  "whereToSearch": "Выберите, где искать:",
+  "searchResult": "Результаты поиска"
 }

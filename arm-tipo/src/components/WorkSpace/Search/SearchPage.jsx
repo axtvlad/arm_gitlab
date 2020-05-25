@@ -40,11 +40,11 @@ const SearchPage = (props) => {
                             message: 'Введите заголовок для поиска!',
                         }]}
                     >
-                        <Input placeholder="Введите заголовок"/>
+                        <Input placeholder={t('enterTitle')}/>
                     </Form.Item>
                     <Form.Item
                         name={'tags'}
-                        label={'Ключевые слова'}
+                        label={t('tags')}
                         rules={[{
                             required: true,
                             message: 'Введите ключевые слова для поиска!',
@@ -53,23 +53,23 @@ const SearchPage = (props) => {
                         <Select
                             mode="tags"
                             style={{width: '100%'}}
-                            placeholder="Ключевые слова"
+                            placeholder={t('tags')}
                             onChange={handleChange}>
                             {children}
                         </Select>
                     </Form.Item>
                     <Form.Item
                         name={'types'}
-                        label={'Выберите, где искать'}
+                        label={t('whereToSearch')}
                         rules={[{
                             required: true,
                             message: 'Введите место поиска!',
                         }]}
                     >
                         <Radio.Group defaultValue="a">
-                            <Radio value="a">Основная база</Radio>
-                            <Radio value="b">Прочие документы</Radio>
-                            <Radio value="c">Шаблоны</Radio>
+                            <Radio value="a">{t('mainDocs')}</Radio>
+                            <Radio value="b">{t('otherDocs')}</Radio>
+                            <Radio value="c">{t('Templates')}</Radio>
                         </Radio.Group>
                     </Form.Item>
                     <Button type="primary" htmlType="submit">
@@ -88,7 +88,7 @@ const SearchPage = (props) => {
                 </Form>
             </div>
             <div style={{padding: 24, marginTop: 20, background: '#fff', minHeight: 100}}>
-                <div className="search-result-list">Search Result List</div>
+                <div className="search-result-list">{t('searchResult')}</div>
             </div>
         </div>
     );

@@ -77,7 +77,7 @@ const NavBar = (props) => {
                     title={
                         <span>
                             <TeamOutlined/>
-                            <span>{t('Experts')}</span>
+                            <span>{t('experts')}</span>
                         </span>
                     }
                 >

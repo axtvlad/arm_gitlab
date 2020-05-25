@@ -1,12 +1,4 @@
 {
-  "Experts": "Experts",
-  "Types": "Types",
-  "Statuses": "Statuses",
-  "Roles": "Roles",
-  "Customers": "Customers",
-  "Categories": "Categories",
-  "Cities": "Cities",
-  "Faqs": "FAQs",
   "russianName": "Russian name",
   "kazakhName": "Kazakh name",
   "actions": "Actions",
@@ -36,8 +28,13 @@
   "cities": "Cities",
   "genders": "Gender",
   "faqs": "FAQ",
+  "experts": "Experts",
   "users": "Users",
   "help": "Help",
   "mailForRequests": "Mail for requests: ",
-  "type": "Type"
+  "type": "Type",
+  "enterTitle": "Enter the document title",
+  "tags": "Key words",
+  "whereToSearch": "Choose, where to search:",
+  "searchResult": "Search result"
 }
