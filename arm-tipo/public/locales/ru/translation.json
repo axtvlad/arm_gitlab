@@ -37,5 +37,7 @@
   "enterTitle": "Введите заголовок",
   "tags": "Ключевые слова",
   "whereToSearch": "Выберите, где искать:",
-  "searchResult": "Результаты поиска"
+  "searchResult": "Результаты поиска",
+  "totalUsersCount": "Всего пользователей в системе",
+  "totalDocsCount": "Всего документов"
 }

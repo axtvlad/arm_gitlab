@@ -36,5 +36,7 @@
   "enterTitle": "Enter the document title",
   "tags": "Key words",
   "whereToSearch": "Choose, where to search:",
-  "searchResult": "Search result"
+  "searchResult": "Search result",
+  "totalUsersCount": "Total users in system",
+  "totalDocsCount": "Total docs count"
 }

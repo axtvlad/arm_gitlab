@@ -36,5 +36,7 @@
   "enterTitle": "Тақырыпты енгізіңіз",
   "tags": "Түйін сөздер",
   "whereToSearch": "Қайда іздеу керек:",
-  "searchResult": "Іздеу нәтижелері"
+  "searchResult": "Іздеу нәтижелері",
+  "totalUsersCount": "Жүйеде барлық пайдаланушылар",
+  "totalDocsCount": "Барлық құжаттар"
 }
