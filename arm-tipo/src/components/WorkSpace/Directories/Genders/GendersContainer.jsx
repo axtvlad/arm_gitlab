@@ -1,31 +1,20 @@
 import {connect} from "react-redux";
 import {setGenders, setGendersIsFetching} from "../../../../redux/Reducers/GenderReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Genders from "./Genders";
+import {systemAPI} from "../../../../api/API";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
         if (this.props.genders.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setGendersIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/genders', config)
+            systemAPI.genders.getGenders()
                 .then(response => {
-                    this.props.setGenders(response.data.data);
+                    this.props.setGenders(response.data);
 
-                    console.log('genders: ', response.data.data);
+                    console.log('genders: ', response.data);
 
                     this.props.setGendersIsFetching(false);
                 });

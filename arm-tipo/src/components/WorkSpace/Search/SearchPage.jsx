@@ -2,8 +2,6 @@ import React from 'react';
 import {Button, Form, Input, Radio, Select} from 'antd';
 import {useTranslation} from "react-i18next";
 
-const {Option} = Select;
-
 const SearchPage = (props) => {
     const {t} = useTranslation();
 
@@ -12,12 +10,6 @@ const SearchPage = (props) => {
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
-
-    let children = [];
-
-    for (let i = 10; i < 36; i++) {
-        children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-    }
 
     function handleChange(value) {
         console.log(`selected ${value}`);
@@ -55,7 +47,6 @@ const SearchPage = (props) => {
                             style={{width: '100%'}}
                             placeholder={t('tags')}
                             onChange={handleChange}>
-                            {children}
                         </Select>
                     </Form.Item>
                     <Form.Item

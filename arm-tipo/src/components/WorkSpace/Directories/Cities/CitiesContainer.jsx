@@ -1,34 +1,23 @@
 import {connect} from "react-redux";
 import {setCities, setCitiesCount, setCitiesIsFetching} from "../../../../redux/Reducers/CityReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
         if (this.props.cities.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setCitiesIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/cities', config)
+            systemAPI.cities.getCities()
                 .then(response => {
-                    this.props.setCities(response.data.data);
-                    this.props.setCitiesCount(response.data.totalCount);
+                    this.props.setCities(response.data);
+                    this.props.setCitiesCount(response.totalCount);
 
-                    console.log('cities: ', response.data.data);
+                    console.log('cities: ', response.data);
 
                     this.props.setCitiesIsFetching(false);
                 });

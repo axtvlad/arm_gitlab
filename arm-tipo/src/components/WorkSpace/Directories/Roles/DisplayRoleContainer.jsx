@@ -1,11 +1,10 @@
 import {connect} from "react-redux";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
@@ -15,24 +14,13 @@ class DisplayRoleContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin";
-        const pass = "admin";
-
-        const authorizationBasic = window.btoa(user + ':' + pass);
-        const config = {
-            "headers": {
-                "Authorization": "Basic " + authorizationBasic
-            }
-        };
-
         this.props.setRolesIsFetching(true);
 
-        axios
-            .get(BASE_URL + '/roles/' + id, config)
+        systemAPI.roles.getRolesById(id)
             .then(response => {
-                this.props.setCurrentRole(response.data.data);
+                this.props.setCurrentRole(response.data);
 
-                console.log('role: ', response.data.data);
+                console.log('role: ', response.data);
 
                 this.props.setRolesIsFetching(false);
             });

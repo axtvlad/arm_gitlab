@@ -1,32 +1,21 @@
 import {connect} from "react-redux";
 import {setMainDocs, setMainDocsCount, setMainDocsIsFetching} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
-import * as axios from "axios";
 import MainDocs from "./MainDocs";
-import {BASE_URL} from "../../../../env";
+import {systemAPI} from "../../../../api/API";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
         if (this.props.mainDocs.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setMainDocsIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/mainDocs', config)
+            systemAPI.mainDocs.getMainDocs()
                 .then(response => {
-                    this.props.setMainDocs(response.data.data);
-                    this.props.setMainDocsCount(response.data.totalCount);
+                    this.props.setMainDocs(response.data);
+                    this.props.setMainDocsCount(response.totalCount);
 
-                    console.log('mainDocs: ', response.data.data);
+                    console.log('mainDocs: ', response.data);
 
                     this.props.setMainDocsIsFetching(false);
                 });

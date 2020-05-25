@@ -1,34 +1,23 @@
 import {connect} from "react-redux";
 import {setCategories, setCategoriesCount, setCategoriesIsFetching} from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
         if (this.props.categories.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setCategoriesIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/categories', config)
+            systemAPI.categories.getCategories()
                 .then(response => {
-                    this.props.setCategories(response.data.data);
-                    this.props.setCategoriesCount(response.data.totalCount);
+                    this.props.setCategories(response.data);
+                    this.props.setCategoriesCount(response.totalCount);
 
-                    console.log('categories: ', response.data.data);
+                    console.log('categories: ', response.data);
 
                     this.props.setCategoriesIsFetching(false);
                 });

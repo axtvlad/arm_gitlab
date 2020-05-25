@@ -1,11 +1,10 @@
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import {setCategoriesIsFetching, setCurrentCategory} from "../../../../redux/Reducers/CategoryReducer"
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
@@ -15,25 +14,13 @@ class DisplayCategoryContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin";
-        const pass = "admin";
-
-        const authorizationBasic = window.btoa(user + ':' + pass);
-
-        const config = {
-            'headers': {
-                "Authorization": "Basic " + authorizationBasic
-            }
-        };
-
         this.props.setCategoriesIsFetching(true);
 
-        axios
-            .get(BASE_URL + '/categories/' + id, config)
+        systemAPI.categories.getCategoryById(id)
             .then(response => {
-                this.props.setCurrentCategory(response.data.data);
+                this.props.setCurrentCategory(response.data);
 
-                console.log('category: ', response.data.data);
+                console.log('category: ', response.data);
 
                 this.props.setCategoriesIsFetching(false);
             });

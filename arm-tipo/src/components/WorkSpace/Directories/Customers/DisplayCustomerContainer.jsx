@@ -1,11 +1,10 @@
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentCustomer, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class DisplayCustomerContainer extends React.Component {
     componentDidMount() {
@@ -15,25 +14,13 @@ class DisplayCustomerContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin";
-        const pass = "admin";
-
-        const authorizationBasic = window.btoa(user + ':' + pass);
-
-        const config = {
-            'headers': {
-                "Authorization": "Basic " + authorizationBasic
-            }
-        };
-
         this.props.setCustomersIsFetching(true);
 
-        axios
-            .get(BASE_URL + '/customers/' + id, config)
+        systemAPI.customers.getCustomerById(id)
             .then(response => {
-                this.props.setCurrentCustomer(response.data.data);
+                this.props.setCurrentCustomer(response.data);
 
-                console.log('customer: ', response.data.data);
+                console.log('customer: ', response.data);
 
                 this.props.setCustomersIsFetching(false);
             });

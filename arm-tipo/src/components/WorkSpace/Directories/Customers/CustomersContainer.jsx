@@ -1,34 +1,23 @@
 import {connect} from "react-redux";
 import {setCustomers, setCustomersCount, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
         if (this.props.customers.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setCustomersIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/customers', config)
+            systemAPI.customers.getCustomers()
                 .then(response => {
-                    this.props.setCustomers(response.data.data);
-                    this.props.setCustomersCount(response.data.totalCount);
+                    this.props.setCustomers(response.data);
+                    this.props.setCustomersCount(response.totalCount);
 
-                    console.log('customers: ', response.data.data);
+                    console.log('customers: ', response.data);
 
                     this.props.setCustomersIsFetching(false);
                 });

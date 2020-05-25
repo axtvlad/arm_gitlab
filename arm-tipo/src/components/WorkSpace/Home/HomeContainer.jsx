@@ -1,31 +1,20 @@
 import React from 'react'
 import Home from "./Home";
-import * as axios from "axios";
 import {connect} from "react-redux";
 import {setUsersCount, setUsersIsFetching} from "../../../redux/Reducers/UserReducer";
-import {BASE_URL} from "../../../env";
+import {systemAPI} from "../../../api/API";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
         if (this.props.usersCount === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setUsersIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/users', config)
+            systemAPI.users.getUsers()
                 .then(response => {
-                    this.props.setUsersCount(response.data.totalCount);
+                    this.props.setUsersCount(response.totalCount);
 
-                    console.log('usersCount: ', response.data.totalCount);
+                    console.log('usersCount: ', response.totalCount);
 
                     this.props.setUsersIsFetching(false);
                 });

@@ -1,11 +1,10 @@
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {setCurrentDepartment, setDepartmentsIsFetching} from "../../../../redux/Reducers/DepartmentReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class DisplayDepartmentContainer extends React.Component {
     componentDidMount() {
@@ -15,25 +14,13 @@ class DisplayDepartmentContainer extends React.Component {
             id = 1
         }
 
-        const user = "Admin";
-        const pass = "admin";
-
-        const authorizationBasic = window.btoa(user + ':' + pass);
-
-        const config = {
-            'headers': {
-                "Authorization": "Basic " + authorizationBasic
-            }
-        };
-
         this.props.setDepartmentsIsFetching(true);
 
-        axios
-            .get(BASE_URL + '/departments/' + id, config)
+        systemAPI.departments.getDepartmentById(id)
             .then(response => {
-                this.props.setCurrentDepartment(response.data.data);
+                this.props.setCurrentDepartment(response.data);
 
-                console.log('department: ', response.data.data);
+                console.log('department: ', response.data);
 
                 this.props.setDepartmentsIsFetching(false);
             });

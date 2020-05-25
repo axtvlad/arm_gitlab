@@ -2,31 +2,20 @@ import {connect} from "react-redux";
 import React from "react";
 import {setUsers, setUsersCount, setUsersIsFetching} from "../../../../redux/Reducers/UserReducer";
 import Users from "./Users";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
+import {systemAPI} from "../../../../api/API";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setUsersIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/users?loadData=true', config)
+            systemAPI.users.getUsers()
                 .then(response => {
-                    this.props.setUsersCount(response.data.totalCount);
-                    this.props.setUsers(response.data.data);
+                    this.props.setUsersCount(response.totalCount);
+                    this.props.setUsers(response.data);
 
-                    console.log('users: ', response.data.data);
+                    console.log('users: ', response.data);
 
                     this.props.setUsersIsFetching(false);
                 });

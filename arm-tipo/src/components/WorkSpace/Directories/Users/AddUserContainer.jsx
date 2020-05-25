@@ -41,7 +41,7 @@ class AddUserContainer extends React.Component {
             this.props.setUsersIsFetching(true);
 
             axios
-                .get(BASE_URL + '/users?loadData=true', config)
+                .get(BASE_URL + 'users?loadData=true', config)
                 .then(response => {
                     this.props.setUsersCount(response.data.totalCount);
                     this.props.setUsers(response.data.data);
@@ -66,7 +66,7 @@ class AddUserContainer extends React.Component {
             this.props.setRolesIsFetching(true);
 
             axios
-                .get(BASE_URL + '/roles', config)
+                .get(BASE_URL + 'roles', config)
                 .then(response => {
                     this.props.setRoles(response.data.data);
 

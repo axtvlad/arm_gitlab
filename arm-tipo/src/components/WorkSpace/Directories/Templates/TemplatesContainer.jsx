@@ -1,32 +1,21 @@
 import React from "react";
 import {connect} from "react-redux";
 import {setTemplates, setTemplatesCount, setTemplatesIsFetching} from "../../../../redux/Reducers/TemplateReducer";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Templates from "./Templates";
+import {systemAPI} from "../../../../api/API";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
         if (this.props.templates.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setTemplatesIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/templates', config)
+            systemAPI.templates.getTemplates()
                 .then(response => {
-                    this.props.setTemplates(response.data.data);
-                    this.props.setTemplatesCount(response.data.totalCount);
+                    this.props.setTemplates(response.data);
+                    this.props.setTemplatesCount(response.totalCount);
 
-                    console.log('templates: ', response.data.data);
+                    console.log('templates: ', response.data);
 
                     this.props.setTemplatesIsFetching(false);
                 });

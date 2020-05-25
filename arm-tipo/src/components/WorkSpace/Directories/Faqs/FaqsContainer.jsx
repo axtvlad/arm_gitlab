@@ -1,32 +1,21 @@
 import {connect} from "react-redux";
 import {setFaqs, setFaqsCount, setFaqsIsFetching} from "../../../../redux/Reducers/FaqReducer";
 import React from "react";
-import * as axios from "axios";
 import Faqs from "./Faqs";
-import {BASE_URL} from "../../../../env";
+import {systemAPI} from "../../../../api/API";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
         if (this.props.faqs.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setFaqsIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/faqs', config)
+            systemAPI.faqs.getFaqs()
                 .then(response => {
-                    this.props.setFaqs(response.data.data);
-                    this.props.setFaqsCount(response.data.totalCount);
+                    this.props.setFaqs(response.data);
+                    this.props.setFaqsCount(response.totalCount);
 
-                    console.log('faqs: ', response.data.data);
+                    console.log('faqs: ', response.data);
 
                     this.props.setFaqsIsFetching(false);
                 });

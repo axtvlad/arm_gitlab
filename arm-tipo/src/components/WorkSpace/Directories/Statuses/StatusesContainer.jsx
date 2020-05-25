@@ -1,34 +1,23 @@
 import {connect} from "react-redux";
 import {setStatuses, setStatusesCount, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
         if (this.props.statuses.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setStatusesIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/statuses', config)
+            systemAPI.statuses.getStatuses()
                 .then(response => {
-                    this.props.setStatuses(response.data.data);
-                    this.props.setStatusesCount(response.data.totalCount);
+                    this.props.setStatuses(response.data);
+                    this.props.setStatusesCount(response.totalCount);
 
-                    console.log('statuses: ', response.data.data);
+                    console.log('statuses: ', response.data);
 
                     this.props.setStatusesIsFetching(false);
                 });

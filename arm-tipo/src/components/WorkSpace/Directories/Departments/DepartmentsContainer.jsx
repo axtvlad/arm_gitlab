@@ -5,34 +5,23 @@ import {
     setDepartmentsIsFetching
 } from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
         if (this.props.departments.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setDepartmentsIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/departments', config)
+            systemAPI.departments.getDepartments()
                 .then(response => {
-                    this.props.setDepartments(response.data.data);
-                    this.props.setDepartmentsCount(response.data.totalCount);
+                    this.props.setDepartments(response.data);
+                    this.props.setDepartmentsCount(response.totalCount);
 
-                    console.log('departments: ', response.data.data);
+                    console.log('departments: ', response.data);
 
                     this.props.setDepartmentsIsFetching(false);
                 });

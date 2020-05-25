@@ -1,34 +1,23 @@
 import {connect} from "react-redux";
 import {setRoles, setRolesCount, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import React from "react";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {systemAPI} from "../../../../api/API";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
         if (this.props.roles.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
 
             this.props.setRolesIsFetching(true);
 
-            axios
-                .get(BASE_URL + '/roles', config)
+            systemAPI.roles.getRoles()
                 .then(response => {
-                    this.props.setRoles(response.data.data);
-                    this.props.setRolesCount(response.data.totalCount);
+                    this.props.setRoles(response.data);
+                    this.props.setRolesCount(response.totalCount);
 
-                    console.log('roles: ', response.data.data);
+                    console.log('roles: ', response.data);
 
                     this.props.setRolesIsFetching(false);
                 });

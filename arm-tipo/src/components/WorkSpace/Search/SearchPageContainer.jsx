@@ -10,7 +10,6 @@ class SearchPageContainer extends React.Component {
     }
 }
 
-
 let mapStateToProps = (state) => {
     return {
         isAdmin: state.usersDir.isAdmin
