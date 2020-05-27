@@ -1,24 +1,11 @@
 import React from 'react'
 import Home from "./Home";
 import {connect} from "react-redux";
-import {setUsersCount, setUsersIsFetching} from "../../../redux/Reducers/UserReducer";
-import {restAPI} from "../../../api/API";
+import {getUsers} from "../../../redux/Reducers/UserReducer";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
-        if (this.props.usersCount === 0) {
-
-            this.props.setUsersIsFetching(true);
-
-            restAPI.users.getUsers()
-                .then(response => {
-                    this.props.setUsersCount(response.totalCount);
-
-                    console.log('usersCount: ', response.totalCount);
-
-                    this.props.setUsersIsFetching(false);
-                });
-        }
+        this.props.getUsers()
     }
 
     render() {
@@ -40,7 +27,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setUsersCount,
-        setUsersIsFetching
+        getUsers
     }
 )(HomeContainer);

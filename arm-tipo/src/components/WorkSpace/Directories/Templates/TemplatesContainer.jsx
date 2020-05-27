@@ -1,25 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
-import {setTemplates, setTemplatesCount, setTemplatesIsFetching} from "../../../../redux/Reducers/TemplateReducer";
 import Templates from "./Templates";
-import {restAPI} from "../../../../api/API";
+import {getTemplates} from "../../../../redux/Reducers/TemplateReducer";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
-        if (this.props.templates.length === 0) {
-
-            this.props.setTemplatesIsFetching(true);
-
-            restAPI.templates.getTemplates()
-                .then(response => {
-                    this.props.setTemplates(response.data);
-                    this.props.setTemplatesCount(response.totalCount);
-
-                    console.log('templates: ', response.data);
-
-                    this.props.setTemplatesIsFetching(false);
-                });
-        }
+        this.props.getTemplates();
     }
 
     render() {
@@ -43,8 +29,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setTemplates,
-        setTemplatesCount,
-        setTemplatesIsFetching,
+        getTemplates
     }
 )(TemplatesContainer);

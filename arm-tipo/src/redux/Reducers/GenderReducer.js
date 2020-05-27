@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const SET_GENDERS_IS_FETCHING = 'set_genders_is_fetching';
 const SET_GENDERS = 'set_genders';
 
@@ -34,5 +36,20 @@ export const setGenders = (genders) => ({
     genders
 });
 
+export const getGenders = () => {
+    return (dispatch) => {
+
+        dispatch(setGendersIsFetching(true));
+
+        restAPI.genders.getGenders()
+            .then(response => {
+                dispatch(setGenders(response.data));
+
+                console.info('genders: ', response.data);
+
+                dispatch(setGendersIsFetching(false));
+            });
+    }
+};
 
 export default GenderReducer;

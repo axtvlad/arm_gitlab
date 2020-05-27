@@ -1,31 +1,12 @@
 import {connect} from "react-redux";
-import {
-    setDepartments,
-    setDepartmentsCount,
-    setDepartmentsIsFetching
-} from "../../../../redux/Reducers/DepartmentReducer";
+import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
-import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
-        if (this.props.departments.length === 0) {
-
-            this.props.setDepartmentsIsFetching(true);
-
-            restAPI.departments.getDepartments()
-                .then(response => {
-                    this.props.setDepartments(response.data);
-                    this.props.setDepartmentsCount(response.totalCount);
-
-                    console.log('departments: ', response.data);
-
-                    this.props.setDepartmentsIsFetching(false);
-                });
-        }
+        this.props.getDepartments();
     }
 
     render() {
@@ -50,9 +31,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setDepartments,
-        setDepartmentsCount,
-        setDepartmentsIsFetching,
-        setIsAdmin
+        getDepartments
     }
 )(DepartmentsContainer);

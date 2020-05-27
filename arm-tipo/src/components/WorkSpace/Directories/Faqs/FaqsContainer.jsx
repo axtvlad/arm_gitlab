@@ -1,25 +1,11 @@
 import {connect} from "react-redux";
-import {setFaqs, setFaqsCount, setFaqsIsFetching} from "../../../../redux/Reducers/FaqReducer";
 import React from "react";
 import Faqs from "./Faqs";
-import {restAPI} from "../../../../api/API";
+import {getFaqs} from "../../../../redux/Reducers/FaqReducer";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
-        if (this.props.faqs.length === 0) {
-
-            this.props.setFaqsIsFetching(true);
-
-            restAPI.faqs.getFaqs()
-                .then(response => {
-                    this.props.setFaqs(response.data);
-                    this.props.setFaqsCount(response.totalCount);
-
-                    console.log('faqs: ', response.data);
-
-                    this.props.setFaqsIsFetching(false);
-                });
-        }
+        this.props.getFaqs();
     }
 
     render() {
@@ -41,8 +27,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setFaqs,
-        setFaqsCount,
-        setFaqsIsFetching,
+        getFaqs
     }
 )(FaqsContainer);

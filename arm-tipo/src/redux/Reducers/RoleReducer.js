@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_ROLE = 'add_role';
 const UPDATE_ROLE_NAME_RU = 'update_role_name_ru';
 const UPDATE_ROLE_NAME_KZ = 'update_role_name_kz';
@@ -98,5 +100,21 @@ export const setCurrentRole = (currentRole) => ({
     currentRole
 });
 
+export const getRoles = () => {
+    return (dispatch) => {
+
+        dispatch(setRolesIsFetching(true));
+
+        restAPI.roles.getRoles()
+            .then(response => {
+                dispatch(setRolesCount(response.totalCount));
+                dispatch(setRoles(response.data));
+
+                console.info('roles: ', response.data);
+
+                dispatch(setRolesIsFetching(false));
+            });
+    }
+};
 
 export default RoleReducer;

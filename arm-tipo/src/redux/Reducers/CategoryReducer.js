@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_CATEGORY = 'add_category';
 const UPDATE_CATEGORY_NAME_RU = 'update_category_name_ru';
 const UPDATE_CATEGORY_NAME_KZ = 'update_category_name_kz';
@@ -98,5 +100,22 @@ export const setCurrentCategory = (currentCategory) => ({
     type: SET_CURRENT_CATEGORY,
     currentCategory
 });
+
+export const getCategories = () => {
+    return (dispatch) => {
+
+        dispatch(setCategoriesIsFetching(true));
+
+        restAPI.categories.getCategories()
+            .then(response => {
+                dispatch(setCategoriesCount(response.totalCount));
+                dispatch(setCategories(response.data));
+
+                console.info('categories: ', response.data);
+
+                dispatch(setCategoriesIsFetching(false));
+            });
+    }
+};
 
 export default CategoryReducer;

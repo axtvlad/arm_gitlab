@@ -92,7 +92,7 @@ export default new class UsersController {
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: req.__("PASSED_PARAM_LAST_NAME_NOT")
                 });
-            } else if (!isEmail(bodyParams.email)) {
+            } else if (!bodyParams.email) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_INVALID_EMAIL',
                     errorCode: ERROR_CODE_INVALID_EMAIL,

@@ -1,25 +1,11 @@
 import {connect} from "react-redux";
-import {setMainDocs, setMainDocsCount, setMainDocsIsFetching} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import MainDocs from "./MainDocs";
-import {restAPI} from "../../../../api/API";
+import {getMainDocs} from "../../../../redux/Reducers/MainDocReducer";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
-        if (this.props.mainDocs.length === 0) {
-
-            this.props.setMainDocsIsFetching(true);
-
-            restAPI.mainDocs.getMainDocs()
-                .then(response => {
-                    this.props.setMainDocs(response.data);
-                    this.props.setMainDocsCount(response.totalCount);
-
-                    console.log('mainDocs: ', response.data);
-
-                    this.props.setMainDocsIsFetching(false);
-                });
-        }
+        this.props.getMainDocs();
     }
 
     render() {
@@ -41,8 +27,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setMainDocs,
-        setMainDocsCount,
-        setMainDocsIsFetching,
+        getMainDocs
     }
 )(MainDocsContainer);

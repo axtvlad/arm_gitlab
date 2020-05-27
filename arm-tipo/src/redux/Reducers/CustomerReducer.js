@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_CUSTOMER = 'add_customer';
 const UPDATE_CUSTOMER_NAME_RU = 'update_customer_name_ru';
 const UPDATE_CUSTOMER_NAME_KZ = 'update_customer_name_kz';
@@ -97,5 +99,22 @@ export const setCurrentCustomer = (currentCustomer) => ({
     type: SET_CURRENT_CUSTOMER,
     currentCustomer
 });
+
+export const getCustomers = () => {
+    return (dispatch) => {
+
+        dispatch(setCustomersIsFetching(true));
+
+        restAPI.customers.getCustomers()
+            .then(response => {
+                dispatch(setCustomersCount(response.totalCount));
+                dispatch(setCustomers(response.data));
+
+                console.info('customers: ', response.data);
+
+                dispatch(setCustomersIsFetching(false));
+            });
+    }
+};
 
 export default CustomerReducer;

@@ -1,27 +1,12 @@
 import {connect} from "react-redux";
-import {setStatuses, setStatusesCount, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
-import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
+import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
-        if (this.props.statuses.length === 0) {
-
-            this.props.setStatusesIsFetching(true);
-
-            restAPI.statuses.getStatuses()
-                .then(response => {
-                    this.props.setStatuses(response.data);
-                    this.props.setStatusesCount(response.totalCount);
-
-                    console.log('statuses: ', response.data);
-
-                    this.props.setStatusesIsFetching(false);
-                });
-        }
+        this.props.getStatuses();
     }
 
     render() {
@@ -46,9 +31,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setStatuses,
-        setStatusesCount,
-        setStatusesIsFetching,
-        setIsAdmin
+        getStatuses
     }
 )(StatusesContainer);

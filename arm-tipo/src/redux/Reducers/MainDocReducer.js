@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_MAIN_DOC = 'add_main_doc';
 const UPDATE_MAIN_DOC_NAME_RU = 'update_main_doc_name_ru';
 const UPDATE_MAIN_DOC_NAME_KZ = 'update_main_doc_name_kz';
@@ -403,5 +405,21 @@ export const setCurrentMainDoc = (currentMainDoc) => ({
     currentMainDoc
 });
 
+export const getMainDocs = () => {
+    return (dispatch) => {
+
+        dispatch(setMainDocsIsFetching(true));
+
+        restAPI.mainDocs.getMainDocs()
+            .then(response => {
+                dispatch(setMainDocsCount(response.totalCount));
+                dispatch(setMainDocs(response.data));
+
+                console.info('mainDocs: ', response.data);
+
+                dispatch(setMainDocsIsFetching(false));
+            });
+    }
+};
 
 export default MainDocReducer;

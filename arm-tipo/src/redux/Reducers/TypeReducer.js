@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_TYPE = 'add_type';
 const UPDATE_TYPE_NAME_RU = 'update_type_name_ru';
 const UPDATE_TYPE_NAME_KZ = 'update_type_name_kz';
@@ -98,5 +100,21 @@ export const setCurrentType = (currentType) => ({
     currentType
 });
 
+export const getTypes = () => {
+    return (dispatch) => {
+
+        dispatch(setTypesIsFetching(true));
+
+        restAPI.templates.getTemplates()
+            .then(response => {
+                dispatch(setTypesCount(response.totalCount));
+                dispatch(setTypes(response.data));
+
+                console.info('types: ', response.data);
+
+                dispatch(setTypesIsFetching(false));
+            });
+    }
+};
 
 export default TypeReducer;

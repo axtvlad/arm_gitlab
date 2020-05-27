@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_TEMPLATE = 'add_template';
 const UPDATE_TEMPLATE_NAME_RU = 'update_new_template_name_ru';
 const UPDATE_TEMPLATE_NAME_KZ = 'update_new_template_name_kz';
@@ -103,12 +105,12 @@ export const updateTemplateNameKz = (newNameKz) => ({
     newNameKz
 })
 
-export const updateFileNameRu = (newFileNameRu)  => ({
+export const updateFileNameRu = (newFileNameRu) => ({
     type: UPDATE_FILE_NAME_RU,
     newFileNameRu
 })
 
-export const updateFileNameKz =  (newFileNameKz) => ({
+export const updateFileNameKz = (newFileNameKz) => ({
     type: UPDATE_FILE_NAME_KZ,
     newFileNameKz
 })
@@ -129,8 +131,26 @@ export const setTemplatesIsFetching = (isFetching) => ({
 })
 
 export const setTemplatesCount = (templatesCount) => ({
-    type:SET_TEMPLATES_COUNT,
+    type: SET_TEMPLATES_COUNT,
     templatesCount
 })
+
+
+export const getTemplates = () => {
+    return (dispatch) => {
+
+        dispatch(setTemplatesIsFetching(true));
+
+        restAPI.templates.getTemplates()
+            .then(response => {
+                dispatch(setTemplatesCount(response.totalCount));
+                dispatch(setTemplates(response.data));
+
+                console.info('templates: ', response.data);
+
+                dispatch(setTemplatesIsFetching(false));
+            });
+    }
+};
 
 export default TemplateReducer;

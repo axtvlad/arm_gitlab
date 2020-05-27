@@ -1,27 +1,12 @@
 import {connect} from "react-redux";
-import {setTypes, setTypesCount, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
+import {getTypes} from "../../../../redux/Reducers/TypeReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
-import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
-        if (this.props.types.length === 0) {
-
-            this.props.setTypesIsFetching(true);
-
-            restAPI.types.getTypes()
-                .then(response => {
-                    this.props.setTypes(response.data);
-                    this.props.setTypesCount(response.totalCount);
-
-                    console.log('types: ', response.data);
-
-                    this.props.setTypesIsFetching(false);
-                });
-        }
+        this.props.getTypes();
     }
 
     render() {
@@ -46,9 +31,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setTypes,
-        setTypesCount,
-        setTypesIsFetching,
-        setIsAdmin
+        getTypes
     }
 )(TypesContainer);

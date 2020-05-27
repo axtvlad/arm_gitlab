@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_FAQ = 'add_faq';
 const UPDATE_FAQ_QUESTION_RU = 'update_faq_question_ru';
 const UPDATE_FAQ_QUESTION_KZ = 'update_faq_question_kz';
@@ -130,5 +132,21 @@ export const setCurrentFaq = (currentFaq) => ({
     currentFaq
 });
 
+export const getFaqs = () => {
+    return (dispatch) => {
+
+        dispatch(setFaqsIsFetching(true));
+
+        restAPI.faqs.getFaqs()
+            .then(response => {
+                dispatch(setFaqsCount(response.totalCount));
+                dispatch(setFaqs(response.data));
+
+                console.info('faqs: ', response.data);
+
+                dispatch(setFaqsIsFetching(false));
+            });
+    }
+};
 
 export default FaqReducer;

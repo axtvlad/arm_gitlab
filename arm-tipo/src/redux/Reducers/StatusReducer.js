@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_STATUS = 'add_status';
 const UPDATE_STATUS_NAME_RU = 'update_status_name_ru';
 const UPDATE_STATUS_NAME_KZ = 'update_status_name_kz';
@@ -98,5 +100,22 @@ export const setCurrentStatus = (currentStatus) => ({
     currentStatus
 });
 
+
+export const getStatuses = () => {
+    return (dispatch) => {
+
+        dispatch(setStatusesIsFetching(true));
+
+        restAPI.statuses.getStatuses()
+            .then(response => {
+                dispatch(setStatusesCount(response.totalCount));
+                dispatch(setStatuses(response.data));
+
+                console.info('statuses: ', response.data);
+
+                dispatch(setStatusesIsFetching(false));
+            });
+    }
+};
 
 export default StatusReducer;

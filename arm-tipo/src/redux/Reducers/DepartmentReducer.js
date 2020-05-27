@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_DEPARTMENT = 'add_department';
 const UPDATE_DEPARTMENT_NAME_RU = 'update_department_name_ru';
 const UPDATE_DEPARTMENT_NAME_KZ = 'update_department_name_kz';
@@ -98,5 +100,21 @@ export const setCurrentDepartment = (currentDepartment) => ({
     currentDepartment
 });
 
+export const getDepartments = () => {
+    return (dispatch) => {
+
+        dispatch(setDepartmentsIsFetching(true));
+
+        restAPI.departments.getDepartments()
+            .then(response => {
+                dispatch(setDepartmentsCount(response.totalCount));
+                dispatch(setDepartments(response.data));
+
+                console.info('departments: ', response.data);
+
+                dispatch(setDepartmentsIsFetching(false));
+            });
+    }
+};
 
 export default DepartmentReducer;

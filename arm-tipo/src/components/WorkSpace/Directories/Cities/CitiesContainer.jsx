@@ -1,27 +1,12 @@
 import {connect} from "react-redux";
-import {setCities, setCitiesCount, setCitiesIsFetching} from "../../../../redux/Reducers/CityReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
-import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
+import {getCities} from "../../../../redux/Reducers/CityReducer";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
-        if (this.props.cities.length === 0) {
-
-            this.props.setCitiesIsFetching(true);
-
-            restAPI.cities.getCities()
-                .then(response => {
-                    this.props.setCities(response.data);
-                    this.props.setCitiesCount(response.totalCount);
-
-                    console.log('cities: ', response.data);
-
-                    this.props.setCitiesIsFetching(false);
-                });
-        }
+        this.props.getCities();
     }
 
     render() {
@@ -46,9 +31,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setCities,
-        setCitiesCount,
-        setCitiesIsFetching,
-        setIsAdmin
+        getCities
     }
 )(CitiesContainer);

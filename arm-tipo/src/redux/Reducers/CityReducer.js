@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_CITY = 'add_city';
 const UPDATE_CITY_NAME_RU = 'update_city_name_ru';
 const UPDATE_CITY_NAME_KZ = 'update_city_name_kz';
@@ -98,5 +100,22 @@ export const setCurrentCity = (currentCity) => ({
     type: SET_CURRENT_CITY,
     currentCity
 });
+
+export const getCities = () => {
+    return (dispatch) => {
+
+        dispatch(setCitiesIsFetching(true));
+
+        restAPI.cities.getCities()
+            .then(response => {
+                dispatch(setCitiesCount(response.totalCount));
+                dispatch(setCities(response.data));
+
+                console.info('cities: ', response.data);
+
+                dispatch(setCitiesIsFetching(false));
+            });
+    }
+};
 
 export default CityReducer;

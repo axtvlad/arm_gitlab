@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {BASE_URL} from "../env";
+import {BASE_URL1} from "../env";
 
 const user = "Admin";
 const pass = "admin";
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL
+    baseURL: BASE_URL1
 });
 
 export const restAPI = {
@@ -26,11 +26,18 @@ export const restAPI = {
                 .get('users?loadData=true/' + id)
                 .then(response => response.data);
 
-        },
-        postNewUser() {
+        },/*
+        postNewUser(userData) {
             return instance
-                .post('users')
-        }
+                .post('users', {
+                        login: 'logidn',
+                        password: 'passwdord',
+                        firstName: 'test',
+                        lastName: 'test',
+                        email: 'testsw@mail.ru'
+                    }
+                )
+        }*/
     },
 
     categories: {

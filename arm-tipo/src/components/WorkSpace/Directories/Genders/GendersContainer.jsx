@@ -1,24 +1,11 @@
 import {connect} from "react-redux";
-import {setGenders, setGendersIsFetching} from "../../../../redux/Reducers/GenderReducer";
 import React from "react";
 import Genders from "./Genders";
-import {restAPI} from "../../../../api/API";
+import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
-        if (this.props.genders.length === 0) {
-
-            this.props.setGendersIsFetching(true);
-
-            restAPI.genders.getGenders()
-                .then(response => {
-                    this.props.setGenders(response.data);
-
-                    console.log('genders: ', response.data);
-
-                    this.props.setGendersIsFetching(false);
-                });
-        }
+        this.props.getGenders();
     }
 
     render() {
@@ -40,4 +27,8 @@ let mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {setGendersIsFetching, setGenders})(GendersContainer);
+export default connect(mapStateToProps,
+    {
+        getGenders
+    }
+)(GendersContainer);
