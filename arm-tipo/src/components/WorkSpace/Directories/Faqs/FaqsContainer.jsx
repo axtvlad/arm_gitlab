@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {setFaqs, setFaqsCount, setFaqsIsFetching} from "../../../../redux/Reducers/FaqReducer";
 import React from "react";
 import Faqs from "./Faqs";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class FaqsContainer extends React.Component {
 
             this.props.setFaqsIsFetching(true);
 
-            systemAPI.faqs.getFaqs()
+            restAPI.faqs.getFaqs()
                 .then(response => {
                     this.props.setFaqs(response.data);
                     this.props.setFaqsCount(response.totalCount);

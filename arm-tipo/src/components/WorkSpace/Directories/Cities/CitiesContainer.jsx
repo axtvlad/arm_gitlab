@@ -4,7 +4,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +12,7 @@ class CitiesContainer extends React.Component {
 
             this.props.setCitiesIsFetching(true);
 
-            systemAPI.cities.getCities()
+            restAPI.cities.getCities()
                 .then(response => {
                     this.props.setCities(response.data);
                     this.props.setCitiesCount(response.totalCount);

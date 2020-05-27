@@ -2,7 +2,7 @@ import React from 'react'
 import Home from "./Home";
 import {connect} from "react-redux";
 import {setUsersCount, setUsersIsFetching} from "../../../redux/Reducers/UserReducer";
-import {systemAPI} from "../../../api/API";
+import {restAPI} from "../../../api/API";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class HomeContainer extends React.Component {
 
             this.props.setUsersIsFetching(true);
 
-            systemAPI.users.getUsers()
+            restAPI.users.getUsers()
                 .then(response => {
                     this.props.setUsersCount(response.totalCount);
 

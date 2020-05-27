@@ -4,7 +4,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +12,7 @@ class RolesContainer extends React.Component {
 
             this.props.setRolesIsFetching(true);
 
-            systemAPI.roles.getRoles()
+            restAPI.roles.getRoles()
                 .then(response => {
                     this.props.setRoles(response.data);
                     this.props.setRolesCount(response.totalCount);

@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {setCurrentType, setTypesIsFetching} from "../../../../redux/Reducers/TypeReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayTypeContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayTypeContainer extends React.Component {
 
         this.props.setTypesIsFetching(true);
 
-        systemAPI.types.getTypeById(id)
+        restAPI.types.getTypeById(id)
             .then(response => {
                 this.props.setCurrentType(response.data);
 

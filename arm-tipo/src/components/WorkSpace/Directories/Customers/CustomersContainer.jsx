@@ -4,7 +4,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +12,7 @@ class CustomersContainer extends React.Component {
 
             this.props.setCustomersIsFetching(true);
 
-            systemAPI.customers.getCustomers()
+            restAPI.customers.getCustomers()
                 .then(response => {
                     this.props.setCustomers(response.data);
                     this.props.setCustomersCount(response.totalCount);

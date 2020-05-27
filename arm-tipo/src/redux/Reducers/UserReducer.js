@@ -1,3 +1,5 @@
+import {restAPI} from "../../api/API";
+
 const ADD_USER = 'add_user';
 const UPDATE_USER_FIRSTNAME = 'update_user_firstname';
 const UPDATE_USER_LASTNAME = 'update_user_lastname';
@@ -319,5 +321,22 @@ export const setIsAdmin = (isAdmin) => ({
     type: SET_IS_ADMIN,
     isAdmin
 });
+
+export const getUsers = () => {
+    return (dispatch) => {
+
+        dispatch(setUsersIsFetching(true));
+
+        restAPI.users.getUsers()
+            .then(response => {
+                dispatch(setUsersCount(response.totalCount));
+                dispatch(setUsers(response.data));
+
+                console.info('users: ', response.data);
+
+                dispatch(setUsersIsFetching(false));
+            });
+    }
+};
 
 export default UserReducer;

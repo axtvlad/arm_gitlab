@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import TypeReducer from "./Reducers/TypeReducer";
 import DepartmentReducer from "./Reducers/DepartmentReducer";
 import StatusReducer from "./Reducers/StatusReducer";
@@ -12,6 +12,7 @@ import UserReducer from "./Reducers/UserReducer";
 import GenderReducer from "./Reducers/GenderReducer";
 import TemplateReducer from "./Reducers/TemplateReducer";
 import AuthReducer from "./Reducers/AuthReducer";
+import thunkMiddleWare from 'redux-thunk';
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -29,7 +30,7 @@ let reducers = combineReducers({
     auth: AuthReducer,
 });
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunkMiddleWare));
 
 window.store = store.getState();
 

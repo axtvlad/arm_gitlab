@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {setCurrentCustomer, setCustomersIsFetching} from "../../../../redux/Reducers/CustomerReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayCustomerContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayCustomerContainer extends React.Component {
 
         this.props.setCustomersIsFetching(true);
 
-        systemAPI.customers.getCustomerById(id)
+        restAPI.customers.getCustomerById(id)
             .then(response => {
                 this.props.setCurrentCustomer(response.data);
 

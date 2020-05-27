@@ -1,10 +1,9 @@
 import {connect} from "react-redux";
 import {setCategories, setCategoriesCount, setCategoriesIsFetching} from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
-import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +11,7 @@ class CategoriesContainer extends React.Component {
 
             this.props.setCategoriesIsFetching(true);
 
-            systemAPI.categories.getCategories()
+            restAPI.categories.getCategories()
                 .then(response => {
                     this.props.setCategories(response.data);
                     this.props.setCategoriesCount(response.totalCount);
@@ -49,6 +48,5 @@ export default connect(mapStateToProps,
         setCategories,
         setCategoriesCount,
         setCategoriesIsFetching,
-        setIsAdmin
     }
 )(CategoriesContainer);

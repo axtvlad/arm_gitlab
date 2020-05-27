@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {setMainDocs, setMainDocsCount, setMainDocsIsFetching} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import MainDocs from "./MainDocs";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class MainDocsContainer extends React.Component {
 
             this.props.setMainDocsIsFetching(true);
 
-            systemAPI.mainDocs.getMainDocs()
+            restAPI.mainDocs.getMainDocs()
                 .then(response => {
                     this.props.setMainDocs(response.data);
                     this.props.setMainDocsCount(response.totalCount);

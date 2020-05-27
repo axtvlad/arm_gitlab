@@ -4,7 +4,7 @@ import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/Rol
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayRoleContainer extends React.Component {
 
         this.props.setRolesIsFetching(true);
 
-        systemAPI.roles.getRolesById(id)
+        restAPI.roles.getRolesById(id)
             .then(response => {
                 this.props.setCurrentRole(response.data);
 

@@ -4,7 +4,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +12,7 @@ class StatusesContainer extends React.Component {
 
             this.props.setStatusesIsFetching(true);
 
-            systemAPI.statuses.getStatuses()
+            restAPI.statuses.getStatuses()
                 .then(response => {
                     this.props.setStatuses(response.data);
                     this.props.setStatusesCount(response.totalCount);

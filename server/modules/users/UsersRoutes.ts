@@ -18,6 +18,7 @@ UsersRoutes.use((req: Request, res: Response, next: Function) => {
  * Routes to URL: /rest/api/users/*
  */
 UsersRoutes.get('/', UsersController.getUsersList);
+UsersRoutes.post('/auth/', UsersController.auth);
 UsersRoutes.get('/:userId', UsersController.getUserById);
 UsersRoutes.post('/', UsersController.create);
 UsersRoutes.delete(`/:userId`, UsersController.remove);

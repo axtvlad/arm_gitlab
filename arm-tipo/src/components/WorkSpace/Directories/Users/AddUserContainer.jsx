@@ -1,5 +1,8 @@
 import {
-    addUser, setUsers, setUsersCount, setUsersIsFetching,
+    addUser,
+    setUsers,
+    setUsersCount,
+    setUsersIsFetching,
     updateUserBirthAt,
     updateUserCityId,
     updateUserCustomerId,
@@ -20,57 +23,19 @@ import {
 } from "../../../../redux/Reducers/UserReducer";
 import {connect} from "react-redux";
 import AddUser from "./AddUser";
-import * as axios from "axios";
-import {BASE_URL} from "../../../../env";
 import React from 'react';
 import {setRoles, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
+import {restAPI} from "../../../../api/API";
 
 class AddUserContainer extends React.Component {
     componentDidMount() {
-        if (this.props.usersDir.users.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
-
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
-
-            this.props.setUsersIsFetching(true);
-
-            axios
-                .get(BASE_URL + 'users?loadData=true', config)
-                .then(response => {
-                    this.props.setUsersCount(response.data.totalCount);
-                    this.props.setUsers(response.data.data);
-
-                    console.log('users: ', response.data.data);
-
-                    this.props.setUsersIsFetching(false);
-                });
-        }
-
         if (this.props.roles.length === 0) {
-            const user = "Admin";
-            const pass = "admin";
 
-            const authorizationBasic = window.btoa(user + ':' + pass);
-            const config = {
-                "headers": {
-                    "Authorization": "Basic " + authorizationBasic
-                }
-            };
-
-            this.props.setRolesIsFetching(true);
-
-            axios
-                .get(BASE_URL + 'roles', config)
+            restAPI.roles.getRoles()
                 .then(response => {
-                    this.props.setRoles(response.data.data);
+                    this.props.setRoles(response.data);
 
-                    console.log('roles: ', response.data.data);
+                    console.log('roles: ', response.data);
 
                     this.props.setRolesIsFetching(false);
                 });

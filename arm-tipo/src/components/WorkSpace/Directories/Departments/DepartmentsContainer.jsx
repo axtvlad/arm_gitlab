@@ -8,7 +8,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DepartmentsContainer extends React.Component {
 
             this.props.setDepartmentsIsFetching(true);
 
-            systemAPI.departments.getDepartments()
+            restAPI.departments.getDepartments()
                 .then(response => {
                     this.props.setDepartments(response.data);
                     this.props.setDepartmentsCount(response.totalCount);

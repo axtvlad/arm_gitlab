@@ -13,7 +13,7 @@ const instance = axios.create({
     baseURL: BASE_URL
 });
 
-export const systemAPI = {
+export const restAPI = {
     users: {
         getUsers() {
             return instance
@@ -27,7 +27,10 @@ export const systemAPI = {
                 .then(response => response.data);
 
         },
-
+        postNewUser() {
+            return instance
+                .post('users')
+        }
     },
 
     categories: {
@@ -115,7 +118,7 @@ export const systemAPI = {
             return instance
                 .get('mainDocs/' + id)
                 .then(response => response.data)
-        }
+        },
     },
 
     roles: {

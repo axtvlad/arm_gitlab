@@ -14,6 +14,7 @@ import {
     ERROR_CODE_USER_WITH_LOGIN_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {strict} from "assert";
 
 interface IRestUsersCreate {
     firstName: string;
@@ -33,6 +34,11 @@ interface IRestUsersCreate {
     isAdmin?: boolean;
     isPremium?: boolean;
     isBanned?: boolean;
+}
+
+interface IRestUserAuth {
+    login: string;
+    password: string;
 }
 
 interface IRestUsersList {
@@ -157,6 +163,51 @@ export default new class UsersController {
                 data: {userId},
                 message: req.__('MESSAGE_OK')
             });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    // Не бейте палками, плиз, это временное решение
+    async auth(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestUserAuth>rest.getBody();
+
+            if (!bodyParams.login && !bodyParams.password) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_LOGIN_OR_PASSWORD')
+                });
+            } else if (!bodyParams.login) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LOGIN',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_LOGIN_NOT')
+                });
+            }
+
+            const existUser = await getManager().getRepository(Users).findOne({
+                where: [{
+                    login: bodyParams.login
+                }]
+            });
+
+            if (existUser && passwordHash.verify(bodyParams.password, existUser.password)) {
+                return res.status(200).send({
+                    auth: true,
+                });
+            } else {
+                return res.status(405).send({
+                    auth: false,
+                })
+            }
         } catch (err) {
             console.error(err);
             res.status(500).send({

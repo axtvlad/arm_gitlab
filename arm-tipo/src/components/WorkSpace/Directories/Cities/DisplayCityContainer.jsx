@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {setCitiesIsFetching, setCurrentCity} from "../../../../redux/Reducers/CityReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayCityContainer extends React.Component {
 
         this.props.setCitiesIsFetching(true);
 
-        systemAPI.cities.getCityById(id)
+        restAPI.cities.getCityById(id)
             .then(response => {
                 this.props.setCurrentCity(response.data);
 

@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayCategoryContainer extends React.Component {
 
         this.props.setCategoriesIsFetching(true);
 
-        systemAPI.categories.getCategoryById(id)
+        restAPI.categories.getCategoryById(id)
             .then(response => {
                 this.props.setCurrentCategory(response.data);
 

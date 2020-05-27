@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {setCurrentStatus, setStatusesIsFetching} from "../../../../redux/Reducers/StatusReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class DisplayStatusContainer extends React.Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class DisplayStatusContainer extends React.Component {
 
         this.props.setStatusesIsFetching(true);
 
-        systemAPI.statuses.getStatusById(id)
+        restAPI.statuses.getStatusById(id)
             .then(response => {
                 this.props.setCurrentStatus(response.data);
 

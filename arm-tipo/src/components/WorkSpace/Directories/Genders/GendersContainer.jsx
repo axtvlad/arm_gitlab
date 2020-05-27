@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {setGenders, setGendersIsFetching} from "../../../../redux/Reducers/GenderReducer";
 import React from "react";
 import Genders from "./Genders";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class GendersContainer extends React.Component {
 
             this.props.setGendersIsFetching(true);
 
-            systemAPI.genders.getGenders()
+            restAPI.genders.getGenders()
                 .then(response => {
                     this.props.setGenders(response.data);
 

@@ -4,7 +4,7 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {setIsAdmin} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
@@ -12,7 +12,7 @@ class TypesContainer extends React.Component {
 
             this.props.setTypesIsFetching(true);
 
-            systemAPI.types.getTypes()
+            restAPI.types.getTypes()
                 .then(response => {
                     this.props.setTypes(response.data);
                     this.props.setTypesCount(response.totalCount);

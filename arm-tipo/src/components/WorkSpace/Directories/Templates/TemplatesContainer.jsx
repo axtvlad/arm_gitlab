@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {setTemplates, setTemplatesCount, setTemplatesIsFetching} from "../../../../redux/Reducers/TemplateReducer";
 import Templates from "./Templates";
-import {systemAPI} from "../../../../api/API";
+import {restAPI} from "../../../../api/API";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class TemplatesContainer extends React.Component {
 
             this.props.setTemplatesIsFetching(true);
 
-            systemAPI.templates.getTemplates()
+            restAPI.templates.getTemplates()
                 .then(response => {
                     this.props.setTemplates(response.data);
                     this.props.setTemplatesCount(response.totalCount);
