@@ -1,8 +1,5 @@
 import {
     addUser,
-    setUsers,
-    setUsersCount,
-    setUsersIsFetching,
     updateUserBirthAt,
     updateUserCityId,
     updateUserCustomerId,
@@ -24,21 +21,15 @@ import {
 import {connect} from "react-redux";
 import AddUser from "./AddUser";
 import React from 'react';
-import {setRoles, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
-import {restAPI} from "../../../../api/API";
+import {getRoles} from "../../../../redux/Reducers/RoleReducer";
+import {getGenders} from "../../../../redux/Reducers/GenderReducer";
+import {getCities} from "../../../../redux/Reducers/CityReducer";
+import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
 
 class AddUserContainer extends React.Component {
     componentDidMount() {
         if (this.props.roles.length === 0) {
 
-            restAPI.roles.getRoles()
-                .then(response => {
-                    this.props.setRoles(response.data);
-
-                    console.log('roles: ', response.data);
-
-                    this.props.setRolesIsFetching(false);
-                });
         }
     }
 
@@ -79,10 +70,9 @@ export default connect(mapStateToProps,
         updateUserIsAdmin,
         updateUserIsBanned,
         updateUserIsPremium,
-        setUsersIsFetching,
-        setRolesIsFetching,
-        setUsersCount,
-        setUsers,
-        setRoles,
+        getRoles,
+        getGenders,
+        getCities,
+        getCustomers
     }
 )(AddUserContainer);
