@@ -322,21 +322,45 @@ export const setIsAdmin = (isAdmin) => ({
     isAdmin
 });
 
-export const getUsers = () => {
-    return (dispatch) => {
+export const getUsers = () => (dispatch) => {
 
-        dispatch(setUsersIsFetching(true));
+    dispatch(setUsersIsFetching(true));
 
-        restAPI.users.getUsers()
-            .then(response => {
-                dispatch(setUsersCount(response.totalCount));
-                dispatch(setUsers(response.data));
+    restAPI.users.getUsers()
+        .then(response => {
+            dispatch(setUsersCount(response.totalCount));
+            dispatch(setUsers(response.data));
 
-                console.info('users: ', response.data);
+            console.info('users: ', response.data);
 
-                dispatch(setUsersIsFetching(false));
-            });
-    }
+            dispatch(setUsersIsFetching(false));
+        });
+};
+
+export const getUserById = (id) => (dispatch) => {
+
+    dispatch(setUsersIsFetching(true));
+
+    restAPI.users.getUserById(id)
+        .then(response => {
+            dispatch(setCurrentUser(response.data));
+
+            console.info('user: ', response.data);
+
+            dispatch(setUsersIsFetching(false));
+        });
+};
+
+export const deleteUserById = (id) => (dispatch) => {
+
+    dispatch(setUsersIsFetching(true));
+
+    restAPI.users.deleteUserById(id)
+        .then(response => {
+            console.info('deleted user: ', response.data);
+
+            dispatch(setUsersIsFetching(false));
+        });
 };
 
 export default UserReducer;

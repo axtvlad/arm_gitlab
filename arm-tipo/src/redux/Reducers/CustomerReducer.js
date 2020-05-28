@@ -100,21 +100,45 @@ export const setCurrentCustomer = (currentCustomer) => ({
     currentCustomer
 });
 
-export const getCustomers = () => {
-    return (dispatch) => {
+export const getCustomers = () => (dispatch) => {
 
-        dispatch(setCustomersIsFetching(true));
+    dispatch(setCustomersIsFetching(true));
 
-        restAPI.customers.getCustomers()
-            .then(response => {
-                dispatch(setCustomersCount(response.totalCount));
-                dispatch(setCustomers(response.data));
+    restAPI.customers.getCustomers()
+        .then(response => {
+            dispatch(setCustomersCount(response.totalCount));
+            dispatch(setCustomers(response.data));
 
-                console.info('customers: ', response.data);
+            console.info('customers: ', response.data);
 
-                dispatch(setCustomersIsFetching(false));
-            });
-    }
+            dispatch(setCustomersIsFetching(false));
+        });
+};
+
+export const getCustomerById = (id) => (dispatch) => {
+
+    dispatch(setCustomersIsFetching(true));
+
+    restAPI.customers.getCustomerById(id)
+        .then(response => {
+            dispatch(setCurrentCustomer(response.data));
+
+            console.info('customer: ', response.data);
+
+            dispatch(setCustomersIsFetching(false));
+        });
+};
+
+export const deleteCustomerById = (id) => (dispatch) => {
+
+    dispatch(setCustomersIsFetching(true));
+
+    restAPI.customers.deleteCustomerById(id)
+        .then(response => {
+            console.info('deleted department: ', response.data);
+
+            dispatch(setCustomersIsFetching(false));
+        });
 };
 
 export default CustomerReducer;

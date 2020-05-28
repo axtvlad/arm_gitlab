@@ -100,21 +100,45 @@ export const setCurrentType = (currentType) => ({
     currentType
 });
 
-export const getTypes = () => {
-    return (dispatch) => {
+export const getTypes = () => (dispatch) => {
 
-        dispatch(setTypesIsFetching(true));
+    dispatch(setTypesIsFetching(true));
 
-        restAPI.templates.getTemplates()
-            .then(response => {
-                dispatch(setTypesCount(response.totalCount));
-                dispatch(setTypes(response.data));
+    restAPI.types.getTypes()
+        .then(response => {
+            dispatch(setTypesCount(response.totalCount));
+            dispatch(setTypes(response.data));
 
-                console.info('types: ', response.data);
+            console.info('types: ', response.data);
 
-                dispatch(setTypesIsFetching(false));
-            });
-    }
+            dispatch(setTypesIsFetching(false));
+        });
+};
+
+export const getTypeById = (id) => (dispatch) => {
+
+    dispatch(setTypesIsFetching(true));
+
+    restAPI.types.getTypeById(id)
+        .then(response => {
+            dispatch(setCurrentType(response.data));
+
+            console.info('type: ', response.data);
+
+            dispatch(setTypesIsFetching(false));
+        });
+};
+
+export const deleteTypeById = (id) => (dispatch) => {
+
+    dispatch(setTypesIsFetching(true));
+
+    restAPI.types.deleteTypeById(id)
+        .then(response => {
+            console.info('deleted type: ', response.data);
+
+            dispatch(setTypesIsFetching(false));
+        });
 };
 
 export default TypeReducer;

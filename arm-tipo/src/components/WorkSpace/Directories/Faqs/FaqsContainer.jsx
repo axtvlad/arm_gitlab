@@ -5,7 +5,7 @@ import {getFaqs} from "../../../../redux/Reducers/FaqReducer";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
-        this.props.getFaqs();
+        !this.props.faqs.length && this.props.getFaqs();
     }
 
     render() {

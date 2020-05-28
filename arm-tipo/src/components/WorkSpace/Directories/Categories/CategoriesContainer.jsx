@@ -6,7 +6,7 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
-        this.props.getCategories();
+        !this.props.categories.length && this.props.getCategories();
     }
 
     render() {

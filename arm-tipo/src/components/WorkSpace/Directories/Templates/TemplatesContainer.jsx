@@ -5,7 +5,7 @@ import {getTemplates} from "../../../../redux/Reducers/TemplateReducer";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
-        this.props.getTemplates();
+        !this.props.templates.length && this.props.getTemplates();
     }
 
     render() {
@@ -16,7 +16,6 @@ class TemplatesContainer extends React.Component {
             />
         )
     }
-
 }
 
 

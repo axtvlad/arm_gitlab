@@ -101,21 +101,45 @@ export const setCurrentCity = (currentCity) => ({
     currentCity
 });
 
-export const getCities = () => {
-    return (dispatch) => {
+export const getCities = () => (dispatch) => {
 
-        dispatch(setCitiesIsFetching(true));
+    dispatch(setCitiesIsFetching(true));
 
-        restAPI.cities.getCities()
-            .then(response => {
-                dispatch(setCitiesCount(response.totalCount));
-                dispatch(setCities(response.data));
+    restAPI.cities.getCities()
+        .then(response => {
+            dispatch(setCitiesCount(response.totalCount));
+            dispatch(setCities(response.data));
 
-                console.info('cities: ', response.data);
+            console.info('cities: ', response.data);
 
-                dispatch(setCitiesIsFetching(false));
-            });
-    }
+            dispatch(setCitiesIsFetching(false));
+        });
+};
+
+export const getCityById = (id) => (dispatch) => {
+
+    dispatch(setCitiesIsFetching(true));
+
+    restAPI.cities.getCityById(id)
+        .then(response => {
+            dispatch(setCurrentCity(response.data));
+
+            console.info('city: ', response.data);
+
+            dispatch(setCitiesIsFetching(false));
+        });
+};
+
+export const deleteCityById = (id) => (dispatch) => {
+
+    dispatch(setCitiesIsFetching(true));
+
+    restAPI.cities.deleteCityById(id)
+        .then(response => {
+            console.info('deleted city: ', response.data);
+
+            dispatch(setCitiesIsFetching(false));
+        });
 };
 
 export default CityReducer;

@@ -132,21 +132,46 @@ export const setCurrentFaq = (currentFaq) => ({
     currentFaq
 });
 
-export const getFaqs = () => {
-    return (dispatch) => {
+export const getFaqs = () => (dispatch) => {
 
-        dispatch(setFaqsIsFetching(true));
+    dispatch(setFaqsIsFetching(true));
 
-        restAPI.faqs.getFaqs()
-            .then(response => {
-                dispatch(setFaqsCount(response.totalCount));
-                dispatch(setFaqs(response.data));
+    restAPI.faqs.getFaqs()
+        .then(response => {
+            dispatch(setFaqsCount(response.totalCount));
+            dispatch(setFaqs(response.data));
 
-                console.info('faqs: ', response.data);
+            console.info('faqs: ', response.data);
 
-                dispatch(setFaqsIsFetching(false));
-            });
-    }
+            dispatch(setFaqsIsFetching(false));
+        });
+};
+
+export const getFaqById = (id) => (dispatch) => {
+
+    dispatch(setFaqsIsFetching(true));
+
+    restAPI.faqs.getFaqById(id)
+        .then(response => {
+            dispatch(setCurrentFaq(response.data));
+
+            console.info('faq: ', response.data);
+
+            dispatch(setFaqsIsFetching(false));
+        });
+};
+
+export const deleteFaqById = (id) => (dispatch) => {
+
+    dispatch(setFaqsIsFetching(true));
+
+    restAPI.faqs.deleteFaqById(id)
+        .then(response => {
+            console.info('deleted faq: ', response.data);
+
+            dispatch(setFaqsIsFetching(false));
+        });
+
 };
 
 export default FaqReducer;

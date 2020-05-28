@@ -422,4 +422,32 @@ export const getMainDocs = () => {
     }
 };
 
+export const getMainDocById = (id) => {
+    return (dispatch) => {
+
+        dispatch(setMainDocsIsFetching(true));
+
+        restAPI.mainDocs.getMainDocById(id)
+            .then(response => {
+                dispatch(setCurrentMainDoc(response.data));
+
+                console.info('mainDoc: ', response.data);
+
+                dispatch(setMainDocsIsFetching(false));
+            });
+    }
+};
+
+export const deleteMainDocById = (id) => (dispatch) => {
+
+    dispatch(setMainDocsIsFetching(true));
+
+    restAPI.mainDocs.deleteMainDocById(id)
+        .then(response => {
+            console.info('deleted mainDoc: ', response.data);
+
+            dispatch(setMainDocsIsFetching(false));
+        });
+};
+
 export default MainDocReducer;

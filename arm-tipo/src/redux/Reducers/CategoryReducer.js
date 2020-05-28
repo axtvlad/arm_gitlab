@@ -101,21 +101,45 @@ export const setCurrentCategory = (currentCategory) => ({
     currentCategory
 });
 
-export const getCategories = () => {
-    return (dispatch) => {
+export const getCategories = () => (dispatch) => {
 
-        dispatch(setCategoriesIsFetching(true));
+    dispatch(setCategoriesIsFetching(true));
 
-        restAPI.categories.getCategories()
-            .then(response => {
-                dispatch(setCategoriesCount(response.totalCount));
-                dispatch(setCategories(response.data));
+    restAPI.categories.getCategories()
+        .then(response => {
+            dispatch(setCategoriesCount(response.totalCount));
+            dispatch(setCategories(response.data));
 
-                console.info('categories: ', response.data);
+            console.info('categories: ', response.data);
 
-                dispatch(setCategoriesIsFetching(false));
-            });
-    }
+            dispatch(setCategoriesIsFetching(false));
+        });
+};
+
+export const getCategoryById = (id) => (dispatch) => {
+
+    dispatch(setCategoriesIsFetching(true));
+
+    restAPI.categories.getCategoryById(id)
+        .then(response => {
+            dispatch(setCurrentCategory(response.data));
+
+            console.info('category: ', response.data);
+
+            dispatch(setCategoriesIsFetching(false));
+        });
+};
+
+export const deleteCategoryById = (id) => (dispatch) => {
+
+    dispatch(setCategoriesIsFetching(true));
+
+    restAPI.categories.deleteCategoryById(id)
+        .then(response => {
+            console.info('deleted category: ', response.data);
+
+            dispatch(setCategoriesIsFetching(false));
+        });
 };
 
 export default CategoryReducer;

@@ -100,21 +100,45 @@ export const setCurrentDepartment = (currentDepartment) => ({
     currentDepartment
 });
 
-export const getDepartments = () => {
-    return (dispatch) => {
+export const getDepartments = () => (dispatch) => {
 
-        dispatch(setDepartmentsIsFetching(true));
+    dispatch(setDepartmentsIsFetching(true));
 
-        restAPI.departments.getDepartments()
-            .then(response => {
-                dispatch(setDepartmentsCount(response.totalCount));
-                dispatch(setDepartments(response.data));
+    restAPI.departments.getDepartments()
+        .then(response => {
+            dispatch(setDepartmentsCount(response.totalCount));
+            dispatch(setDepartments(response.data));
 
-                console.info('departments: ', response.data);
+            console.info('departments: ', response.data);
 
-                dispatch(setDepartmentsIsFetching(false));
-            });
-    }
+            dispatch(setDepartmentsIsFetching(false));
+        });
+};
+
+export const getDepartmentById = (id) => (dispatch) => {
+
+    dispatch(setDepartmentsIsFetching(true));
+
+    restAPI.departments.getDepartmentById(id)
+        .then(response => {
+            dispatch(setCurrentDepartment(response.data));
+
+            console.info('department: ', response.data);
+
+            dispatch(setDepartmentsIsFetching(false));
+        });
+};
+
+export const deleteDepartmentById = (id) => (dispatch) => {
+
+    dispatch(setDepartmentsIsFetching(true));
+
+    restAPI.departments.deleteDepartmentById(id)
+        .then(response => {
+            console.info('deleted department: ', response.data);
+
+            dispatch(setDepartmentsIsFetching(false));
+        });
 };
 
 export default DepartmentReducer;

@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {FindManyOptions, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
-import {Types} from "./TypesModel";
 import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_NONE,
@@ -10,6 +9,7 @@ import {
     ERROR_CODE_TYPE_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {Types} from "./TypesModel";
 
 interface IRestTypesCreate {
     name_ru: string;

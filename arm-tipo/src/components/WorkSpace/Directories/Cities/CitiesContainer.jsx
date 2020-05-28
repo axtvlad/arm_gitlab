@@ -6,7 +6,7 @@ import {getCities} from "../../../../redux/Reducers/CityReducer";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
-        this.props.getCities();
+        !this.props.cities.length && this.props.getCities();
     }
 
     render() {

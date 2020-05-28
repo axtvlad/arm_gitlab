@@ -5,7 +5,7 @@ import {getUsers} from "../../../../redux/Reducers/UserReducer";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers();
+        !this.props.users.length && this.props.getUsers();
     }
 
     render() {

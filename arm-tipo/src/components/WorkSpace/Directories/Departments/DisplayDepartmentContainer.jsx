@@ -1,10 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {setCurrentDepartment, setDepartmentsIsFetching} from "../../../../redux/Reducers/DepartmentReducer";
+import {getDepartmentById} from "../../../../redux/Reducers/DepartmentReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
 
 class DisplayDepartmentContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +13,7 @@ class DisplayDepartmentContainer extends React.Component {
             id = 1
         }
 
-        this.props.setDepartmentsIsFetching(true);
-
-        restAPI.departments.getDepartmentById(id)
-            .then(response => {
-                this.props.setCurrentDepartment(response.data);
-
-                console.log('department: ', response.data);
-
-                this.props.setDepartmentsIsFetching(false);
-            });
+        this.props.getDepartmentById(id);
     }
 
     render() {
@@ -43,8 +33,8 @@ let mapStateToProps = (state) => {
 
 let DepartmentContainerUrl = withRouter(DisplayDepartmentContainer);
 
-export default connect(mapStateToProps, {
-    setCurrentDepartment,
-    setDepartmentsIsFetching
-})
-(DepartmentContainerUrl)
+export default connect(mapStateToProps,
+    {
+        getDepartmentById
+    }
+)(DepartmentContainerUrl)

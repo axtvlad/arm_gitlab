@@ -6,7 +6,7 @@ import {getRoles} from "../../../../redux/Reducers/RoleReducer";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
-        this.props.getRoles();
+        !this.props.roles.length && this.props.getRoles();
     }
 
     render() {

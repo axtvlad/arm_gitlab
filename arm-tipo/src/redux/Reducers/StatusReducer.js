@@ -101,21 +101,45 @@ export const setCurrentStatus = (currentStatus) => ({
 });
 
 
-export const getStatuses = () => {
-    return (dispatch) => {
+export const getStatuses = () => (dispatch) => {
 
-        dispatch(setStatusesIsFetching(true));
+    dispatch(setStatusesIsFetching(true));
 
-        restAPI.statuses.getStatuses()
-            .then(response => {
-                dispatch(setStatusesCount(response.totalCount));
-                dispatch(setStatuses(response.data));
+    restAPI.statuses.getStatuses()
+        .then(response => {
+            dispatch(setStatusesCount(response.totalCount));
+            dispatch(setStatuses(response.data));
 
-                console.info('statuses: ', response.data);
+            console.info('statuses: ', response.data);
 
-                dispatch(setStatusesIsFetching(false));
-            });
-    }
+            dispatch(setStatusesIsFetching(false));
+        });
+};
+
+export const getStatusById = (id) => (dispatch) => {
+
+    dispatch(setStatusesIsFetching(true));
+
+    restAPI.statuses.getStatusById(id)
+        .then(response => {
+            dispatch(setCurrentStatus(response.data));
+
+            console.info('status: ', response.data);
+
+            dispatch(setStatusesIsFetching(false));
+        });
+};
+
+export const deleteStatusById = (id) => (dispatch) => {
+
+    dispatch(setStatusesIsFetching(true));
+
+    restAPI.statuses.deleteStatusById(id)
+        .then(response => {
+            console.info('deleted status: ', response.data);
+
+            dispatch(setStatusesIsFetching(false));
+        });
 };
 
 export default StatusReducer;

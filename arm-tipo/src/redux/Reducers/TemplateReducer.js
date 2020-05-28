@@ -9,6 +9,7 @@ const UPDATE_CATEGORY_ID = 'update_category_id';
 const SET_TEMPLATES_IS_FETCHING = 'set_templates_is_fetching';
 const SET_TEMPLATES = 'set_templates';
 const SET_TEMPLATES_COUNT = 'set_templates_count';
+const SET_CURRENT_TEMPLATE = 'set_current_template';
 
 let initialState = {
     templates: [
@@ -27,8 +28,9 @@ let initialState = {
     newFileNameRu: '',
     newFileNameKz: '',
     templatesCount: 0,
-    category_id: null
-}
+    category_id: null,
+    currentTemplate: null
+};
 
 const TemplateReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -86,71 +88,104 @@ const TemplateReducer = (state = initialState, action) => {
                 ...state,
                 templatesCount: action.templatesCount
             };
+        case SET_CURRENT_TEMPLATE:
+            return {
+                ...state,
+                currentTemplate: action.currentTemplate
+            };
         default:
             return state;
     }
-}
+};
 
 export const addTemplate = () => ({
     type: ADD_TEMPLATE
-})
+});
 
 export const updateTemplateNameRu = (newNameRu) => ({
     type: UPDATE_TEMPLATE_NAME_RU,
     newNameRu
-})
+});
 
 export const updateTemplateNameKz = (newNameKz) => ({
     type: UPDATE_TEMPLATE_NAME_KZ,
     newNameKz
-})
+});
 
 export const updateFileNameRu = (newFileNameRu) => ({
     type: UPDATE_FILE_NAME_RU,
     newFileNameRu
-})
+});
 
 export const updateFileNameKz = (newFileNameKz) => ({
     type: UPDATE_FILE_NAME_KZ,
     newFileNameKz
-})
+});
 
 export const updateCategoryID = (category_id) => ({
     type: UPDATE_CATEGORY_ID,
     category_id
-})
+});
 
 export const setTemplates = (templates) => ({
     type: SET_TEMPLATES,
     templates
-})
+});
 
 export const setTemplatesIsFetching = (isFetching) => ({
     type: SET_TEMPLATES_IS_FETCHING,
     isFetching
-})
+});
 
 export const setTemplatesCount = (templatesCount) => ({
     type: SET_TEMPLATES_COUNT,
     templatesCount
-})
+});
 
+export const setCurrentTemplate = (currentTemplate) => ({
+    type: SET_CURRENT_TEMPLATE,
+    currentTemplate
+});
 
-export const getTemplates = () => {
-    return (dispatch) => {
+export const getTemplates = () => (dispatch) => {
 
-        dispatch(setTemplatesIsFetching(true));
+    dispatch(setTemplatesIsFetching(true));
 
-        restAPI.templates.getTemplates()
-            .then(response => {
-                dispatch(setTemplatesCount(response.totalCount));
-                dispatch(setTemplates(response.data));
+    restAPI.templates.getTemplates()
+        .then(response => {
+            dispatch(setTemplatesCount(response.totalCount));
+            dispatch(setTemplates(response.data));
 
-                console.info('templates: ', response.data);
+            console.info('templates: ', response.data);
 
-                dispatch(setTemplatesIsFetching(false));
-            });
-    }
+            dispatch(setTemplatesIsFetching(false));
+        });
+};
+
+export const getTemplateById = (id) => (dispatch) => {
+
+    dispatch(setTemplatesIsFetching(true));
+
+    restAPI.templates.getTemplateById(id)
+        .then(response => {
+            dispatch(setCurrentTemplate(response.data));
+
+            console.info('template: ', response.data);
+
+            dispatch(setTemplatesIsFetching(false));
+        });
+};
+
+export const deleteTemplateById = (id) => (dispatch) => {
+
+    dispatch(setTemplatesIsFetching(true));
+
+    restAPI.templates.deleteTemplateById(id)
+        .then(response => {
+            console.info('deleted template: ', response.data);
+
+            dispatch(setTemplatesIsFetching(false));
+        });
 };
 
 export default TemplateReducer;

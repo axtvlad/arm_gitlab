@@ -23,7 +23,7 @@ const Home = (props) => {
                 <Col span={12}>
                     <Statistic
                         title={t('totalDocsCount')}
-                        value={45}
+                        value={props.mainDocsCount}
                         prefix={<CopyOutlined/>}/>
                 </Col>
             </Row>

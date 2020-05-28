@@ -1,10 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {setCitiesIsFetching, setCurrentCity} from "../../../../redux/Reducers/CityReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
+import {getCityById} from "../../../../redux/Reducers/CityReducer";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +13,7 @@ class DisplayCityContainer extends React.Component {
             id = 1
         }
 
-        this.props.setCitiesIsFetching(true);
-
-        restAPI.cities.getCityById(id)
-            .then(response => {
-                this.props.setCurrentCity(response.data);
-
-                console.log('city: ', response.data);
-
-                this.props.setCitiesIsFetching(false);
-            });
+        this.props.getCityById(id)
     }
 
     render() {
@@ -43,8 +33,8 @@ let mapStateToProps = (state) => {
 
 let CityContainerUrl = withRouter(DisplayCityContainer);
 
-export default connect(mapStateToProps, {
-    setCurrentCity,
-    setCitiesIsFetching
-})
-(CityContainerUrl)
+export default connect(mapStateToProps,
+    {
+        getCityById
+    }
+)(CityContainerUrl)

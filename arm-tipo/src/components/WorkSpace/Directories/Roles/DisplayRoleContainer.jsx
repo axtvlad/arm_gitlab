@@ -1,10 +1,9 @@
 import {connect} from "react-redux";
 import React from "react";
-import {setCurrentRole, setRolesIsFetching} from "../../../../redux/Reducers/RoleReducer";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
+import {getRoleById} from "../../../../redux/Reducers/RoleReducer";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
@@ -14,17 +13,7 @@ class DisplayRoleContainer extends React.Component {
             id = 1
         }
 
-        this.props.setRolesIsFetching(true);
-
-        restAPI.roles.getRolesById(id)
-            .then(response => {
-                this.props.setCurrentRole(response.data);
-
-                console.log('role: ', response.data);
-
-                this.props.setRolesIsFetching(false);
-            });
-
+        this.props.getRoleById(id);
     }
 
     render() {
@@ -46,7 +35,6 @@ let RoleContainerUrl = withRouter(DisplayRoleContainer);
 
 export default connect(mapStateToProps,
     {
-        setCurrentRole,
-        setRolesIsFetching,
+        getRoleById
     }
 )(RoleContainerUrl);

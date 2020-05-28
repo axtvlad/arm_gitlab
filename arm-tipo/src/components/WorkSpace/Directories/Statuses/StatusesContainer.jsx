@@ -6,7 +6,7 @@ import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
-        this.props.getStatuses();
+        !this.props.statuses.length && this.props.getStatuses();
     }
 
     render() {

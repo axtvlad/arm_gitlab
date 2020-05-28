@@ -26,7 +26,14 @@ export const restAPI = {
                 .get('users?loadData=true/' + id)
                 .then(response => response.data);
 
-        },/*
+        },
+        deleteUserById(id) {
+            return instance
+                .delete('users/' + id)
+                .then(response => response.data);
+        }
+
+        /*
         postNewUser(userData) {
             return instance
                 .post('users', {
@@ -50,6 +57,11 @@ export const restAPI = {
             return instance
                 .get('categories/' + id)
                 .then(response => response.data)
+        },
+        deleteCategoryById(id) {
+            return instance
+                .delete('categories/' + id)
+                .then(response => response.data)
         }
 
     },
@@ -65,7 +77,11 @@ export const restAPI = {
                 .get('faqs/' + id)
                 .then(response => response.data)
         },
-
+        deleteFaqById(id) {
+            return instance
+                .delete('faqs/' + id)
+                .then(response => response.data)
+        }
     },
 
     cities: {
@@ -77,6 +93,11 @@ export const restAPI = {
         getCityById(id) {
             return instance
                 .get('cities/' + id)
+                .then(response => response.data)
+        },
+        deleteCityById(id) {
+            return instance
+                .delete('cities/' + id)
                 .then(response => response.data)
         }
     },
@@ -92,6 +113,11 @@ export const restAPI = {
                 .get('customers/' + id)
                 .then(response => response.data)
         },
+        deleteCustomerById(id) {
+            return instance
+                .delete('customers/' + id)
+                .then(response => response.data)
+        }
     },
 
     departments: {
@@ -103,6 +129,11 @@ export const restAPI = {
         getDepartmentById(id) {
             return instance
                 .get('departments/' + id)
+                .then(response => response.data)
+        },
+        deleteDepartmentById(id) {
+            return instance
+                .delete('department/' + id)
                 .then(response => response.data)
         }
     },
@@ -126,6 +157,11 @@ export const restAPI = {
                 .get('mainDocs/' + id)
                 .then(response => response.data)
         },
+        deleteMainDocById(id) {
+            return instance
+                .delete('mainDocs/' + id)
+                .then(response => response.data)
+        }
     },
 
     roles: {
@@ -137,6 +173,11 @@ export const restAPI = {
         getRolesById(id) {
             return instance
                 .get('roles/' + id)
+                .then(response => response.data)
+        },
+        deleteRoleById(id) {
+            return instance
+                .delete('roles/' + id)
                 .then(response => response.data)
         }
     },
@@ -151,6 +192,11 @@ export const restAPI = {
             return instance
                 .get('statuses/' + id)
                 .then(response => response.data)
+        },
+        deleteStatusById(id) {
+            return instance
+                .delete('statuses/' + id)
+                .then(response => response.data)
         }
     },
 
@@ -164,6 +210,11 @@ export const restAPI = {
             return instance
                 .get('templates/' + id)
                 .then(response => response.data)
+        },
+        deleteTemplateById(id) {
+            return instance
+                .delete('templates/' + id)
+                .then(response => response.data)
         }
     },
 
@@ -176,6 +227,11 @@ export const restAPI = {
         getTypeById(id) {
             return instance
                 .get('types/' + id)
+                .then(response => response.data)
+        },
+        deleteTypeById(id) {
+            return instance
+                .delete('types/' + id)
                 .then(response => response.data)
         }
     }

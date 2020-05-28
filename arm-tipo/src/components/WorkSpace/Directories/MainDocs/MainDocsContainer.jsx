@@ -5,7 +5,7 @@ import {getMainDocs} from "../../../../redux/Reducers/MainDocReducer";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
-        this.props.getMainDocs();
+        !this.props.mainDocs.length &&  this.props.getMainDocs();
     }
 
     render() {

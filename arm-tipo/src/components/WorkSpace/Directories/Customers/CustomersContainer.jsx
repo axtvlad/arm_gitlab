@@ -6,7 +6,7 @@ import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
-        this.props.getCustomers();
+        !this.props.customers.length && this.props.getCustomers();
     }
 
     render() {

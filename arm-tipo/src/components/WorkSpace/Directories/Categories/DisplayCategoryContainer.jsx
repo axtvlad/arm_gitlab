@@ -1,10 +1,9 @@
 import React from "react";
-import {setCategoriesIsFetching, setCurrentCategory} from "../../../../redux/Reducers/CategoryReducer"
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {restAPI} from "../../../../api/API";
+import {getCategoryById} from "../../../../redux/Reducers/CategoryReducer";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
@@ -14,16 +13,7 @@ class DisplayCategoryContainer extends React.Component {
             id = 1
         }
 
-        this.props.setCategoriesIsFetching(true);
-
-        restAPI.categories.getCategoryById(id)
-            .then(response => {
-                this.props.setCurrentCategory(response.data);
-
-                console.log('category: ', response.data);
-
-                this.props.setCategoriesIsFetching(false);
-            });
+        this.props.getCategoryById(id);
     }
 
     render() {
@@ -43,8 +33,8 @@ let mapStateToProps = (state) => {
 
 let CategoryContainerUrl = withRouter(DisplayCategoryContainer);
 
-export default connect(mapStateToProps, {
-    setCurrentCategory,
-    setCategoriesIsFetching
-})
-(CategoryContainerUrl)
+export default connect(mapStateToProps,
+    {
+        getCategoryById
+    }
+)(CategoryContainerUrl)

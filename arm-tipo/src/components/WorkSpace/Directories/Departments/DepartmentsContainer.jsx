@@ -6,7 +6,7 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
-        this.props.getDepartments();
+        !this.props.departments.length && this.props.getDepartments();
     }
 
     render() {

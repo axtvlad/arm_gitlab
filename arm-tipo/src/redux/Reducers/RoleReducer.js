@@ -100,21 +100,45 @@ export const setCurrentRole = (currentRole) => ({
     currentRole
 });
 
-export const getRoles = () => {
-    return (dispatch) => {
+export const getRoles = () => (dispatch) => {
 
-        dispatch(setRolesIsFetching(true));
+    dispatch(setRolesIsFetching(true));
 
-        restAPI.roles.getRoles()
-            .then(response => {
-                dispatch(setRolesCount(response.totalCount));
-                dispatch(setRoles(response.data));
+    restAPI.roles.getRoles()
+        .then(response => {
+            dispatch(setRolesCount(response.totalCount));
+            dispatch(setRoles(response.data));
 
-                console.info('roles: ', response.data);
+            console.info('roles: ', response.data);
 
-                dispatch(setRolesIsFetching(false));
-            });
-    }
+            dispatch(setRolesIsFetching(false));
+        });
+};
+
+export const getRoleById = (id) => (dispatch) => {
+
+    dispatch(setRolesIsFetching(true));
+
+    restAPI.roles.getRolesById(id)
+        .then(response => {
+            dispatch(setCurrentRole(response.data));
+
+            console.info('role: ', response.data);
+
+            dispatch(setRolesIsFetching(false));
+        });
+};
+
+export const deleteRoleById = (id) => (dispatch) => {
+
+    dispatch(setRolesIsFetching(true));
+
+    restAPI.roles.deleteRoleById(id)
+        .then(response => {
+            console.info('deleted role: ', response.data);
+
+            dispatch(setRolesIsFetching(false));
+        });
 };
 
 export default RoleReducer;

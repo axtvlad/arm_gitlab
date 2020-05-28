@@ -5,7 +5,7 @@ import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
-        this.props.getGenders();
+        !this.props.genders.length &&  this.props.getGenders();
     }
 
     render() {

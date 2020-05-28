@@ -5,13 +5,14 @@ import {getUsers} from "../../../redux/Reducers/UserReducer";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers()
+        !this.props.usersCount && this.props.getUsers()
     }
 
     render() {
         return (
             <Home
                 usersCount={this.props.usersCount}
+                mainDocsCount={this.props.mainDocsCount}
                 isFetching={this.props.isFetching}
             />
         )
@@ -21,7 +22,8 @@ class HomeContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         usersCount: state.usersDir.usersCount,
-        isFetching: state.usersDir.isFetching
+        isFetching: state.usersDir.isFetching,
+        mainDocsCount: state.mainDocsDir.mainDocsCount
     }
 };
 

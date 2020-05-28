@@ -36,20 +36,18 @@ export const setGenders = (genders) => ({
     genders
 });
 
-export const getGenders = () => {
-    return (dispatch) => {
+export const getGenders = () => (dispatch) => {
 
-        dispatch(setGendersIsFetching(true));
+    dispatch(setGendersIsFetching(true));
 
-        restAPI.genders.getGenders()
-            .then(response => {
-                dispatch(setGenders(response.data));
+    restAPI.genders.getGenders()
+        .then(response => {
+            dispatch(setGenders(response.data));
 
-                console.info('genders: ', response.data);
+            console.info('genders: ', response.data);
 
-                dispatch(setGendersIsFetching(false));
-            });
-    }
+            dispatch(setGendersIsFetching(false));
+        });
 };
 
 export default GenderReducer;
