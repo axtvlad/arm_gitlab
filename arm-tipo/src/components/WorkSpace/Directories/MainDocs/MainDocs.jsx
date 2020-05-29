@@ -3,91 +3,97 @@ import {Button, Descriptions, Dropdown, Menu, PageHeader, Row, Spin, Tag} from '
 import {EllipsisOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import word_svg from '../../../../svg/word.svg'
+import {useTranslation} from "react-i18next";
 
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a href='/'>
-                Редактировать
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a href='/'>
-                Удалить
-            </a>
-        </Menu.Item>
-    </Menu>
-);
-
-const DropdownMenu = () => {
-    return (
-        <Dropdown key="more" overlay={menu}>
-            <Button
-                style={{
-                    border: 'none',
-                    padding: 0,
-                }}
-            >
-                <EllipsisOutlined
-                    style={{
-                        fontSize: 20,
-                        verticalAlign: 'top',
-                    }}
-                />
-            </Button>
-        </Dropdown>
-    );
-};
-
-const getStatusColor = (id) => {
-    switch (id) {
-        case 1:
-            return 'red';
-        case 2:
-            return 'green';
-        case 3:
-            return 'blue';
-        default:
-            return 'orange';
-    }
-};
-
-const getStatusText = (id) => {
-    switch (id) {
-        case 1:
-            return 'Потерял актуальность';
-        case 2:
-            return 'Актуальный';
-        case 3:
-            return 'Новый';
-        default:
-            return 'Неизвестно'
-    }
-};
-
-const getDepartmentText = (id) => {
-    switch (id) {
-        case 1:
-            return 'МОН РК';
-        case 2:
-            return 'МТСЗ РК';
-        case 3:
-            return 'МИНЗДРАВ';
-        default:
-            return 'Неизвестно'
-    }
-};
-
-const Content = ({children, extraContent}) => {
-    return (
-        <Row>
-            <div style={{flex: 1}}>{children}</div>
-            <div className="image">{extraContent}</div>
-        </Row>
-    );
-};
 
 const MainDocs = (props) => {
+
+    const {t} = useTranslation();
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <a href='/'>
+                    {t('edit')}
+                </a>
+            </Menu.Item>
+            <Menu.Item>
+                <a href='/'>
+                    {t('delete')}
+                </a>
+            </Menu.Item>
+        </Menu>
+    );
+
+    const DropdownMenu = () => {
+        return (
+            <Dropdown key="more" overlay={menu}>
+                <Button
+                    style={{
+                        border: 'none',
+                        padding: 0,
+                    }}
+                >
+                    <EllipsisOutlined
+                        style={{
+                            fontSize: 20,
+                            verticalAlign: 'top',
+                        }}
+                    />
+                </Button>
+            </Dropdown>
+        );
+    };
+
+    const getStatusColor = (id) => {
+        switch (id) {
+            case 1:
+                return 'red';
+            case 2:
+                return 'green';
+            case 3:
+                return 'blue';
+            default:
+                return 'orange';
+        }
+    };
+
+    const getStatusText = (id) => {
+        switch (id) {
+            case 1:
+                return 'Потерял актуальность';
+            case 2:
+                return 'Актуальный';
+            case 3:
+                return 'Новый';
+            default:
+                return 'Неизвестно'
+        }
+    };
+
+    const getDepartmentText = (id) => {
+        switch (id) {
+            case 1:
+                return 'МОН РК';
+            case 2:
+                return 'МТСЗ РК';
+            case 3:
+                return 'МИНЗДРАВ';
+            default:
+                return 'Неизвестно'
+        }
+    };
+
+    const Content = ({children, extraContent}) => {
+        return (
+            <Row>
+                <div style={{flex: 1}}>{children}</div>
+                <div className="image">{extraContent}</div>
+            </Row>
+        );
+    };
+
+
     return (
         <div>
             <Spin spinning={props.isFetching}>
@@ -133,7 +139,7 @@ const MainDocs = (props) => {
                                         type="danger"
                                         shape="round"
                                     >
-                                        Подробнее
+                                        {t('more')}
                                     </Button>
                                     <Button
                                         style={{marginTop: 20, marginLeft: 10}}
@@ -141,7 +147,7 @@ const MainDocs = (props) => {
                                         shape="round"
                                         icon={<DownloadOutlined/>}
                                     >
-                                        Скачать
+                                        {t('download')}
                                     </Button>
                                 </div>
                             </Content>

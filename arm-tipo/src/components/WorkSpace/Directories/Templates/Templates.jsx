@@ -2,53 +2,57 @@ import React from "react";
 import {Button, Dropdown, Menu, PageHeader, Row, Spin} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {EllipsisOutlined} from "@ant-design/icons";
-
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a href='/'>
-                Редактировать
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a href='/'>
-                Удалить
-            </a>
-        </Menu.Item>
-    </Menu>
-);
-
-const Content = ({children, extraContent}) => {
-    return (
-        <Row>
-            <div style={{flex: 1}}>{children}</div>
-            <div className="image">{extraContent}</div>
-        </Row>
-    );
-};
-
-
-const DropdownMenu = () => {
-    return (
-        <Dropdown key="more" overlay={menu}>
-            <Button
-                style={{
-                    border: 'none',
-                    padding: 0,
-                }}
-            >
-                <EllipsisOutlined
-                    style={{
-                        fontSize: 20,
-                        verticalAlign: 'top',
-                    }}
-                />
-            </Button>
-        </Dropdown>
-    );
-};
+import {useTranslation} from "react-i18next";
 
 const Templates = (props) => {
+
+    const {t} = useTranslation();
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <a href='/'>
+                    {t('edit')}
+                </a>
+            </Menu.Item>
+            <Menu.Item>
+                <a href='/'>
+                    {t('delete')}
+                </a>
+            </Menu.Item>
+        </Menu>
+    );
+
+    const Content = ({children, extraContent}) => {
+        return (
+            <Row>
+                <div style={{flex: 1}}>{children}</div>
+                <div className="image">{extraContent}</div>
+            </Row>
+        );
+    };
+
+
+    const DropdownMenu = () => {
+        return (
+            <Dropdown key="more" overlay={menu}>
+                <Button
+                    style={{
+                        border: 'none',
+                        padding: 0,
+                    }}
+                >
+                    <EllipsisOutlined
+                        style={{
+                            fontSize: 20,
+                            verticalAlign: 'top',
+                        }}
+                    />
+                </Button>
+            </Dropdown>
+        );
+    };
+
     return (
         <div>
             <Spin spinning={props.isFetching}>
@@ -78,7 +82,7 @@ const Templates = (props) => {
                                         type="danger"
                                         shape="round"
                                     >
-                                        Подробнее
+                                        {t('more')}
                                     </Button>
                                     <Button
                                         style={{marginTop: 20, marginLeft: 10}}
@@ -86,7 +90,7 @@ const Templates = (props) => {
                                         shape="round"
                                         icon={<DownloadOutlined/>}
                                     >
-                                        Скачать
+                                        {t('download')}
                                     </Button>
                                 </div>
                             </Content>

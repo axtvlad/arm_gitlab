@@ -14,15 +14,15 @@ const AppHeader = (props) => {
         <Menu>
             <Menu.Item key="1">
                 <UserOutlined/>
-                Профиль
+                {t('profile')}
             </Menu.Item>
             <Menu.Item key="2">
                 <SettingOutlined/>
-                Настройки
+                {t('settings')}
             </Menu.Item>
             <Menu.Item key="3">
                 <LogoutOutlined/>
-                Выйти
+                {t('logout')}
             </Menu.Item>
         </Menu>
     );
