@@ -2,10 +2,13 @@ import React from 'react'
 import {NavLink} from "react-router-dom";
 import {Button, Collapse, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import {useTranslation} from "react-i18next";
 
 const {Panel} = Collapse;
 
 const Faqs = (props) => {
+    const {t} = useTranslation();
+
     return (
         <div className={'content'}>
             <NavLink to={'/addFaq'}>
@@ -14,7 +17,7 @@ const Faqs = (props) => {
                     shape="round"
                     icon={<PlusOutlined/>}
                 >
-                    Добавить вопрос
+                   {t('addNewFaq')}
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
