@@ -7,25 +7,25 @@ const {Header} = Layout;
 const {Text} = Typography;
 const {Option} = Select;
 
-const menu = (
-    <Menu>
-        <Menu.Item key="1">
-            <UserOutlined/>
-            Профиль
-        </Menu.Item>
-        <Menu.Item key="2">
-            <SettingOutlined/>
-            Настройки
-        </Menu.Item>
-        <Menu.Item key="3">
-            <LogoutOutlined/>
-            Выйти
-        </Menu.Item>
-    </Menu>
-);
-
 const AppHeader = (props) => {
     const {t, i18n} = useTranslation();
+
+    const menu = (
+        <Menu>
+            <Menu.Item key="1">
+                <UserOutlined/>
+                Профиль
+            </Menu.Item>
+            <Menu.Item key="2">
+                <SettingOutlined/>
+                Настройки
+            </Menu.Item>
+            <Menu.Item key="3">
+                <LogoutOutlined/>
+                Выйти
+            </Menu.Item>
+        </Menu>
+    );
 
     const setIsAdmin = (e) => {
         props.setIsAdmin(e);
