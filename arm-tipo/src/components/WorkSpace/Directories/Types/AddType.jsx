@@ -21,7 +21,8 @@ const AddType = (props) => {
 
     const addType = (values) => {
         console.log('Received values of form: ', values);
-        props.addType();
+
+        props.postType(fromState);
     };
 
     const changeNameRu = () => {

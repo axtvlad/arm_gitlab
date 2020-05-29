@@ -6,7 +6,7 @@ import AppHeader from "./AppHeader";
 class AppHeaderContainer extends React.Component {
     render() {
         return (
-            <AppHeader isAdmin={this.props.isAdmin} setIsAdmin={this.props.setIsAdmin}/>
+            <AppHeader {...this.props}/>
         )
     }
 }
@@ -19,6 +19,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        setIsAdmin,
+        setIsAdmin
     }
 )(AppHeaderContainer);

@@ -1,6 +1,7 @@
 import {restAPI} from "../../api/API";
 
 const ADD_TYPE = 'add_type';
+const REMOVE_TYPE = 'remove_type';
 const UPDATE_TYPE_NAME_RU = 'update_type_name_ru';
 const UPDATE_TYPE_NAME_KZ = 'update_type_name_kz';
 const SET_TYPES = 'set_types';
@@ -26,7 +27,7 @@ const TypeReducer = (state = initialState, action) => {
                 newTypeNameRu: '',
                 newTypeNameKz: '',
                 types: [...state.types, {
-                    id: 3,
+                    id: action.id,
                     name_ru: state.newTypeNameRu,
                     name_kz: state.newTypeNameKz,
                 }]
@@ -66,8 +67,14 @@ const TypeReducer = (state = initialState, action) => {
     }
 };
 
-export const addType = () => ({
-    type: ADD_TYPE
+export const addType = (id) => ({
+    type: ADD_TYPE,
+    id
+});
+
+export const removeType = (id) => ({
+    type: REMOVE_TYPE,
+    id
 });
 
 export const updateTypeNameRu = (newNameRu) => ({
@@ -136,6 +143,20 @@ export const deleteTypeById = (id) => (dispatch) => {
     restAPI.types.deleteTypeById(id)
         .then(response => {
             console.info('deleted type: ', response.data);
+
+            dispatch(setTypesIsFetching(false));
+        });
+};
+
+export const postType = (newType) => (dispatch) => {
+
+    dispatch(setTypesIsFetching(true));
+
+    restAPI.types.postType(newType)
+        .then(response => {
+            console.info('posted type: ', response.data);
+
+            dispatch(addType(response.data.id));
 
             dispatch(setTypesIsFetching(false));
         });

@@ -36,10 +36,11 @@ const Directory = (props) => {
             title: t('actions'),
             key: 'action',
             dataIndex: 'actions',
-            render: actions => (
+            render: (action, item) => (
                 <span>
                     <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
-                    <Button style={{margin: '0 5px'}} shape="circle" icon={<DeleteOutlined/>} type={"primary"}/>
+                    <Button style={{margin: '0 5px'}} onClick={() => props.removeItemById(item.id)} shape="circle"
+                            icon={<DeleteOutlined/>} type={"primary"}/>
                 </span>
             )
         }

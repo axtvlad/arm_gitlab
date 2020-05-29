@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {BASE_URL} from "../env";
+import {BASE_URL1} from "../env";
 
 const user = "Admin";
 const pass = "admin";
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL
+    baseURL: BASE_URL1
 });
 
 export const restAPI = {
@@ -31,20 +31,12 @@ export const restAPI = {
             return instance
                 .delete('users/' + id)
                 .then(response => response.data);
-        }
-
-        /*
-        postNewUser(userData) {
+        },
+        postUser(newUser) {
             return instance
-                .post('users', {
-                        login: 'logidn',
-                        password: 'passwdord',
-                        firstName: 'test',
-                        lastName: 'test',
-                        email: 'testsw@mail.ru'
-                    }
-                )
-        }*/
+                .post('users', newUser)
+                .then(response => response.data)
+        }
     },
 
     categories: {
@@ -61,6 +53,11 @@ export const restAPI = {
         deleteCategoryById(id) {
             return instance
                 .delete('categories/' + id)
+                .then(response => response.data)
+        },
+        postCategory(newCategory) {
+            return instance
+                .post('categories', newCategory)
                 .then(response => response.data)
         }
 
@@ -81,6 +78,11 @@ export const restAPI = {
             return instance
                 .delete('faqs/' + id)
                 .then(response => response.data)
+        },
+        postFaq(newFaq) {
+            return instance
+                .post('faqs', newFaq)
+                .then(response => response.data)
         }
     },
 
@@ -98,6 +100,11 @@ export const restAPI = {
         deleteCityById(id) {
             return instance
                 .delete('cities/' + id)
+                .then(response => response.data)
+        },
+        postCity(newCity) {
+            return instance
+                .post('cities', newCity)
                 .then(response => response.data)
         }
     },
@@ -117,6 +124,11 @@ export const restAPI = {
             return instance
                 .delete('customers/' + id)
                 .then(response => response.data)
+        },
+        postCustomer(newCustomer) {
+            return instance
+                .post('customers', newCustomer)
+                .then(response => response.data)
         }
     },
 
@@ -135,6 +147,11 @@ export const restAPI = {
             return instance
                 .delete('department/' + id)
                 .then(response => response.data)
+        },
+        postDepartment(newDepartment) {
+            return instance
+                .post('department', newDepartment)
+                .then(response => response.data)
         }
     },
 
@@ -143,7 +160,7 @@ export const restAPI = {
             return instance
                 .get('genders')
                 .then(response => response.data)
-        }
+        },
     },
 
     mainDocs: {
@@ -160,6 +177,11 @@ export const restAPI = {
         deleteMainDocById(id) {
             return instance
                 .delete('mainDocs/' + id)
+                .then(response => response.data)
+        },
+        postMainDoc(newMainDoc) {
+            return instance
+                .post('mainDocs', newMainDoc)
                 .then(response => response.data)
         }
     },
@@ -179,6 +201,11 @@ export const restAPI = {
             return instance
                 .delete('roles/' + id)
                 .then(response => response.data)
+        },
+        postRole(newRole) {
+            return instance
+                .post('roles', newRole)
+                .then(response => response.data)
         }
     },
 
@@ -196,6 +223,11 @@ export const restAPI = {
         deleteStatusById(id) {
             return instance
                 .delete('statuses/' + id)
+                .then(response => response.data)
+        },
+        postStatus(newStatus) {
+            return instance
+                .post('statuses', newStatus)
                 .then(response => response.data)
         }
     },
@@ -215,6 +247,11 @@ export const restAPI = {
             return instance
                 .delete('templates/' + id)
                 .then(response => response.data)
+        },
+        postTemplate(newTemplate) {
+            return instance
+                .post('templates', newTemplate)
+                .then(response => response.data)
         }
     },
 
@@ -232,6 +269,11 @@ export const restAPI = {
         deleteTypeById(id) {
             return instance
                 .delete('types/' + id)
+                .then(response => response.data)
+        },
+        postType(newType) {
+            return instance
+                .post('types', newType)
                 .then(response => response.data)
         }
     }

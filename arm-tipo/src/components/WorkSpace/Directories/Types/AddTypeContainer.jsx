@@ -1,4 +1,4 @@
-import {addType, updateTypeNameKz, updateTypeNameRu} from "../../../../redux/Reducers/TypeReducer";
+import {postType, updateTypeNameKz, updateTypeNameRu} from "../../../../redux/Reducers/TypeReducer";
 import {connect} from "react-redux";
 import AddType from "./AddType";
 
@@ -10,7 +10,7 @@ let MapStateToProps = (state) => {
 
 const AddTypeContainer = connect(MapStateToProps,
     {
-        addType,
+        postType,
         updateTypeNameRu,
         updateTypeNameKz,
     }

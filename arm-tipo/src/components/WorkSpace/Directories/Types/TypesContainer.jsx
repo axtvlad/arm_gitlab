@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {getTypes} from "../../../../redux/Reducers/TypeReducer";
+import {deleteTypeById, getTypes} from "../../../../redux/Reducers/TypeReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
@@ -16,6 +16,7 @@ class TypesContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.types}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteTypeById}
             />
         )
     }
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getTypes
+        getTypes,
+        deleteTypeById
     }
 )(TypesContainer);
