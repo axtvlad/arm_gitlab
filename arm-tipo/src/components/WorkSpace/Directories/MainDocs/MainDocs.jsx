@@ -5,29 +5,30 @@ import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import word_svg from '../../../../svg/word.svg'
 import {useTranslation} from "react-i18next";
 
-
 const MainDocs = (props) => {
 
     const {t} = useTranslation();
 
-    const menu = (
-        <Menu>
-            <Menu.Item>
-                <a href='/'>
-                    {t('edit')}
-                </a>
-            </Menu.Item>
-            <Menu.Item>
-                <a href='/'>
-                    {t('delete')}
-                </a>
-            </Menu.Item>
-        </Menu>
-    );
-
-    const DropdownMenu = () => {
+    const menu = (id) => {
         return (
-            <Dropdown key="more" overlay={menu}>
+            <Menu>
+                <Menu.Item>
+                    <span>
+                        {t('edit')}
+                    </span>
+                </Menu.Item>
+                <Menu.Item>
+                    <span onClick={() => props.deleteMainDocById(id)}>
+                        {t('delete')}
+                    </span>
+                </Menu.Item>
+            </Menu>
+        )
+    };
+
+    const DropdownMenu = (id) => {
+        return (
+            <Dropdown key="more" overlay={menu(id)}>
                 <Button
                     style={{
                         border: 'none',
@@ -93,7 +94,6 @@ const MainDocs = (props) => {
         );
     };
 
-
     return (
         <div>
             <Spin spinning={props.isFetching}>
@@ -110,7 +110,7 @@ const MainDocs = (props) => {
                                 </div>
                             }
                             extra={[
-                                <DropdownMenu key="more"/>
+                                <DropdownMenu key="more" id={doc.id}/>
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                         >

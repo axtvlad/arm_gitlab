@@ -1,6 +1,20 @@
 import {connect} from "react-redux";
-import {addCity, updateCityNameKz, updateCityNameRu} from "../../../../redux/Reducers/CityReducer";
+import {postCity, updateCityNameKz, updateCityNameRu} from "../../../../redux/Reducers/CityReducer";
 import AddCity from "./AddCity";
+import * as React from "react";
+import {Redirect} from "react-router-dom";
+
+class AddCityContainer extends React.Component {
+    render() {
+        if (this.props.citiesDir.isPosted) {
+            return <Redirect to={'/cities'}/>
+        }
+
+        return (
+            <AddCity {...this.props}/>
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -8,12 +22,10 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddCityContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addCity,
+        postCity,
         updateCityNameRu,
         updateCityNameKz,
     }
-)(AddCity);
-
-export default AddCityContainer;
+)(AddCityContainer);

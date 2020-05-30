@@ -1,26 +1,39 @@
 import React from 'react';
-import {Button, Form, Input,} from 'antd';
+import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-const formItemLayout = {
-    labelCol: {span: 6},
-    wrapperCol: {span: 14},
-};
-
 const AddRole = (props) => {
+
+    const formItemLayout = {
+        labelCol: {span: 6},
+        wrapperCol: {span: 14},
+    };
+
     const [form] = Form.useForm();
 
     let fromState = {
         name_ru: props.rolesDir.newRoleNameRu,
-        name_kz: props.rolesDir.newRoleNameKz};
+        name_kz: props.rolesDir.newRoleNameKz
+    };
 
     console.log(fromState);
 
     form.setFieldsValue(fromState);
 
+    const successfulAdd = (item) => {
+        notification['success']({
+            message: 'Сохранено!',
+            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            placement: 'bottomRight'
+        });
+    };
+
     const addRole = (values) => {
         console.log('Received values of form: ', values);
-        props.addRole();
+
+        props.postRole(fromState);
+
+        successfulAdd(fromState);
     };
 
     const changeNameRu = () => {
@@ -50,7 +63,10 @@ const AddRole = (props) => {
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите наименование роли пользователя на русском языке!'} onChange={changeNameRu}/>
+                    <Input
+                        placeholder={'Введите наименование роли пользователя на русском языке!'}
+                        onChange={changeNameRu}
+                    />
                 </Form.Item>
 
                 <Form.Item

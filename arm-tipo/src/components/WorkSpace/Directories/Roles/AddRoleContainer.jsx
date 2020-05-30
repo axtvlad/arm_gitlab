@@ -1,6 +1,20 @@
 import {connect} from "react-redux";
+import {postRole, updateRoleNameKz, updateRoleNameRu} from "../../../../redux/Reducers/RoleReducer";
 import AddRole from "./AddRole";
-import {addRole, updateRoleNameKz, updateRoleNameRu} from "../../../../redux/Reducers/RoleReducer";
+import React from "react";
+import {Redirect} from "react-router-dom";
+
+class AddRoleContainer extends React.Component {
+    render() {
+        if (this.props.rolesDir.isPosted) {
+            return <Redirect to={'/roles'}/>
+        }
+
+        return (
+            <AddRole {...this.props} />
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -8,12 +22,10 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddRoleContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addRole,
+        postRole,
         updateRoleNameRu,
         updateRoleNameKz,
     }
-)(AddRole);
-
-export default AddRoleContainer;
+)(AddRoleContainer);

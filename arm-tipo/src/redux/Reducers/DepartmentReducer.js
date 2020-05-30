@@ -7,6 +7,8 @@ const SET_DEPARTMENTS = 'set_departments';
 const SET_DEPARTMENTS_COUNT = 'set_departments_count';
 const SET_DEPARTMENTS_IS_FETCHING = 'set_departments_is_fetching';
 const SET_CURRENT_DEPARTMENT = 'set_current_department';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_DEPARTMENT = 'remove_department';
 
 let initialState = {
     departments: [],
@@ -15,6 +17,7 @@ let initialState = {
     departmentsCount: 0,
     isFetching: false,
     currentDepartment: null,
+    isPosted: false,
 };
 
 const DepartmentReducer = (state = initialState, action) => {
@@ -26,10 +29,15 @@ const DepartmentReducer = (state = initialState, action) => {
                 newDepartmentNameRu: '',
                 newDepartmentNameKz: '',
                 departments: [...state.departments, {
-                    id: 4,
+                    id: action.id,
                     name_ru: state.newDepartmentNameRu,
                     name_kz: state.newDepartmentNameKz,
                 }]
+            };
+        case REMOVE_DEPARTMENT:
+            return {
+                ...state,
+                departments: state.departments.filter(department => department.id !== action.id)
             };
         case UPDATE_DEPARTMENT_NAME_RU:
             return {
@@ -61,13 +69,29 @@ const DepartmentReducer = (state = initialState, action) => {
                 ...state,
                 currentDepartment: action.currentDepartment
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addDepartment = () => ({
-    type: ADD_DEPARTMENT
+export const addDepartment = (id) => ({
+    type: ADD_DEPARTMENT,
+    id
+});
+
+export const removeDepartment = (id) => ({
+    type: REMOVE_DEPARTMENT,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateDepartmentNameRu = (newNameRu) => ({
@@ -126,6 +150,26 @@ export const getDepartmentById = (id) => (dispatch) => {
             console.info('department: ', response.data);
 
             dispatch(setDepartmentsIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postDepartment = (newDepartment) => (dispatch) => {
+
+    dispatch(setDepartmentsIsFetching(true));
+
+    restAPI.departments.postDepartment(newDepartment)
+        .then(response => {
+            console.info('posted department: ', response.data);
+
+            dispatch(addDepartment(response.data.id));
+
+            dispatch(setDepartmentsIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -136,6 +180,8 @@ export const deleteDepartmentById = (id) => (dispatch) => {
     restAPI.departments.deleteDepartmentById(id)
         .then(response => {
             console.info('deleted department: ', response.data);
+
+            dispatch(removeDepartment(id));
 
             dispatch(setDepartmentsIsFetching(false));
         });

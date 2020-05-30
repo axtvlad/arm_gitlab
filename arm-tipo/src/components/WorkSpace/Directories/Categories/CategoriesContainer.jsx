@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {getCategories} from "../../../../redux/Reducers/CategoryReducer";
+import {deleteCategoryById, getCategories} from "../../../../redux/Reducers/CategoryReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
@@ -16,6 +16,7 @@ class CategoriesContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.categories}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteCategoryById}
             />
         )
     }
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getCategories
+        getCategories,
+        deleteCategoryById
     }
 )(CategoriesContainer);

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import Templates from "./Templates";
-import {getTemplates} from "../../../../redux/Reducers/TemplateReducer";
+import {deleteTemplateById, getTemplates} from "../../../../redux/Reducers/TemplateReducer";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
@@ -13,11 +13,11 @@ class TemplatesContainer extends React.Component {
             <Templates
                 templates={this.props.templates}
                 isFetching={this.props.isFetching}
+                deleteTemplateById={this.props.deleteTemplateById}
             />
         )
     }
 }
-
 
 let mapStateToProps = (state) => {
     return {
@@ -28,6 +28,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getTemplates
+        getTemplates,
+        deleteTemplateById
     }
 )(TemplatesContainer);

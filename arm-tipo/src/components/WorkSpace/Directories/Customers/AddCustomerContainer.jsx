@@ -1,6 +1,20 @@
 import {connect} from "react-redux";
-import {addCustomer, updateCustomerNameKz, updateCustomerNameRu} from "../../../../redux/Reducers/CustomerReducer";
+import {postCustomer, updateCustomerNameKz, updateCustomerNameRu} from "../../../../redux/Reducers/CustomerReducer";
+import * as React from "react";
 import AddCustomer from "./AddCustomer";
+import {Redirect} from "react-router-dom";
+
+class AddCustomerContainer extends React.Component {
+    render() {
+        if (this.props.customersDir.isPosted) {
+            return <Redirect to={'/customers'}/>
+        }
+
+        return (
+            <AddCustomer {...this.props}/>
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -8,12 +22,10 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddCustomerContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addCustomer,
+        postCustomer,
         updateCustomerNameRu,
         updateCustomerNameKz,
     }
-)(AddCustomer);
-
-export default AddCustomerContainer;
+)(AddCustomerContainer);

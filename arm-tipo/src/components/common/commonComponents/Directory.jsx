@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {Button, Spin, Table} from "antd";
+import {Button, notification, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import React from "react";
 import {useTranslation} from "react-i18next";
@@ -10,6 +10,16 @@ import {GetAddButtonText} from "../utils/AddButtonText";
 
 const Directory = (props) => {
     const {t} = useTranslation();
+
+    const deleteItem = (item) => {
+        props.removeItemById(item.id);
+
+        notification['success']({
+            message: 'Удалено!',
+            description: 'Запись "' + item.name_ru + '" была успешно удалена!',
+            placement: 'bottomRight'
+        });
+    };
 
     /**
      *  Собираем таблицу из 3-х колонок:
@@ -37,11 +47,16 @@ const Directory = (props) => {
             key: 'action',
             dataIndex: 'actions',
             render: (action, item) => (
-                <span>
+                <div>
                     <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
-                    <Button style={{margin: '0 5px'}} onClick={() => props.removeItemById(item.id)} shape="circle"
-                            icon={<DeleteOutlined/>} type={"primary"}/>
-                </span>
+                    <Button
+                        style={{margin: '0 5px'}}
+                        onClick={() => deleteItem(item)}
+                        shape="circle"
+                        icon={<DeleteOutlined/>}
+                        type={"primary"}
+                    />
+                </div>
             )
         }
     ];

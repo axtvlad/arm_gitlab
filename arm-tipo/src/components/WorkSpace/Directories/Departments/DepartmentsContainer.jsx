@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
+import {deleteDepartmentById, getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
@@ -16,6 +16,7 @@ class DepartmentsContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.departments}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteDepartmentById}
             />
         )
     }
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getDepartments
+        getDepartments,
+        deleteDepartmentById
     }
 )(DepartmentsContainer);

@@ -14,7 +14,6 @@ class DisplayStatusContainer extends React.Component {
         }
 
         this.props.getStatusById(id)
-
     }
 
     render() {

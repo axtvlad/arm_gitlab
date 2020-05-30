@@ -1,24 +1,26 @@
-import {Button, Checkbox, DatePicker, Form, Input, Select, Upload} from "antd";
+import {Button, Checkbox, DatePicker, Form, Input, notification, Select, Upload} from "antd";
 import React from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-const {Option} = Select;
-
-const formItemLayout = {
-    labelCol: {span: 6},
-    wrapperCol: {span: 14},
-};
-
-const normFile = e => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e && e.fileList;
-};
-
 const AddUser = (props) => {
+
+    const {Option} = Select;
+
+    const formItemLayout = {
+        labelCol: {span: 6},
+        wrapperCol: {span: 14},
+    };
+
+    const normFile = e => {
+        console.log('Upload event:', e);
+
+        if (Array.isArray(e)) {
+            return e;
+        }
+
+        return e && e.fileList;
+    };
 
     const [form] = Form.useForm();
 
@@ -46,9 +48,20 @@ const AddUser = (props) => {
 
     form.setFieldsValue(fromState);
 
+    const successfulAdd = (item) => {
+        notification['success']({
+            message: 'Сохранено!',
+            description: 'Запись "' + item.firstName + ' ' + item.lastName + '" была успешно добавлена!',
+            placement: 'bottomRight'
+        });
+    };
+
     const saveUser = (values) => {
         console.log('Received values of form: ', values);
-        props.addUser();
+
+        props.postUser(fromState);
+
+        successfulAdd(fromState)
     };
 
     const changeFirstName = () => {
@@ -293,12 +306,12 @@ const AddUser = (props) => {
                     hasFeedback
                 >
                     <Select placeholder={'Выберите пол пользователя!'} onChange={changeGenderId}>
-                        {props.customers.map(customer =>
+                        {props.genders.map(gender =>
                             <Option
-                                key={customer.id}
-                                value={customer.id}
+                                key={gender.id}
+                                value={gender.id}
                             >
-                                {customer.name_ru}
+                                {gender.name_ru}
                             </Option>
                         )}
                     </Select>

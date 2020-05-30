@@ -1,5 +1,6 @@
 import {restAPI} from "../../api/API";
 
+const SET_IS_POSTED = 'set_is_posted';
 const ADD_TYPE = 'add_type';
 const REMOVE_TYPE = 'remove_type';
 const UPDATE_TYPE_NAME_RU = 'update_type_name_ru';
@@ -16,6 +17,7 @@ let initialState = {
     typesCount: 0,
     isFetching: false,
     currentType: null,
+    isPosted: false,
 };
 
 const TypeReducer = (state = initialState, action) => {
@@ -31,6 +33,11 @@ const TypeReducer = (state = initialState, action) => {
                     name_ru: state.newTypeNameRu,
                     name_kz: state.newTypeNameKz,
                 }]
+            };
+        case REMOVE_TYPE:
+            return {
+                ...state,
+                types: state.types.filter(type => type.id !== action.id)
             };
         case UPDATE_TYPE_NAME_RU:
             return {
@@ -62,6 +69,11 @@ const TypeReducer = (state = initialState, action) => {
                 ...state,
                 currentType: action.currentType
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted,
+            };
         default:
             return state;
     }
@@ -75,6 +87,11 @@ export const addType = (id) => ({
 export const removeType = (id) => ({
     type: REMOVE_TYPE,
     id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateTypeNameRu = (newNameRu) => ({
@@ -144,6 +161,8 @@ export const deleteTypeById = (id) => (dispatch) => {
         .then(response => {
             console.info('deleted type: ', response.data);
 
+            dispatch(removeType(id));
+
             dispatch(setTypesIsFetching(false));
         });
 };
@@ -159,6 +178,9 @@ export const postType = (newType) => (dispatch) => {
             dispatch(addType(response.data.id));
 
             dispatch(setTypesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 

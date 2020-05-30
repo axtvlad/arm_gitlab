@@ -1,25 +1,27 @@
 import React from 'react';
-import {Button, DatePicker, Form, Input, Select, Upload,} from 'antd';
+import {Button, DatePicker, Form, Input, notification, Select, Upload,} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-const {Option} = Select;
-const {RangePicker} = DatePicker;
-
-const formItemLayout = {
-    labelCol: {span: 6},
-    wrapperCol: {span: 14},
-};
-
-const normFile = e => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e && e.fileList;
-};
-
 const AddMainDoc = (props) => {
+
+    const {Option} = Select;
+    const {RangePicker} = DatePicker;
+
+    const formItemLayout = {
+        labelCol: {span: 6},
+        wrapperCol: {span: 14},
+    };
+
+    const normFile = e => {
+        console.log('Upload event:', e);
+
+        if (Array.isArray(e)) {
+            return e;
+        }
+
+        return e && e.fileList;
+    };
 
     const [form] = Form.useForm();
 
@@ -47,33 +49,45 @@ const AddMainDoc = (props) => {
 
     form.setFieldsValue(fromState);
 
+    const successfulAdd = (item) => {
+        notification['success']({
+            message: 'Сохранено!',
+            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            placement: 'bottomRight'
+        });
+    };
+
     const saveDoc = (values) => {
-        props.changeMainDocPubDate();
+        props.updateMainDocPubDate();
+
         console.log('Received values of form: ', values);
-        props.addMainDoc();
+
+        props.postMainDoc(fromState);
+
+        successfulAdd(fromState);
     };
 
     const changeNumber = () => {
         const number = form.getFieldValue().number;
-        props.changeMainDocNumber(number);
+        props.updateMainDocNumber(number);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.changeMainDocNameRu(name_ru);
+        props.updateMainDocNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.changeMainDocNameKz(name_kz);
+        props.updateMainDocNameKz(name_kz);
     };
 
     const changeDepartmentId = (department_id) => {
-        props.changeMainDocDepartmentId(department_id);
+        props.updateMainDocDepartmentId(department_id);
     };
 
     const changeStatusId = (status_id) => {
-        props.changeMainDocStatusId(status_id);
+        props.updateMainDocStatusId(status_id);
     };
 
     const changeBeginAndFinishDate = () => {
@@ -104,53 +118,53 @@ const AddMainDoc = (props) => {
         console.log('begin_date: ' + begin_date);
         console.log('finish_date: ' + finish_date);
 
-        props.changeMainDocBeginDate(begin_date);
-        props.changeMainDocFinishDate(begin_date);
+        props.updateMainDocBeginDate(begin_date);
+        props.updateMainDocFinishDate(begin_date);
     };
 
     const changeHeaderRu = () => {
         const header_ru = form.getFieldValue().header_ru;
-        props.changeMainDocHeaderRu(header_ru);
+        props.updateMainDocHeaderRu(header_ru);
     };
 
     const changeHeaderKz = () => {
         const header_kz = form.getFieldValue().header_kz;
-        props.changeMainDocHeaderKz(header_kz);
+        props.updateMainDocHeaderKz(header_kz);
     };
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
-        props.changeMainDocFileRu(file_ru);
+        props.updateMainDocFileRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
-        props.changeMainDocFileKz(file_kz);
+        props.updateMainDocFileKz(file_kz);
     };
 
     const changeDescriptionRu = () => {
         const description_ru = form.getFieldValue().description_ru;
-        props.changeMainDocDescriptionRu(description_ru);
+        props.updateMainDocDescriptionRu(description_ru);
     };
 
     const changeDescriptionKz = () => {
         const description_kz = form.getFieldValue().description_kz;
-        props.changeMainDocDescriptionKz(description_kz);
+        props.updateMainDocDescriptionKz(description_kz);
     };
 
     const changeTextRu = () => {
         const text_ru = form.getFieldValue().text_ru;
-        props.changeMainDocTextRu(text_ru);
+        props.updateMainDocTextRu(text_ru);
     };
 
     const changeTextKz = () => {
         const text_kz = form.getFieldValue().text_kz;
-        props.changeMainDocTextKz(text_kz);
+        props.updateMainDocTextKz(text_kz);
     };
 
     const changeTypeId = () => {
         const type_id = form.getFieldValue().type_id;
-        props.changeMainDocTypeId(type_id);
+        props.updateMainDocTypeId(type_id);
     };
 
     return (

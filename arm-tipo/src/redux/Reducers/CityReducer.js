@@ -7,6 +7,8 @@ const SET_CITIES = 'set_cities';
 const SET_CITIES_COUNT = 'set_cities_count';
 const SET_CITIES_IS_FETCHING = 'set_cities_is_fetching';
 const SET_CURRENT_CITY = 'set_current_city';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_CITY = 'remove_city';
 
 let initialState = {
     cities: [],
@@ -15,6 +17,7 @@ let initialState = {
     citiesCount: 0,
     isFetching: false,
     currentCity: null,
+    isPosted: false,
 };
 
 const CityReducer = (state = initialState, action) => {
@@ -26,10 +29,15 @@ const CityReducer = (state = initialState, action) => {
                 newCityNameRu: '',
                 newCityNameKz: '',
                 cities: [...state.cities, {
-                    id: 3,
+                    id: action.id,
                     name_ru: state.newCityNameRu,
                     name_kz: state.newCityNameKz,
                 }]
+            };
+        case REMOVE_CITY:
+            return {
+                ...state,
+                cities: state.cities.filter(city => city.id !== action.id)
             };
         case UPDATE_CITY_NAME_RU:
             return {
@@ -61,14 +69,29 @@ const CityReducer = (state = initialState, action) => {
                 ...state,
                 currentCity: action.currentCity
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
+export const addCity = (id) => ({
+    type: ADD_CITY,
+    id
+});
 
-export const addCity = () => ({
-    type: ADD_CITY
+export const removeCity = (id) => ({
+    type: REMOVE_CITY,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateCityNameRu = (newNameRu) => ({
@@ -127,6 +150,26 @@ export const getCityById = (id) => (dispatch) => {
             console.info('city: ', response.data);
 
             dispatch(setCitiesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postCity = (newCity) => (dispatch) => {
+
+    dispatch(setCitiesIsFetching(true));
+
+    restAPI.cities.postCity(newCity)
+        .then(response => {
+            console.info('posted city: ', response.data);
+
+            dispatch(addCity(response.data.id));
+
+            dispatch(setCitiesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -137,6 +180,8 @@ export const deleteCityById = (id) => (dispatch) => {
     restAPI.cities.deleteCityById(id)
         .then(response => {
             console.info('deleted city: ', response.data);
+
+            dispatch(removeCity(id));
 
             dispatch(setCitiesIsFetching(false));
         });

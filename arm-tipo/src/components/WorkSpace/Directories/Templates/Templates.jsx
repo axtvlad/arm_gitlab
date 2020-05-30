@@ -32,7 +32,6 @@ const Templates = (props) => {
         );
     };
 
-
     const DropdownMenu = () => {
         return (
             <Dropdown key="more" overlay={menu}>
@@ -67,15 +66,6 @@ const Templates = (props) => {
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                         >
                             <Content>
-                               {/* <Descriptions column={1} style={{textAlign: "left", marginTop: 20}}>
-                                    <Descriptions.Item label={'Заголовок документа'}>
-                                        {doc.header_ru}
-                                    </Descriptions.Item>
-                                    <Descriptions.Item label={'Дата публикации'}>
-                                        {doc.pub_date}
-                                    </Descriptions.Item>
-                                </Descriptions>*/}
-
                                 <div style={{textAlign: 'left'}}>
                                     <Button
                                         style={{marginTop: 20, marginRight: 10}}

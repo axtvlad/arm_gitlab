@@ -22,6 +22,8 @@ const SET_MAIN_DOCS = 'set_main_docs';
 const SET_MAIN_DOCS_COUNT = 'set_main_docs_count';
 const SET_MAIN_DOCS_IS_FETCHING = 'set_main_docs_is_fetching';
 const SET_CURRENT_MAIN_DOC = 'set_current_main_doc';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_MAIN_DOC = 'remove_main_doc';
 
 let initialState = {
     mainDocs: [
@@ -125,6 +127,7 @@ let initialState = {
     newMainDocTextKz: '',
     mainDocsCount: 0,
     isFetching: false,
+    isPosted: false,
 };
 
 const dateNow = () => {
@@ -165,7 +168,7 @@ const MainDocReducer = (state = initialState, action) => {
                 newMainDocTextRu: '',
                 newMainDocTextKz: '',
                 mainDocs: [...state.mainDocs, {
-                    id: 5,
+                    id: action.id,
                     number: state.newMainDocNumber,
                     department_id: state.newMainDocDepartmentId,
                     status_id: state.newMainDocStatusId,
@@ -184,6 +187,11 @@ const MainDocReducer = (state = initialState, action) => {
                     text_ru: state.newMainDocTextRu,
                     text_kz: state.newMainDocTextKz,
                 }],
+            };
+        case REMOVE_MAIN_DOC:
+            return {
+                ...state,
+                mainDocs: state.mainDocs.filter(mainDoc => mainDoc.id !== action.id)
             };
         case UPDATE_MAIN_DOC_NAME_RU:
             return {
@@ -291,14 +299,30 @@ const MainDocReducer = (state = initialState, action) => {
                 ...state,
                 currentMainDoc: action.currentMainDoc
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
 
-export const addMainDoc = () => ({
-    type: ADD_MAIN_DOC
+export const addMainDoc = (id) => ({
+    type: ADD_MAIN_DOC,
+    id
+});
+
+export const removeMainDoc = (id) => ({
+    type: REMOVE_MAIN_DOC,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateMainDocNameRu = (newNameRu) => ({
@@ -434,8 +458,28 @@ export const getMainDocById = (id) => {
                 console.info('mainDoc: ', response.data);
 
                 dispatch(setMainDocsIsFetching(false));
+
+                dispatch(setIsPosted(true));
+                dispatch(setIsPosted(false));
             });
     }
+};
+
+export const postMainDoc = (newMainDoc) => (dispatch) => {
+
+    dispatch(setMainDocsIsFetching(true));
+
+    restAPI.mainDocs.postMainDoc(newMainDoc)
+        .then(response => {
+            console.info('posted mainDoc: ', response.data);
+
+            dispatch(addMainDoc(response.data.id));
+
+            dispatch(setMainDocsIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
 };
 
 export const deleteMainDocById = (id) => (dispatch) => {
@@ -445,6 +489,8 @@ export const deleteMainDocById = (id) => (dispatch) => {
     restAPI.mainDocs.deleteMainDocById(id)
         .then(response => {
             console.info('deleted mainDoc: ', response.data);
+
+            dispatch(removeMainDoc(id));
 
             dispatch(setMainDocsIsFetching(false));
         });

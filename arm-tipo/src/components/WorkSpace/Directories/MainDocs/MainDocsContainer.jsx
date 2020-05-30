@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import MainDocs from "./MainDocs";
-import {getMainDocs} from "../../../../redux/Reducers/MainDocReducer";
+import {deleteMainDocById, getMainDocs} from "../../../../redux/Reducers/MainDocReducer";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
@@ -13,6 +13,7 @@ class MainDocsContainer extends React.Component {
             <MainDocs
                 mainDocs={this.props.mainDocs}
                 isFetching={this.props.isFetching}
+                deleteMainDocById={this.props.deleteMainDocById}
             />
         )
     }
@@ -27,6 +28,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getMainDocs
+        getMainDocs,
+        deleteMainDocById
     }
 )(MainDocsContainer);

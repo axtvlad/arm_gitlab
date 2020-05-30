@@ -1,26 +1,24 @@
 import React from 'react';
-import {Button, Form, Input, Select, Upload} from "antd";
+import {Button, Form, Input, notification, Select, Upload} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-
-const {Option} = Select;
-
-const formItemLayout = {
-    labelCol: {span: 6},
-    wrapperCol: {span: 14},
-};
-
-
-const normFile = e => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e && e.fileList;
-};
-
 const AddTemplate = (props) => {
+
+    const {Option} = Select;
+
+    const formItemLayout = {
+        labelCol: {span: 6},
+        wrapperCol: {span: 14},
+    };
+
+    const normFile = e => {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
 
     const [form] = Form.useForm();
 
@@ -36,33 +34,44 @@ const AddTemplate = (props) => {
 
     form.setFieldsValue(fromState);
 
+    const successfulAdd = (item) => {
+        notification['success']({
+            message: 'Сохранено!',
+            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            placement: 'bottomRight'
+        });
+    };
+
     const changeCategoryId = (category_id) => {
-        props.changeTemplateCategorytId(category_id);
+        props.updateTemplateCategoryId(category_id);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.changeTemplateNameRu(name_ru);
+        props.updateTemplateNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.changeTemplateNameKz(name_kz);
+        props.updateTemplateNameKz(name_kz);
     };
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
-        props.changeTemplateRu(file_ru);
+        props.updateTemplateFileNameRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
-        props.changeTemplateFileKz(file_kz);
+        props.updateTemplateFileNameKz(file_kz);
     };
 
     const saveDoc = (values) => {
         console.log('Received values of form: ', values);
-        props.addTemplate();
+
+        props.postTemplate(fromState);
+
+        successfulAdd(fromState);
     };
 
     return (
@@ -144,5 +153,6 @@ const AddTemplate = (props) => {
             </Form>
         </div>
     )
-}
+};
+
 export default AddTemplate;

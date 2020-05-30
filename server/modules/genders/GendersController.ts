@@ -13,7 +13,6 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestGendersCreate {
-    num: number;
     name_ru: string;
     name_kz: string;
 }
@@ -33,13 +32,7 @@ export default new class GendersController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestGendersCreate>rest.getBody();
 
-            if (!bodyParams.num) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: 'Name_ru parameter not passed`'
-                });
-            } else if (!bodyParams.name_ru) {
+            if (!bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
@@ -60,8 +53,6 @@ export default new class GendersController {
 
             const existGender = await getManager().getRepository(Genders).findOne({
                 where: [{
-                    num: bodyParams.num
-                }, {
                     name_kz: bodyParams.name_kz
                 }, {
                     name_ru: bodyParams.name_ru

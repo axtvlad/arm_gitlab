@@ -22,6 +22,8 @@ const SET_USERS = 'set_users';
 const SET_USERS_COUNT = 'set_users_count';
 const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
 const SET_CURRENT_USER = 'set_current_user';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_USER = 'remove_user';
 // Временное решение
 const SET_IS_ADMIN = 'set_is_admin';
 
@@ -48,6 +50,7 @@ let initialState = {
     isFetching: false,
     currentUser: null,
     isAdmin: false,
+    isPosted: false,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -73,7 +76,7 @@ const UserReducer = (state = initialState, action) => {
                 newUserIsPremium: false,
                 newUserIsBanned: false,
                 users: [...state.users, {
-                    id: 2,
+                    id: action.id,
                     firstName: action.newUserFirstName,
                     lastName: action.newUserLastName,
                     patronymic: action.newUserPatronymic,
@@ -92,6 +95,11 @@ const UserReducer = (state = initialState, action) => {
                     isPremium: action.newUserIsPremium,
                     isBanned: action.newUserIsBanned,
                 }],
+            };
+        case REMOVE_USER:
+            return {
+                ...state,
+                users: state.users.filter(user => user.id !== action.id)
             };
         case UPDATE_USER_FIRSTNAME:
             return {
@@ -203,13 +211,29 @@ const UserReducer = (state = initialState, action) => {
                 ...state,
                 isAdmin: action.isAdmin
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addUser = () => ({
-    type: ADD_USER
+export const addUser = (id) => ({
+    type: ADD_USER,
+    id
+});
+
+export const removeUser = (id) => ({
+    type: REMOVE_USER,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateUserFirstName = (newFirstName) => ({
@@ -351,6 +375,23 @@ export const getUserById = (id) => (dispatch) => {
         });
 };
 
+export const postUser = (newUser) => (dispatch) => {
+
+    dispatch(setUsersIsFetching(true));
+
+    restAPI.users.postUser(newUser)
+        .then(response => {
+            console.info('posted user: ', response.data);
+
+            dispatch(addUser(response.data.id));
+
+            dispatch(setUsersIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
 export const deleteUserById = (id) => (dispatch) => {
 
     dispatch(setUsersIsFetching(true));
@@ -358,6 +399,8 @@ export const deleteUserById = (id) => (dispatch) => {
     restAPI.users.deleteUserById(id)
         .then(response => {
             console.info('deleted user: ', response.data);
+
+            dispatch(removeUser(id));
 
             dispatch(setUsersIsFetching(false));
         });

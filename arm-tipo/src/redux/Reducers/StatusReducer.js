@@ -7,6 +7,8 @@ const SET_STATUSES = 'set_statuses';
 const SET_STATUSES_COUNT = 'set_statuses_count';
 const SET_STATUSES_IS_FETCHING = 'set_statuses_is_fetching';
 const SET_CURRENT_STATUS = 'set_current_status';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_STATUS = 'remove_status';
 
 let initialState = {
     statuses: [],
@@ -15,6 +17,7 @@ let initialState = {
     statusesCount: 0,
     isFetching: false,
     currentStatus: null,
+    isPosted: false,
 };
 
 const StatusReducer = (state = initialState, action) => {
@@ -26,10 +29,15 @@ const StatusReducer = (state = initialState, action) => {
                 newStatusNameRu: '',
                 newStatusNameKz: '',
                 statuses: [...state.statuses, {
-                    id: 4,
+                    id: action.id,
                     name_ru: state.newStatusNameRu,
                     name_kz: state.newStatusNameKz,
                 }]
+            };
+        case REMOVE_STATUS:
+            return {
+                ...state,
+                statuses: state.statuses.filter(status => status.id !== action.id)
             };
         case UPDATE_STATUS_NAME_RU:
             return {
@@ -61,13 +69,29 @@ const StatusReducer = (state = initialState, action) => {
                 ...state,
                 currentStatus: action.currentStatus
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addStatus = () => ({
-    type: ADD_STATUS
+export const addStatus = (id) => ({
+    type: ADD_STATUS,
+    id
+});
+
+export const removeStatus = (id) => ({
+    type: REMOVE_STATUS,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateStatusNameRu = (newNameRu) => ({
@@ -127,6 +151,26 @@ export const getStatusById = (id) => (dispatch) => {
             console.info('status: ', response.data);
 
             dispatch(setStatusesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postStatus = (newStatus) => (dispatch) => {
+
+    dispatch(setStatusesIsFetching(true));
+
+    restAPI.statuses.postStatus(newStatus)
+        .then(response => {
+            console.info('posted status: ', response.data);
+
+            dispatch(addStatus(response.data.id));
+
+            dispatch(setStatusesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -137,6 +181,8 @@ export const deleteStatusById = (id) => (dispatch) => {
     restAPI.statuses.deleteStatusById(id)
         .then(response => {
             console.info('deleted status: ', response.data);
+
+            dispatch(removeStatus(id));
 
             dispatch(setStatusesIsFetching(false));
         });

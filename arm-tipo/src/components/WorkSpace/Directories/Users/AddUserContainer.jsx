@@ -1,5 +1,5 @@
 import {
-    addUser,
+    postUser,
     updateUserBirthAt,
     updateUserCityId,
     updateUserCustomerId,
@@ -25,15 +25,24 @@ import {getRoles} from "../../../../redux/Reducers/RoleReducer";
 import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 import {getCities} from "../../../../redux/Reducers/CityReducer";
 import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
+import {Redirect} from "react-router-dom";
 
 class AddUserContainer extends React.Component {
     componentDidMount() {
-        if (this.props.roles.length === 0) {
+        !this.props.roles.length && this.props.getRoles();
 
-        }
+        !this.props.customers.length && this.props.getCustomers();
+
+        !this.props.genders.length && this.props.getGenders();
+
+        !this.props.cities.length && this.props.getCities();
     }
 
     render() {
+        if (this.props.usersDir.isPosted) {
+            return <Redirect to={'/users'}/>
+        }
+
         return (
             <AddUser {...this.props}/>
         )
@@ -52,7 +61,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        addUser,
+        postUser,
         updateUserFirstName,
         updateUserLastName,
         updateUserPatronymic,

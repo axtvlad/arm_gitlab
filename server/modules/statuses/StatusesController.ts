@@ -11,10 +11,8 @@ import {
     ERROR_CODE_STATUS_WITH_NAME_RU_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
-import {OtherDocs} from "../other_docs/OtherDocsModel";
 
 interface IRestStatusesCreate {
-    num: number;
     name_ru: string;
     name_kz: string;
 }
@@ -34,13 +32,7 @@ export default new class StatusesController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestStatusesCreate>rest.getBody();
 
-            if (!bodyParams.num) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUM',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: req.__('PASSED_PARAM_NUM')
-                });
-            } else if (!bodyParams.name_ru) {
+            if (!bodyParams.name_ru) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
@@ -61,8 +53,6 @@ export default new class StatusesController {
 
             const existStatus = await getManager().getRepository(Statuses).findOne({
                 where: [{
-                    num: bodyParams.num
-                }, {
                     name_kz: bodyParams.name_kz
                 }, {
                     name_ru: bodyParams.name_ru

@@ -7,6 +7,8 @@ const SET_CUSTOMERS = 'set_customers';
 const SET_CUSTOMERS_COUNT = 'set_customers_count';
 const SET_CUSTOMERS_IS_FETCHING = 'set_categories_is_fetching';
 const SET_CURRENT_CUSTOMER = 'set_current_customer';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_CUSTOMER = 'remove_customer';
 
 let initialState = {
     customers: [],
@@ -15,6 +17,7 @@ let initialState = {
     customersCount: 0,
     isFetching: false,
     currentCustomer: null,
+    isPosted: false,
 };
 
 const CustomerReducer = (state = initialState, action) => {
@@ -26,10 +29,15 @@ const CustomerReducer = (state = initialState, action) => {
                 newCustomerNameRu: '',
                 newCustomerNameKz: '',
                 customers: [...state.customers, {
-                    id: 2,
+                    id: action.id,
                     name_ru: state.newCustomerNameRu,
                     name_kz: state.newCustomerNameKz,
                 }]
+            };
+        case REMOVE_CUSTOMER:
+            return {
+                ...state,
+                customers: state.customers.filter(customer => customer.id !== action.id)
             };
         case UPDATE_CUSTOMER_NAME_RU:
             return {
@@ -61,13 +69,29 @@ const CustomerReducer = (state = initialState, action) => {
                 ...state,
                 currentCustomer: action.currentCustomer
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addCustomer = () => ({
-    type: ADD_CUSTOMER
+export const addCustomer = (id) => ({
+    type: ADD_CUSTOMER,
+    id
+});
+
+export const removeCustomer = (id) => ({
+    type: REMOVE_CUSTOMER,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateCustomerNameRu = (newNameRu) => ({
@@ -126,6 +150,26 @@ export const getCustomerById = (id) => (dispatch) => {
             console.info('customer: ', response.data);
 
             dispatch(setCustomersIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postCustomer = (newCustomer) => (dispatch) => {
+
+    dispatch(setCustomersIsFetching(true));
+
+    restAPI.customers.postCustomer(newCustomer)
+        .then(response => {
+            console.info('posted customer: ', response.data);
+
+            dispatch(addCustomer(response.data.id));
+
+            dispatch(setCustomersIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -136,6 +180,8 @@ export const deleteCustomerById = (id) => (dispatch) => {
     restAPI.customers.deleteCustomerById(id)
         .then(response => {
             console.info('deleted department: ', response.data);
+
+            dispatch(removeCustomer(id));
 
             dispatch(setCustomersIsFetching(false));
         });

@@ -1,10 +1,24 @@
 import {connect} from "react-redux";
 import AddDepartment from "./AddDepartment";
 import {
-    addDepartment,
+    postDepartment,
     updateDepartmentNameKz,
     updateDepartmentNameRu
 } from "../../../../redux/Reducers/DepartmentReducer";
+import React from "react";
+import {Redirect} from "react-router-dom";
+
+class AddDepartmentContainer extends React.Component {
+    render() {
+        if (this.props.departmentsDir.isPosted) {
+            return <Redirect to={'/departments'}/>
+        }
+
+        return (
+            <AddDepartment {...this.props}/>
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -12,12 +26,10 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddDepartmentContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addDepartment,
+        postDepartment,
         updateDepartmentNameRu,
         updateDepartmentNameKz,
     }
-)(AddDepartment);
-
-export default AddDepartmentContainer;
+)(AddDepartmentContainer);

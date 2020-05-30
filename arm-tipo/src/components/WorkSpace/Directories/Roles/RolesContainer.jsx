@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {getRoles} from "../../../../redux/Reducers/RoleReducer";
+import {deleteRoleById, getRoles} from "../../../../redux/Reducers/RoleReducer";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
@@ -16,6 +16,7 @@ class RolesContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.roles}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteRoleById}
             />
         )
     }
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getRoles
+        getRoles,
+        deleteRoleById
     }
 )(RolesContainer);

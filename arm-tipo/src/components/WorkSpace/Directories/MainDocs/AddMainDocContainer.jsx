@@ -1,7 +1,6 @@
-import AddMainDoc from "./AddMainDoc";
 import {connect} from "react-redux";
 import {
-    addMainDoc,
+    postMainDoc,
     updateMainDocBeginDate,
     updateMainDocDepartmentId,
     updateMainDocDescriptionKz,
@@ -20,6 +19,32 @@ import {
     updateMainDocTextRu,
     updateMainDocTypeId
 } from "../../../../redux/Reducers/MainDocReducer";
+import {getTypes} from "../../../../redux/Reducers/TypeReducer";
+import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
+import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
+import AddMainDoc from "./AddMainDoc";
+import React from "react";
+import {Redirect} from "react-router-dom";
+
+class AddMainDocContainer extends React.Component {
+    componentDidMount() {
+        !this.props.types.length && this.props.getTypes();
+
+        !this.props.departments.length && this.props.getDepartments();
+
+        !this.props.statuses.length && this.props.getStatuses();
+    }
+
+    render() {
+        if (this.props.mainDocsDir.isPosted) {
+            return <Redirect to={'/mainDocs'}/>
+        }
+
+        return (
+            <AddMainDoc {...this.props} />
+        )
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
@@ -30,9 +55,12 @@ let mapStateToProps = (state) => {
     }
 };
 
-const AddMainDocContainer = connect(mapStateToProps,
+export default connect(mapStateToProps,
     {
-        addMainDoc,
+        postMainDoc,
+        getTypes,
+        getDepartments,
+        getStatuses,
         updateMainDocNumber,
         updateMainDocNameRu,
         updateMainDocNameKz,
@@ -51,6 +79,4 @@ const AddMainDocContainer = connect(mapStateToProps,
         updateMainDocTextRu,
         updateMainDocTextKz,
     }
-)(AddMainDoc);
-
-export default AddMainDocContainer;
+)(AddMainDocContainer);

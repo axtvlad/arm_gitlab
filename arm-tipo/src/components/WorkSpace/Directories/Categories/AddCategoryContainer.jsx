@@ -1,6 +1,15 @@
 import {connect} from "react-redux";
 import AddCategory from "./AddCategory";
-import {addCategory, updateCategoryNameKz, updateCategoryNameRu} from "../../../../redux/Reducers/CategoryReducer";
+import {postCategory, updateCategoryNameKz, updateCategoryNameRu} from "../../../../redux/Reducers/CategoryReducer";
+import * as React from "react";
+
+class AddCategoryContainer extends React.Component {
+    render() {
+        return (
+            <AddCategory {...this.props}/>
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -8,12 +17,10 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddCategoryContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addCategory,
+        postCategory,
         updateCategoryNameRu,
         updateCategoryNameKz,
     }
-)(AddCategory);
-
-export default AddCategoryContainer;
+)(AddCategoryContainer);

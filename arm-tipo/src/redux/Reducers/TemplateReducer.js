@@ -10,6 +10,8 @@ const SET_TEMPLATES_IS_FETCHING = 'set_templates_is_fetching';
 const SET_TEMPLATES = 'set_templates';
 const SET_TEMPLATES_COUNT = 'set_templates_count';
 const SET_CURRENT_TEMPLATE = 'set_current_template';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_TEMPLATE = 'remove_template';
 
 let initialState = {
     templates: [
@@ -29,7 +31,8 @@ let initialState = {
     newFileNameKz: '',
     templatesCount: 0,
     category_id: null,
-    currentTemplate: null
+    currentTemplate: null,
+    isPosted: false,
 };
 
 const TemplateReducer = (state = initialState, action) => {
@@ -40,13 +43,18 @@ const TemplateReducer = (state = initialState, action) => {
                 newTemplateNameRu: '',
                 newTemplateNameKz: '',
                 templates: [...state.templates, {
-                    id: 4,
+                    id: action.id,
                     name_ru: state.newFileNameRu,
                     name_kz: state.newFileNameKz,
                     fileName_ru: state.newFileNameRu,
                     fileName_kz: state.newFileNameKz,
                     category_id: state.category_id
                 }]
+            };
+        case REMOVE_TEMPLATE:
+            return {
+                ...state,
+                templates: state.templates.filter(template => template.id !== action.id)
             };
         case UPDATE_TEMPLATE_NAME_RU:
             return {
@@ -93,13 +101,29 @@ const TemplateReducer = (state = initialState, action) => {
                 ...state,
                 currentTemplate: action.currentTemplate
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addTemplate = () => ({
-    type: ADD_TEMPLATE
+export const addTemplate = (id) => ({
+    type: ADD_TEMPLATE,
+    id
+});
+
+export const removeTemplate = (id) => ({
+    type: REMOVE_TEMPLATE,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateTemplateNameRu = (newNameRu) => ({
@@ -112,17 +136,17 @@ export const updateTemplateNameKz = (newNameKz) => ({
     newNameKz
 });
 
-export const updateFileNameRu = (newFileNameRu) => ({
+export const updateTemplateFileNameRu = (newFileNameRu) => ({
     type: UPDATE_FILE_NAME_RU,
     newFileNameRu
 });
 
-export const updateFileNameKz = (newFileNameKz) => ({
+export const updateTemplateFileNameKz = (newFileNameKz) => ({
     type: UPDATE_FILE_NAME_KZ,
     newFileNameKz
 });
 
-export const updateCategoryID = (category_id) => ({
+export const updateTemplateCategoryId = (category_id) => ({
     type: UPDATE_CATEGORY_ID,
     category_id
 });
@@ -176,6 +200,23 @@ export const getTemplateById = (id) => (dispatch) => {
         });
 };
 
+export const postTemplate = (newTemplate) => (dispatch) => {
+
+    dispatch(setTemplatesIsFetching(true));
+
+    restAPI.templates.postTemplate(newTemplate)
+        .then(response => {
+            console.info('posted template: ', response.data);
+
+            dispatch(addTemplate(response.data.id));
+
+            dispatch(setTemplatesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
 export const deleteTemplateById = (id) => (dispatch) => {
 
     dispatch(setTemplatesIsFetching(true));
@@ -183,6 +224,8 @@ export const deleteTemplateById = (id) => (dispatch) => {
     restAPI.templates.deleteTemplateById(id)
         .then(response => {
             console.info('deleted template: ', response.data);
+
+            dispatch(removeTemplate(id));
 
             dispatch(setTemplatesIsFetching(false));
         });

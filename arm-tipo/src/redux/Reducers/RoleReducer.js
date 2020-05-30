@@ -7,6 +7,8 @@ const SET_ROLES = 'set_roles';
 const SET_ROLES_COUNT = 'set_roles_count';
 const SET_ROLES_IS_FETCHING = 'set_roles_is_fetching';
 const SET_CURRENT_ROLE = 'set_current_role';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_ROLE = 'remove_role';
 
 let initialState = {
     roles: [],
@@ -15,6 +17,7 @@ let initialState = {
     rolesCount: 0,
     isFetching: false,
     currentRole: null,
+    isPosted: false,
 };
 
 const RoleReducer = (state = initialState, action) => {
@@ -26,10 +29,15 @@ const RoleReducer = (state = initialState, action) => {
                 newRoleNameRu: '',
                 newRoleNameKz: '',
                 roles: [...state.roles, {
-                    id: 4,
+                    id: action.id,
                     name_ru: state.newRoleNameRu,
                     name_kz: state.newRoleNameKz,
                 }]
+            };
+        case REMOVE_ROLE:
+            return {
+                ...state,
+                roles: state.roles.filter(role => role.id !== action.id)
             };
         case UPDATE_ROLE_NAME_RU:
             return {
@@ -61,13 +69,29 @@ const RoleReducer = (state = initialState, action) => {
                 ...state,
                 currentRole: action.currentRole
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addRole = () => ({
-    type: ADD_ROLE
+export const addRole = (id) => ({
+    type: ADD_ROLE,
+    id
+});
+
+export const removeRole = (id) => ({
+    type: REMOVE_ROLE,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
 });
 
 export const updateRoleNameRu = (newNameRu) => ({
@@ -126,6 +150,26 @@ export const getRoleById = (id) => (dispatch) => {
             console.info('role: ', response.data);
 
             dispatch(setRolesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postRole = (newRole) => (dispatch) => {
+
+    dispatch(setRolesIsFetching(true));
+
+    restAPI.roles.postRole(newRole)
+        .then(response => {
+            console.info('posted role: ', response.data);
+
+            dispatch(addRole(response.data.id));
+
+            dispatch(setRolesIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -136,6 +180,8 @@ export const deleteRoleById = (id) => (dispatch) => {
     restAPI.roles.deleteRoleById(id)
         .then(response => {
             console.info('deleted role: ', response.data);
+
+            dispatch(removeRole(id));
 
             dispatch(setRolesIsFetching(false));
         });

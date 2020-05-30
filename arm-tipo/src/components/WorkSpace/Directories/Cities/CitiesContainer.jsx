@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {getCities} from "../../../../redux/Reducers/CityReducer";
+import {deleteCityById, getCities} from "../../../../redux/Reducers/CityReducer";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
@@ -16,6 +16,7 @@ class CitiesContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.cities}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteCityById}
             />
         )
     }
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getCities
+        getCities,
+        deleteCityById
     }
 )(CitiesContainer);

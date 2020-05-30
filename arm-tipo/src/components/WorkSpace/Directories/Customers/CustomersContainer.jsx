@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
+import {deleteCustomerById, getCustomers} from "../../../../redux/Reducers/CustomerReducer";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -16,11 +16,11 @@ class CustomersContainer extends React.Component {
                 isAdmin={this.props.isAdmin}
                 directory={this.props.customers}
                 isFetching={this.props.isFetching}
+                removeItemById={this.props.deleteCustomerById}
             />
         )
     }
 }
-
 
 let mapStateToProps = (state) => {
     return {
@@ -32,6 +32,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getCustomers
+        getCustomers,
+        deleteCustomerById
     }
 )(CustomersContainer);

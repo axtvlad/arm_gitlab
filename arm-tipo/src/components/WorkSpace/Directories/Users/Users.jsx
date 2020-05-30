@@ -7,10 +7,11 @@ import {GetAddButtonText} from "../../../common/utils/AddButtonText";
 import {useTranslation} from "react-i18next";
 import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
 
-const {Column} = Table;
-
 const Users = (props) => {
     const {t} = useTranslation();
+
+    const {Column} = Table;
+
     return (
         <div className={'content'}>
             <div className={'addButtonBlock'}>

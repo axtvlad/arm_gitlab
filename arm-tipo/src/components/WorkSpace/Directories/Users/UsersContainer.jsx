@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import Users from "./Users";
-import {getUsers} from "../../../../redux/Reducers/UserReducer";
+import {deleteUserById, getUsers} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class UsersContainer extends React.Component {
@@ -15,6 +15,7 @@ class UsersContainer extends React.Component {
                 type={DirectoriesTypes.USERS}
                 users={this.props.users}
                 isFetching={this.props.isFetching}
+                deleteUserById={this.props.deleteUserById}
             />
         )
     }
@@ -29,6 +30,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        getUsers
+        getUsers,
+        deleteUserById
     }
 )(UsersContainer);

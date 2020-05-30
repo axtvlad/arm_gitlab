@@ -1,13 +1,26 @@
 import {connect} from "react-redux";
 import {
-    addFaq,
+    postFaq,
     updateFaqAnswerKz,
     updateFaqAnswerRu,
     updateFaqQuestionKz,
     updateFaqQuestionRu
 } from "../../../../redux/Reducers/FaqReducer";
 import AddFaq from "./AddFaq";
+import {Redirect} from "react-router-dom";
+import React from "react";
 
+class AddFaqContainer extends React.Component {
+    render() {
+        if (this.props.faqsDir.isPosted) {
+            return <Redirect to={'/faqs'}/>
+        }
+
+        return (
+            <AddFaq {...this.props}/>
+        )
+    }
+}
 
 let MapStateToProps = (state) => {
     return {
@@ -15,14 +28,12 @@ let MapStateToProps = (state) => {
     }
 };
 
-const AddFaqContainer = connect(MapStateToProps,
+export default connect(MapStateToProps,
     {
-        addFaq,
+        postFaq,
         updateFaqQuestionRu,
         updateFaqQuestionKz,
         updateFaqAnswerRu,
         updateFaqAnswerKz,
     }
-)(AddFaq);
-
-export default AddFaqContainer;
+)(AddFaqContainer);

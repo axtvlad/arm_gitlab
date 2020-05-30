@@ -9,6 +9,8 @@ const SET_FAQS = 'set_faqs';
 const SET_FAQS_COUNT = 'set_faqs_count';
 const SET_FAQS_IS_FETCHING = 'set_faqs_is_fetching';
 const SET_CURRENT_FAQ = 'set_current_faq';
+const SET_IS_POSTED = 'set_is_posted';
+const REMOVE_FAQ = 'remove_faq';
 
 let initialState = {
     faqs: [
@@ -23,6 +25,7 @@ let initialState = {
     faqsCount: 0,
     isFetching: false,
     currentFaq: null,
+    isPosted: false,
 };
 
 const FaqReducer = (state = initialState, action) => {
@@ -36,12 +39,17 @@ const FaqReducer = (state = initialState, action) => {
                 newFaqAnswerRu: '',
                 newFaqAnswerKz: '',
                 faqs: [...state.faqs, {
-                    id: 4,
+                    id: action.id,
                     question_ru: state.newFaqQuestionRu,
                     question_kz: state.newFaqQuestionKz,
                     answer_ru: state.newFaqAnswerRu,
                     answer_kz: state.newFaqAnswerKz
                 }]
+            };
+        case REMOVE_FAQ:
+            return {
+                ...state,
+                faqs: state.faqs.filter(faq => faq.id !== action.id)
             };
         case UPDATE_FAQ_QUESTION_RU:
             return {
@@ -83,13 +91,29 @@ const FaqReducer = (state = initialState, action) => {
                 ...state,
                 currentFaq: action.currentFaq
             };
+        case SET_IS_POSTED:
+            return {
+                ...state,
+                isPosted: action.isPosted
+            };
         default:
             return state;
     }
 };
 
-export const addFaq = () => ({
-    type: ADD_FAQ
+export const addFaq = (id) => ({
+    type: ADD_FAQ,
+    id
+});
+
+export const setIsPosted = (isPosted) => ({
+    type: SET_IS_POSTED,
+    isPosted
+});
+
+export const removeFaq = (id) => ({
+    type: REMOVE_FAQ,
+    id
 });
 
 export const updateFaqQuestionRu = (newFaqQuestionRu) => ({
@@ -158,6 +182,26 @@ export const getFaqById = (id) => (dispatch) => {
             console.info('faq: ', response.data);
 
             dispatch(setFaqsIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
+        });
+};
+
+export const postFaq = (newFaq) => (dispatch) => {
+
+    dispatch(setFaqsIsFetching(true));
+
+    restAPI.faqs.postFaq(newFaq)
+        .then(response => {
+            console.info('posted faq: ', response.data);
+
+            dispatch(addFaq(response.data.id));
+
+            dispatch(setFaqsIsFetching(false));
+
+            dispatch(setIsPosted(true));
+            dispatch(setIsPosted(false));
         });
 };
 
@@ -168,6 +212,8 @@ export const deleteFaqById = (id) => (dispatch) => {
     restAPI.faqs.deleteFaqById(id)
         .then(response => {
             console.info('deleted faq: ', response.data);
+
+            dispatch(removeFaq(id));
 
             dispatch(setFaqsIsFetching(false));
         });

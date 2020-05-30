@@ -4,9 +4,10 @@ import {Button, Collapse, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {useTranslation} from "react-i18next";
 
-const {Panel} = Collapse;
-
 const Faqs = (props) => {
+
+    const {Panel} = Collapse;
+
     const {t} = useTranslation();
 
     return (

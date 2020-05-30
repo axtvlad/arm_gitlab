@@ -1,12 +1,34 @@
-import AddTemplate from "./AddTemplate";
 import {
-    addTemplate,
-    updateCategoryID,
-    updateFileNameKz,
-    updateFileNameRu,
-    updateTemplateNameKz, updateTemplateNameRu
+    deleteTemplateById,
+    postTemplate,
+    updateTemplateCategoryId,
+    updateTemplateFileNameKz,
+    updateTemplateFileNameRu,
+    updateTemplateNameKz,
+    updateTemplateNameRu
 } from "../../../../redux/Reducers/TemplateReducer";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import React from "react";
+import AddTemplate from "./AddTemplate";
+import {getCategories} from "../../../../redux/Reducers/CategoryReducer";
+
+class AddTemplateContainer extends React.Component {
+    componentDidMount() {
+        !this.props.categories.length && this.props.getCategories();
+    }
+
+    render() {
+        if (this.props.templatesDir.isPosted) {
+            return <Redirect to={'/templates'}/>
+        }
+
+        return (
+            <AddTemplate {...this.props}/>
+        )
+    }
+}
+
 
 let mapStateToProps = (state) => {
     return {
@@ -15,14 +37,14 @@ let mapStateToProps = (state) => {
     }
 };
 
-const AddTemplateContainer = connect(mapStateToProps, {
-    addTemplate,
-    updateTemplateNameRu,
-    updateTemplateNameKz,
-    updateFileNameRu,
-    updateFileNameKz,
-    updateCategoryID
-}
-)(AddTemplate);
-
-export default AddTemplateContainer;
+export default connect(mapStateToProps, {
+        postTemplate,
+        deleteTemplateById,
+        updateTemplateNameRu,
+        updateTemplateNameKz,
+        updateTemplateFileNameRu,
+        updateTemplateFileNameKz,
+        updateTemplateCategoryId,
+        getCategories
+    }
+)(AddTemplateContainer);
