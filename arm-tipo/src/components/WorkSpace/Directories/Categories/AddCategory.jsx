@@ -1,8 +1,11 @@
 import {Button, Form, Input, notification} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 const AddCategory = (props) => {
+
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -56,27 +59,27 @@ const AddCategory = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование категории (ru)'}
+                    label={t('categoryNameRu')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите наименование категории на русском!'
+                        message: t('enterCategoryNameRu') + '!'
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите категорию на русском!'} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterCategoryNameRu')} onChange={changeNameRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование категории (kz)'}
+                    label={t('categoryNameKz')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите категорию на казахском!'
+                        message: t('enterCategoryNameKz') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите категорию на казахском!'}
+                        placeholder={t('enterCategoryNameKz')}
                         onChange={changeNameKz}
                     />
                 </Form.Item>
@@ -88,7 +91,7 @@ const AddCategory = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

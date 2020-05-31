@@ -2,11 +2,13 @@ import React from 'react';
 import {Button, DatePicker, Form, Input, notification, Select, Upload,} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddMainDoc = (props) => {
 
     const {Option} = Select;
     const {RangePicker} = DatePicker;
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -177,20 +179,23 @@ const AddMainDoc = (props) => {
             >
                 <Form.Item
                     name={'number'}
-                    label={'Номер'}
-                    rules={[{required: true, message: 'Пожалуйста, введите номер документа!'}]}
+                    label={t('number')}
+                    rules={[{
+                        required: true,
+                        message: t('enterDocNumber') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите номер документа!'} onChange={changeNumber}/>
+                    <Input placeholder={t('enterDocNumber')} onChange={changeNumber}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'department_id'}
-                    label={'Отдел'}
+                    label={t('department')}
                     hasFeedback
                     rules={[{required: true, message: 'Пожалуйста, выберите отдел!'}]}
                 >
-                    <Select placeholder={'Выберите отдел!'} onChange={changeDepartmentId}>
+                    <Select placeholder={t('chooseDepartment')} onChange={changeDepartmentId}>
                         {props.departments.map(department =>
                             <Option
                                 key={department.id}
@@ -204,9 +209,9 @@ const AddMainDoc = (props) => {
 
                 <Form.Item
                     name={'status_id'}
-                    label={'Статус документа'}
+                    label={t('status')}
                 >
-                    <Select placeholder={'Выберите статус документа'} onChange={changeStatusId} allowClear>
+                    <Select placeholder={t('chooseStatus')} onChange={changeStatusId} allowClear>
                         {props.statuses.map(status =>
                             <Option
                                 key={status.id}
@@ -219,7 +224,7 @@ const AddMainDoc = (props) => {
                 </Form.Item>
 
                 <Form.Item
-                    label={'Срок действия'}
+                    label={t('beginFinishDate')}
                     name={'begin_and_finish_date'}
                 >
                     <RangePicker format={'DD-MM-YYYY'} onChange={changeBeginAndFinishDate}/>
@@ -227,27 +232,33 @@ const AddMainDoc = (props) => {
 
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование (ru)'}
-                    rules={[{required: true, message: 'Пожалуйста, введите наименование документа на русском!'}]}
+                    label={t('docNameRu')}
+                    rules={[{
+                        required: true,
+                        message: t('enterDocNameRu')
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите наименование документа на русском!'} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterDocNameRu')} onChange={changeNameRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование (kz)'}
+                    label={t('docNameKz')}
                 >
-                    <Input placeholder={'Введите наименование документа на казахском!'} onChange={changeNameKz}/>
+                    <Input placeholder={t('enterDocNameKz')} onChange={changeNameKz}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'type_id'}
-                    label={'Тип документа'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите тип документа!'}]}
+                    label={t('type')}
+                    rules={[{
+                        required: true,
+                        message: t('enterType') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите тип документа!'} onChange={changeTypeId}>
+                    <Select placeholder={t('enterType')} onChange={changeTypeId}>
                         {props.types.map(type =>
                             <Option
                                 key={type.id}
@@ -261,71 +272,78 @@ const AddMainDoc = (props) => {
 
                 <Form.Item
                     name={'header_ru'}
-                    label={'Заголовок (ru)'}
+                    label={t('headerRu')}
                     hasFeedback
-                    rules={[{required: true, message: 'Пожалуйста, введите заголовок документа на русском!'}]}
+                    rules={[{
+                        required: true,
+                        message: t('enterHeaderRu') + '!'
+                    }]}
                 >
                     <Input onChange={changeHeaderRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'header_kz'}
-                    label={'Заголовок (kz)'}
+                    label={t('headerKz')}
                 >
                     <Input onChange={changeHeaderKz}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_ru'}
-                    label={'Прикрепите файл (ru)'}
+                    label={t('attachFileRu')}
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                     // rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>
                         <Button>
-                            <UploadOutlined/> Выбрать
+                            <UploadOutlined/> {t('chooseFile')}
                         </Button>
                     </Upload>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
-                    label={'Прикрепите файл (kz)'}
+                    label={t('attachFileKz')}
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>
                         <Button>
-                            <UploadOutlined/> Выбрать
+                            <UploadOutlined/> {t('chooseFile')}
                         </Button>
                     </Upload>
                 </Form.Item>
 
                 <Form.Item
                     name={'description_ru'}
-                    label={'Пояснение к документу (ru)'}
+                    label={t('descriptionRu')}
                 >
-                    <Input.TextArea placeholder={'Рекомендации эксперта на русском'} onChange={changeDescriptionRu}/>
+                    <Input.TextArea
+                        placeholder={t('enterDescriptionRu')}
+                        onChange={changeDescriptionRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'description_kz'}
-                    label={'Пояснение к документу (kz)'}
+                    label={t('descriptionKz')}
                 >
-                    <Input.TextArea placeholder={'Рекомендации эксперта на казахском'} onChange={changeDescriptionKz}/>
+                    <Input.TextArea
+                        placeholder={t('enterDescriptionKz')}
+                        onChange={changeDescriptionKz}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'text_ru'}
-                    label={'Поле для постановления (ru)'}
+                    label={t('decisionFieldRu')}
                 >
                     <Input onChange={changeTextRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'text_kz'}
-                    label={'Поле для постановления (kz)'}
+                    label={t('decisionFieldKz')}
                 >
                     <Input onChange={changeTextKz}/>
                 </Form.Item>
@@ -337,7 +355,7 @@ const AddMainDoc = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

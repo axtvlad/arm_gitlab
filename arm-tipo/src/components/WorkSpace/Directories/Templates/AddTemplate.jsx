@@ -2,8 +2,11 @@ import React from 'react';
 import {Button, Form, Input, notification, Select, Upload} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddTemplate = (props) => {
+
+    const {t} = useTranslation();
 
     const {Option} = Select;
 
@@ -84,11 +87,17 @@ const AddTemplate = (props) => {
             >
                 <Form.Item
                     name={'category_id'}
-                    label={'Категория'}
+                    label={t('category')}
                     hasFeedback
-                    rules={[{required: true, message: 'Пожалуйста, выберите категорию!'}]}
+                    rules={[{
+                        required: true,
+                        message: t('chooseCategory') + '!'
+                    }]}
                 >
-                    <Select placeholder={'Выберите категорию!'} onChange={changeCategoryId}>
+                    <Select
+                        placeholder={t('chooseCategory')}
+                        onChange={changeCategoryId}
+                    >
                         {props.categories.map(category =>
                             <Option
                                 key={category.id}
@@ -101,42 +110,49 @@ const AddTemplate = (props) => {
                 </Form.Item>
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование шаблона (ru)'}
-                    rules={[{required: true, message: 'Пожалуйста, введите наименование шаблона на русском!'}]}
+                    label={t('templateNameRu')}
+                    rules={[{
+                        required: true,
+                        message: t('enterTemplateNameRu') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите наименование шаблона на русском!'} onChange={changeNameRu}/>
+                    <Input
+                        placeholder={t('enterTemplateNameRu')}
+                        onChange={changeNameRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование шаблона (kz)'}
+                    label={t('templateNameKz')}
                 >
-                    <Input placeholder={'Введите наименование шаблона на казахском!'} onChange={changeNameKz}/>
+                    <Input
+                        placeholder={t('enterTemplateNameKz')}
+                        onChange={changeNameKz}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_ru'}
-                    label={'Прикрепите файл (ru)'}
+                    label={t('attachFileRu')}
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>
                         <Button>
-                            <UploadOutlined/> Выбрать
+                            <UploadOutlined/> {t('chooseFile')}
                         </Button>
                     </Upload>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
-                    label={'Прикрепите файл (kz)'}
+                    label={t('attachFileKz')}
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>
                         <Button>
-                            <UploadOutlined/> Выбрать
+                            <UploadOutlined/> {t('chooseFile')}
                         </Button>
                     </Upload>
                 </Form.Item>
@@ -147,7 +163,7 @@ const AddTemplate = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

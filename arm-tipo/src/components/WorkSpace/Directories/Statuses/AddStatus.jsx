@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddStatus = (props) => {
+
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -56,27 +59,29 @@ const AddStatus = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование статуса (ru)'}
+                    label={t('statusNameRu')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите наименование статуса документа на русском!'
-                    }]}
-                    hasFeedback
-                >
-                    <Input placeholder={'Введите наименование статуса документа на русском!'} onChange={changeNameRu}/>
-                </Form.Item>
-
-                <Form.Item
-                    name={'name_kz'}
-                    label={'Наименование статуса (kz)'}
-                    rules={[{
-                        required: true,
-                        message: 'Пожалуйста, введите наименование статуса документа на казахском!'
+                        message: t('enterStatusNameRu') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите наименование статуса документа на казахском!'}
+                        placeholder={t('enterStatusNameRu')}
+                        onChange={changeNameRu}/>
+                </Form.Item>
+
+                <Form.Item
+                    name={'name_kz'}
+                    label={t('statusNameKz')}
+                    rules={[{
+                        required: true,
+                        message: t('enterStatusNameKz') + '!'
+                    }]}
+                    hasFeedback
+                >
+                    <Input
+                        placeholder={t('enterStatusNameKz')}
                         onChange={changeNameKz}
                     />
                 </Form.Item>
@@ -88,7 +93,7 @@ const AddStatus = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

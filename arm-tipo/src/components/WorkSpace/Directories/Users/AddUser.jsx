@@ -2,8 +2,11 @@ import {Button, Checkbox, DatePicker, Form, Input, notification, Select, Upload}
 import React from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddUser = (props) => {
+
+    const {t} = useTranslation();
 
     const {Option} = Select;
 
@@ -162,84 +165,120 @@ const AddUser = (props) => {
             >
                 <Form.Item
                     name={'firstName'}
-                    label={'Имя'}
-                    rules={[{required: true, message: 'Пожалуйста, введите имя!'}]}
+                    label={t('firstName')}
+                    rules={[{
+                        required: true,
+                        message: t('enterFirstName') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите имя!'} onChange={changeFirstName}/>
+                    <Input
+                        placeholder={t('enterFirstName')}
+                        onChange={changeFirstName}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'lastName'}
-                    label={'Фамилия'}
-                    rules={[{required: true, message: 'Пожалуйста, введите фамилию!'}]}
+                    label={t('lastName')}
+                    rules={[{
+                        required: true,
+                        message: t('enterLastName') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите фамилию!'} onChange={changeLastName}/>
+                    <Input
+                        placeholder={t('enterLastName')}
+                        onChange={changeLastName}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'patronymic'}
-                    label={'Отчество'}
+                    label={t('patronymic')}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите отчество!'} onChange={changePatronymic}/>
+                    <Input
+                        placeholder={t('enterPatronymic')}
+                        onChange={changePatronymic}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'login'}
-                    label={'Логин'}
-                    rules={[{required: true, message: 'Пожалуйста, введите логин!'}]}
+                    label={t('login')}
+                    rules={[{
+                        required: true,
+                        message: t('enterLogin') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите логин!'} onChange={changeLogin}/>
+                    <Input
+                        placeholder={t('enterLogin')}
+                        onChange={changeLogin}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'password'}
-                    label={'Пароль'}
-                    rules={[{required: true, message: 'Пожалуйста, введите пароль!'}]}
+                    label={t('password')}
+                    rules={[{
+                        required: true,
+                        message: t('enterPassword') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input type={'password'} placeholder={'Введите пароль!'} onChange={changePassword}/>
+                    <Input
+                        type={'password'}
+                        placeholder={t('enterPassword')}
+                        onChange={changePassword}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'email'}
-                    label={'Почта'}
-                    rules={[{required: true, message: 'Пожалуйста, введите почту!'}]}
+                    label={t('email')}
+                    rules={[{
+                        required: true,
+                        message: t('enterEmail') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите почту!'} onChange={changeEmail}/>
+                    <Input
+                        placeholder={t('enterEmail')}
+                        onChange={changeEmail}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'photo'}
-                    label={'Прикрепите фото'}
+                    label={t('uploadPhoto')}
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                 >
                     <Upload name="logo" action="/upload.do" listType="picture" onChange={changePhoto}>
                         <Button>
                             <UploadOutlined/>
-                            Выбрать
+                            {t('chooseFile')}
                         </Button>
                     </Upload>
                 </Form.Item>
 
                 <Form.Item
                     name={'phone'}
-                    label={'Номер телефона'}
-                    rules={[{required: true, message: 'Пожалуйста, введите номер телефона!'}]}
+                    label={t('phone')}
+                    rules={[{
+                        required: true,
+                        message: t('enterPhone') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите номер телефона!'} onChange={changePhone}/>
+                    <Input
+                        placeholder={t('enterPhone')}
+                        onChange={changePhone}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'birthAt'}
-                    label={'Дата рождения'}
-                    rules={[{required: true, message: 'Пожалуйста, введите дату рождения!'}]}
+                    label={t('birthDate')}
+                    rules={[{
+                        required: true,
+                        message: t('enterBirthDate') + '!'
+                    }]}
                     hasFeedback
                 >
                     <DatePicker onChange={changeBirthAt}/>
@@ -247,11 +286,14 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'role_id'}
-                    label={'Роль пользователя'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите роль пользователя!'}]}
+                    label={t('role')}
+                    rules={[{
+                        required: true,
+                        message: t('chooseRole') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите роль пользователя!'} onChange={changeRoleId}>
+                    <Select placeholder={t('chooseRole')} onChange={changeRoleId}>
                         {props.roles.map(role =>
                             <Option
                                 key={role.id}
@@ -265,11 +307,17 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'city_id'}
-                    label={'Город'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите город!'}]}
+                    label={t('city')}
+                    rules={[{
+                        required: true,
+                        message: t('chooseCity') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите город!'} onChange={changeCityId}>
+                    <Select
+                        placeholder={t('chooseCity')}
+                        onChange={changeCityId}
+                    >
                         {props.cities.map(city =>
                             <Option
                                 key={city.id}
@@ -283,11 +331,17 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'customer_id'}
-                    label={'Клиент'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите клиента!'}]}
+                    label={t('customer')}
+                    rules={[{
+                        required: true,
+                        message: ('chooseCustomer') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите клиента!'} onChange={changeCustomerId}>
+                    <Select
+                        placeholder={t('chooseCustomer')}
+                        onChange={changeCustomerId}
+                    >
                         {props.customers.map(customer =>
                             <Option
                                 key={customer.id}
@@ -301,11 +355,17 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'gender_id'}
-                    label={'Пол пользователя'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите пол пользователя!'}]}
+                    label={t('gender')}
+                    rules={[{
+                        required: true,
+                        message: t('chooseGender') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите пол пользователя!'} onChange={changeGenderId}>
+                    <Select
+                        placeholder={t('chooseGender')}
+                        onChange={changeGenderId}
+                    >
                         {props.genders.map(gender =>
                             <Option
                                 key={gender.id}
@@ -319,11 +379,14 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'locale'}
-                    label={'Локаль пользователя'}
-                    rules={[{required: true, message: 'Пожалуйста, выберите локаль пользователя!'}]}
+                    label={t('locale')}
+                    rules={[{
+                        required: true,
+                        message: t('chooseLocale') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Select placeholder={'Выберите локаль пользователя!'} onChange={changeLocale}>
+                    <Select placeholder={t('chooseLocale')} onChange={changeLocale}>
                         <Option key='ru' value='ru'>
                             ru
                         </Option>
@@ -338,31 +401,31 @@ const AddUser = (props) => {
 
                 <Form.Item
                     name={'isAdmin'}
-                    label={'Является администратором'}
+                    label={t('isAdmin')}
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsAdmin}>
-                        Да
+                        {t('yes')}
                     </Checkbox>
                 </Form.Item>
 
                 <Form.Item
                     name={'isPremium'}
-                    label={'Является Premium-пользователем'}
+                    label={t('isPremium')}
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsPremium}>
-                        Да
+                        {t('yes')}
                     </Checkbox>
                 </Form.Item>
 
                 <Form.Item
                     name={'isBanned'}
-                    label={'Заблокированный пользователь'}
+                    label={t('isBanned')}
                     hasFeedback
                 >
                     <Checkbox onChange={changeIsBanned}>
-                        Да
+                        {t('yes')}
                     </Checkbox>
                 </Form.Item>
 
@@ -373,7 +436,7 @@ const AddUser = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>
