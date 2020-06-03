@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddRole = (props) => {
+
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -56,30 +59,30 @@ const AddRole = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование роли (ru)'}
+                    label={t('roleNameRu')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите наименование роли на русском языке!'
+                        message: t('enterRoleNameRu') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите наименование роли пользователя на русском языке!'}
+                        placeholder={t('enterRoleNameRu')}
                         onChange={changeNameRu}
                     />
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование роли (kz)'}
+                    label={t('roleNameKz')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите наименование роли пользователя на казахском языке!'
+                        message: t('enterRoleNameKz') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите наименование роли пользователя на казахском языке!'}
+                        placeholder={t('enterRoleNameKz')}
                         onChange={changeNameKz}
                     />
                 </Form.Item>
@@ -91,7 +94,7 @@ const AddRole = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

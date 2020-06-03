@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddDepartment = (props) => {
+
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -56,21 +59,27 @@ const AddDepartment = (props) => {
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={'Наименование отдела (ru)'}
-                    rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на русском!'}]}
+                    label={t('departmentNameRu')}
+                    rules={[{
+                        required: true,
+                        message: t('enterDepartmentNameRu') + '!'
+                    }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите наименование отдела на русском!'} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterDepartmentNameRu')} onChange={changeNameRu}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={'Наименование отдела (kz)'}
-                    rules={[{required: true, message: 'Пожалуйста, введите наименование отдела на казахском!'}]}
+                    label={t('departmentNameKz')}
+                    rules={[{
+                        required: true,
+                        message: t('enterDepartmentNameKz') + '!'
+                    }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите наименование отдела на казахском!'}
+                        placeholder={t('enterDepartmentNameKz')}
                         onChange={changeNameKz}
                     />
                 </Form.Item>
@@ -82,7 +91,7 @@ const AddDepartment = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {useTranslation} from "react-i18next";
 
 const AddFaq = (props) => {
+
+    const {t} = useTranslation();
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -68,58 +71,58 @@ const AddFaq = (props) => {
             >
                 <Form.Item
                     name={'question_ru'}
-                    label={'Вопрос (ru)'}
+                    label={t('questionRu')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите вопроса на русском!'
+                        message: t('enterQuestionRu') + '!'
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={'Введите вопроса на русском!'}
+                    <Input placeholder={t('enterQuestionRu')}
                            onChange={changeQuestionRu}
                     />
                 </Form.Item>
 
                 <Form.Item
                     name={'question_kz'}
-                    label={'Вопрос (kz)'}
+                    label={t('questionKz')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите вопрос на казахском!'
+                        message: t('enterQuestionKz') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите вопрос на казахском!'}
+                        placeholder={t('enterQuestionKz')}
                         onChange={changeQuestionKz}
                     />
                 </Form.Item>
 
                  <Form.Item
                      name={'answer_ru'}
-                     label={'Ответ (ru)'}
+                     label={t('answerRu')}
                      rules={[{
                          required: true,
-                         message: 'Пожалуйста, введите ответ на русском!'
+                         message: t('enterAnswerRu') + '!'
                      }]}
                      hasFeedback
                  >
-                     <Input placeholder={'Введите ответ на вопрос на русском!'}
+                     <Input placeholder={t('enterAnswerRu')}
                             onChange={changeAnswerRu}
                      />
                  </Form.Item>
 
                  <Form.Item
                     name={'answer_kz'}
-                    label={'Ответ (kz)'}
+                    label={t('answerKz')}
                     rules={[{
                         required: true,
-                        message: 'Пожалуйста, введите ответ на казахском!'
+                        message: t('enterAnswerKz') + '!'
                     }]}
                     hasFeedback
                 >
                     <Input
-                        placeholder={'Введите ответ на казахском!'}
+                        placeholder={t('enterAnswerKz')}
                         onChange={changeAnswerKz}
                     />
                 </Form.Item>
@@ -131,7 +134,7 @@ const AddFaq = (props) => {
                         icon={<DownloadOutlined/>}
                         block
                     >
-                        Сохранить в базу
+                        {t('saveInBase')}
                     </Button>
                 </Form.Item>
             </Form>

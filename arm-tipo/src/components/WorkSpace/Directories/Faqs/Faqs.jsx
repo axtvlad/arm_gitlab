@@ -1,34 +1,39 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-import {Button, Collapse, Spin} from "antd";
+import {Button, Card, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {useTranslation} from "react-i18next";
 
 const Faqs = (props) => {
 
-    const {Panel} = Collapse;
-
     const {t} = useTranslation();
 
     return (
-        <div className={'content'}>
+        <div style={{background:"e5e5e5"}}>
             <NavLink to={'/addFaq'}>
                 <Button
                     type="danger"
                     shape="round"
                     icon={<PlusOutlined/>}
                 >
-                   {t('addNewFaq')}
+                    {t('addNewFaq')}
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <Collapse accordion>
-                    {props.faqs.map((faq, index) => (
-                        <Panel header={faq.question_ru} key={index}>
-                            <p>{faq.answer_ru}</p>
-                        </Panel>
+                <table style={{width: "100%"}}>
+                    <tr>
+                    {props.faqs.map((faq) => (
+                        <td style={{padding: 20}}>
+                        <Card
+                            title={faq.question_ru}
+                            bordered={false}
+                        >
+                            {faq.answer_ru}
+                        </Card>
+                        </td>
                     ))}
-                </Collapse>
+                    </tr>
+                </table>
             </Spin>
         </div>
     )
