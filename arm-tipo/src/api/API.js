@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {BASE_URL1} from "../env";
+import {BASE_URL} from "../env";
 
 const user = "Admin";
 const pass = "admin";
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL1
+    baseURL: BASE_URL
 });
 
 export const restAPI = {
