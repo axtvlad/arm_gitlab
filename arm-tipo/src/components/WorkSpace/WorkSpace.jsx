@@ -33,6 +33,7 @@ import DisplayCustomerContainer from "./Directories/Customers/DisplayCustomerCon
 import DisplayDepartmentContainer from "./Directories/Departments/DisplayDepartmentContainer";
 import DisplayStatusContainer from "./Directories/Statuses/DisplayStatusContainer";
 import DisplayTypeContainer from "./Directories/Types/DisplayTypeContainer";
+import DisplayUserContainer from "./Directories/Users/DisplayUserContainer";
 
 const {Content} = Layout;
 
@@ -88,6 +89,7 @@ const WorkSpace = () => {
 
                 <Route exact path={'/users'} render={() => <UsersContainer/>}/>
                 <Route exact path={'/addUser'} render={() => <AddUserContainer/>}/>
+                <Route exact path={'/users/:userId'} render={() => <DisplayUserContainer/>}/>
             </div>
         </Content>
     )

@@ -23,7 +23,7 @@ export const restAPI = {
         },
         getUserById(id) {
             return instance
-                .get('users?loadData=true/' + id)
+                .get('users/' + id + '?loadData=true')
                 .then(response => response.data);
 
         },
