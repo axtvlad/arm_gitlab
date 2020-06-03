@@ -15,6 +15,7 @@ import {
     updateMainDocNumber,
     updateMainDocPubDate,
     updateMainDocStatusId,
+    updateMainDocTags,
     updateMainDocTextKz,
     updateMainDocTextRu,
     updateMainDocTypeId
@@ -78,5 +79,6 @@ export default connect(mapStateToProps,
         updateMainDocTypeId,
         updateMainDocTextRu,
         updateMainDocTextKz,
+        updateMainDocTags
     }
 )(AddMainDocContainer);

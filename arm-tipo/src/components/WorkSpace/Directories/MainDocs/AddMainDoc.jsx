@@ -43,6 +43,7 @@ const AddMainDoc = (props) => {
         type_id: props.mainDocsDir.newMainDocTypeId,
         text_ru: props.mainDocsDir.newMainDocTextRu,
         text_kz: props.mainDocsDir.newMainDocTextKz,
+        tags: props.mainDocsDir.newMainDocTags,
     };
 
     console.log(fromState);
@@ -69,16 +70,19 @@ const AddMainDoc = (props) => {
 
     const changeNumber = () => {
         const number = form.getFieldValue().number;
+
         props.updateMainDocNumber(number);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
+
         props.updateMainDocNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
+
         props.updateMainDocNameKz(name_kz);
     };
 
@@ -88,6 +92,12 @@ const AddMainDoc = (props) => {
 
     const changeStatusId = (status_id) => {
         props.updateMainDocStatusId(status_id);
+    };
+
+    const changeTags = () => {
+        const tags = form.getFieldValue().tags;
+
+        props.updateMainDocTags(tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-"));
     };
 
     const changeBeginAndFinishDate = () => {
@@ -124,46 +134,55 @@ const AddMainDoc = (props) => {
 
     const changeHeaderRu = () => {
         const header_ru = form.getFieldValue().header_ru;
+
         props.updateMainDocHeaderRu(header_ru);
     };
 
     const changeHeaderKz = () => {
         const header_kz = form.getFieldValue().header_kz;
+
         props.updateMainDocHeaderKz(header_kz);
     };
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
+
         props.updateMainDocFileRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
+
         props.updateMainDocFileKz(file_kz);
     };
 
     const changeDescriptionRu = () => {
         const description_ru = form.getFieldValue().description_ru;
+
         props.updateMainDocDescriptionRu(description_ru);
     };
 
     const changeDescriptionKz = () => {
         const description_kz = form.getFieldValue().description_kz;
+
         props.updateMainDocDescriptionKz(description_kz);
     };
 
     const changeTextRu = () => {
         const text_ru = form.getFieldValue().text_ru;
+
         props.updateMainDocTextRu(text_ru);
     };
 
     const changeTextKz = () => {
         const text_kz = form.getFieldValue().text_kz;
+
         props.updateMainDocTextKz(text_kz);
     };
 
     const changeTypeId = () => {
         const type_id = form.getFieldValue().type_id;
+
         props.updateMainDocTypeId(type_id);
     };
 
@@ -273,6 +292,13 @@ const AddMainDoc = (props) => {
                     label={'Заголовок (kz)'}
                 >
                     <Input onChange={changeHeaderKz}/>
+                </Form.Item>
+
+                <Form.Item
+                    name={'tags'}
+                    label={'Тэги документа'}
+                >
+                    <Input.TextArea onChange={changeTags} maxLength={5000}/>
                 </Form.Item>
 
                 <Form.Item

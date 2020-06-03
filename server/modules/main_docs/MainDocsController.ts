@@ -12,7 +12,6 @@ import {
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
-import {Users} from "../users/UsersModel";
 
 interface IRestMainDocsCreate {
     number: string;

@@ -18,6 +18,7 @@ const UPDATE_MAIN_DOC_DESCRIPTION_KZ = 'update_main_doc_description_kz';
 const UPDATE_MAIN_DOC_TYPE_ID = 'update_main_doc_type_id';
 const UPDATE_MAIN_DOC_TEXT_RU = 'update_main_doc_text_ru';
 const UPDATE_MAIN_DOC_TEXT_KZ = 'update_main_doc_text_kz';
+const UPDATE_MAIN_DOC_TAGS = 'update_main_doc_tags';
 const SET_MAIN_DOCS = 'set_main_docs';
 const SET_MAIN_DOCS_COUNT = 'set_main_docs_count';
 const SET_MAIN_DOCS_IS_FETCHING = 'set_main_docs_is_fetching';
@@ -26,88 +27,7 @@ const SET_IS_POSTED = 'set_is_posted';
 const REMOVE_MAIN_DOC = 'remove_main_doc';
 
 let initialState = {
-    mainDocs: [
-        {
-            id: 1,
-            number: 'BBC-991',
-            department_id: 1,
-            status_id: 2,
-            begin_date: '2020-03-02',
-            finish_date: '2030-03-02',
-            pub_date: '01-03-2020',
-            name_ru: 'Приказ о зачислении',
-            name_kz: 'Приказ о зачислении',
-            header_ru: 'Данный приказ о зачислении на очную форму обучения',
-            header_kz: 'Данный приказ о зачислении на очную форму обучения',
-            file_ru: '/src/mainDocs/fsdj8f2oh',
-            file_kz: '/src/mainDocs/fsffsoh94',
-            description_ru: 'Это описание документа на русском',
-            description_kz: 'Это описание документа на казахском',
-            type_id: 1,
-            text_ru: '',
-            text_kz: ''
-        },
-        {
-            id: 2,
-            number: 'saf/51',
-            department_id: 2,
-            status_id: 1,
-            begin_date: '2020-03-02',
-            finish_date: '2030-03-02',
-            pub_date: '28-06-2020',
-            name_ru: 'Приказ об отчислении',
-            name_kz: 'Приказ об отчислении',
-            header_ru: 'Данный приказ об отчислении с очной формы обучения',
-            header_kz: 'Данный приказ о зачислении на очную форму обучения',
-            file_ru: '/src/mainDocs/fsdj8f2oh',
-            file_kz: '/src/mainDocs/fsffsoh94',
-            description_ru: 'Это описание документа на русском',
-            description_kz: 'Это описание документа на казахском',
-            type_id: 1,
-            text_ru: '',
-            text_kz: ''
-        },
-        {
-            id: 3,
-            number: '52-1',
-            department_id: 3,
-            status_id: 3,
-            begin_date: '2020-03-02',
-            finish_date: '2030-03-02',
-            pub_date: '05=02-2019',
-            name_ru: 'Постановление о переходе на дистанционную форму обчения',
-            name_kz: 'Приказ об отчислении',
-            header_ru: 'Данное постановление о переходе на дистанционную форму обчения',
-            header_kz: 'Данный приказ о зачислении на очную форму обучения',
-            file_ru: '/src/mainDocs/fsdj8f2oh',
-            file_kz: '/src/mainDocs/fsffsoh94',
-            description_ru: 'Это описание документа на русском',
-            description_kz: 'Это описание документа на казахском',
-            type_id: 1,
-            text_ru: 'Дополнительная информация на русском',
-            text_kz: 'Дополнительная информация на казахском'
-        },
-        {
-            id: 4,
-            number: 'COS-10',
-            department_id: 1,
-            status_id: 2,
-            begin_date: '2020-03-02',
-            finish_date: '2030-03-02',
-            pub_date: '16-03-2020',
-            name_ru: 'Постановление о проведении рейдов по учебным заведениям',
-            name_kz: 'Приказ об отчислении',
-            header_ru: 'Данное постановление о проведении рейдов по учебным заведениям',
-            header_kz: 'Данный приказ о зачислении на очную форму обучения',
-            file_ru: '/src/mainDocs/fsdj8f2oh',
-            file_kz: '/src/mainDocs/fsffsoh94',
-            description_ru: 'Это описание документа на русском',
-            description_kz: 'Это описание документа на казахском',
-            type_id: 1,
-            text_ru: 'Дополнительная информация на русском',
-            text_kz: 'Дополнительная информация на казахском'
-        },
-    ],
+    mainDocs: [],
     newMainDocNumber: '',
     newMainDocDepartmentId: null,
     newMainDocStatusId: null,
@@ -125,6 +45,7 @@ let initialState = {
     newMainDocTypeId: null,
     newMainDocTextRu: '',
     newMainDocTextKz: '',
+    newMainDocTags: '',
     mainDocsCount: 0,
     isFetching: false,
     isPosted: false,
@@ -167,6 +88,7 @@ const MainDocReducer = (state = initialState, action) => {
                 newMainDocTypeId: null,
                 newMainDocTextRu: '',
                 newMainDocTextKz: '',
+                newMainDocTags: '',
                 mainDocs: [...state.mainDocs, {
                     id: action.id,
                     number: state.newMainDocNumber,
@@ -186,6 +108,7 @@ const MainDocReducer = (state = initialState, action) => {
                     type_id: state.newMainDocTypeId,
                     text_ru: state.newMainDocTextRu,
                     text_kz: state.newMainDocTextKz,
+                    tags: state.newMainDocTags,
                 }],
             };
         case REMOVE_MAIN_DOC:
@@ -278,6 +201,11 @@ const MainDocReducer = (state = initialState, action) => {
             return {
                 ...state,
                 newMainDocTypeId: action.newTypeId
+            };
+        case UPDATE_MAIN_DOC_TAGS:
+            return {
+                ...state,
+                newMainDocTags: action.newTags
             };
         case SET_MAIN_DOCS:
             return {
@@ -407,6 +335,11 @@ export const updateMainDocTextRu = (newTextRu) => ({
 export const updateMainDocTextKz = (newTextKz) => ({
     type: UPDATE_MAIN_DOC_TEXT_KZ,
     newTextKz
+});
+
+export const updateMainDocTags = (newTags) => ({
+    type: UPDATE_MAIN_DOC_TAGS,
+    newTags
 });
 
 export const setMainDocs = (mainDocs) => ({
