@@ -29,72 +29,72 @@ const DisplayDirectoryItem = (props) => {
                     colon={true}
                 >
                     <Descriptions.Item
-                        label={t('russianName')}
+                        label={t('fio')}
                     >
                         {props.currentUser.lastName + ' ' + props.currentUser.firstName + ' ' + props.currentUser.patronymic}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('birthDate')}
                     >
                         {props.currentUser.birthAt}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('email')}
                     >
                         {props.currentUser.email}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('roleNameRu')}
                     >
                         {props.currentUser.role_id && role.name_ru}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('cityNameRu')}
                     >
                         {props.currentUser.city_id && city.name_ru}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('gender')}
                     >
                         {props.currentUser.gender_id && gender.name_ru}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('customerNameRu')}
                     >
                         {props.currentUser.customer_id && customer.name_ru}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('phone')}
                     >
                         {props.currentUser.phone}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('login')}
                     >
                         {props.currentUser.login}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('userPhoto')}
                     >
                         {props.currentUser.photo}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('locale')}
                     >
                         {props.currentUser.locale}
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('isPremium') + ' '}
                     >
                         <Checkbox checked={props.currentUser.isPremium}/>
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('isAdmin') + ' '}
                     >
                         <Checkbox checked={props.currentUser.isAdmin}/>
                     </Descriptions.Item>
                     <Descriptions.Item
-                        label={t('kazakhName')}
+                        label={t('isBanned') + ' '}
                     >
                         <Checkbox checked={props.currentUser.isBanned}/>
                     </Descriptions.Item>

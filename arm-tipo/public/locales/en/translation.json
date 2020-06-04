@@ -135,6 +135,8 @@
   "isAdmin": "Is user an admin?",
   "isPremium": "Is user premium?",
   "isBanned": "Is user banned?",
+  "fio": "First name Last name Patronymic",
+  "userPhoto": "User's photo",
   "yes": "Yes",
   "enterTitle": "Enter the document title",
   "tags": "Key words",
