@@ -13,18 +13,14 @@ const SET_IS_POSTED = 'set_is_posted';
 const REMOVE_FAQ = 'remove_faq';
 
 let initialState = {
-    faqs: [
-        {id: 1, question_ru: 'FAQ 1', question_kz: 'FAQ 1', answer_ru: 'Answer 1', answer_kz: 'Zhauap 1'},
-        {id: 2, question_ru: 'FAQ 2', question_kz: 'FAQ 2', answer_ru: 'Answer 2', answer_kz: 'Zhauap 2'},
-        {id: 3, question_ru: 'FAQ 3', question_kz: 'FAQ 3', answer_ru: 'Answer 3', answer_kz: 'Zhauap 3'},
-    ],
+    faqs: [],
     newFaqQuestionRu: '',
     newFaqQuestionKz: '',
     newFaqAnswerRu: '',
     newFaqAnswerKz: '',
     faqsCount: 0,
     isFetching: false,
-    currentFaq: null,
+    currentFaq: {},
     isPosted: false,
 };
 

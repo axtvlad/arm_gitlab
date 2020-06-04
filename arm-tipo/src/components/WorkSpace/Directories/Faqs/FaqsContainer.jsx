@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import Faqs from "./Faqs";
-import {getFaqs} from "../../../../redux/Reducers/FaqReducer";
+import {deleteFaqById, getFaqs} from "../../../../redux/Reducers/FaqReducer";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
@@ -13,6 +13,8 @@ class FaqsContainer extends React.Component {
             <Faqs
                 faqs={this.props.faqs}
                 isFetching={this.props.isFetching}
+                isAdmin={this.props.isAdmin}
+                removeFaqById={this.props.deleteFaqById}
             />
         )
     }
@@ -21,12 +23,14 @@ class FaqsContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         faqs: state.faqsDir.faqs,
-        isFetching: state.faqsDir.isFetching
+        isFetching: state.faqsDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 
 export default connect(mapStateToProps,
     {
-        getFaqs
+        getFaqs,
+        deleteFaqById
     }
 )(FaqsContainer);

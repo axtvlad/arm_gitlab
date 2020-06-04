@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import {Button, Card, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {useTranslation} from "react-i18next";
+import DeleteOutlined from "@ant-design/icons/es/icons/DeleteOutlined";
 
 const Faqs = (props) => {
 
@@ -20,20 +21,21 @@ const Faqs = (props) => {
                 </Button>
             </NavLink>
             <Spin spinning={props.isFetching}>
-                <table style={{width: "100%"}}>
-                    <tr>
-                        {props.faqs.map((faq) => (
-                            <td style={{padding: 20}}>
-                                <Card
-                                    title={faq.question_ru}
-                                    bordered={false}
-                                >
-                                    {faq.answer_ru}
-                                </Card>
-                            </td>
-                        ))}
-                    </tr>
-                </table>
+                {props.faqs.map((faq) => (
+                    <Card
+                        style={{marginBottom: 20, margin: 10, textAlign: 'left'}}
+                        title={faq.question_ru}
+                        key={faq.id}
+                        bordered={false}
+                        actions={props.isAdmin && [
+                            <DeleteOutlined key="delete" onClick={() => props.removeFaqById(faq.id)} />
+                        ]}
+                        extra={
+                            <NavLink to={'/faqs/' + faq.id}>{t('more')}</NavLink>
+                        }
+                    >{faq.answer_ru}
+                    </Card>
+                ))}
             </Spin>
         </div>
     )
