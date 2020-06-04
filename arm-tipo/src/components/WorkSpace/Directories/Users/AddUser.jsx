@@ -334,7 +334,7 @@ const AddUser = (props) => {
                     label={t('customer')}
                     rules={[{
                         required: true,
-                        message: ('chooseCustomer') + '!'
+                        message: (t('chooseCustomer') + '!')
                     }]}
                     hasFeedback
                 >

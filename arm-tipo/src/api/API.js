@@ -19,13 +19,11 @@ export const restAPI = {
             return instance
                 .get('users?loadData=true')
                 .then(response => response.data);
-
         },
-        getUserById(id) {
+        getUserById(userId) {
             return instance
-                .get('users/' + id + '?loadData=true')
+                .get('users/' + userId + '?loadData=true')
                 .then(response => response.data);
-
         },
         deleteUserById(id) {
             return instance

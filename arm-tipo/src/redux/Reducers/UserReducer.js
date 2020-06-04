@@ -48,7 +48,7 @@ let initialState = {
     newUserIsBanned: false,
     usersCount: 0,
     isFetching: false,
-    currentUser: null,
+    currentUser: undefined,
     isAdmin: false,
     isPosted: false,
 };
@@ -76,7 +76,7 @@ const UserReducer = (state = initialState, action) => {
                 newUserIsPremium: false,
                 newUserIsBanned: false,
                 users: [...state.users, {
-                    id: action.id,
+                    userId: action.userId,
                     firstName: action.newUserFirstName,
                     lastName: action.newUserLastName,
                     patronymic: action.newUserPatronymic,
@@ -361,12 +361,13 @@ export const getUsers = () => (dispatch) => {
         });
 };
 
-export const getUserById = (id) => (dispatch) => {
+export const getUserById = (userId) => (dispatch) => {
 
     dispatch(setUsersIsFetching(true));
 
-    restAPI.users.getUserById(id)
+    restAPI.users.getUserById(userId)
         .then(response => {
+
             dispatch(setCurrentUser(response.data));
 
             console.info('user: ', response.data);

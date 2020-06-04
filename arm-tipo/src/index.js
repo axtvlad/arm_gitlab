@@ -9,11 +9,22 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 import './i18n';
-// TODO REACTORING
+import {Spin} from "antd";
+
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <Suspense fallback={(<div><h1>Загрузка</h1></div>)}>
+            <Suspense
+                fallback={(
+                    <Spin
+                        size={"large"}
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%'
+                        }}
+                    />
+                )}>
                 <App/>
             </Suspense>
         </Provider>

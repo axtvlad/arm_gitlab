@@ -30,11 +30,8 @@ import {Redirect} from "react-router-dom";
 class AddUserContainer extends React.Component {
     componentDidMount() {
         !this.props.roles.length && this.props.getRoles();
-
         !this.props.customers.length && this.props.getCustomers();
-
         !this.props.genders.length && this.props.getGenders();
-
         !this.props.cities.length && this.props.getCities();
     }
 

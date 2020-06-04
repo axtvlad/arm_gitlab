@@ -8,6 +8,7 @@ import {getRoles} from "../../../../redux/Reducers/RoleReducer";
 import {getCities} from "../../../../redux/Reducers/CityReducer";
 import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
+import {Spin} from "antd";
 
 class DisplayUserContainer extends React.Component {
     componentDidMount() {
@@ -16,27 +17,35 @@ class DisplayUserContainer extends React.Component {
         !this.props.genders.length && this.props.getGenders();
         !this.props.customers.length && this.props.getCustomers();
 
-        let id = this.props.match.params.userId;
+        let userId = this.props.match.params.userId;
 
-        if (!id) {
-            id = 1
+        if (!userId) {
+            userId = 1
         }
 
-        this.props.getUserById(id);
+        this.props.getUserById(userId);
     }
 
     render() {
-        return (
-            <DisplayUser {...this.props}/>
-        )
+        if (!this.props.currentUser
+            || !this.props.roles.length
+            || !this.props.cities.length
+            || !this.props.customers.length
+            || !this.props.genders.length
+        ) {
+            return (<Spin/>)
+        } else {
+            return (
+                <DisplayUser {...this.props}/>
+            )
+        }
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        user: GetDirectory(DirectoriesTypes.USERS),
-        currentItem: state.usersDir.currentUser,
-        isFetching: state.usersDir.isFetching,
+        directory: GetDirectory(DirectoriesTypes.USERS),
+        currentUser: state.usersDir.currentUser,
         roles: state.rolesDir.roles,
         cities: state.citiesDir.cities,
         genders: state.gendersDir.genders,
