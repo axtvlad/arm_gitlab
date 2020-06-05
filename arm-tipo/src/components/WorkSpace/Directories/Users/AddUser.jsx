@@ -123,16 +123,29 @@ const AddUser = (props) => {
 
     const changePhone = () => {
         const phone = form.getFieldValue().phone;
+
         props.updateUserPhone(phone);
     };
 
-    const changeBirthAt = (date, dateString) => {
-        /* const date = form.getFieldValue().birthAt;
-         let date1 = date;
-         */
-        let birthAt = date;
-        // console.log(dateString);
+    const changeBirthAt = () => {
+        const date = form.getFieldValue().birthAt;
+
+        console.warn(date._d)
+
+        let date1 = date._d;
+
+        let dd = date1.getDate();
+        if (dd < 10) dd = '0' + dd;
+
+        let mm = date1.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        let yyyy = date1.getFullYear();
+
+        const birthAt = yyyy + '-' + mm + '-' + dd;
+
         console.log(birthAt);
+
         props.updateUserBirthAt(birthAt);
     };
 
@@ -220,7 +233,7 @@ const AddUser = (props) => {
                     label={t('password')}
                     rules={[{
                         required: true,
-                        message: t('enterPassword') + '!'
+                        message: (t('enterPassword') + '!')
                     }]}
                     hasFeedback
                 >
@@ -235,13 +248,14 @@ const AddUser = (props) => {
                     label={t('email')}
                     rules={[{
                         required: true,
-                        message: t('enterEmail') + '!'
+                        message: (t('enterEmail') + '!')
                     }]}
                     hasFeedback
                 >
                     <Input
                         placeholder={t('enterEmail')}
-                        onChange={changeEmail}/>
+                        onChange={changeEmail}
+                    />
                 </Form.Item>
 
                 <Form.Item
@@ -263,7 +277,7 @@ const AddUser = (props) => {
                     label={t('phone')}
                     rules={[{
                         required: true,
-                        message: t('enterPhone') + '!'
+                        message: (t('enterPhone') + '!')
                     }]}
                     hasFeedback
                 >
@@ -281,7 +295,7 @@ const AddUser = (props) => {
                     }]}
                     hasFeedback
                 >
-                    <DatePicker onChange={changeBirthAt}/>
+                    <DatePicker onChange={changeBirthAt} format={'YYYY-MM-DD'}/>
                 </Form.Item>
 
                 <Form.Item

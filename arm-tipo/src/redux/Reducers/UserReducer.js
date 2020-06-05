@@ -42,7 +42,7 @@ let initialState = {
     newUserGenderId: 0,
     newUserPhone: null,
     newUserLocale: '',
-    newUserBirthAt: null,
+    newUserBirthAt: '',
     newUserIsAdmin: false,
     newUserIsPremium: false,
     newUserIsBanned: false,
@@ -154,7 +154,7 @@ const UserReducer = (state = initialState, action) => {
         case UPDATE_USER_PHONE:
             return {
                 ...state,
-                newUserPhone: action.newPhone
+                newUserPhone: action.newUserPhone
             };
         case UPDATE_USER_BIRTH_AT:
             return {

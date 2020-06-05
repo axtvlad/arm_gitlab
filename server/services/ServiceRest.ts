@@ -18,21 +18,23 @@ export default class ServiceRest implements IRestApi {
 
     private treatment(data: IQuery): object {
         return Object.keys(data).reduce((list, item) => {
-            switch (data[item].toString().toLowerCase()) {
-                case 'true':
-                    list[item] = true;
-                    break;
-                case 'false':
-                    list[item] = false;
-                    break;
-                default:
-                    let number: number = +data[item];
+            if (data !== null) {
+                switch (data[item].toString().toLowerCase()) {
+                    case 'true':
+                        list[item] = true;
+                        break;
+                    case 'false':
+                        list[item] = false;
+                        break;
+                    default:
+                        let number: number = +data[item];
 
-                    if (!isNaN(number)) {
-                        list[item] = number;
-                    } else {
-                        list[item] = data[item];
-                    }
+                        if (!isNaN(number)) {
+                            list[item] = number;
+                        } else {
+                            list[item] = data[item];
+                        }
+                }
             }
 
             return list;

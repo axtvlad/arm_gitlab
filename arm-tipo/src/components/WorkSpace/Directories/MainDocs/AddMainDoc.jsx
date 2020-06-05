@@ -107,7 +107,6 @@ const AddMainDoc = (props) => {
         let date1 = date[0]._d;
         let date2 = date[1]._d;
 
-
         let dd1 = date1.getDate();
         if (dd1 < 10) dd1 = '0' + dd1;
 
@@ -123,14 +122,14 @@ const AddMainDoc = (props) => {
         let yyyy1 = date1.getFullYear();
         let yyyy2 = date2.getFullYear();
 
-        const begin_date = dd1 + '-' + mm1 + '-' + yyyy1;
-        const finish_date = dd2 + '-' + mm2 + '-' + yyyy2;
+        const begin_date = yyyy1 + '-' + mm1 + '-' + dd1;
+        const finish_date = yyyy2 + '-' + mm2 + '-' + dd2;
 
         console.log('begin_date: ' + begin_date);
         console.log('finish_date: ' + finish_date);
 
         props.updateMainDocBeginDate(begin_date);
-        props.updateMainDocFinishDate(begin_date);
+        props.updateMainDocFinishDate(finish_date);
     };
 
     const changeHeaderRu = () => {
@@ -245,7 +244,7 @@ const AddMainDoc = (props) => {
                     label={t('beginFinishDate')}
                     name={'begin_and_finish_date'}
                 >
-                    <RangePicker format={'DD-MM-YYYY'} onChange={changeBeginAndFinishDate}/>
+                    <RangePicker format={'YYYY-MM-DD'} onChange={changeBeginAndFinishDate}/>
                 </Form.Item>
 
                 <Form.Item

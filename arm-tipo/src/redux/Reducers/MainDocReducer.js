@@ -62,7 +62,7 @@ const dateNow = () => {
 
     let yyyy = date.getFullYear();
 
-    return dd + '-' + mm + '-' + yyyy;
+    return yyyy + '-' + mm + '-' + dd;
 };
 
 const MainDocReducer = (state = initialState, action) => {
