@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, DatePicker, Form, Input, notification, Select, Upload,} from 'antd';
-import {UploadOutlined} from '@ant-design/icons';
+import {Button, DatePicker, Form, Input, notification, Select,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
@@ -28,7 +27,7 @@ const AddMainDoc = (props) => {
     const [form] = Form.useForm();
 
     let fromState = {
-        number: props.mainDocsDir.newMainDocNumber,
+        num: props.mainDocsDir.newMainDocNum,
         department_id: props.mainDocsDir.newMainDocDepartmentId,
         status_id: props.mainDocsDir.newMainDocStatusId,
         name_ru: props.mainDocsDir.newMainDocNameRu,
@@ -70,10 +69,10 @@ const AddMainDoc = (props) => {
         successfulAdd(fromState);
     };
 
-    const changeNumber = () => {
-        const number = form.getFieldValue().number;
+    const changeNum = () => {
+        const num = form.getFieldValue().num;
 
-        props.updateMainDocNumber(number);
+        props.updateMainDocNum(num);
     };
 
     const changeNameRu = () => {
@@ -197,7 +196,7 @@ const AddMainDoc = (props) => {
                 form={form}
             >
                 <Form.Item
-                    name={'number'}
+                    name={'num'}
                     label={t('number')}
                     rules={[{
                         required: true,
@@ -205,7 +204,7 @@ const AddMainDoc = (props) => {
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDocNumber')} onChange={changeNumber}/>
+                    <Input placeholder={t('enterDocNumber')} onChange={changeNum}/>
                 </Form.Item>
 
                 <Form.Item
@@ -318,28 +317,32 @@ const AddMainDoc = (props) => {
                 <Form.Item
                     name={'file_ru'}
                     label={t('attachFileRu')}
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
-                    // rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
+                    // valuePropName="fileList"
+                    // getValueFromEvent={normFile}
+                    rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
                 >
-                    <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>
-                        <Button>
-                            <UploadOutlined/> {t('chooseFile')}
-                        </Button>
-                    </Upload>
+                    <Input placeholder={t('enterDocNameRu')} onChange={changeFileRu}/>
+
+                    {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>*/}
+                    {/*    <Button>*/}
+                    {/*        <UploadOutlined/> {t('chooseFile')}*/}
+                    {/*    </Button>*/}
+                    {/*</Upload>*/}
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
                     label={t('attachFileKz')}
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
+                    // valuePropName="fileList"
+                    // getValueFromEvent={normFile}
                 >
-                    <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>
-                        <Button>
-                            <UploadOutlined/> {t('chooseFile')}
-                        </Button>
-                    </Upload>
+                    <Input placeholder={t('enterDocNameKz')} onChange={changeFileKz}/>
+
+                    {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>*/}
+                    {/*    <Button>*/}
+                    {/*        <UploadOutlined/> {t('chooseFile')}*/}
+                    {/*    </Button>*/}
+                    {/*</Upload>*/}
                 </Form.Item>
 
                 <Form.Item

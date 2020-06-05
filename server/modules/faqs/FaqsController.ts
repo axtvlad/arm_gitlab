@@ -54,7 +54,8 @@ export default new class FaqsController {
 
             if (bodyParams.question_kz) {
                 Faq.question_kz = bodyParams.question_kz;
-            } else if (bodyParams.answer_kz) {
+            }
+            if (bodyParams.answer_kz) {
                 Faq.answer_kz = bodyParams.answer_kz;
             }
 

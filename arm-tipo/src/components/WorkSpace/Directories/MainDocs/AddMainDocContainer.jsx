@@ -12,7 +12,7 @@ import {
     updateMainDocHeaderRu,
     updateMainDocNameKz,
     updateMainDocNameRu,
-    updateMainDocNumber,
+    updateMainDocNum,
     updateMainDocPubDate,
     updateMainDocStatusId,
     updateMainDocTags,
@@ -30,9 +30,7 @@ import {Redirect} from "react-router-dom";
 class AddMainDocContainer extends React.Component {
     componentDidMount() {
         !this.props.types.length && this.props.getTypes();
-
         !this.props.departments.length && this.props.getDepartments();
-
         !this.props.statuses.length && this.props.getStatuses();
     }
 
@@ -62,7 +60,7 @@ export default connect(mapStateToProps,
         getTypes,
         getDepartments,
         getStatuses,
-        updateMainDocNumber,
+        updateMainDocNum,
         updateMainDocNameRu,
         updateMainDocNameKz,
         updateMainDocDepartmentId,

@@ -6,7 +6,7 @@ export class MainDocs {
     id: number;
 
     @Column({length: 20, unique: true})
-    number: string;
+    num: string;
 
     @Column({precision: 3})
     department_id: number;

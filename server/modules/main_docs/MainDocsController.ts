@@ -7,14 +7,14 @@ import {
     ERROR_CODE_MAIN_DOC_NOT_EXISTS,
     ERROR_CODE_MAIN_DOC_WITH_HEADER_RU_EXISTS,
     ERROR_CODE_MAIN_DOC_WITH_NAME_RU_EXISTS,
-    ERROR_CODE_MAIN_DOC_WITH_NUMBER_EXISTS,
+    ERROR_CODE_MAIN_DOC_WITH_NUM_EXISTS,
     ERROR_CODE_NONE,
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestMainDocsCreate {
-    number: string;
+    num: string;
     department_id: number;
     status_id?: number;
     begin_date?: Date;
@@ -50,11 +50,11 @@ export default new class MainDocsController {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestMainDocsCreate>rest.getBody();
 
-            if (!bodyParams.number) {
+            if (!bodyParams.num) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUMBER',
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUM',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: req.__('PASSED_PARAM_NUMBER')
+                    message: req.__('PASSED_PARAM_NUM')
                 });
             } else if (!bodyParams.department_id) {
                 return res.status(400).send({
@@ -96,7 +96,7 @@ export default new class MainDocsController {
 
             const MainDoc = new MainDocs;
 
-            MainDoc.number = bodyParams.number;
+            MainDoc.num = bodyParams.num;
             MainDoc.department_id = bodyParams.department_id;
             MainDoc.name_ru = bodyParams.name_ru;
             MainDoc.header_ru = bodyParams.header_ru;
@@ -106,33 +106,44 @@ export default new class MainDocsController {
 
             if (bodyParams.status_id) {
                 MainDoc.status_id = bodyParams.status_id;
-            } else if (bodyParams.begin_date) {
+            }
+            if (bodyParams.begin_date) {
                 MainDoc.begin_date = bodyParams.begin_date;
-            } else if (bodyParams.finish_date) {
+            }
+            if (bodyParams.finish_date) {
                 MainDoc.finish_date = bodyParams.finish_date;
-            } else if (bodyParams.pub_date) {
+            }
+            if (bodyParams.pub_date) {
                 MainDoc.pub_date = bodyParams.pub_date;
-            } else if (bodyParams.status_id) {
+            }
+            if (bodyParams.status_id) {
                 MainDoc.status_id = bodyParams.status_id;
-            } else if (bodyParams.name_kz) {
+            }
+            if (bodyParams.name_kz) {
                 MainDoc.name_kz = bodyParams.name_kz;
-            } else if (bodyParams.header_kz) {
+            }
+            if (bodyParams.header_kz) {
                 MainDoc.header_kz = bodyParams.header_kz;
-            } else if (bodyParams.file_kz) {
+            }
+            if (bodyParams.file_kz) {
                 MainDoc.file_kz = bodyParams.file_kz;
-            } else if (bodyParams.description_ru) {
+            }
+            if (bodyParams.description_ru) {
                 MainDoc.description_ru = bodyParams.description_ru;
-            } else if (bodyParams.description_kz) {
+            }
+            if (bodyParams.description_kz) {
                 MainDoc.description_kz = bodyParams.description_kz;
-            } else if (bodyParams.text_ru) {
+            }
+            if (bodyParams.text_ru) {
                 MainDoc.text_ru = bodyParams.text_ru;
-            } else if (bodyParams.text_kz) {
+            }
+            if (bodyParams.text_kz) {
                 MainDoc.text_kz = bodyParams.text_kz;
             }
 
             const existMainDoc = await getManager().getRepository(MainDocs).findOne({
                 where: [{
-                    number: bodyParams.number
+                    num: bodyParams.num
                 }, {
                     name_ru: bodyParams.name_ru
                 }, {
@@ -140,11 +151,11 @@ export default new class MainDocsController {
                 }]
             });
 
-            if (existMainDoc && existMainDoc.number === bodyParams.number) {
+            if (existMainDoc && existMainDoc.num === bodyParams.num) {
                 return res.status(400).send({
-                    code: 'ERROR_CODE_MAIN_DOC_WITH_NUMBER_EXISTS',
-                    errorCode: ERROR_CODE_MAIN_DOC_WITH_NUMBER_EXISTS,
-                    message: req.__('EXISTS_ALREADY_NUMBER')
+                    code: 'ERROR_CODE_MAIN_DOC_WITH_NUM_EXISTS',
+                    errorCode: ERROR_CODE_MAIN_DOC_WITH_NUM_EXISTS,
+                    message: req.__('EXISTS_ALREADY_NUM')
                 });
             } else if (existMainDoc && existMainDoc.name_ru === bodyParams.name_ru) {
                 return res.status(400).send({
@@ -166,7 +177,7 @@ export default new class MainDocsController {
                 errorCode: ERROR_CODE_NONE,
                 data: {
                     id: mainDoc.id,
-                    number: mainDoc.number,
+                    num: mainDoc.num,
                     department_id: mainDoc.department_id,
                     status_id: mainDoc.status_id,
                     begin_date: mainDoc.begin_date,
@@ -213,7 +224,7 @@ export default new class MainDocsController {
             }
 
             config.select = [
-                "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
+                "id", "num", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
                 "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
                 "description_ru", "type_id", "text_ru", "text_kz", "tags"];
 
@@ -248,7 +259,7 @@ export default new class MainDocsController {
             const {id} = <IRestMainDocByIdKeys>rest.getKeys();
 
             config.select = [
-                "id", "number", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
+                "id", "num", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
                 "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
                 "description_kz", "type_id", "text_ru", "text_kz", "tags"];
             config.where = {id};

@@ -8,6 +8,18 @@ const Home = (props) => {
 
     const {t} = useTranslation();
 
+
+    let string = '';
+
+    const arr = ['a', 'b', 'c', 'd'];
+
+    for (let i = 0; i < arr.length; i++) {
+        string += arr[i];
+    }
+
+    console.error(string);
+
+
     return (
         <div className={'content'}>
             <Row gutter={16}>

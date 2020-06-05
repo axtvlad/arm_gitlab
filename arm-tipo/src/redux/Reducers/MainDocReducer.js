@@ -3,7 +3,7 @@ import {restAPI} from "../../api/API";
 const ADD_MAIN_DOC = 'add_main_doc';
 const UPDATE_MAIN_DOC_NAME_RU = 'update_main_doc_name_ru';
 const UPDATE_MAIN_DOC_NAME_KZ = 'update_main_doc_name_kz';
-const UPDATE_MAIN_DOC_NUMBER = 'update_main_doc_number';
+const UPDATE_MAIN_DOC_NUM = 'update_main_doc_num';
 const UPDATE_MAIN_DOC_DEPARTMENT_ID = 'update_main_doc_department_id';
 const UPDATE_MAIN_DOC_STATUS_ID = 'update_main_doc_status_id';
 const UPDATE_MAIN_DOC_BEGIN_DATE = 'update_main_doc_begin_date';
@@ -28,7 +28,7 @@ const REMOVE_MAIN_DOC = 'remove_main_doc';
 
 let initialState = {
     mainDocs: [],
-    newMainDocNumber: '',
+    newMainDocNum: '',
     newMainDocDepartmentId: null,
     newMainDocStatusId: null,
     newMainDocNameRu: '',
@@ -71,7 +71,7 @@ const MainDocReducer = (state = initialState, action) => {
         case ADD_MAIN_DOC:
             return {
                 ...state,
-                newMainDocNumber: '',
+                newMainDocNum: '',
                 newMainDocDepartmentId: null,
                 newMainDocStatusId: null,
                 newMainDocNameRu: '',
@@ -91,7 +91,7 @@ const MainDocReducer = (state = initialState, action) => {
                 newMainDocTags: '',
                 mainDocs: [...state.mainDocs, {
                     id: action.id,
-                    number: state.newMainDocNumber,
+                    num: state.newMainDocNum,
                     department_id: state.newMainDocDepartmentId,
                     status_id: state.newMainDocStatusId,
                     name_ru: state.newMainDocNameRu,
@@ -142,10 +142,10 @@ const MainDocReducer = (state = initialState, action) => {
                 ...state,
                 newMainDocPubDate: pub_date
             };
-        case UPDATE_MAIN_DOC_NUMBER:
+        case UPDATE_MAIN_DOC_NUM:
             return {
                 ...state,
-                newMainDocNumber: action.newNumber
+                newMainDocNum: action.newNum
             };
         case UPDATE_MAIN_DOC_DEPARTMENT_ID:
             return {
@@ -175,7 +175,7 @@ const MainDocReducer = (state = initialState, action) => {
         case UPDATE_MAIN_DOC_FILE_KZ:
             return {
                 ...state,
-                newMainDocFileRu: action.newFileKz
+                newMainDocFileKz: action.newFileKz
             };
         case UPDATE_MAIN_DOC_DESCRIPTION_RU:
             return {
@@ -263,9 +263,9 @@ export const updateMainDocNameKz = (newNameKz) => ({
     newNameKz
 });
 
-export const updateMainDocNumber = (newNumber) => ({
-    type: UPDATE_MAIN_DOC_NUMBER,
-    newNumber
+export const updateMainDocNum = (newNum) => ({
+    type: UPDATE_MAIN_DOC_NUM,
+    newNum
 });
 
 export const updateMainDocDepartmentId = (newDepartmentId) => ({
@@ -391,9 +391,6 @@ export const getMainDocById = (id) => {
                 console.info('mainDoc: ', response.data);
 
                 dispatch(setMainDocsIsFetching(false));
-
-                dispatch(setIsPosted(true));
-                dispatch(setIsPosted(false));
             });
     }
 };
