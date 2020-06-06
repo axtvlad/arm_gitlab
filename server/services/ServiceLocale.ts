@@ -15,16 +15,16 @@ class ServiceLocale {
      * @param values Строка или массив значений
      * @param isGlobalChangeVariable Изменять ли глобально все одинаковые переменные; по умолчанию true
      */
-    static setVariableValues(str: string, values: Array<any> | string, isGlobalChangeVariable: boolean = true){
-        if(!Array.isArray(values)){
+    static setVariableValues(str: string, values: Array<any> | string, isGlobalChangeVariable: boolean = true) {
+        if (!Array.isArray(values)) {
             values = [values];
         }
-        
-        if(values && values.length){
+
+        if (values && values.length) {
             const match = str.match(/({{([^}}]+)}})/gms);
 
             match.forEach((x, key) => {
-                if(key >= values.length){
+                if (key >= values.length) {
                     return;
                 }
 
