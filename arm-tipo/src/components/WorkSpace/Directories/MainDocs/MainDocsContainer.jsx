@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import MainDocs from "./MainDocs";
 import {deleteMainDocById, getMainDocs} from "../../../../redux/Reducers/MainDocReducer";
+import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
@@ -11,6 +12,7 @@ class MainDocsContainer extends React.Component {
     render() {
         return (
             <MainDocs
+                type={DirectoriesTypes.MAIN_DOCS}
                 mainDocs={this.props.mainDocs}
                 isFetching={this.props.isFetching}
                 deleteMainDocById={this.props.deleteMainDocById}

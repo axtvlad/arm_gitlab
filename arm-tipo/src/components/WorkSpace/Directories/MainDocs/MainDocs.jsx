@@ -4,6 +4,9 @@ import {EllipsisOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import word_svg from '../../../../svg/word.svg'
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const MainDocs = (props) => {
 
@@ -97,6 +100,16 @@ const MainDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
+                <div className={'addButtonBlock'}>
+                    <NavLink to={GetAddAddress(props.type)}>
+                        <Button
+                            type={'danger'}
+                            icon={<PlusOutlined/>}
+                        >
+                            {t('addNewMainDoc')}
+                        </Button>
+                    </NavLink>
+                </div>
                 {props.mainDocs.map(doc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={doc.id}>
                         <PageHeader
@@ -139,7 +152,7 @@ const MainDocs = (props) => {
                                         type="danger"
                                         shape="round"
                                     >
-                                        {t('more')}
+                                        <NavLink to={'/' + props.type + '/' + doc.id}>{t('more')}</NavLink>
                                     </Button>
                                     <Button
                                         style={{marginTop: 20, marginLeft: 10}}

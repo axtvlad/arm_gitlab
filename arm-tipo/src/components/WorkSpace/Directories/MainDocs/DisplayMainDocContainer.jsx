@@ -1,14 +1,65 @@
 import {connect} from "react-redux";
+import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
+import {withRouter} from "react-router-dom";
+import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
+import {getTypes} from "../../../../redux/Reducers/TypeReducer";
+import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
+import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
+import {getMainDocById} from "../../../../redux/Reducers/MainDocReducer";
+import React from "react";
+import {Spin} from "antd";
 import DisplayMainDoc from "./DisplayMainDoc";
 
-let mapStateToProps = () => {
-    return null;
+class DisplayMainDocContainer extends React.Component {
+    componentDidMount() {
+        !this.props.departments.length && this.props.getDepartments();
+        !this.props.statuses.length && this.props.getStatuses();
+        !this.props.types.length && this.props.getTypes();
+
+        let mainDocId = this.props.match.params.id;
+
+        if (!mainDocId) {
+            mainDocId = 1
+        }
+
+        this.props.getMainDocById(mainDocId);
+    }
+
+    render() {
+        if (!this.props.currentMainDoc
+            || !this.props.departments.length
+            || !this.props.statuses.length
+            || !this.props.types.length
+        ) {
+            return (<Spin/>)
+        } else {
+            return (
+                <DisplayMainDoc {...this.props}/>
+            )
+        }
+    }
+}
+
+
+let mapStateToProps = (state) => {
+    return {
+        directory: GetDirectory(DirectoriesTypes.MAIN_DOCS),
+        currentMainDoc: state.mainDocsDir.currentMainDoc,
+        departments: state.departmentsDir.departments,
+        statuses: state.statusesDir.statuses,
+        types: state.typesDir.types,
+    }
 };
 
-let mapDispatchToProps = () => {
-    return null;
-};
+let DisplayMainDocContainerUrl = withRouter(DisplayMainDocContainer);
 
-const DisplayMainDocContainer = connect(mapStateToProps, mapDispatchToProps)(DisplayMainDoc);
+export default connect(mapStateToProps,
+    {
+        getMainDocById,
+        getDepartments,
+        getStatuses,
+        getTypes,
+        getCustomers
+    }
+)(DisplayMainDocContainerUrl);
 
-export default DisplayMainDocContainer;

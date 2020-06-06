@@ -35,6 +35,7 @@ import DisplayStatusContainer from "./Directories/Statuses/DisplayStatusContaine
 import DisplayTypeContainer from "./Directories/Types/DisplayTypeContainer";
 import DisplayUserContainer from "./Directories/Users/DisplayUserContainer";
 import DisplayFaqContainer from "./Directories/Faqs/DisplayFaqContainer";
+import DisplayMainDocContainer from "./Directories/MainDocs/DisplayMainDocContainer";
 
 const {Content} = Layout;
 
@@ -51,6 +52,7 @@ const WorkSpace = () => {
 
                 <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
                 <Route exact path={'/addMainDoc'} render={() => <AddMainDocContainer/>}/>
+                <Route exact path={'/mainDocs/:id'} render={() => <DisplayMainDocContainer/>}/>
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>

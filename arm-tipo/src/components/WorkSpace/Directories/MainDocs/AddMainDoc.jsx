@@ -244,7 +244,11 @@ const AddMainDoc = (props) => {
                     label={t('beginFinishDate')}
                     name={'begin_and_finish_date'}
                 >
-                    <RangePicker format={'YYYY-MM-DD'} onChange={changeBeginAndFinishDate}/>
+                    <RangePicker
+                        format={'YYYY-MM-DD'}
+                        onChange={changeBeginAndFinishDate}
+                        placeholder={["Вступил в силу", "Утратил силу"]}
+                    />
                 </Form.Item>
 
                 <Form.Item
