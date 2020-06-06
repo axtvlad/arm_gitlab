@@ -16,13 +16,13 @@ class DisplayMainDocContainer extends React.Component {
         !this.props.statuses.length && this.props.getStatuses();
         !this.props.types.length && this.props.getTypes();
 
-        let mainDocId = this.props.match.params.id;
+        let id = this.props.match.params.id;
 
-        if (!mainDocId) {
-            mainDocId = 1
+        if (!id) {
+            id = 1
         }
 
-        this.props.getMainDocById(mainDocId);
+        this.props.getMainDocById(id);
     }
 
     render() {
@@ -31,7 +31,7 @@ class DisplayMainDocContainer extends React.Component {
             || !this.props.statuses.length
             || !this.props.types.length
         ) {
-            return (<Spin/>)
+            return <Spin/>
         } else {
             return (
                 <DisplayMainDoc {...this.props}/>

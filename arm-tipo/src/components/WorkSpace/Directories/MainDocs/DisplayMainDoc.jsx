@@ -8,13 +8,13 @@ const DisplayMainDoc = (props) => {
 
     let department, status, type;
 
-    if (props.currentMainDoc.department_id) {
+    if (props.currentMainDoc[0].department_id) {
         department = props.departments.find(department => department.id === props.currentMainDoc[0].department_id);
     }
-    if (props.currentMainDoc.status_id) {
+    if (props.currentMainDoc[0].status_id) {
         status = props.statuses.find(status => status.id === props.currentMainDoc[0].status_id);
     }
-    if (props.currentMainDoc.type_id) {
+    if (props.currentMainDoc[0].type_id) {
         type = props.types.find(type => type.id === props.currentMainDoc[0].type_id);
     }
 
@@ -51,7 +51,7 @@ const DisplayMainDoc = (props) => {
                     >
                         {props.currentMainDoc[0].finish_date}
                     </Descriptions.Item>
-                    {/*<Descriptions.Item
+                    <Descriptions.Item
                         label={t('roleNameRu')}
                     >
                         {props.currentMainDoc[0].department_id && department.name_ru}
@@ -65,7 +65,7 @@ const DisplayMainDoc = (props) => {
                         label={t('gender')}
                     >
                         {props.currentMainDoc[0].type_id && type.name_ru}
-                    </Descriptions.Item>*/}
+                    </Descriptions.Item>
                     <Descriptions.Item
                         label={t('headerRu')}
                     >
