@@ -7,6 +7,7 @@ const ADD_CUSTOMER = '/addCustomer';
 const ADD_DEPARTMENT = '/addDepartment';
 const ADD_FAQ = '/addFaq';
 const ADD_MAIN_DOC = '/addMainDoc';
+const ADD_OTHER_DOC = '/addOtherDoc';
 const ADD_STATUS = '/addStatus';
 const ADD_TYPES = '/addType';
 const ADD_USER = '/addUser';
@@ -27,6 +28,8 @@ export const GetAddAddress = (directory_type) => {
             return ADD_DEPARTMENT;
         case DirectoriesTypes.MAIN_DOCS:
             return ADD_MAIN_DOC;
+        case DirectoriesTypes.OTHER_DOCS:
+            return ADD_OTHER_DOC;
         case DirectoriesTypes.TYPES:
             return ADD_TYPES;
         case DirectoriesTypes.USERS:

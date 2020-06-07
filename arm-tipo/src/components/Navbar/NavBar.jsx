@@ -59,7 +59,7 @@ const NavBar = (props) => {
                     }
                 >
                     <Menu.Item key={'3'}>
-                        <NavLink to={'/maps'}>
+                        <NavLink to={'/otherDocs'}>
                             <span>{t('maps')}</span>
                         </NavLink>
                     </Menu.Item>
