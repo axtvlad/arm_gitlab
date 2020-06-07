@@ -49,6 +49,7 @@ let initialState = {
     mainDocsCount: 0,
     isFetching: false,
     isPosted: false,
+    currentMainDoc: undefined,
 };
 
 const dateNow = () => {
@@ -236,7 +237,6 @@ const MainDocReducer = (state = initialState, action) => {
             return state;
     }
 };
-
 
 export const addMainDoc = (id) => ({
     type: ADD_MAIN_DOC,

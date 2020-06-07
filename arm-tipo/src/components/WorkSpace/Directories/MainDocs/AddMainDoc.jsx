@@ -60,8 +60,6 @@ const AddMainDoc = (props) => {
     };
 
     const saveDoc = (values) => {
-        props.updateMainDocPubDate();
-
         console.log('Received values of form: ', values);
 
         props.postMainDoc(fromState);
