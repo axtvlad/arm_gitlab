@@ -26,6 +26,8 @@
   "roles": "Роли пользователей",
   "customers": "Клиенты",
   "categories": "Категории шаблонов",
+  "published": "Вступил в силу",
+  "finished": "Утратил силу",
   "cities": "Города",
   "genders": "Гендер",
   "faqs": "FAQ",
