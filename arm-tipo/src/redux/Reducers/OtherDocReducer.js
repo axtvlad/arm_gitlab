@@ -110,7 +110,7 @@ export const setIsPosted = (isPosted) => ({
     isPosted
 });
 export const updateOtherDocNameRu = (newNameRu) => ({
-    type: UPDATE_OTHER_DOC_FILE_RU,
+    type: UPDATE_OTHER_DOC_NAME_RU,
     newNameRu
 });
 

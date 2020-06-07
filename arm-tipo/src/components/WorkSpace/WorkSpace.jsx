@@ -38,6 +38,7 @@ import DisplayFaqContainer from "./Directories/Faqs/DisplayFaqContainer";
 import DisplayMainDocContainer from "./Directories/MainDocs/DisplayMainDocContainer";
 import OtherDocsContainer from "./Directories/OtherDocs/OtherDocsContainer";
 import AddOtherDocContainer from "./Directories/OtherDocs/AddOtherDocContainer";
+import DisplayOtherDocContainer from "./Directories/OtherDocs/DisplayOtherDocContainer";
 
 const {Content} = Layout;
 
@@ -58,7 +59,7 @@ const WorkSpace = () => {
 
                 <Route exact path={'/otherDocs'} render={() => <OtherDocsContainer/>}/>
                 <Route exact path={'/addOtherDoc'} render={() => <AddOtherDocContainer/>}/>
-                {/*<Route exact path={'/mainDocs/:id'} render={() => <DisplayMainDocContainer/>}/>*/}
+                <Route exact path={'/otherDocs/:id'} render={() => <DisplayOtherDocContainer/>}/>
 
                 <Route exact path={'/types'} render={() => <TypesContainer/>}/>
                 <Route exact path={'/addType'} render={() => <AddTypeContainer/>}/>

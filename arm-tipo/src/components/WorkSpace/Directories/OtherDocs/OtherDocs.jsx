@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {Button, Dropdown, Menu, PageHeader, Row, Spin, Tag} from "antd";
+import {Button, Dropdown, Menu, PageHeader, Row, Spin} from "antd";
 import React from "react";
 import {EllipsisOutlined} from "@ant-design/icons";
 import {NavLink} from "react-router-dom";
@@ -75,7 +75,9 @@ const OtherDocs = (props) => {
                             title={othDoc.name_ru}
                             className="site-page-header"
                             extra={[
-                                <DropdownMenu key="more" id={othDoc.id}/>
+                                <DropdownMenu key="more" id={othDoc.id}>
+                                    <NavLink to={'/' + props.type + '/' + othDoc.id}>{t('more')}</NavLink>
+                                </DropdownMenu>
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                         >

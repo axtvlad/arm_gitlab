@@ -1,7 +1,6 @@
 import {connect} from "react-redux";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {withRouter} from "react-router-dom";
-import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
 import {getTypes} from "../../../../redux/Reducers/TypeReducer";
 import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
 import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
