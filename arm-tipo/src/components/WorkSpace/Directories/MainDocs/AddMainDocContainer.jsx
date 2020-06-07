@@ -32,6 +32,8 @@ class AddMainDocContainer extends React.Component {
         !this.props.types.length && this.props.getTypes();
         !this.props.departments.length && this.props.getDepartments();
         !this.props.statuses.length && this.props.getStatuses();
+        this.props.updateMainDocPubDate();
+
     }
 
     render() {
