@@ -58,8 +58,7 @@ export default connect(mapStateToProps,
         getMainDocById,
         getDepartments,
         getStatuses,
-        getTypes,
-        getCustomers
+        getTypes
     }
 )(DisplayMainDocContainerUrl);
 
