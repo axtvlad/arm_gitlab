@@ -247,7 +247,7 @@ const AddMainDoc = (props) => {
                     <RangePicker
                         format={'YYYY-MM-DD'}
                         onChange={changeBeginAndFinishDate}
-                        placeholder={["Вступил в силу", "Утратил силу"]}
+                        placeholder={[t("published"), t("finished")]}
                     />
                 </Form.Item>
 
