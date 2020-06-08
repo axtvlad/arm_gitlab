@@ -1,6 +1,7 @@
 import React from 'react'
 import {Descriptions, Spin} from "antd";
 import {useTranslation} from "react-i18next";
+import i18n from "../../../../i18n";
 
 const DisplayFaq = (props) => {
     const {t} = useTranslation();
@@ -13,26 +14,26 @@ const DisplayFaq = (props) => {
                         column={1}
                         colon={true}
                     >
-                        <Descriptions.Item
+                        {i18n.language === 'ru' ? <Descriptions.Item
                             label={t('questionRu')}
                         >
                             {props.currentItem[0].question_ru}
-                        </Descriptions.Item>
+                        </Descriptions.Item>:
                         <Descriptions.Item
                             label={t('questionKz')}
                         >
                             {props.currentItem[0].question_kz}
-                        </Descriptions.Item>
-                        <Descriptions.Item
+                        </Descriptions.Item>}
+                        {i18n.language === 'ru' ? <Descriptions.Item
                             label={t('answerRu')}
                         >
                             {props.currentItem[0].answer_ru}
-                        </Descriptions.Item>
+                        </Descriptions.Item>:
                         <Descriptions.Item
                             label={t('answerKz')}
                         >
                             {props.currentItem[0].answer_kz}
-                        </Descriptions.Item>
+                        </Descriptions.Item>}
                     </Descriptions>
                 )}
             </div>

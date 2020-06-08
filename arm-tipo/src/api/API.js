@@ -184,6 +184,29 @@ export const restAPI = {
         }
     },
 
+    otherDocs: {
+        getOtherDocs() {
+            return instance
+                .get('otherDocs')
+                .then(response => response.data)
+        },
+        getOtherDocById(id) {
+            return instance
+                .get('otherDocs/' + id)
+                .then(response => response.data)
+        },
+        deleteOtherDocById(id) {
+            return instance
+                .delete('otherDocs/' + id)
+                .then(response => response.data)
+        },
+        postOtherDoc(newOtherDoc) {
+            return instance
+                .post('otherDocs', newOtherDoc)
+                .then(response => response.data)
+        }
+    },
+
     roles: {
         getRoles() {
             return instance

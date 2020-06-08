@@ -4,6 +4,7 @@ const CUSTOMERS = 'customers';
 const DEPARTMENTS = 'departments';
 const FAQS = 'faqs';
 const MAIN_DOCS = 'mainDocs';
+const OTHER_DOCS = 'otherDocs';
 const ROLES = 'roles';
 const USERS = 'users';
 const STATUSES = 'statuses';
@@ -16,6 +17,7 @@ const CUSTOMER = 'customer';
 const DEPARTMENT = 'department';
 const FAQ = 'faq';
 const MAIN_DOC = 'mainDoc';
+const OTHER_DOC = 'otherDoc';
 const ROLE = 'role';
 const USER = 'user';
 const STATUS = 'status';
@@ -29,6 +31,7 @@ export const DirectoriesTypes = {
     DEPARTMENTS,
     FAQS,
     MAIN_DOCS,
+    OTHER_DOCS,
     ROLES,
     USERS,
     TYPES,
@@ -42,6 +45,7 @@ export const GetDirectory = (directory_type) => {
         case DirectoriesTypes.DEPARTMENTS: return DEPARTMENT;
         case DirectoriesTypes.FAQS: return FAQ;
         case DirectoriesTypes.MAIN_DOCS: return MAIN_DOC;
+        case DirectoriesTypes.OTHER_DOCS: return OTHER_DOC;
         case DirectoriesTypes.CITIES: return CITY;
         case DirectoriesTypes.CUSTOMERS: return CUSTOMER;
         case DirectoriesTypes.ROLES: return ROLE;

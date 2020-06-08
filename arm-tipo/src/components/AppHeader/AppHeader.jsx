@@ -59,7 +59,7 @@ const AppHeader = (props) => {
                     onChange={(e) => changeLocale(e)}
                 >
                     <Option value="ru">ru</Option>
-                    <Option value="en">en</Option>
+                    {/*<Option value="en">en</Option>*/}
                     <Option value="kz">kz</Option>
                 </Select>
                 <span style={{float: 'right', marginRight: 30}}>

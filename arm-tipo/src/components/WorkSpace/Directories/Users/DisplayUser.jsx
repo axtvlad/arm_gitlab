@@ -1,6 +1,7 @@
 import React from 'react'
 import {Checkbox, Descriptions} from "antd";
 import {useTranslation} from "react-i18next";
+import i18n from "../../../../i18n";
 
 const DisplayDirectoryItem = (props) => {
     const {t} = useTranslation();
@@ -43,26 +44,46 @@ const DisplayDirectoryItem = (props) => {
                     >
                         {props.currentUser.email}
                     </Descriptions.Item>
-                    <Descriptions.Item
-                        label={t('roleNameRu')}
-                    >
-                        {props.currentUser.role_id && role.name_ru}
-                    </Descriptions.Item>
-                    <Descriptions.Item
-                        label={t('cityNameRu')}
-                    >
-                        {props.currentUser.city_id && city.name_ru}
-                    </Descriptions.Item>
-                    <Descriptions.Item
-                        label={t('gender')}
-                    >
-                        {props.currentUser.gender_id && gender.name_ru}
-                    </Descriptions.Item>
-                    <Descriptions.Item
-                        label={t('customerNameRu')}
-                    >
-                        {props.currentUser.customer_id && customer.name_ru}
-                    </Descriptions.Item>
+                    {i18n.language === 'ru' ? <Descriptions.Item
+                            label={t('roleNameRu')}
+                        >
+                            {props.currentUser.role_id && role.name_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('roleNameKz')}
+                        >
+                            {props.currentUser.role_id && role.name_kz}
+                        </Descriptions.Item>}
+                    {i18n.language === 'ru' ? <Descriptions.Item
+                            label={t('cityNameRu')}
+                        >
+                            {props.currentUser.city_id && city.name_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('cityNameKz')}
+                        >
+                            {props.currentUser.city_id && city.name_kz}
+                        </Descriptions.Item>}
+                    {i18n.language === 'ru' ? <Descriptions.Item
+                            label={t('gender')}
+                        >
+                            {props.currentUser.gender_id && gender.name_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('gender')}
+                        >
+                            {props.currentUser.gender_id && gender.name_kz}
+                        </Descriptions.Item>}
+                    {i18n.language === 'ru' ? <Descriptions.Item
+                            label={t('customerNameRu')}
+                        >
+                            {props.currentUser.customer_id && customer.name_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('customerNameKz')}
+                        >
+                            {props.currentUser.customer_id && customer.name_kz}
+                        </Descriptions.Item>}
                     <Descriptions.Item
                         label={t('phone')}
                     >

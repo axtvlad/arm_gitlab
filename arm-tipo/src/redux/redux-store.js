@@ -13,6 +13,7 @@ import GenderReducer from "./Reducers/GenderReducer";
 import TemplateReducer from "./Reducers/TemplateReducer";
 import AuthReducer from "./Reducers/AuthReducer";
 import thunkMiddleWare from 'redux-thunk';
+import OtherDocReducer from "./Reducers/OtherDocReducer";
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -20,6 +21,7 @@ let reducers = combineReducers({
     statusesDir: StatusReducer,
     rolesDir: RoleReducer,
     mainDocsDir: MainDocReducer,
+    otherDocsDir: OtherDocReducer,
     faqsDir: FaqReducer,
     customersDir: CustomerReducer,
     categoriesDir: CategoryReducer,
