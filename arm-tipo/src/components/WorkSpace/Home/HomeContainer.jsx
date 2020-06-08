@@ -20,16 +20,22 @@ class HomeContainer extends React.Component {
         ) {
             return <Spin/>
         } else {
-            let totalCount = this.props.mainDocsDir.mainDocsCount + this.props.otherDocsDir.otherDocsCount
+            let totalCount = this.props.mainDocsDir.mainDocsCount + this.props.otherDocsDir.otherDocsCount;
+            let mainDocs = this.props.mainDocsDir.mainDocs;
+            let lastMainDoc = mainDocs[mainDocs.length - 1];
 
-            return (
-                <Home
-                    usersCount={this.props.usersCount}
-                    lastAddedMainDoc={this.props.mainDocsDir.mainDocs[this.props.mainDocsDir.mainDocs.length - 1]}
-                    totalCount={totalCount}
-                    isFetching={this.props.isFetching}
-                />
-            )
+            if (!lastMainDoc) {
+                return <Spin/>
+            } else {
+                return (
+                    <Home
+                        usersCount={this.props.usersCount}
+                        lastAddedMainDoc={lastMainDoc}
+                        totalCount={totalCount}
+                        isFetching={this.props.isFetching}
+                    />
+                )
+            }
         }
     }
 }

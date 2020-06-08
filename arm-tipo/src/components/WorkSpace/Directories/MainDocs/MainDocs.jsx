@@ -52,11 +52,9 @@ const MainDocs = (props) => {
     const getStatusColor = (id) => {
         switch (id) {
             case 1:
-                return 'red';
-            case 2:
                 return 'green';
-            case 3:
-                return 'blue';
+            case 2:
+                return 'red';
             default:
                 return 'orange';
         }
@@ -65,11 +63,9 @@ const MainDocs = (props) => {
     const getStatusText = (id) => {
         switch (id) {
             case 1:
-                return 'Потерял актуальность';
-            case 2:
                 return 'Актуальный';
-            case 3:
-                return 'Новый';
+            case 2:
+                return 'Потерял актуальность';
             default:
                 return 'Неизвестно'
         }
