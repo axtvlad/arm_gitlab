@@ -74,7 +74,7 @@ const Home = (props) => {
                 <Col span={12}>
                     <Statistic
                         title={t('totalDocsCount')}
-                        value={props.mainDocsCount}
+                        value={props.totalCount}
                         prefix={<CopyOutlined/>}
                     />
                 </Col>
@@ -82,19 +82,16 @@ const Home = (props) => {
             <Divider/>
             <Title level={3}>Последний добавленный документ: </Title>
             <Row>
-                <div style={{padding: 30, backgroundColor: 'white', border: '1px solid #ebebeb', borderRadius: 10}}>
+                <div style={{
+                    padding: 30,
+                    backgroundColor: 'white',
+                    border: '1px solid #ebebeb',
+                    borderRadius: 10,
+                    width: '-webkit-fill-available'
+                }}>
                     <PageHeader
                         title={props.lastAddedMainDoc.name_ru}
                         className="site-page-header"
-                        subTitle={props.lastAddedMainDoc.number}
-                        tags={
-                            <div>
-                                <Tag color={'purple'}>{getDepartmentText(props.lastAddedMainDoc.department_id)}</Tag>
-                                <Tag
-                                    color={getStatusColor(props.lastAddedMainDoc.status_id)}>{getStatusText(props.lastAddedMainDoc.status_id)}</Tag>
-                            </div>
-                        }
-                        avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                     >
                         <Content
                             extraContent={
@@ -106,9 +103,20 @@ const Home = (props) => {
                                 />
                             }
                         >
+                            <div style={{float: 'left', margin: '20px 0'}}>
+                                <Tag color={'purple'}>
+                                    {getDepartmentText(props.lastAddedMainDoc.department_id)}
+                                </Tag>
+                                <Tag color={getStatusColor(props.lastAddedMainDoc.status_id)}>
+                                    {getStatusText(props.lastAddedMainDoc.status_id)}
+                                </Tag>
+                            </div>
                             <Descriptions column={1} style={{textAlign: "left", marginTop: 20}}>
                                 <Descriptions.Item label={'Заголовок документа'}>
                                     {props.lastAddedMainDoc.header_ru}
+                                </Descriptions.Item>
+                                <Descriptions.Item label={'Номер документа'}>
+                                    {props.lastAddedMainDoc.num}
                                 </Descriptions.Item>
                                 <Descriptions.Item label={'Дата публикации'}>
                                     {props.lastAddedMainDoc.pub_date}

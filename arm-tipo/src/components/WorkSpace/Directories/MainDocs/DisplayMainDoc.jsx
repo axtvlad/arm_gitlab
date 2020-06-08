@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTranslation} from "react-i18next";
-import {Checkbox, Descriptions} from "antd";
+import {Descriptions} from "antd";
 import i18n from "../../../../i18n";
 
 const DisplayMainDoc = (props) => {
@@ -64,70 +64,70 @@ const DisplayMainDoc = (props) => {
                         </Descriptions.Item>
                     }
                     {i18n.language === 'ru' ? <Descriptions.Item
-                        label={t('statusNameRu')}
-                    >
-                        {props.currentMainDoc[0].status_id && status.name_ru}
-                    </Descriptions.Item>:
+                            label={t('statusNameRu')}
+                        >
+                            {props.currentMainDoc[0].status_id && status.name_ru}
+                        </Descriptions.Item> :
                         <Descriptions.Item
                             label={t('statusNameKz')}
                         >
                             {props.currentMainDoc[0].status_id && status.name_kz}
                         </Descriptions.Item>}
                     {i18n.language === 'ru' ? <Descriptions.Item
-                        label={t('typeNameRu')}
-                    >
-                        {props.currentMainDoc[0].type_id && type.name_ru}
-                    </Descriptions.Item>:
+                            label={t('typeNameRu')}
+                        >
+                            {props.currentMainDoc[0].type_id && type.name_ru}
+                        </Descriptions.Item> :
                         <Descriptions.Item
                             label={t('typeNameKz')}
                         >
                             {props.currentMainDoc[0].type_id && type.name_kz}
                         </Descriptions.Item>}
                     {i18n.language === 'ru' ? <Descriptions.Item
-                        label={t('headerRu')}
-                    >
-                        {props.currentMainDoc[0].header_ru}
-                    </Descriptions.Item>:
-                    <Descriptions.Item
-                        label={t('headerKz')}
-                    >
-                        {props.currentMainDoc[0].header_kz}
-                    </Descriptions.Item>}
+                            label={t('headerRu')}
+                        >
+                            {props.currentMainDoc[0].header_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('headerKz')}
+                        >
+                            {props.currentMainDoc[0].header_kz}
+                        </Descriptions.Item>}
                     <Descriptions.Item
                         label={t('fileRu')}
                     >
-                        {props.currentMainDoc[0].file_ru}
+                        <a href={props.currentMainDoc[0].file_ru}>
+                            Документ (ru)
+                        </a>
+
                     </Descriptions.Item>
                     <Descriptions.Item
                         label={t('fileKz')}
                     >
-                        {props.currentMainDoc[0].file_kz}
+                        <a href={props.currentMainDoc[0].file_kz}>
+                            Документ (kz)
+                        </a>
                     </Descriptions.Item>
                     {i18n.language === 'ru' ? <Descriptions.Item
-                        label={t('descriptionRu')}
-                    >
-                        {props.currentMainDoc[0].description_ru}
-                    </Descriptions.Item>:
-                    <Descriptions.Item
-                        label={t('descriptionKz')}
-                    >
-                        {props.currentMainDoc[0].description_kz}
-                    </Descriptions.Item>}
+                            label={t('descriptionRu')}
+                        >
+                            {props.currentMainDoc[0].description_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('descriptionKz')}
+                        >
+                            {props.currentMainDoc[0].description_kz}
+                        </Descriptions.Item>}
                     {i18n.language === 'ru' ? <Descriptions.Item
-                        label={t('textRu')}
-                    >
-                        {props.currentMainDoc[0].text_ru}
-                    </Descriptions.Item>:
-                    <Descriptions.Item
-                        label={t('textKz')}
-                    >
-                        {props.currentMainDoc[0].text_kz}
-                    </Descriptions.Item>}
-                    <Descriptions.Item
-                        label={t('tags')}
-                    >
-                        {props.currentMainDoc[0].tags}
-                    </Descriptions.Item>
+                            label={t('textRu')}
+                        >
+                            {props.currentMainDoc[0].text_ru}
+                        </Descriptions.Item> :
+                        <Descriptions.Item
+                            label={t('textKz')}
+                        >
+                            {props.currentMainDoc[0].text_kz}
+                        </Descriptions.Item>}
                 </Descriptions>
             )}
         </div>

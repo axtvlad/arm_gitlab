@@ -116,12 +116,6 @@ const MainDocs = (props) => {
                             title={doc.name_ru}
                             className="site-page-header"
                             subTitle={doc.number}
-                            tags={
-                                <div>
-                                    <Tag color={'purple'}>{getDepartmentText(doc.department_id)}</Tag>
-                                    <Tag color={getStatusColor(doc.status_id)}>{getStatusText(doc.status_id)}</Tag>
-                                </div>
-                            }
                             extra={[
                                 <DropdownMenu key="more" id={doc.id}/>
                             ]}
@@ -137,9 +131,16 @@ const MainDocs = (props) => {
                                     />
                                 }
                             >
+                                <div style={{float: 'left', margin: '20px 0'}}>
+                                    <Tag color={'purple'}>{getDepartmentText(doc.department_id)}</Tag>
+                                    <Tag color={getStatusColor(doc.status_id)}>{getStatusText(doc.status_id)}</Tag>
+                                </div>
                                 <Descriptions column={1} style={{textAlign: "left", marginTop: 20}}>
                                     <Descriptions.Item label={'Заголовок документа'}>
                                         {doc.header_ru}
+                                    </Descriptions.Item>
+                                    <Descriptions.Item label={'Номер'}>
+                                        {doc.num}
                                     </Descriptions.Item>
                                     <Descriptions.Item label={'Дата публикации'}>
                                         {doc.pub_date}

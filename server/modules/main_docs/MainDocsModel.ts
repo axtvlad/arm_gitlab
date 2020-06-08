@@ -23,10 +23,10 @@ export class MainDocs {
     @Column({type: "date", default: null})
     pub_date?: Date;
 
-    @Column({length: 150, unique: true})
+    @Column({length: 1000, unique: true})
     name_ru: string;
 
-    @Column({length: 150, default: null})
+    @Column({length: 1000, default: null})
     name_kz?: string;
 
     @Column({length: 300, unique: true})
@@ -35,10 +35,10 @@ export class MainDocs {
     @Column({length: 300, default: null})
     header_kz?: string;
 
-    @Column({length: 100})
+    @Column({length: 1000})
     file_ru: string;
 
-    @Column({length: 100, default: null})
+    @Column({length: 1000, default: null})
     file_kz?: string;
 
     @Column({length: 3000, default: null})

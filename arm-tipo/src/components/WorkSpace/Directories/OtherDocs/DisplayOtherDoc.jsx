@@ -6,7 +6,9 @@ import React from "react";
 const DisplayOtherDoc = (props) => {
 
     const {t} = useTranslation();
-console.log(props.currentOtherDoc)
+
+    console.log(props.currentOtherDoc)
+
     return (
         <div className={'content'}>
             {props.currentOtherDoc && (
