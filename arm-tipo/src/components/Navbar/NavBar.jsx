@@ -153,6 +153,12 @@ const NavBar = (props) => {
                         </NavLink>
                     </Menu.Item>
                 )}
+                <Menu.Item key={'1654'}>
+                    <NavLink to={'/workPlanSchedule'}>
+                        <FormOutlined/>
+                        <span>{t('rup')}</span>
+                    </NavLink>
+                </Menu.Item>
             </Menu>
         </Sider>
     )

@@ -14,6 +14,7 @@ import TemplateReducer from "./Reducers/TemplateReducer";
 import AuthReducer from "./Reducers/AuthReducer";
 import thunkMiddleWare from 'redux-thunk';
 import OtherDocReducer from "./Reducers/OtherDocReducer";
+import WorkPlanScheduleReducer from "./Reducers/WorkPlanScheduleReducer";
 
 let reducers = combineReducers({
     typesDir: TypeReducer,
@@ -30,6 +31,7 @@ let reducers = combineReducers({
     gendersDir: GenderReducer,
     templatesDir: TemplateReducer,
     auth: AuthReducer,
+    workPlanScheduleDir: WorkPlanScheduleReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare));

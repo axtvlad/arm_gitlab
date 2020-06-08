@@ -39,7 +39,7 @@ import DisplayMainDocContainer from "./Directories/MainDocs/DisplayMainDocContai
 import OtherDocsContainer from "./Directories/OtherDocs/OtherDocsContainer";
 import AddOtherDocContainer from "./Directories/OtherDocs/AddOtherDocContainer";
 import DisplayOtherDocContainer from "./Directories/OtherDocs/DisplayOtherDocContainer";
-import SendEmail from "./Directories/Experts/SendEmail";
+import WorkPlanScheduleContainer from "./WorkPlanSchedule/WorkPlanScheduleContainer";
 import EmailForm from "./Directories/Experts/EmailForm";
 
 const {Content} = Layout;
@@ -105,6 +105,8 @@ const WorkSpace = () => {
                 <Route exact path={'/users'} render={() => <UsersContainer/>}/>
                 <Route exact path={'/addUser'} render={() => <AddUserContainer/>}/>
                 <Route exact path={'/users/:userId'} render={() => <DisplayUserContainer/>}/>
+
+                <Route exact path={'/workPlanSchedule'} render={() => <WorkPlanScheduleContainer/>}/>
             </div>
         </Content>
     )
