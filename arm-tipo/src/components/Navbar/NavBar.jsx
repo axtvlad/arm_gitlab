@@ -49,21 +49,14 @@ const NavBar = (props) => {
                         </span>
                     </NavLink>
                 </Menu.Item>
-                <SubMenu
-                    key={'sub1'}
-                    title={
+                <Menu.Item key={'234234'}>
+                    <NavLink to={'/otherDocs'}>
                         <span>
-                            <FileOutlined/>
-                            <span>{t('otherDocs')}</span>
+                           <DatabaseOutlined/>
+                           <span>{t('otherDocs')}</span>
                         </span>
-                    }
-                >
-                    <Menu.Item key={'3'}>
-                        <NavLink to={'/otherDocs'}>
-                            <span>{t('maps')}</span>
-                        </NavLink>
-                    </Menu.Item>
-                </SubMenu>
+                    </NavLink>
+                </Menu.Item>
                 <Menu.Item key={'4'}>
                     <NavLink to={'/templates'}>
                         <span>
@@ -72,21 +65,14 @@ const NavBar = (props) => {
                         </span>
                     </NavLink>
                 </Menu.Item>
-                <SubMenu
-                    key={'sub3'}
-                    title={
+                <Menu.Item key={'423232'}>
+                    <NavLink to={'/expert'}>
                         <span>
-                            <TeamOutlined/>
+                            <FormOutlined/>
                             <span>{t('experts')}</span>
                         </span>
-                    }
-                >
-                    <Menu.Item key={'6'}>
-                        <NavLink to={'/expert'}>
-                            <span>Эксперт 1</span>
-                        </NavLink>
-                    </Menu.Item>
-                </SubMenu>
+                    </NavLink>
+                </Menu.Item>
                 {props.isAdmin && (
                     <SubMenu
                         key={'sub4'}
@@ -156,7 +142,7 @@ const NavBar = (props) => {
                 <Menu.Item key={'1654'}>
                     <NavLink to={'/workPlanSchedule'}>
                         <FormOutlined/>
-                        <span>{t('rup')}</span>
+                        <span>РУП ВТиПО 2020</span>
                     </NavLink>
                 </Menu.Item>
             </Menu>

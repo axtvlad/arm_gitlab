@@ -20,12 +20,12 @@ const Directory = (props) => {
 
     const columns = [
         {
-            title: t('subject'),
+            title: 'Дисциплина',
             dataIndex: 'subject',
             key: 'subject'
         },
         {
-            title: t('hours'),
+            title: 'часов в неделю',
             dataIndex: 'hours',
             key: 'hours'
         }
