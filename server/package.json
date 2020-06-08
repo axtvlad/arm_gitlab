@@ -25,8 +25,10 @@
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.9",
     "axios": "^0.19.0",
+    "cookie-parser": "latest",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "exceljs": "^4.0.1",
     "express": "^4.17.1",
     "i18n": "^0.8.4",
     "jsonwebtoken": "^8.5.1",
@@ -36,7 +38,6 @@
     "password-hash": "^1.2.2",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.22",
-    "validator": "^12.1.0",
-    "cookie-parser": "latest"
+    "validator": "^12.1.0"
   }
 }
