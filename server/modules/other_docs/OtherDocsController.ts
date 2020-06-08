@@ -54,7 +54,8 @@ export default new class OtherDocsController {
 
             if (bodyParams.name_kz) {
                 OtherDoc.name_kz = bodyParams.name_kz;
-            } else if (bodyParams.file_kz) {
+            }
+            if (bodyParams.file_kz) {
                 OtherDoc.file_kz = bodyParams.file_kz;
             }
 
