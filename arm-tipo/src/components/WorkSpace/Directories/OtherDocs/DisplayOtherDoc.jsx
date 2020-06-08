@@ -30,12 +30,16 @@ const DisplayOtherDoc = (props) => {
                     <Descriptions.Item
                         label={t('fileRu')}
                     >
-                        {props.currentOtherDoc[0].file_ru}
+                        <a href={props.currentOtherDoc[0].file_ru}>
+                            Документ (ru)
+                        </a>
                     </Descriptions.Item>
                     <Descriptions.Item
                         label={t('fileKz')}
                     >
-                        {props.currentOtherDoc[0].file_kz}
+                        <a href={props.currentOtherDoc[0].file_kz}>
+                            Документ (kz)
+                        </a>
                     </Descriptions.Item>
                 </Descriptions>
             )}

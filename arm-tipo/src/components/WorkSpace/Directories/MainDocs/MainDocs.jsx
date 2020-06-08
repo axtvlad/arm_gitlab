@@ -96,7 +96,7 @@ const MainDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
-                <div className={'addButtonBlock'}>
+                {props.isAdmin && <div className={'addButtonBlock'}>
                     <NavLink to={GetAddAddress(props.type)}>
                         <Button
                             type={'danger'}
@@ -105,7 +105,7 @@ const MainDocs = (props) => {
                             {t('addNewMainDoc')}
                         </Button>
                     </NavLink>
-                </div>
+                </div>}
                 {props.mainDocs.map(doc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={doc.id}>
                         <PageHeader

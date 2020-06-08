@@ -13,6 +13,7 @@ class OtherDocsContainer extends React.Component {
             <OtherDocs
                 type={DirectoriesTypes.OTHER_DOCS}
                 otherDocs={this.props.otherDocs}
+                isAdmin={this.props.isAdmin}
                 isFetching={this.props.isFetching}
                 deleteOtherDocById={this.props.deleteOtherDocById}
             />
@@ -22,7 +23,8 @@ class OtherDocsContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         otherDocs: state.otherDocsDir.otherDocs,
-        isFetching: state.otherDocsDir.isFetching
+        isFetching: state.otherDocsDir.isFetching,
+        isAdmin: state.usersDir.isAdmin
     }
 };
 

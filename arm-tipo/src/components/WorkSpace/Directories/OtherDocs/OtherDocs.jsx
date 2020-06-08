@@ -59,7 +59,7 @@ const OtherDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
-                <div className={'addButtonBlock'}>
+                {props.isAdmin && <div className={'addButtonBlock'}>
                     <NavLink to={GetAddAddress(props.type)}>
                         <Button
                             type={'danger'}
@@ -68,7 +68,7 @@ const OtherDocs = (props) => {
                             {t('addNewOtherDoc')}
                         </Button>
                     </NavLink>
-                </div>
+                </div>}
                 {props.otherDocs.map(othDoc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={othDoc.id}>
                         <PageHeader

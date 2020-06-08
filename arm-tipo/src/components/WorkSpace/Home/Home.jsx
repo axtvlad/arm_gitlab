@@ -5,6 +5,7 @@ import CopyOutlined from "@ant-design/icons/lib/icons/CopyOutlined";
 import {useTranslation} from "react-i18next";
 import word_svg from "../../../svg/word.svg";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import {NavLink} from "react-router-dom";
 
 const Home = (props) => {
     const {Title} = Typography;
@@ -124,13 +125,13 @@ const Home = (props) => {
                             </Descriptions>
 
                             <div style={{textAlign: 'left'}}>
-                                <Button
-                                    style={{marginTop: 20, marginRight: 10}}
-                                    type="danger"
-                                    shape="round"
-                                >
-                                    {t('more')}
-                                </Button>
+                                    <Button
+                                        style={{marginTop: 20, marginRight: 10}}
+                                        type="danger"
+                                        shape="round"
+                                    >
+                                        <NavLink to={'/' + props.type + '/' + props.lastAddedMainDoc.id}>{t('more')}</NavLink>
+                                    </Button>
                                 <Button
                                     style={{marginTop: 20, marginLeft: 10}}
                                     type="primary"
