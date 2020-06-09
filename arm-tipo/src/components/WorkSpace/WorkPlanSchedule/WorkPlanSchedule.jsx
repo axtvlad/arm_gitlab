@@ -20,12 +20,12 @@ const Directory = (props) => {
 
     const columns = [
         {
-            title: 'Дисциплина',
+            title: t('subject'),
             dataIndex: 'subject',
             key: 'subject'
         },
         {
-            title: 'часов в неделю',
+            title: t('hoursPerWeek'),
             dataIndex: 'hours',
             key: 'hours'
         }
@@ -38,7 +38,7 @@ const Directory = (props) => {
                 href={'https://drive.google.com/file/d/1ry9omQqImJj2_uzqxOEagD4F12AYWH7v/view?usp=sharing'}
                 target={'_blank'}
             >
-                Скачать РУП ВТ и ПО 2020
+                {t("downloadRup")}
             </Button>
             <Select
                 defaultValue={specialization.operator.key} s

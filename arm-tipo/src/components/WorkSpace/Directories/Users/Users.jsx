@@ -26,7 +26,7 @@ const Users = (props) => {
             </div>
             <Spin spinning={props.isFetching}>
                 <Table dataSource={props.users}>
-                    <Column title="First Name" dataIndex={'firstName'} key={'firstName'}
+                    <Column title={t('firstName')} dataIndex={'firstName'} key={'firstName'}
                         render={(text, record) => {
                             console.log(record);
                             return (
@@ -34,11 +34,11 @@ const Users = (props) => {
                             <NavLink to={'/' + props.type + '/' + record.userId}>{record.firstName}</NavLink>
                         </Space>
                     )}}/>
-                    <Column title="Last Name" dataIndex={'lastName'} key={'lastName'}/>
-                    <Column title="Email" dataIndex={'email'} key={'email'}/>
-                    <Column title="Phone" dataIndex={'phone'} key={'phone'}/>
+                    <Column title={t('lastName')} dataIndex={'lastName'} key={'lastName'}/>
+                    <Column title={t('email')} dataIndex={'email'} key={'email'}/>
+                    <Column title={t('phone')} dataIndex={'phone'} key={'phone'}/>
                     <Column
-                        title="Action"
+                        title={t('actions')}
                         key="action"
                         render={(text, record) => (
                             <Space size="middle">
