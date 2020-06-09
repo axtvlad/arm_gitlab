@@ -2,11 +2,16 @@ import {Button, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-
-
 const Directory = (props) => {
 
     const {t} = useTranslation();
+
+    let fromState = {
+        specialization: props.wps.specialization,
+        semester: props.wps.semester
+    }
+
+    console.log(fromState)
 
     const specialization = {
         programmer: {
