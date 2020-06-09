@@ -92,11 +92,14 @@ const Directory = (props) => {
                 Получить данные
             </Button>
             {props.wps.subjects.length ?
-                <Table
-                    columns={columns}
-                    dataSource={props.wps.subjects}
-                    rowKey={'id'}
-                />
+                <>
+                    <div>{props.wps.subjects.length}</div>
+                    <Table
+                        columns={columns}
+                        dataSource={props.wps.subjects}
+                        rowKey={'id'}
+                    />
+                </>
                 : <Spin/>}
         </div>
     )
