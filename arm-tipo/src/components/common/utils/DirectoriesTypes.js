@@ -8,6 +8,7 @@ const OTHER_DOCS = 'otherDocs';
 const ROLES = 'roles';
 const USERS = 'users';
 const STATUSES = 'statuses';
+const TEMPLATES = 'templates';
 const TYPES = 'types';
 const GENDERS = 'genders';
 
@@ -21,6 +22,7 @@ const OTHER_DOC = 'otherDoc';
 const ROLE = 'role';
 const USER = 'user';
 const STATUS = 'status';
+const TEMPLATE = 'template';
 const TYPE = 'type';
 const GENDER = 'gender';
 
@@ -34,6 +36,7 @@ export const DirectoriesTypes = {
     OTHER_DOCS,
     ROLES,
     USERS,
+    TEMPLATES,
     TYPES,
     STATUSES,
     GENDERS
@@ -51,6 +54,7 @@ export const GetDirectory = (directory_type) => {
         case DirectoriesTypes.ROLES: return ROLE;
         case DirectoriesTypes.USERS: return USER;
         case DirectoriesTypes.STATUSES: return STATUS;
+        case DirectoriesTypes.TEMPLATES: return TEMPLATE;
         case DirectoriesTypes.TYPES: return TYPE;
         case DirectoriesTypes.GENDERS: return GENDER;
         default: return 'none'

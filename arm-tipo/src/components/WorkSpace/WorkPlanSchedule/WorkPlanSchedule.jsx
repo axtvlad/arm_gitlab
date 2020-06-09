@@ -2,37 +2,32 @@ import {Button, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const specialization = {
-    programmer: {
-        key: 'programmer',
-        name: 'Техник-программист'
-    },
-    operator: {
-        key: 'operator',
-        name: 'Специалист по обработке цифровой информации'
-    }
-}
+
 
 const Directory = (props) => {
+
     const {t} = useTranslation();
 
-    let fromState = {
-        specialization: props.wps.specialization,
-        semester: props.wps.semester
+    const specialization = {
+        programmer: {
+            key: 'programmer',
+            name: t('programmer')
+        },
+        operator: {
+            key: 'operator',
+            name: t('operator')
+        }
     }
-
-    console.log(fromState)
-
     const {Option} = Select;
 
     const columns = [
         {
-            title: 'Дисциплина',
+            title: t('subject'),
             dataIndex: 'subject',
             key: 'subject'
         },
         {
-            title: 'часов в неделю',
+            title: t('hoursPerWeek'),
             dataIndex: 'hours',
             key: 'hours'
         }
@@ -57,7 +52,7 @@ const Directory = (props) => {
                 href={'https://drive.google.com/file/d/1ry9omQqImJj2_uzqxOEagD4F12AYWH7v/view?usp=sharing'}
                 target={'_blank'}
             >
-                Скачать РУП ВТ и ПО 2020
+                {t("downloadRup")}
             </Button>
             <Select
                 defaultValue={props.wps.specialization}

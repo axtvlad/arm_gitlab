@@ -3,6 +3,9 @@ import {Button, Dropdown, Menu, PageHeader, Row, Spin} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {EllipsisOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
 const Templates = (props) => {
 
@@ -55,6 +58,16 @@ const Templates = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
+                {props.isAdmin && <div className={'addButtonBlock'}>
+                    <NavLink to={GetAddAddress(props.type)}>
+                        <Button
+                            type={'danger'}
+                            icon={<PlusOutlined/>}
+                        >
+                            {t('addNewTemplate')}
+                        </Button>
+                    </NavLink>
+                </div>}
                 {props.templates.map(tmp =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={tmp.id}>
                         <PageHeader

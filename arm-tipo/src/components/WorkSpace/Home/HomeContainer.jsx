@@ -5,6 +5,7 @@ import {getUsers} from "../../../redux/Reducers/UserReducer";
 import {getMainDocs} from "../../../redux/Reducers/MainDocReducer";
 import {Spin} from "antd";
 import {getOtherDocs} from "../../../redux/Reducers/OtherDocReducer";
+import {DirectoriesTypes} from "../../common/utils/DirectoriesTypes";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
@@ -29,6 +30,7 @@ class HomeContainer extends React.Component {
             } else {
                 return (
                     <Home
+                        type={DirectoriesTypes.MAIN_DOCS}
                         usersCount={this.props.usersCount}
                         lastAddedMainDoc={lastMainDoc}
                         totalCount={totalCount}

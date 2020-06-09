@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Descriptions, Dropdown, Menu, PageHeader, Row, Spin, Tag} from 'antd';
+import {Button, Descriptions, Dropdown, Menu, notification, PageHeader, Row, Spin, Tag} from 'antd';
 import {EllipsisOutlined} from '@ant-design/icons';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import word_svg from '../../../../svg/word.svg'
@@ -12,7 +12,17 @@ const MainDocs = (props) => {
 
     const {t} = useTranslation();
 
-    const menu = (id) => {
+    const deleteItem = (item) => {
+        props.deleteMainDocById(item.id);
+
+        notification['success']({
+            message: 'Удалено!',
+            description: 'Запись "' + item.name_ru + '" была успешно удалена!',
+            placement: 'bottomRight'
+        });
+    };
+
+    const menu = (item) => {
         return (
             <Menu>
                 <Menu.Item>
@@ -21,7 +31,7 @@ const MainDocs = (props) => {
                     </span>
                 </Menu.Item>
                 <Menu.Item>
-                    <span onClick={() => props.deleteMainDocById(id)}>
+                    <span onClick={() => deleteItem(item)}>
                         {t('delete')}
                     </span>
                 </Menu.Item>
@@ -96,7 +106,7 @@ const MainDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
-                <div className={'addButtonBlock'}>
+                {props.isAdmin && <div className={'addButtonBlock'}>
                     <NavLink to={GetAddAddress(props.type)}>
                         <Button
                             type={'danger'}
@@ -105,7 +115,7 @@ const MainDocs = (props) => {
                             {t('addNewMainDoc')}
                         </Button>
                     </NavLink>
-                </div>
+                </div>}
                 {props.mainDocs.map(doc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={doc.id}>
                         <PageHeader

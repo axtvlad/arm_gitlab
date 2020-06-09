@@ -11,7 +11,7 @@ const Faqs = (props) => {
 
     return (
         <div style={{background: "e5e5e5"}}>
-            <NavLink to={'/addFaq'}>
+            {props.isAdmin && <NavLink to={'/addFaq'}>
                 <Button
                     type="danger"
                     shape="round"
@@ -19,7 +19,7 @@ const Faqs = (props) => {
                 >
                     {t('addNewFaq')}
                 </Button>
-            </NavLink>
+            </NavLink>}
             <Spin spinning={props.isFetching}>
                 {props.faqs.map((faq) => (
                     <Card
