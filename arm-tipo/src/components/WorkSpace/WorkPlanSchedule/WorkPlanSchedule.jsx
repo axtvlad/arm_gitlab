@@ -16,6 +16,13 @@ const specialization = {
 const Directory = (props) => {
     const {t} = useTranslation();
 
+    let fromState = {
+        specialization: props.wps.specialization,
+        semester: props.wps.semester
+    }
+
+    console.log(fromState)
+
     const {Option} = Select;
 
     const columns = [
@@ -31,6 +38,18 @@ const Directory = (props) => {
         }
     ];
 
+    const updateSpecialization = (e) => {
+        props.updateSpecialization(e);
+    };
+
+    const updateSemester = (e) => {
+        props.updateSemester(e);
+    };
+
+    const getData = () => {
+        props.getSubjectsHours(fromState)
+    }
+
     return (
         <div className={'content'} style={{textAlign: 'left'}}>
             <Button
@@ -41,9 +60,10 @@ const Directory = (props) => {
                 Скачать РУП ВТ и ПО 2020
             </Button>
             <Select
-                defaultValue={specialization.operator.key} s
-                tyle={{width: 400, margin: 10}}
-                onChange={() => {
+                defaultValue={props.wps.specialization}
+                style={{width: 400, margin: 10}}
+                onChange={(e) => {
+                    updateSpecialization(e)
                 }}
             >
                 <Option value={specialization.operator.key}>{specialization.operator.name}</Option>
@@ -51,8 +71,9 @@ const Directory = (props) => {
             </Select>
             <Select
                 style={{margin: 10}}
-                defaultValue={1}
-                onChange={() => {
+                defaultValue={props.wps.semester}
+                onChange={(e) => {
+                    updateSemester(e)
                 }}
             >
                 <Option value={1}>1 семестр</Option>
@@ -64,13 +85,19 @@ const Directory = (props) => {
                 <Option value={7}>7 семестр</Option>
                 <Option value={8}>8 семестр</Option>
             </Select>
-            <Spin spinning={props.wps.isFetching}>
+            <Button
+                style={{margin: 10}}
+                onClick={getData}
+            >
+                Получить данные
+            </Button>
+            {props.wps.subjects.length ?
                 <Table
                     columns={columns}
                     dataSource={props.wps.subjects}
                     rowKey={'id'}
                 />
-            </Spin>
+                : <Spin/>}
         </div>
     )
 };

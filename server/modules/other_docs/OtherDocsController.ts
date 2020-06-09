@@ -50,7 +50,7 @@ export default new class OtherDocsController {
             const OtherDoc = new OtherDocs;
 
             OtherDoc.name_ru = bodyParams.name_ru;
-            OtherDoc.file_ru = bodyParams.name_ru;
+            OtherDoc.file_ru = bodyParams.file_ru;
 
             if (bodyParams.name_kz) {
                 OtherDoc.name_kz = bodyParams.name_kz;

@@ -1,43 +1,35 @@
 import React from 'react'
 import WorkPlanSchedule from "./WorkPlanSchedule";
 import {connect} from "react-redux";
-import {Spin} from "antd";
-import {getSubjectsHours} from "../../../redux/Reducers/WorkPlanScheduleReducer";
+import {getSubjectsHours, updateSemester, updateSpecialization} from "../../../redux/Reducers/WorkPlanScheduleReducer";
 
 const PROGRAMMER = 'programmer';
 const OPERATOR = 'operator';
 
 class WorkPlanScheduleContainer extends React.Component {
-    componentDidMount() {
-        let params = {
-            semester: 1,
-            specialization: OPERATOR
-        }
-
-        !this.props.workPlanScheduleDir.subjects.length && this.props.getSubjectsHours(params);
-    }
 
     render() {
-        if (!this.props.workPlanScheduleDir.subjects.length) {
-            return <Spin/>
-        } else {
-            return (
-                <WorkPlanSchedule
-                    wps={this.props.workPlanScheduleDir}
-                />
-            )
-        }
+        return (
+            <WorkPlanSchedule
+                wps={this.props.wps}
+                updateSemester={this.props.updateSemester}
+                updateSpecialization={this.props.updateSpecialization}
+                getSubjectsHours={this.props.getSubjectsHours}
+            />
+        )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        workPlanScheduleDir: state.workPlanScheduleDir
+        wps: state.workPlanScheduleDir
     }
 };
 
 export default connect(mapStateToProps,
     {
-        getSubjectsHours
+        getSubjectsHours,
+        updateSemester,
+        updateSpecialization
     }
 )(WorkPlanScheduleContainer);

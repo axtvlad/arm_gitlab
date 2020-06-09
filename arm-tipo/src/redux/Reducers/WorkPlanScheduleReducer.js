@@ -13,10 +13,9 @@ const OPERATOR = 'operator';
 let initialState = {
     subjects: [],
     semester: 1,
-    specialization: PROGRAMMER,
+    specialization: OPERATOR,
     subjectsCount: 0,
-    isFetching: false,
-    isPosted: false,
+    isFetching: false
 };
 
 const WorkPlanScheduleReducer = (state = initialState, action) => {
@@ -26,11 +25,6 @@ const WorkPlanScheduleReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching
-            };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted,
             };
         case UPDATE_SEMESTER:
             return {
@@ -67,9 +61,14 @@ export const setSubjectsCount = (subjectsCount) => ({
     subjectsCount
 });
 
-export const setSemester = (semester) => ({
-    type: SET_SUBJECT_COUNT,
+export const updateSemester = (semester) => ({
+    type: UPDATE_SEMESTER,
     semester
+});
+
+export const updateSpecialization = (specialization) => ({
+    type: UPDATE_SPECIALIZATION,
+    specialization
 });
 
 export const setWorkPlanScheduleIsFetching = (isFetching) => ({
@@ -80,12 +79,15 @@ export const setWorkPlanScheduleIsFetching = (isFetching) => ({
 export const getSubjectsHours = (params) => (dispatch) => {
 
     dispatch(setWorkPlanScheduleIsFetching(true));
+    dispatch(setSubjects([]));
+
+
 
     restAPI.rup.getSubjectsHours(params)
         .then(response => {
             dispatch(setSubjectsCount(response.subjectsCount));
             dispatch(setSubjects(response.subjects));
-            dispatch(setSemester(response.semester));
+            dispatch(updateSemester(response.semester));
 
             console.info('rup data: ', response);
 
