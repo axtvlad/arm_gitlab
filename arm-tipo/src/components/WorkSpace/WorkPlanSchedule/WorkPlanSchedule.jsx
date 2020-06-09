@@ -2,20 +2,22 @@ import {Button, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const specialization = {
-    programmer: {
-        key: 'programmer',
-        name: 'Техник-программист'
-    },
-    operator: {
-        key: 'operator',
-        name: 'Специалист по обработке цифровой информации'
-    }
-}
+
 
 const Directory = (props) => {
+
     const {t} = useTranslation();
 
+    const specialization = {
+        programmer: {
+            key: 'programmer',
+            name: t('programmer')
+        },
+        operator: {
+            key: 'operator',
+            name: t('operator')
+        }
+    }
     const {Option} = Select;
 
     const columns = [
