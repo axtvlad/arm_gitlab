@@ -17,8 +17,8 @@ let initialState = {
     templates: [
         {
             id: 1,
-            name_ru: 'Просто шаблон',
-            name_kz: 'Жай шаблон',
+            name_ru: 'Шаблон приказа на фирменном бланке Политехнического колледжа',
+            name_kz: 'Политехникалық колледждің фирмалық бланкісіндегі бұйрық үлгісі',
             fileName_ru: '/src/mainDocs/fsdj8f2oh',
             fileName_kz: '/src/mainDocs/fsffsoh94',
             category_id: 1

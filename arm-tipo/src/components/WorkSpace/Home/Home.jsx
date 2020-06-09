@@ -81,7 +81,7 @@ const Home = (props) => {
                 </Col>
             </Row>
             <Divider/>
-            <Title level={3}>Последний добавленный документ: </Title>
+            <Title level={3}>{t('lastAddedDoc')} </Title>
             <Row>
                 <div style={{
                     padding: 30,
