@@ -1,13 +1,9 @@
 import React from "react";
 import MailOutlined from "@ant-design/icons/es/icons/MailOutlined";
-import {Button, Input, Form} from 'antd'
+import {Input} from 'antd'
 
 const SendEmail = (props) => {
-
-    const {TextArea} = Input;
-
     return (
-
         <form className="test-mailing">
             <h1>Задать вопрос эксперту по почте</h1>
             <div>

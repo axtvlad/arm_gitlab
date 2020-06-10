@@ -9,6 +9,7 @@ import {GetAddAddress} from "../utils/AddPagesRoutes";
 import {GetAddButtonText} from "../utils/AddButtonText";
 
 const Directory = (props) => {
+
     const {t} = useTranslation();
 
     const deleteItem = (item) => {
@@ -46,33 +47,39 @@ const Directory = (props) => {
             title: t('actions'),
             key: 'action',
             dataIndex: 'actions',
-            render: (action, item) => (
-                <div>
-                    <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
-                    <Button
-                        style={{margin: '0 5px'}}
-                        onClick={() => deleteItem(item)}
-                        shape="circle"
-                        icon={<DeleteOutlined/>}
-                        type={"primary"}
-                    />
-                </div>
-            )
+            render: (action, item) => {
+                if (props.isAdmin) {
+                    return (
+                        <div>
+                            <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
+                            <Button
+                                style={{margin: '0 5px'}}
+                                onClick={() => deleteItem(item)}
+                                shape="circle"
+                                icon={<DeleteOutlined/>}
+                                type={"primary"}
+                            />
+                        </div>
+                    )
+                }
+            }
         }
     ];
 
     return (
         <div className={'content'}>
-            <div className={'addButtonBlock'}>
-                <NavLink to={GetAddAddress(props.type)}>
-                    <Button
-                        type={'danger'}
-                        icon={<PlusOutlined/>}
-                    >
-                        {t(GetAddButtonText(props.type))}
-                    </Button>
-                </NavLink>
-            </div>
+            {props.isAdmin && (
+                <div className={'addButtonBlock'}>
+                    <NavLink to={GetAddAddress(props.type)}>
+                        <Button
+                            type={'danger'}
+                            icon={<PlusOutlined/>}
+                        >
+                            {t(GetAddButtonText(props.type))}
+                        </Button>
+                    </NavLink>
+                </div>
+            )}
             <Spin spinning={props.isFetching}>
                 <Table
                     columns={columns}

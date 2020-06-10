@@ -11,7 +11,8 @@ const Faqs = (props) => {
 
     return (
         <div style={{background: "e5e5e5"}}>
-            {props.isAdmin && <NavLink to={'/addFaq'}>
+            {props.isAdmin &&
+            <NavLink to={'/addFaq'}>
                 <Button
                     type="danger"
                     shape="round"
@@ -28,12 +29,13 @@ const Faqs = (props) => {
                         key={faq.id}
                         bordered={false}
                         actions={props.isAdmin && [
-                            <DeleteOutlined key="delete" onClick={() => props.removeFaqById(faq.id)} />
+                            <DeleteOutlined key="delete" onClick={() => props.removeFaqById(faq.id)}/>
                         ]}
                         extra={
                             <NavLink to={'/faqs/' + faq.id}>{t('more')}</NavLink>
                         }
-                    >{faq.answer_ru}
+                    >
+                        {faq.answer_ru}
                     </Card>
                 ))}
             </Spin>

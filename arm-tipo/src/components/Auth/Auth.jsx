@@ -47,28 +47,28 @@ const Auth = (props) => {
                 form={form}
             >
                 <Form.Item
-                    label={'Login'}
+                    label={'Логин'}
                     name={'login'}
-                    rules={[{required: true, message: 'Please input your username!'}]}
+                    rules={[{required: true, message: 'Пожалуйста, введите свой логин'}]}
                 >
                     <Input onChange={changeAuthLogin}/>
                 </Form.Item>
 
                 <Form.Item
-                    label={'Password'}
+                    label={'Пароль'}
                     name={'password'}
-                    rules={[{required: true, message: 'Please input your password!'}]}
+                    rules={[{required: true, message: 'Пожалуйста, введите свой пароль!'}]}
                 >
                     <Input.Password onChange={changeAuthPassword}/>
                 </Form.Item>
 
                 <Form.Item {...tailLayout} name="remember">
-                    <span>Забыли пароль?</span>
+                    <span>Забыли пароль? Молодцы!</span>
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
                     <Button type="primary" htmlType="submit">
-                        Login
+                        Войти
                     </Button>
                 </Form.Item>
             </Form>

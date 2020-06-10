@@ -3,10 +3,23 @@ import {deleteDepartmentById, getDepartments} from "../../../../redux/Reducers/D
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {notification} from "antd";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
-        !this.props.departments.length && this.props.getDepartments();
+        if (!this.props.isAdmin) {
+            this.error()
+        } else {
+            !this.props.departments.length && this.props.getDepartments();
+        }
+    }
+
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
     }
 
     render() {
@@ -26,7 +39,7 @@ let mapStateToProps = (state) => {
     return {
         departments: state.departmentsDir.departments,
         isFetching: state.departmentsDir.isFetching,
-        isAdmin: state.usersDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

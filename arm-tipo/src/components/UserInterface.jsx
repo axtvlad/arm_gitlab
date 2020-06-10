@@ -7,6 +7,8 @@ import AppHeaderContainer from "./AppHeader/AppHeaderContainer";
 import {connect} from "react-redux";
 import {setIsAuth, setUserData} from "../redux/Reducers/AuthReducer";
 import AuthContainer from "./Auth/AuthContainer";
+import {Route} from "react-router-dom";
+import AddStatusContainer from "./WorkSpace/Directories/Statuses/AddStatusContainer";
 
 class UserInterface extends React.Component {
     componentDidMount() {
@@ -39,6 +41,9 @@ class UserInterface extends React.Component {
         } else {
             return (
                 <Layout style={{minHeight: '100vh'}}>
+                    <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
+                    <AuthContainer/>
+
                     <NavBarContainer/>
                     <Layout>
                         <AppHeaderContainer setIsAuth={this.props.setIsAuth}/>

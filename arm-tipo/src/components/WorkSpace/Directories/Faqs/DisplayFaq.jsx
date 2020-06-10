@@ -4,7 +4,9 @@ import {useTranslation} from "react-i18next";
 import i18n from "../../../../i18n";
 
 const DisplayFaq = (props) => {
+
     const {t} = useTranslation();
+
     return (
         <Spin spinning={props.isFetching}>
             <div className={'content'}>

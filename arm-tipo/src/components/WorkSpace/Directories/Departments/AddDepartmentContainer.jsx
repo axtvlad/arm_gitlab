@@ -7,16 +7,35 @@ import {
 } from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import {Redirect} from "react-router-dom";
+import {notification, Spin} from "antd";
 
 class AddDepartmentContainer extends React.Component {
-    render() {
-        if (this.props.departmentsDir.isPosted) {
-            return <Redirect to={'/departments'}/>
+    componentDidMount() {
+        if (!this.props.isAdmin) {
+            this.error()
         }
+    }
 
-        return (
-            <AddDepartment {...this.props}/>
-        )
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
+    }
+
+    render() {
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            if (this.props.departmentsDir.isPosted) {
+                return <Redirect to={'/departments'}/>
+            } else {
+                return (
+                    <AddDepartment {...this.props}/>
+                )
+            }
+        }
     }
 }
 

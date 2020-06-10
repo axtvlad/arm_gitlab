@@ -5,7 +5,9 @@ import {Input} from 'antd'
 export default class EmailForm extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {feedback: '', name: '', email: 'info@arm-tipo.kz'};
+
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,7 +15,6 @@ export default class EmailForm extends React.Component {
 
     render() {
         return (
-
             <form className="test-mailing">
                 <h1>Задать вопрос эксперту по почте</h1>
                 <div>
@@ -48,37 +49,30 @@ export default class EmailForm extends React.Component {
         )
     }
 
-handleChange(event)
-{
-    this.setState({feedback: event.target.value})
-}
-handleChangeEmail(event)
-{
-    this.setState({name: event.target.value})
-}
+    handleChange(event) {
+        this.setState({feedback: event.target.value})
+    }
+
+    handleChangeEmail(event) {
+        this.setState({name: event.target.value})
+    }
 
 
-handleSubmit(event)
-{
-    const templateId = 'template_id';
+    handleSubmit(event) {
+        const templateId = 'template_id';
 
-    this.sendFeedback(templateId, {
-        message_html: this.state.feedback,
-        from_name: this.state.name,
-        reply_to: this.state.email
-    })
-}
+        this.sendFeedback(templateId, {
+            message_html: this.state.feedback,
+            from_name: this.state.name,
+            reply_to: this.state.email
+        })
+    }
 
-sendFeedback(templateId, variables)
-{
-    debugger
-    window.emailjs.send(
-        'smtp_server', 'template_2S4Qpgei',
-        variables
-    ).then(res => {
-        console.log('Email successfully sent!')
-    })
-    // Handle errors here however you like, or use a React error boundary
-        .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
-}
+    sendFeedback(templateId, variables) {
+        window.emailjs.send('smtp_server', 'template_2S4Qpgei', variables)
+            .then(res => {
+                console.log('Email successfully sent!')
+            })
+            .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+    }
 }

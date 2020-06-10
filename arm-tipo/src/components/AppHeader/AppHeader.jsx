@@ -8,7 +8,14 @@ const {Text} = Typography;
 const {Option} = Select;
 
 const AppHeader = (props) => {
+
     const {t, i18n} = useTranslation();
+
+    const logout = () => {
+        localStorage.removeItem('isAuth');
+        localStorage.removeItem('user');
+        props.setIsAuth(false);
+    }
 
     const menu = (
         <Menu>
@@ -20,31 +27,25 @@ const AppHeader = (props) => {
                 <SettingOutlined/>
                 {t('settings')}
             </Menu.Item>
-            <Menu.Item key="3" onClick={() => {
-                localStorage.removeItem('isAuth');
-                localStorage.removeItem('user');
-                props.setIsAuth(false);
-            }}>
+            <Menu.Item key="3" onClick={logout}>
                 <LogoutOutlined/>
                 {t('logout')}
             </Menu.Item>
         </Menu>
-    );
+    )
 
     const getUserName = () => {
         if (localStorage.user) {
-           return JSON.parse(localStorage.getItem('user')).firstName;
+            return JSON.parse(localStorage.getItem('user')).firstName;
         } else if (props.authDir.userData) {
             return props.authDir.userData.firstName
-        } else {
-            return 'No NAME'
         }
     }
 
     const changeLocale = (e) => {
         console.log(e);
         i18n.changeLanguage(e);
-    };
+    }
 
     return (
         <Affix offsetTop={0}>

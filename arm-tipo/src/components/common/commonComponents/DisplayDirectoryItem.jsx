@@ -3,6 +3,7 @@ import {Descriptions, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 
 const DisplayDirectoryItem = (props) => {
+
     const {t} = useTranslation();
 
     return (

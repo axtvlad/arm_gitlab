@@ -3,22 +3,42 @@ import {postCustomer, updateCustomerNameKz, updateCustomerNameRu} from "../../..
 import * as React from "react";
 import AddCustomer from "./AddCustomer";
 import {Redirect} from "react-router-dom";
+import {notification, Spin} from "antd";
 
 class AddCustomerContainer extends React.Component {
-    render() {
-        if (this.props.customersDir.isPosted) {
-            return <Redirect to={'/customers'}/>
+    componentDidMount() {
+        if (!this.props.isAuth) {
+            this.error()
         }
+    }
 
-        return (
-            <AddCustomer {...this.props}/>
-        )
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
+    }
+
+    render() {
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            if (this.props.customersDir.isPosted) {
+                return <Redirect to={'/customers'}/>
+            } else {
+                return (
+                    <AddCustomer {...this.props}/>
+                )
+            }
+        }
     }
 }
 
 let MapStateToProps = (state) => {
     return {
-        customersDir: state.customersDir
+        customersDir: state.customersDir,
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

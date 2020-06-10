@@ -9,22 +9,40 @@ import {
 import AddFaq from "./AddFaq";
 import {Redirect} from "react-router-dom";
 import React from "react";
+import {notification} from "antd";
 
 class AddFaqContainer extends React.Component {
-    render() {
-        if (this.props.faqsDir.isPosted) {
-            return <Redirect to={'/faqs'}/>
+    componentDidMount() {
+        if (!this.props.isAdmin) {
+            this.error()
         }
+    }
 
-        return (
-            <AddFaq {...this.props}/>
-        )
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
+    }
+
+    render() {
+        if (!this.props.isAdmin) {
+            if (this.props.faqsDir.isPosted) {
+                return <Redirect to={'/faqs'}/>
+            } else {
+                return (
+                    <AddFaq {...this.props}/>
+                )
+            }
+        }
     }
 }
 
 let MapStateToProps = (state) => {
     return {
-        faqsDir: state.faqsDir
+        faqsDir: state.faqsDir,
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
