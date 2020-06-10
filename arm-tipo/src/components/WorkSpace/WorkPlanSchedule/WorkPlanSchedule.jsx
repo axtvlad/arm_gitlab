@@ -88,12 +88,13 @@ const Directory = (props) => {
             <Button
                 style={{margin: 10}}
                 onClick={getData}
+                type={"danger"}
             >
                 Получить данные
             </Button>
             {props.wps.subjects.length ?
                 <>
-                    <div>{props.wps.subjects.length}</div>
+                    <div>Всего предметов: {props.wps.subjects.length}</div>
                     <Table
                         columns={columns}
                         dataSource={props.wps.subjects}

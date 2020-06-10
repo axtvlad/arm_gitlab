@@ -73,7 +73,7 @@ const AppHeader = (props) => {
                     />
                     <span style={{marginRight: 20, marginLeft: 10}}>Администратор</span>
                     <Dropdown.Button icon={<AppstoreOutlined/>} overlay={menu}>
-                        Admin Admin
+                        {localStorage.getItem('user')}
                     </Dropdown.Button>
                 </span>
             </Header>
