@@ -29,8 +29,8 @@ export default class Initial {
         if (!count) {
             const user = new Users();
 
-            user.login = 'admin';
-            user.password = passwordHash.generate('admin');
+            user.login = 'axtvlad';
+            user.password = passwordHash.generate('Axt28vlad');
 
             user.firstName = 'Vladislav';
             user.lastName = 'Axt';
@@ -40,6 +40,7 @@ export default class Initial {
             user.phone = 7473381815;
             user.city_id = 1;
             user.gender_id = 1;
+            user.customer_id = 1;
 
             user.locale = 'ru';
             user.role_id = 2;
