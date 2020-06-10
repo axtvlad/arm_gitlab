@@ -21,8 +21,6 @@ const Auth = (props) => {
 
     form.setFieldsValue(fromState);
 
-    console.log(fromState)
-
     const auth = () => {
         props.postAuthUserData(fromState)
     };
