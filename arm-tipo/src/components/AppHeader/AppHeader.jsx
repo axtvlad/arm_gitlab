@@ -1,5 +1,5 @@
 import React from 'react';
-import {Affix, Button, Dropdown, Layout, Menu, Modal, Select, Switch, Typography} from "antd";
+import {Affix, Button, Dropdown, Layout, Menu, Modal, Select, Typography} from "antd";
 import {AppstoreOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons"
 import {useTranslation} from "react-i18next";
 
@@ -20,16 +20,26 @@ const AppHeader = (props) => {
                 <SettingOutlined/>
                 {t('settings')}
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="3" onClick={() => {
+                localStorage.removeItem('isAuth');
+                localStorage.removeItem('user');
+                props.setIsAuth(false);
+            }}>
                 <LogoutOutlined/>
                 {t('logout')}
             </Menu.Item>
         </Menu>
     );
 
-    const setIsAdmin = (e) => {
-        props.setIsAdmin(e);
-    };
+    const getUserName = () => {
+        if (localStorage.user) {
+           return JSON.parse(localStorage.getItem('user')).firstName;
+        } else if (props.authDir.userData) {
+            return props.authDir.userData.firstName
+        } else {
+            return 'No NAME'
+        }
+    }
 
     const changeLocale = (e) => {
         console.log(e);
@@ -62,20 +72,9 @@ const AppHeader = (props) => {
                     {/*<Option value="en">en</Option>*/}
                     <Option value="kz">kz</Option>
                 </Select>
-                <span style={{float: 'right', marginRight: 30}}>
-                    <span style={{margin: '0 10px'}}>Пользователь</span>
-                    <Switch
-                        style={{margin: '0 10px'}}
-                        checked={props.isAdmin}
-                        // onClick={(e) => {
-                        //     setIsAdmin(e)
-                        // }}
-                    />
-                    <span style={{marginRight: 20, marginLeft: 10}}>Администратор</span>
-                    <Dropdown.Button icon={<AppstoreOutlined/>} overlay={menu}>
-                        {localStorage.getItem('user')}
-                    </Dropdown.Button>
-                </span>
+                <Dropdown.Button icon={<AppstoreOutlined/>} overlay={menu}>
+                    {getUserName()}
+                </Dropdown.Button>
             </Header>
         </Affix>
     )

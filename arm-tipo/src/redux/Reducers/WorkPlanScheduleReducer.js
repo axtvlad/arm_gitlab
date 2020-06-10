@@ -7,13 +7,10 @@ const SET_SUBJECTS = 'set_subjects';
 const UPDATE_SEMESTER = 'update_semester';
 const UPDATE_SPECIALIZATION = 'update_specialization';
 
-const PROGRAMMER = 'programmer';
-const OPERATOR = 'operator';
-
 let initialState = {
     subjects: [],
     semester: 1,
-    specialization: OPERATOR,
+    specialization: 'operator',
     subjectsCount: 0,
     isFetching: false
 };

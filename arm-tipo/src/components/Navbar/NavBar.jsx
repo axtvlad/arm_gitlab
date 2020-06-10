@@ -1,6 +1,6 @@
 import {Layout, Menu} from "antd";
 import React from "react";
-import {DatabaseOutlined, FileOutlined, FormOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
+import {DatabaseOutlined, FormOutlined, HomeOutlined} from '@ant-design/icons';
 import classes from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import CodeSandboxOutlined from "@ant-design/icons/lib/icons/CodeSandboxOutlined";

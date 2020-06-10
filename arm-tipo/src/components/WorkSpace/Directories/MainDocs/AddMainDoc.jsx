@@ -14,7 +14,7 @@ const AddMainDoc = (props) => {
         wrapperCol: {span: 14},
     };
 
-    const normFile = e => {
+    /*const normFile = e => {
         console.log('Upload event:', e);
 
         if (Array.isArray(e)) {
@@ -22,7 +22,7 @@ const AddMainDoc = (props) => {
         }
 
         return e && e.fileList;
-    };
+    };*/
 
     const [form] = Form.useForm();
 

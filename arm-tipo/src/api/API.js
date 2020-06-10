@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {BASE_URL} from "../env";
+import {BASE_URL1} from "../env";
 
 const user = "Admin";
 const pass = "admin";
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL
+    baseURL: BASE_URL1
 });
 
 export const restAPI = {
@@ -58,7 +58,6 @@ export const restAPI = {
                 .post('categories', newCategory)
                 .then(response => response.data)
         }
-
     },
 
     faqs: {
@@ -303,6 +302,14 @@ export const restAPI = {
         getSubjectsHours(params) {
             return instance
                 .get('rup?specialization=' + params.specialization + '&semester=' + params.semester)
+                .then(response => response.data)
+        },
+    },
+
+    auth: {
+        auth(authData) {
+            return instance
+                .post('auth', authData)
                 .then(response => response.data)
         },
     }

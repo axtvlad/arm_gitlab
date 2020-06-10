@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {setIsAdmin} from "../../redux/Reducers/UserReducer";
 import AppHeader from "./AppHeader";
+import {setIsAuth} from "../../redux/Reducers/AuthReducer";
 
 class AppHeaderContainer extends React.Component {
     render() {
@@ -13,12 +13,10 @@ class AppHeaderContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isAdmin: state.usersDir.isAdmin,
+        authDir: state.usersDir,
     }
 };
 
 export default connect(mapStateToProps,
-    {
-        setIsAdmin
-    }
+    setIsAuth
 )(AppHeaderContainer);

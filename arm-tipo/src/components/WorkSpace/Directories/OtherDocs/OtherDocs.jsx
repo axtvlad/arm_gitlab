@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {Button, Dropdown, Menu, PageHeader, Row, Spin} from "antd";
+import {Button, Dropdown, Menu, PageHeader, Spin} from "antd";
 import React from "react";
 import {EllipsisOutlined} from "@ant-design/icons";
 import {NavLink} from "react-router-dom";
@@ -44,15 +44,6 @@ const OtherDocs = (props) => {
                     />
                 </Button>
             </Dropdown>
-        );
-    };
-
-    const Content = ({children, extraContent}) => {
-        return (
-            <Row>
-                <div style={{flex: 1}}>{children}</div>
-                <div className="image">{extraContent}</div>
-            </Row>
         );
     };
 

@@ -30,7 +30,7 @@ let reducers = combineReducers({
     usersDir: UserReducer,
     gendersDir: GenderReducer,
     templatesDir: TemplateReducer,
-    auth: AuthReducer,
+    authDir: AuthReducer,
     workPlanScheduleDir: WorkPlanScheduleReducer
 });
 

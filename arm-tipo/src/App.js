@@ -7,7 +7,7 @@ const App = () => {
         <div className="App">
             <UserInterface/>
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default App

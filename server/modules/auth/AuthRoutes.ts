@@ -1,6 +1,5 @@
 import {Request, Response, Router} from "express";
 import moment from "moment";
-import UsersController from "./AuthController";
 import AuthController from "./AuthController";
 
 const AuthRoutes = Router();
@@ -15,10 +14,7 @@ AuthRoutes.use((req: Request, res: Response, next: Function) => {
     next();
 });
 
-/**
- * Routes to URL: /rest/api/users/*
- */
-AuthRoutes.post('/login', AuthController.login);
+AuthRoutes.post('/', AuthController.auth);
 // AuthRoutes.delete(`/logout/:userId`, UsersController.logout);
 
 /**

@@ -3,9 +3,6 @@ import WorkPlanSchedule from "./WorkPlanSchedule";
 import {connect} from "react-redux";
 import {getSubjectsHours, updateSemester, updateSpecialization} from "../../../redux/Reducers/WorkPlanScheduleReducer";
 
-const PROGRAMMER = 'programmer';
-const OPERATOR = 'operator';
-
 class WorkPlanScheduleContainer extends React.Component {
 
     render() {

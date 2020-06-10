@@ -11,7 +11,7 @@ interface IRestUserAuth {
 }
 
 export default new class AuthController {
-    async login(req: Request, res: Response) {
+    async auth(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestUserAuth>rest.getBody();
@@ -42,7 +42,7 @@ export default new class AuthController {
                     user: existUser
                 });
             } else {
-                return res.status(405).send({
+                return res.status(200).send({
                     auth: false,
                 })
             }
