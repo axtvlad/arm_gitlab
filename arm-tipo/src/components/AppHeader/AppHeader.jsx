@@ -67,9 +67,9 @@ const AppHeader = (props) => {
                     <Switch
                         style={{margin: '0 10px'}}
                         checked={props.isAdmin}
-                        onClick={(e) => {
-                            setIsAdmin(e)
-                        }}
+                        // onClick={(e) => {
+                        //     setIsAdmin(e)
+                        // }}
                     />
                     <span style={{marginRight: 20, marginLeft: 10}}>Администратор</span>
                     <Dropdown.Button icon={<AppstoreOutlined/>} overlay={menu}>

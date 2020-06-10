@@ -27,6 +27,16 @@ const REMOVE_USER = 'remove_user';
 // Временное решение
 const SET_IS_ADMIN = 'set_is_admin';
 
+let getIsAdmin = () => {
+    if (!localStorage.getItem('isAdmin') || localStorage.getItem('isAdmin') === 'false') {
+        return false;
+    }
+
+    if (localStorage.getItem('isAdmin') === 'true') {
+        return true
+    }
+}
+
 let initialState = {
     users: [],
     newUserFirstName: '',
@@ -49,7 +59,7 @@ let initialState = {
     usersCount: 0,
     isFetching: false,
     currentUser: undefined,
-    isAdmin: false,
+    isAdmin: getIsAdmin(),
     isPosted: false,
 };
 
