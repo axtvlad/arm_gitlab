@@ -3,22 +3,39 @@ import {deleteTypeById, getTypes} from "../../../../redux/Reducers/TypeReducer";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {notification, Spin} from "antd";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
-        !this.props.types.length && this.props.getTypes();
+        if (!this.props.isAdmin) {
+            this.error()
+        } else {
+            !this.props.types.length && this.props.getTypes();
+        }
+    }
+
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
     }
 
     render() {
-        return (
-            <Directory
-                type={DirectoriesTypes.TYPES}
-                isAdmin={this.props.isAdmin}
-                directory={this.props.types}
-                isFetching={this.props.isFetching}
-                removeItemById={this.props.deleteTypeById}
-            />
-        )
+        if (!this.props.error) {
+            return <Spin/>
+        } else {
+            return (
+                <Directory
+                    type={DirectoriesTypes.TYPES}
+                    isAdmin={this.props.isAdmin}
+                    directory={this.props.types}
+                    isFetching={this.props.isFetching}
+                    removeItemById={this.props.deleteTypeById}
+                />
+            )
+        }
     }
 }
 
