@@ -24,11 +24,12 @@ class DisplayMainDocContainer extends React.Component {
         this.props.getMainDocById(id);
     }
 
+
     render() {
-        if (!this.props.currentMainDoc
-            || !this.props.departments.length
-            || !this.props.statuses.length
-            || !this.props.types.length
+        if (!this.props.currentMainDoc ||
+            !this.props.departments.length ||
+            !this.props.statuses.length ||
+            !this.props.types.length
         ) {
             return <Spin/>
         } else {
@@ -39,7 +40,6 @@ class DisplayMainDocContainer extends React.Component {
     }
 }
 
-
 let mapStateToProps = (state) => {
     return {
         directory: GetDirectory(DirectoriesTypes.MAIN_DOCS),
@@ -47,6 +47,7 @@ let mapStateToProps = (state) => {
         departments: state.departmentsDir.departments,
         statuses: state.statusesDir.statuses,
         types: state.typesDir.types,
+        isAdmin: state.authDir.isAdmin
     }
 };
 

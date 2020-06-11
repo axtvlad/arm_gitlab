@@ -3,22 +3,42 @@ import {postRole, updateRoleNameKz, updateRoleNameRu} from "../../../../redux/Re
 import AddRole from "./AddRole";
 import React from "react";
 import {Redirect} from "react-router-dom";
+import {notification, Spin} from "antd";
 
 class AddRoleContainer extends React.Component {
-    render() {
-        if (this.props.rolesDir.isPosted) {
-            return <Redirect to={'/roles'}/>
+    componentDidMount() {
+        if (!this.props.isAdmin) {
+            this.error()
         }
+    }
 
-        return (
-            <AddRole {...this.props} />
-        )
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
+    }
+
+    render() {
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            if (this.props.rolesDir.isPosted) {
+                return <Redirect to={'/roles'}/>
+            } else {
+                return (
+                    <AddRole {...this.props} />
+                )
+            }
+        }
     }
 }
 
 let MapStateToProps = (state) => {
     return {
-        rolesDir: state.rolesDir
+        rolesDir: state.rolesDir,
+        isAdmin: state.authDir.isAdmin
     }
 };
 

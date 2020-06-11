@@ -41,9 +41,6 @@ class UserInterface extends React.Component {
         } else {
             return (
                 <Layout style={{minHeight: '100vh'}}>
-                    <Route exact path={'/addStatus'} render={() => <AddStatusContainer/>}/>
-                    <AuthContainer/>
-
                     <NavBarContainer/>
                     <Layout>
                         <AppHeaderContainer setIsAuth={this.props.setIsAuth}/>

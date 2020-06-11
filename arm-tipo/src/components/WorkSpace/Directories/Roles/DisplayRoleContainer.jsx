@@ -4,22 +4,39 @@ import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getRoleById} from "../../../../redux/Reducers/RoleReducer";
+import {notification, Spin} from "antd";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
-        let id = this.props.match.params.id;
+        if (!this.props.isAdmin) {
+            this.error()
+        } else {
+            let id = this.props.match.params.id;
 
-        if (!id) {
-            id = 1
+            if (!id) {
+                id = 1
+            }
+
+            this.props.getRoleById(id);
         }
+    }
 
-        this.props.getRoleById(id);
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
     }
 
     render() {
-        return (
-            <DisplayDirectoryItem {...this.props}/>
-        )
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            return (
+                <DisplayDirectoryItem {...this.props}/>
+            )
+        }
     }
 }
 
@@ -28,6 +45,7 @@ let mapStateToProps = (state) => {
         type: GetDirectory(DirectoriesTypes.ROLES),
         currentItem: state.rolesDir.currentRole,
         isFetching: state.rolesDir.isFetching,
+        isAdmin: state.authDir.isAdmin
     }
 };
 

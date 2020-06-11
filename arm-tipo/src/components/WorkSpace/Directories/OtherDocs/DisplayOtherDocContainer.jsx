@@ -8,16 +8,15 @@ import {getOtherDocById} from "../../../../redux/Reducers/OtherDocReducer";
 
 class DisplayOtherDocContainer extends React.Component {
     componentDidMount() { let id = this.props.match.params.id;
-
         if (!id) {
             id = 1
         }
 
         this.props.getOtherDocById(id);
     }
+
     render() {
-        if (!this.props.currentOtherDoc
-        ) {
+        if (!this.props.currentOtherDoc) {
             return <Spin/>
         } else {
             return (

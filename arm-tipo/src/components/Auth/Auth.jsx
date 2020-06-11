@@ -1,5 +1,6 @@
 import {Button, Form, Input} from 'antd';
 import React from "react";
+import MaskedInput from 'react-text-mask'
 
 const Auth = (props) => {
 

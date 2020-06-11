@@ -1,24 +1,40 @@
-import {connect} from "react-redux";
 import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {notification, Spin} from "antd";
 import {deleteRoleById, getRoles} from "../../../../redux/Reducers/RoleReducer";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
-        !this.props.roles.length && this.props.getRoles();
+        if (!this.props.isAdmin) {
+            this.error()
+        } else {
+            !this.props.roles.length && this.props.getRoles();
+        }
+    }
+
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
     }
 
     render() {
-        return (
-            <Directory
-                type={DirectoriesTypes.ROLES}
-                isAdmin={this.props.isAdmin}
-                directory={this.props.roles}
-                isFetching={this.props.isFetching}
-                removeItemById={this.props.deleteRoleById}
-            />
-        )
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            return (
+                <Directory
+                    type={DirectoriesTypes.ROLES}
+                    isAdmin={this.props.isAdmin}
+                    directory={this.props.roles}
+                    isFetching={this.props.isFetching}
+                    removeItemById={this.props.deleteRoleById}
+                />
+            )
+        }
     }
 }
 
@@ -26,7 +42,7 @@ let mapStateToProps = (state) => {
     return {
         roles: state.rolesDir.roles,
         isFetching: state.rolesDir.isFetching,
-        isAdmin: state.usersDir.isAdmin
+        isAdmin: state.authDir.isAdmin
     }
 };
 

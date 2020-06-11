@@ -4,40 +4,23 @@ import {withRouter} from "react-router-dom";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getFaqById} from "../../../../redux/Reducers/FaqReducer";
 import DisplayFaq from "./DisplayFaq";
-import {notification} from "antd";
-import {Spin} from "antd/es";
 
 class DisplayFaqContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
-            this.error()
-        } else {
-            let id = this.props.match.params.id;
+        let id = this.props.match.params.id;
 
-            if (!id) {
-                id = 1
-            }
-
-            this.props.getFaqById(id);
+        if (!id) {
+            id = 1
         }
+
+        this.props.getFaqById(id);
     }
 
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
-    }
 
     render() {
-        if (!this.props.isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayFaq {...this.props}/>
-            )
-        }
+        return (
+            <DisplayFaq {...this.props}/>
+        )
     }
 }
 

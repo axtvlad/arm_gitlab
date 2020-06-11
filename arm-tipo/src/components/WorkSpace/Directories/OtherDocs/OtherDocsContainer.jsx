@@ -6,8 +6,9 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class OtherDocsContainer extends React.Component {
     componentDidMount() {
-        !this.props.otherDocs.length &&  this.props.getOtherDocs();
+        !this.props.otherDocs.length && this.props.getOtherDocs();
     }
+
     render() {
         return (
             <OtherDocs
@@ -20,11 +21,12 @@ class OtherDocsContainer extends React.Component {
         )
     }
 }
+
 let mapStateToProps = (state) => {
     return {
         otherDocs: state.otherDocsDir.otherDocs,
         isFetching: state.otherDocsDir.isFetching,
-        isAdmin: state.usersDir.isAdmin
+        isAdmin: state.authDir.isAdmin
     }
 };
 
