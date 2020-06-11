@@ -38,8 +38,9 @@ const Auth = (props) => {
     };
 
     return (
-        <div style={{display: 'inline-grid'}}>
+        <div className={'grid-container'}>
             <Form
+                className={'auth'}
                 {...layout}
                 name={'form'}
                 initialValues={{remember: true}}
