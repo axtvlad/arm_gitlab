@@ -45,7 +45,7 @@ let mapStateToProps = (state) => {
         type: GetDirectory(DirectoriesTypes.TYPES),
         currentItem: state.typesDir.currentType,
         isFetching: state.typesDir.isFetching,
-        isAdmin: state.authDir.usersDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

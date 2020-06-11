@@ -26,7 +26,7 @@ let mapStateToProps = (state) => {
     return {
         templates: state.templatesDir.templates,
         isFetching: state.templatesDir.isFetching,
-        isAdmin: state.authDir.usersDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

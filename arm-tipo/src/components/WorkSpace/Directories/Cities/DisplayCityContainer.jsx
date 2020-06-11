@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {getCityById} from "../../../../redux/Reducers/CityReducer";
+import {getCities, getCityById} from "../../../../redux/Reducers/CityReducer";
 import {Spin} from "antd";
 
 class DisplayCityContainer extends React.Component {
@@ -39,7 +39,8 @@ let mapStateToProps = (state) => {
         type: GetDirectory(DirectoriesTypes.CITIES),
         currentItem: state.citiesDir.currentCity,
         isFetching: state.citiesDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isAdmin: state.authDir.userData.isAdmin,
+        cities: state.citiesDir.cities
     }
 };
 
@@ -47,6 +48,7 @@ let CityContainerUrl = withRouter(DisplayCityContainer);
 
 export default connect(mapStateToProps,
     {
-        getCityById
+        getCityById,
+        getCities
     }
 )(CityContainerUrl)

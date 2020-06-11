@@ -8,7 +8,7 @@ import {notification, Spin} from "antd";
 
 class DisplayDepartmentContainer extends React.Component {
     componentDidMount() {
-        if (this.props.isAdmin) {
+        if (!this.props.isAdmin) {
             this.error()
         } else {
 

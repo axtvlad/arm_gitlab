@@ -7,7 +7,7 @@ import {notification, Spin} from "antd";
 
 class AddCustomerContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAuth) {
+        if (!this.props.isAdmin) {
             this.error()
         }
     }

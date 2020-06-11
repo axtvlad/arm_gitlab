@@ -10,8 +10,6 @@ class AddCityContainer extends React.Component {
     componentDidMount() {
         if (!this.props.isAdmin) {
             this.error()
-        } else {
-            !this.props.categories.length && this.props.getCategories();
         }
     }
 

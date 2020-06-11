@@ -38,7 +38,7 @@ class AddTypeContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         typesDir: state.typesDir,
-        isAdmin: state.authDir.usersDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

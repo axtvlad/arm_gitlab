@@ -106,7 +106,8 @@ const MainDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
-                {props.isAdmin && <div className={'addButtonBlock'}>
+                {props.isAdmin &&
+                <div className={'addButtonBlock'}>
                     <NavLink to={GetAddAddress(props.type)}>
                         <Button
                             type={'danger'}

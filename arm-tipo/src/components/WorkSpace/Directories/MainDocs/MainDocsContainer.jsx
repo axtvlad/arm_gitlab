@@ -15,6 +15,7 @@ class MainDocsContainer extends React.Component {
                 type={DirectoriesTypes.MAIN_DOCS}
                 mainDocs={this.props.mainDocs}
                 isFetching={this.props.isFetching}
+                isAdmin={this.props.isAdmin}
                 deleteMainDocById={this.props.deleteMainDocById}
             />
         )
@@ -25,7 +26,7 @@ let mapStateToProps = (state) => {
     return {
         mainDocs: state.mainDocsDir.mainDocs,
         isFetching: state.mainDocsDir.isFetching,
-        isAdmin: state.authDir.userdata.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
