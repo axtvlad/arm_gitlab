@@ -3,6 +3,7 @@ import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 import {notification, Spin} from "antd";
 import {deleteRoleById, getRoles} from "../../../../redux/Reducers/RoleReducer";
+import {connect} from "react-redux";
 
 class RolesContainer extends React.Component {
     componentDidMount() {

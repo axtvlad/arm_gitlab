@@ -12,23 +12,39 @@ import {Redirect} from "react-router-dom";
 import React from "react";
 import AddTemplate from "./AddTemplate";
 import {getCategories} from "../../../../redux/Reducers/CategoryReducer";
+import {notification, Spin} from "antd";
 
 class AddTemplateContainer extends React.Component {
     componentDidMount() {
-        !this.props.categories.length && this.props.getCategories();
+        if (!this.props.isAdmin) {
+            this.error()
+        } else {
+            !this.props.categories.length && this.props.getCategories();
+        }
+    }
+
+    error() {
+        notification['error']({
+            message: 'У вас нет прав!',
+            description: 'У вас нет прав, чтобы просматривать данный модуль!',
+            placement: 'bottomRight'
+        })
     }
 
     render() {
-        if (this.props.templatesDir.isPosted) {
-            return <Redirect to={'/templates'}/>
+        if (!this.props.isAdmin) {
+            return <Spin/>
+        } else {
+            if (this.props.templatesDir.isPosted) {
+                return <Redirect to={'/templates'}/>
+            } else {
+                return (
+                    <AddTemplate {...this.props}/>
+                )
+            }
         }
-
-        return (
-            <AddTemplate {...this.props}/>
-        )
     }
 }
-
 
 let mapStateToProps = (state) => {
     return {
