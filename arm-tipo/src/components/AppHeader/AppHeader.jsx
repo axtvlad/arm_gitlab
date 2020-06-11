@@ -2,6 +2,7 @@ import React from 'react';
 import {Affix, Button, Dropdown, Layout, Menu, Modal, Select, Typography} from "antd";
 import {AppstoreOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons"
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -51,7 +52,9 @@ const AppHeader = (props) => {
         <Affix offsetTop={0}>
             <Header style={{background: '#fff', padding: 0}}>
                 <span style={{float: 'left', marginLeft: 30}}>
-                    <Button danger>{t('help')}</Button>
+                    <NavLink to={'/expert'}>
+                        <Button danger>{t('help')}</Button>
+                    </NavLink>
                     <Text style={{marginLeft: 30}}>{t('mailForRequests')}</Text>
                     <Text copyable>info@arm-tipo.kz</Text>
                 </span>
