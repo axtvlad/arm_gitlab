@@ -69,7 +69,7 @@ let mapStateToProps = (state) => {
         types: state.typesDir.types,
         departments: state.departmentsDir.departments,
         statuses: state.statusesDir.statuses,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

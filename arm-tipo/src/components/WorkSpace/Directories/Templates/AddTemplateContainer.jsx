@@ -49,7 +49,8 @@ class AddTemplateContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         templatesDir: state.templatesDir,
-        categories: state.categoriesDir.categories
+        categories: state.categoriesDir.categories,
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

@@ -41,7 +41,8 @@ class AddDepartmentContainer extends React.Component {
 
 let MapStateToProps = (state) => {
     return {
-        departmentsDir: state.departmentsDir
+        departmentsDir: state.departmentsDir,
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

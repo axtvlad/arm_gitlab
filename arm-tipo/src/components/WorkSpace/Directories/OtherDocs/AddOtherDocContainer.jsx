@@ -44,7 +44,7 @@ class AddOtherDocContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         otherDocsDir: state.otherDocsDir,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

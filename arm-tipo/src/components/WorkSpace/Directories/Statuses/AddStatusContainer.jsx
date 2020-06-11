@@ -38,7 +38,7 @@ class AddStatusContainer extends React.Component {
 let MapStateToProps = (state) => {
     return {
         statusesDir: state.statusesDir,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

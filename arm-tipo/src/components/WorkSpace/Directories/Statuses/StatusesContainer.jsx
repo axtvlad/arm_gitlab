@@ -43,7 +43,7 @@ let mapStateToProps = (state) => {
     return {
         statuses: state.statusesDir.statuses,
         isFetching: state.statusesDir.isFetching,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

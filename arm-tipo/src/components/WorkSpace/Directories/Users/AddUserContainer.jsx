@@ -70,7 +70,7 @@ let mapStateToProps = (state) => {
         cities: state.citiesDir.cities,
         customers: state.customersDir.customers,
         genders: state.gendersDir.genders,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

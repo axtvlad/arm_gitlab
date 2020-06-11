@@ -26,7 +26,7 @@ let mapStateToProps = (state) => {
     return {
         otherDocs: state.otherDocsDir.otherDocs,
         isFetching: state.otherDocsDir.isFetching,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

@@ -38,7 +38,7 @@ class AddRoleContainer extends React.Component {
 let MapStateToProps = (state) => {
     return {
         rolesDir: state.rolesDir,
-        isAdmin: state.authDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

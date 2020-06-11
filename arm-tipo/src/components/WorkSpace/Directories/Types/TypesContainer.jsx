@@ -23,7 +23,7 @@ class TypesContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.error) {
+        if (!this.props.isAdmin) {
             return <Spin/>
         } else {
             return (
@@ -43,7 +43,7 @@ let mapStateToProps = (state) => {
     return {
         types: state.typesDir.types,
         isFetching: state.typesDir.isFetching,
-        isAdmin: state.usersDir.isAdmin
+        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
