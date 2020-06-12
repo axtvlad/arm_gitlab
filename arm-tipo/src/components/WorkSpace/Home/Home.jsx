@@ -29,9 +29,9 @@ const Home = (props) => {
     const getStatusText = (id) => {
         switch (id) {
             case 1:
-                return 'Потерял актуальность';
+                return t('old');
             case 2:
-                return 'Актуальный';
+                return t('new');
             case 3:
                 return 'Новый';
             default:
@@ -42,7 +42,7 @@ const Home = (props) => {
     const getDepartmentText = (id) => {
         switch (id) {
             case 1:
-                return 'МОН РК';
+                return t('educationDepartment');
             case 2:
                 return 'МТСЗ РК';
             case 3:

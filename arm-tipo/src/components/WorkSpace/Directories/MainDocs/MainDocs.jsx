@@ -74,9 +74,9 @@ const MainDocs = (props) => {
     const getStatusText = (id) => {
         switch (id) {
             case 1:
-                return 'Актуальный';
+                return t('actual');
             case 2:
-                return 'Потерял актуальность';
+                return t('old');
             default:
                 return 'Неизвестно'
         }
@@ -85,7 +85,7 @@ const MainDocs = (props) => {
     const getDepartmentText = (id) => {
         switch (id) {
             case 1:
-                return 'МОН РК';
+                return t('educationDepartment');
             case 2:
                 return 'МТСЗ РК';
             case 3:
