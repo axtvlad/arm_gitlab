@@ -21,6 +21,7 @@ MainDocsRoutes.get('/', MainDocsController.getMainDocsList);
 MainDocsRoutes.get('/:id', MainDocsController.getMainDocById);
 MainDocsRoutes.post('/', MainDocsController.create);
 MainDocsRoutes.delete(`/:id`, MainDocsController.remove);
+MainDocsRoutes.post(`/search`, MainDocsController.search);
 
 /**
  * Error All Request to URL: /rest/api/users/*

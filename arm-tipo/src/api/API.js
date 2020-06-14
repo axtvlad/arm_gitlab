@@ -309,5 +309,13 @@ export const restAPI = {
                 .post('auth', authData)
                 .then(response => response.data)
         },
+    },
+
+    search: {
+        getSearchResults(tags) {
+            return instance
+                .post('mainDocs/search', {tags: tags})
+                .then(response => response.data)
+        },
     }
-};
+}

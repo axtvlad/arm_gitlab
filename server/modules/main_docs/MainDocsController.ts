@@ -44,6 +44,10 @@ interface IRestMainDocByIdKeys {
     id: number;
 }
 
+interface IRestMainDocSearch {
+    tags: [];
+}
+
 export default new class MainDocsController {
     async create(req: Request, res: Response) {
         try {
@@ -196,6 +200,48 @@ export default new class MainDocsController {
                     text_kz: mainDoc.text_kz,
                     tags: mainDoc.tags,
                 },
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async search(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestMainDocSearch>rest.getBody();
+
+            if (!bodyParams.tags) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_TAGS',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_TAGS')
+                });
+            }
+
+            let sql = "SELECT * FROM main_docs WHERE ";
+
+            for (let i = 1; i <= bodyParams.tags.length; i++) {
+                sql += " (tags LIKE '%" + bodyParams.tags[i - 1] + "%') ";
+
+                if (i !== bodyParams.tags.length) {
+                    sql += " and ";
+                } else {
+                    sql += ";";
+                }
+            }
+
+            const results = await getManager().query(sql);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                results,
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {
