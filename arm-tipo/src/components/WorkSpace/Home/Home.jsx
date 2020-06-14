@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import word_svg from "../../../svg/word.svg";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {NavLink} from "react-router-dom";
+import i18n from "../../../i18n";
 
 const Home = (props) => {
     const {Title} = Typography;
@@ -28,9 +29,9 @@ const Home = (props) => {
     const getStatusText = (id) => {
         switch (id) {
             case 1:
-                return 'Потерял актуальность';
+                return t('old');
             case 2:
-                return 'Актуальный';
+                return t('new');
             case 3:
                 return 'Новый';
             default:
@@ -41,7 +42,7 @@ const Home = (props) => {
     const getDepartmentText = (id) => {
         switch (id) {
             case 1:
-                return 'МОН РК';
+                return t('educationDepartment');
             case 2:
                 return 'МТСЗ РК';
             case 3:
@@ -90,7 +91,7 @@ const Home = (props) => {
                     borderRadius: 10,
                     width: '-webkit-fill-available'
                 }}>
-                    <PageHeader
+                    {i18n.language === 'ru' ? <PageHeader
                         title={props.lastAddedMainDoc.name_ru}
                         className="site-page-header"
                     >
@@ -113,14 +114,14 @@ const Home = (props) => {
                                 </Tag>
                             </div>
                             <Descriptions column={1} style={{textAlign: "left", marginTop: 20}}>
-                                <Descriptions.Item label={'Заголовок документа'}>
+                                <Descriptions.Item label={t('headerRu')}>
                                     {props.lastAddedMainDoc.header_ru}
                                 </Descriptions.Item>
-                                <Descriptions.Item label={'Номер документа'}>
+                                <Descriptions.Item label={t('number')}>
                                     {props.lastAddedMainDoc.num}
                                 </Descriptions.Item>
-                                <Descriptions.Item label={'Дата публикации'}>
-                                    {props.lastAddedMainDoc.pub_date}
+                                <Descriptions.Item label={t('published')}>
+                                    {props.lastAddedMainDoc.begin_date}
                                 </Descriptions.Item>
                             </Descriptions>
 
@@ -142,7 +143,60 @@ const Home = (props) => {
                                 </Button>
                             </div>
                         </Content>
-                    </PageHeader>
+                    </PageHeader> :
+                        <PageHeader
+                            title={props.lastAddedMainDoc.name_kz}
+                            className="site-page-header"
+                        >
+                            <Content
+                                extraContent={
+                                    <img
+                                        src={word_svg}
+                                        alt="content"
+                                        width={80}
+                                        height={80}
+                                    />
+                                }
+                            >
+                                <div style={{float: 'left', margin: '20px 0'}}>
+                                    <Tag color={'purple'}>
+                                        {getDepartmentText(props.lastAddedMainDoc.department_id)}
+                                    </Tag>
+                                    <Tag color={getStatusColor(props.lastAddedMainDoc.status_id)}>
+                                        {getStatusText(props.lastAddedMainDoc.status_id)}
+                                    </Tag>
+                                </div>
+                                <Descriptions column={1} style={{textAlign: "left", marginTop: 20}}>
+                                    <Descriptions.Item label={t('headerKz')}>
+                                        {props.lastAddedMainDoc.header_kz}
+                                    </Descriptions.Item>
+                                    <Descriptions.Item label={t('number')}>
+                                        {props.lastAddedMainDoc.num}
+                                    </Descriptions.Item>
+                                    <Descriptions.Item label={t('published')}>
+                                        {props.lastAddedMainDoc.begin_date}
+                                    </Descriptions.Item>
+                                </Descriptions>
+
+                                <div style={{textAlign: 'left'}}>
+                                    <Button
+                                        style={{marginTop: 20, marginRight: 10}}
+                                        type="danger"
+                                        shape="round"
+                                    >
+                                        <NavLink to={'/' + props.type + '/' + props.lastAddedMainDoc.id}>{t('more')}</NavLink>
+                                    </Button>
+                                    <Button
+                                        style={{marginTop: 20, marginLeft: 10}}
+                                        type="primary"
+                                        shape="round"
+                                        icon={<DownloadOutlined/>}
+                                    >
+                                        {t('download')}
+                                    </Button>
+                                </div>
+                            </Content>
+                        </PageHeader>}
                 </div>
             </Row>
         </div>
