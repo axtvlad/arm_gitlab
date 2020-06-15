@@ -275,10 +275,6 @@ const AddUser = (props) => {
                 <Form.Item
                     name={'phone'}
                     label={t('phone')}
-                    rules={[{
-                        required: true,
-                        message: (t('enterPhone') + '!')
-                    }]}
                     hasFeedback
                 >
                     <Input
@@ -289,10 +285,6 @@ const AddUser = (props) => {
                 <Form.Item
                     name={'birthAt'}
                     label={t('birthDate')}
-                    rules={[{
-                        required: true,
-                        message: t('enterBirthDate') + '!'
-                    }]}
                     hasFeedback
                 >
                     <DatePicker onChange={changeBirthAt} format={'YYYY-MM-DD'}/>

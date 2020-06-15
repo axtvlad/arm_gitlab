@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {BASE_URL, USER, PASSWORD} from "../env";
+import {BASE_URL1, PASSWORD, USER} from "../env";
 
 const authorizationBasic = window.btoa(USER + ':' + PASSWORD);
 
@@ -7,7 +7,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL
+    baseURL: BASE_URL1
 });
 
 export const restAPI = {
@@ -31,7 +31,7 @@ export const restAPI = {
             return instance
                 .post('users', newUser)
                 .then(response => response.data)
-        }
+        },
     },
 
     categories: {
@@ -177,6 +177,16 @@ export const restAPI = {
             return instance
                 .post('mainDocs', newMainDoc)
                 .then(response => response.data)
+        },
+        getSearchResultsByTags(tags) {
+            return instance
+                .post('mainDocs/searchByTags', {tags: tags})
+                .then(response => response.data)
+        },
+        getSearchResultsByNum(num) {
+            return instance
+                .post('mainDocs/searchByNum', {num: num})
+                .then(response => response.data)
         }
     },
 
@@ -307,14 +317,6 @@ export const restAPI = {
         auth(authData) {
             return instance
                 .post('auth', authData)
-                .then(response => response.data)
-        },
-    },
-
-    search: {
-        getSearchResults(tags) {
-            return instance
-                .post('mainDocs/search', {tags: tags})
                 .then(response => response.data)
         },
     }

@@ -24,8 +24,6 @@ const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
 const SET_CURRENT_USER = 'set_current_user';
 const SET_IS_POSTED = 'set_is_posted';
 const REMOVE_USER = 'remove_user';
-// Временное решение
-const SET_IS_ADMIN = 'set_is_admin';
 
 let getIsAdmin = () => {
     if (!localStorage.getItem('isAdmin') || localStorage.getItem('isAdmin') === 'false') {
@@ -216,11 +214,6 @@ const UserReducer = (state = initialState, action) => {
                 ...state,
                 currentUser: action.currentUser
             };
-        case SET_IS_ADMIN:
-            return {
-                ...state,
-                isAdmin: action.isAdmin
-            };
         case SET_IS_POSTED:
             return {
                 ...state,
@@ -349,11 +342,6 @@ export const setUsersIsFetching = (isFetching) => ({
 export const setCurrentUser = (currentUser) => ({
     type: SET_CURRENT_USER,
     currentUser
-});
-
-export const setIsAdmin = (isAdmin) => ({
-    type: SET_IS_ADMIN,
-    isAdmin
 });
 
 export const getUsers = () => (dispatch) => {

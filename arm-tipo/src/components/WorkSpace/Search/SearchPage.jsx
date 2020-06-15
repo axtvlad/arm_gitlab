@@ -3,6 +3,7 @@ import {Button, Form, Input, Radio, Select} from 'antd';
 import {useTranslation} from "react-i18next";
 import MainDocs from "../Directories/MainDocs/MainDocs";
 import {DirectoriesTypes} from "../../common/utils/DirectoriesTypes";
+import {SearchMode} from "../../common/utils/constants";
 
 const SearchPage = (props) => {
     const {t} = useTranslation();
@@ -11,7 +12,9 @@ const SearchPage = (props) => {
 
     let fromState = {
         tags: props.searchDir.tags,
-        results: props.searchDir.results
+        results: props.searchDir.results,
+        searchMode: props.searchDir.searchMode,
+        num: props.searchDir.num,
     };
 
     console.log('fromState', fromState);
@@ -19,7 +22,12 @@ const SearchPage = (props) => {
     form.setFieldsValue(fromState);
 
     const search = () => {
-        props.getSearchResult(fromState.tags);
+        switch (fromState.searchMode) {
+            case SearchMode.NUM:
+                return props.getSearchResult(fromState.searchMode, fromState.num);
+            case SearchMode.TAGS:
+                return props.getSearchResult(fromState.searchMode, fromState.tags);
+        }
     };
 
     const changeTags = (value) => {
@@ -29,8 +37,17 @@ const SearchPage = (props) => {
     const clear = () => {
         props.clearSearchResults();
         props.clearTags();
+        props.clearNum();
         form.resetFields();
     }
+
+    const changeSearchMode = (value) => {
+        props.setSearchMode(value.target.value);
+    };
+
+    const changeNum = (value) => {
+        props.updateSearchNum(value.target.value);
+    };
 
     return (
         <div>
@@ -41,16 +58,16 @@ const SearchPage = (props) => {
                     className="ant-advanced-search-form"
                     onFinish={search}
                 >
-                    {/*<Form.Item*/}
-                    {/*    name={'search'}*/}
-                    {/*    label={t('search')}*/}
-                    {/*    rules={[{*/}
-                    {/*        required: true,*/}
-                    {/*        message: 'Введите заголовок для поиска!',*/}
-                    {/*    }]}*/}
-                    {/*>*/}
-                    {/*    <Input placeholder={t('enterTitle')}/>*/}
-                    {/*</Form.Item>*/}
+                    <Form.Item
+                        name={'searchMode'}
+                        label={t('searchMode')}
+                    >
+                        <Radio.Group onChange={changeSearchMode}>
+                            <Radio.Button value={SearchMode.TAGS}>Поиск по ключевым словам</Radio.Button>
+                            <Radio.Button value={SearchMode.NUM}>Поиск по номеру документа</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+                    {props.searchDir.searchMode === SearchMode.TAGS &&
                     <Form.Item
                         name={'tags'}
                         label={t('tags')}
@@ -65,7 +82,18 @@ const SearchPage = (props) => {
                             placeholder={t('tags')}
                             onChange={changeTags}>
                         </Select>
-                    </Form.Item>
+                    </Form.Item>}
+                    {props.searchDir.searchMode === SearchMode.NUM &&
+                    <Form.Item
+                        name={'num'}
+                        label={t('num')}
+                        rules={[{
+                            required: true,
+                            message: 'Введите номер документа для поиска!',
+                        }]}
+                    >
+                        <Input placeholder={t('enterNum')} onChange={changeNum}/>
+                    </Form.Item>}
                     {/*<Form.Item*/}
                     {/*    name={'types'}*/}
                     {/*    label={t('whereToSearch')}*/}

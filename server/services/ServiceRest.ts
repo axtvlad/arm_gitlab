@@ -18,7 +18,7 @@ export default class ServiceRest implements IRestApi {
 
     private treatment(data: IQuery): object {
         return Object.keys(data).reduce((list, item) => {
-            if (data !== null) {
+            if (data[item] !== null) {
                 switch (data[item].toString().toLowerCase()) {
                     case 'true':
                         list[item] = true;

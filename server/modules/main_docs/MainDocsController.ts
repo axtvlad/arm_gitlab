@@ -44,8 +44,12 @@ interface IRestMainDocByIdKeys {
     id: number;
 }
 
-interface IRestMainDocSearch {
+interface IRestMainDocSearchByTags {
     tags: [];
+}
+
+interface IRestMainDocSearchByNum {
+    num: string;
 }
 
 export default new class MainDocsController {
@@ -212,10 +216,10 @@ export default new class MainDocsController {
         }
     }
 
-    async search(req: Request, res: Response) {
+    async searchByTags(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
-            const bodyParams = <IRestMainDocSearch>rest.getBody();
+            const bodyParams = <IRestMainDocSearchByTags>rest.getBody();
 
             if (!bodyParams.tags) {
                 return res.status(400).send({
@@ -225,7 +229,7 @@ export default new class MainDocsController {
                 });
             }
 
-            let sql = "SELECT * FROM main_docs WHERE ";
+            let sql = "SELECT *, DATE_FORMAT (begin_date, '%Y-%m-%d') as begin_date FROM main_docs WHERE ";
 
             for (let i = 1; i <= bodyParams.tags.length; i++) {
                 sql += " (tags LIKE '%" + bodyParams.tags[i - 1] + "%') ";
@@ -236,6 +240,39 @@ export default new class MainDocsController {
                     sql += ";";
                 }
             }
+
+            const results = await getManager().query(sql);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                results,
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async searchByNum(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestMainDocSearchByNum>rest.getBody();
+
+            if (!bodyParams.num) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NUM',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_TAGS')
+                });
+            }
+
+            let sql = "SELECT *, DATE_FORMAT (begin_date, '%Y-%m-%d') as begin_date " +
+                "FROM main_docs WHERE num LIKE '%" + bodyParams.num + "%';";
 
             const results = await getManager().query(sql);
 
