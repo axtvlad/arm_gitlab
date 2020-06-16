@@ -49,7 +49,23 @@ const AddMainDoc = (props) => {
 
     console.log(fromState);
 
-    form.setFieldsValue(fromState);
+    form.setFieldsValue({
+        num: props.mainDocsDir.newMainDocNum,
+        department_id: props.mainDocsDir.newMainDocDepartmentId,
+        status_id: props.mainDocsDir.newMainDocStatusId,
+        name_ru: props.mainDocsDir.newMainDocNameRu,
+        name_kz: props.mainDocsDir.newMainDocNameKz,
+        header_ru: props.mainDocsDir.newMainDocHeaderRu,
+        header_kz: props.mainDocsDir.newMainDocHeaderKz,
+        file_ru: props.mainDocsDir.newMainDocFileRu,
+        file_kz: props.mainDocsDir.newMainDocFileKz,
+        description_ru: props.mainDocsDir.newMainDocDescriptionRu,
+        description_kz: props.mainDocsDir.newMainDocDescriptionKz,
+        type_id: props.mainDocsDir.newMainDocTypeId,
+        text_ru: props.mainDocsDir.newMainDocTextRu,
+        text_kz: props.mainDocsDir.newMainDocTextKz,
+        tags: props.mainDocsDir.newMainDocTags,
+    });
 
     const successfulAdd = (item) => {
         notification['success']({

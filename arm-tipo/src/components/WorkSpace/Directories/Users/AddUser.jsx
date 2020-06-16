@@ -1,6 +1,5 @@
-import {Button, Checkbox, DatePicker, Form, Input, notification, Select, Upload} from "antd";
+import {Button, Checkbox, DatePicker, Form, Input, notification, Select} from "antd";
 import React from "react";
-import {UploadOutlined} from "@ant-design/icons";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
@@ -14,16 +13,16 @@ const AddUser = (props) => {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
-
-    const normFile = e => {
-        console.log('Upload event:', e);
-
-        if (Array.isArray(e)) {
-            return e;
-        }
-
-        return e && e.fileList;
-    };
+    //
+    // const normFile = e => {
+    //     console.log('Upload event:', e);
+    //
+    //     if (Array.isArray(e)) {
+    //         return e;
+    //     }
+    //
+    //     return e && e.fileList;
+    // };
 
     const [form] = Form.useForm();
 
@@ -49,7 +48,24 @@ const AddUser = (props) => {
 
     console.log(fromState);
 
-    form.setFieldsValue(fromState);
+    form.setFieldsValue({
+        firstName: props.usersDir.newUserFirstName,
+        lastName: props.usersDir.newUserLastName,
+        patronymic: props.usersDir.newUserPatronymic,
+        login: props.usersDir.newUserLogin,
+        password: props.usersDir.newUserPassword,
+        email: props.usersDir.newUserEmail,
+        photo: props.usersDir.newUserPhoto,
+        role_id: props.usersDir.newUserRoleId,
+        city_id: props.usersDir.newUserCityId,
+        customer_id: props.usersDir.newUserCustomerId,
+        gender_id: props.usersDir.newUserGenderId,
+        phone: props.usersDir.newUserPhone,
+        locale: props.usersDir.newUserLocale,
+        isAdmin: props.usersDir.newUserIsAdmin,
+        isPremium: props.usersDir.newUserIsPremium,
+        isBanned: props.usersDir.newUserIsBanned
+    });
 
     const successfulAdd = (item) => {
         notification['success']({
@@ -96,11 +112,11 @@ const AddUser = (props) => {
         const email = form.getFieldValue().email;
         props.updateUserEmail(email);
     };
-
-    const changePhoto = () => {
-        const photo = form.getFieldValue().photo;
-        props.updateUserPhoto(photo);
-    };
+    //
+    // const changePhoto = () => {
+    //     const photo = form.getFieldValue().photo;
+    //     props.updateUserPhoto(photo);
+    // };
 
     const changeRoleId = () => {
         const role_id = form.getFieldValue().role_id;
@@ -127,26 +143,10 @@ const AddUser = (props) => {
         props.updateUserPhone(phone);
     };
 
-    const changeBirthAt = () => {
-        const date = form.getFieldValue().birthAt;
+    const changeBirthAt = (date, dateString) => {
+        console.log(date, dateString)
 
-        console.warn(date._d)
-
-        let date1 = date._d;
-
-        let dd = date1.getDate();
-        if (dd < 10) dd = '0' + dd;
-
-        let mm = date1.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-
-        let yyyy = date1.getFullYear();
-
-        const birthAt = yyyy + '-' + mm + '-' + dd;
-
-        console.log(birthAt);
-
-        props.updateUserBirthAt(birthAt);
+        props.updateUserBirthAt(dateString);
     };
 
     const changeLocale = () => {
@@ -258,19 +258,19 @@ const AddUser = (props) => {
                     />
                 </Form.Item>
 
-                <Form.Item
-                    name={'photo'}
-                    label={t('uploadPhoto')}
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
-                >
-                    <Upload name="logo" action="/upload.do" listType="picture" onChange={changePhoto}>
-                        <Button>
-                            <UploadOutlined/>
-                            {t('chooseFile')}
-                        </Button>
-                    </Upload>
-                </Form.Item>
+                {/*<Form.Item*/}
+                {/*    name={'photo'}*/}
+                {/*    label={t('uploadPhoto')}*/}
+                {/*    valuePropName="fileList"*/}
+                {/*    getValueFromEvent={normFile}*/}
+                {/*>*/}
+                {/*    <Upload name="logo" action="/upload.do" listType="picture" onChange={changePhoto}>*/}
+                {/*        <Button>*/}
+                {/*            <UploadOutlined/>*/}
+                {/*            {t('chooseFile')}*/}
+                {/*        </Button>*/}
+                {/*    </Upload>*/}
+                {/*</Form.Item>*/}
 
                 <Form.Item
                     name={'phone'}

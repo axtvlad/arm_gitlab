@@ -50,7 +50,7 @@ let initialState = {
     newUserGenderId: 0,
     newUserPhone: null,
     newUserLocale: '',
-    newUserBirthAt: '',
+    newUserBirthAt: null,
     newUserIsAdmin: false,
     newUserIsPremium: false,
     newUserIsBanned: false,
