@@ -11,6 +11,7 @@ const ADD_OTHER_DOC = '/addOtherDoc';
 const ADD_STATUS = '/addStatus';
 const ADD_TYPES = '/addType';
 const ADD_USER = '/addUser';
+const ADD_TEMPLATE = '/addTemplate'
 
 export const GetAddAddress = (directory_type) => {
     switch (directory_type) {
@@ -36,6 +37,8 @@ export const GetAddAddress = (directory_type) => {
             return ADD_USER;
         case DirectoriesTypes.STATUSES:
             return ADD_STATUS;
+        case DirectoriesTypes.TEMPLATES:
+            return ADD_TEMPLATE;
         default:
             return '/';
     }

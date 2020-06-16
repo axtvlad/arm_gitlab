@@ -1,6 +1,6 @@
 import React from 'react';
-import {Affix, Button, Dropdown, Layout, Menu, Modal, Select, Typography} from "antd";
-import {AppstoreOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons"
+import {Affix, Button, Dropdown, Layout, Menu, Select, Typography} from "antd";
+import {AppstoreOutlined, LogoutOutlined} from "@ant-design/icons"
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
 
@@ -20,14 +20,14 @@ const AppHeader = (props) => {
 
     const menu = (
         <Menu>
-            <Menu.Item key="1">
-                <UserOutlined/>
-                {t('profile')}
-            </Menu.Item>
-            <Menu.Item key="2">
-                <SettingOutlined/>
-                {t('settings')}
-            </Menu.Item>
+            {/*<Menu.Item key="1">*/}
+            {/*    <UserOutlined/>*/}
+            {/*    {t('profile')}*/}
+            {/*</Menu.Item>*/}
+            {/*<Menu.Item key="2">*/}
+            {/*    <SettingOutlined/>*/}
+            {/*    {t('settings')}*/}
+            {/*</Menu.Item>*/}
             <Menu.Item key="3" onClick={logout}>
                 <LogoutOutlined/>
                 {t('logout')}
@@ -58,15 +58,15 @@ const AppHeader = (props) => {
                     <Text style={{marginLeft: 30}}>{t('mailForRequests')}</Text>
                     <Text copyable>info@arm-tipo.kz</Text>
                 </span>
-                <Modal
-                    title={t('help')}
-                    visible={false}
-                    onOk={() => {
-                        alert('omg!')
-                    }}
-                >
-                    <p>Скоро здесь появится инструкция</p>
-                </Modal>
+                {/*<Modal*/}
+                {/*    title={t('help')}*/}
+                {/*    visible={false}*/}
+                {/*    onOk={() => {*/}
+                {/*        alert('omg!')*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    <p>Скоро здесь появится инструкция</p>*/}
+                {/*</Modal>*/}
                 <Select
                     defaultValue={i18n.language}
                     style={{width: '100px'}}

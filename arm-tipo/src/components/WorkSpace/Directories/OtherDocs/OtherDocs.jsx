@@ -27,6 +27,7 @@ const OtherDocs = (props) => {
             </Menu>
         )
     };
+
     const DropdownMenu = (id) => {
         return (
             <Dropdown key="more" overlay={menu(id)}>
@@ -65,7 +66,7 @@ const OtherDocs = (props) => {
                         <PageHeader
                             title={othDoc.name_ru}
                             className="site-page-header"
-                            extra={[
+                            extra={props.isAdmin && [
                                 <DropdownMenu key="more" id={othDoc.id}>
                                     <NavLink to={'/' + props.type + '/' + othDoc.id}>{t('more')}</NavLink>
                                 </DropdownMenu>

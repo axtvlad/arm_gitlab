@@ -115,35 +115,12 @@ const AddMainDoc = (props) => {
         props.updateMainDocTags(tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-"));
     };
 
-    const changeBeginAndFinishDate = () => {
-        const date = form.getFieldValue().begin_and_finish_date;
+    const changeBeginAndFinishDate = (date, stringDate) => {
+        console.log('begin_date: ' + stringDate[0]);
+        console.log('finish_date: ' + stringDate[1]);
 
-        let date1 = date[0]._d;
-        let date2 = date[1]._d;
-
-        let dd1 = date1.getDate();
-        if (dd1 < 10) dd1 = '0' + dd1;
-
-        let dd2 = date2.getDate();
-        if (dd2 < 10) dd2 = '0' + dd1;
-
-        let mm1 = date1.getMonth() + 1;
-        if (mm1 < 10) mm1 = '0' + mm1;
-
-        let mm2 = date2.getMonth() + 1;
-        if (mm2 < 10) mm2 = '0' + mm2;
-
-        let yyyy1 = date1.getFullYear();
-        let yyyy2 = date2.getFullYear();
-
-        const begin_date = yyyy1 + '-' + mm1 + '-' + dd1;
-        const finish_date = yyyy2 + '-' + mm2 + '-' + dd2;
-
-        console.log('begin_date: ' + begin_date);
-        console.log('finish_date: ' + finish_date);
-
-        props.updateMainDocBeginDate(begin_date);
-        props.updateMainDocFinishDate(finish_date);
+        props.updateMainDocBeginDate(stringDate[0]);
+        props.updateMainDocFinishDate(stringDate[1]);
     };
 
     const changeHeaderRu = () => {
@@ -194,9 +171,7 @@ const AddMainDoc = (props) => {
         props.updateMainDocTextKz(text_kz);
     };
 
-    const changeTypeId = () => {
-        const type_id = form.getFieldValue().type_id;
-
+    const changeTypeId = (type_id) => {
         props.updateMainDocTypeId(type_id);
     };
 
@@ -262,6 +237,7 @@ const AddMainDoc = (props) => {
                         format={'YYYY-MM-DD'}
                         onChange={changeBeginAndFinishDate}
                         placeholder={[t("published"), t("finished")]}
+                        allowEmpty={[false, true]}
                     />
                 </Form.Item>
 

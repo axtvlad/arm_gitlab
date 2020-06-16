@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, Form, Input, notification, Select, Upload} from "antd";
-import {UploadOutlined} from "@ant-design/icons";
+import {Button, Form, Input, notification, Select} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
@@ -15,13 +14,13 @@ const AddTemplate = (props) => {
         wrapperCol: {span: 14},
     };
 
-    const normFile = e => {
-        console.log('Upload event:', e);
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
+    // const normFile = e => {
+    //     console.log('Upload event:', e);
+    //     if (Array.isArray(e)) {
+    //         return e;
+    //     }
+    //     return e && e.fileList;
+    // };
 
     const [form] = Form.useForm();
 
@@ -128,33 +127,28 @@ const AddTemplate = (props) => {
                 >
                     <Input
                         placeholder={t('enterTemplateNameKz')}
-                        onChange={changeNameKz}/>
+                        onChange={changeNameKz}
+                    />
                 </Form.Item>
 
                 <Form.Item
                     name={'file_ru'}
                     label={t('attachFileRu')}
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
                 >
-                    <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>
-                        <Button>
-                            <UploadOutlined/> {t('chooseFile')}
-                        </Button>
-                    </Upload>
+                    <Input
+                        placeholder={t('chooseFile')}
+                        onChange={changeFileRu}
+                    />
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
                     label={t('attachFileKz')}
-                    valuePropName="fileList"
-                    getValueFromEvent={normFile}
                 >
-                    <Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>
-                        <Button>
-                            <UploadOutlined/> {t('chooseFile')}
-                        </Button>
-                    </Upload>
+                    <Input
+                        placeholder={t('chooseFile')}
+                        onChange={changeFileKz}
+                    />
                 </Form.Item>
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
                     <Button

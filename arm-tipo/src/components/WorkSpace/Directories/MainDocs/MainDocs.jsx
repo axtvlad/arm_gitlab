@@ -120,11 +120,12 @@ const MainDocs = (props) => {
                 </div>}
                 {props.mainDocs.map(doc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={doc.id}>
-                        {i18n.language === 'ru' ? <PageHeader
+                        {i18n.language === 'ru' ?
+                            <PageHeader
                                 title={doc.name_ru}
                                 className="site-page-header"
                                 subTitle={doc.number}
-                                extra={[
+                                extra={props.isAdmin && [
                                     <DropdownMenu key="more" id={doc.id}/>
                                 ]}
                                 avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}

@@ -73,7 +73,7 @@ const Templates = (props) => {
                         <PageHeader
                             title={tmp.name_ru}
                             className="site-page-header"
-                            extra={[
+                            extra={props.isAdmin && [
                                 <DropdownMenu key="more"/>
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
@@ -102,5 +102,6 @@ const Templates = (props) => {
                 )}
             </Spin>
         </div>
-    )};
+    )
+};
 export default Templates;

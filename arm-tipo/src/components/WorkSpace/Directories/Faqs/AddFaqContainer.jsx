@@ -27,7 +27,7 @@ class AddFaqContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        if (this.props.isAdmin) {
             if (this.props.faqsDir.isPosted) {
                 return <Redirect to={'/faqs'}/>
             } else {
