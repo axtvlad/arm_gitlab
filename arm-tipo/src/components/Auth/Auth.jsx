@@ -3,15 +3,6 @@ import React from "react";
 
 const Auth = (props) => {
 
-    const layout = {
-        labelCol: {span: 8},
-        wrapperCol: {span: 16},
-    };
-
-    const tailLayout = {
-        wrapperCol: {offset: 8, span: 16},
-    };
-
     const [form] = Form.useForm();
 
     let fromState = {
@@ -40,12 +31,12 @@ const Auth = (props) => {
     return (
         <div className={'grid-container'}>
             <Form
+                layout={"vertical"}
                 className={'auth'}
-                {...layout}
                 name={'form'}
-                initialValues={{remember: true}}
                 onFinish={auth}
                 form={form}
+                style={{padding: 30}}
             >
                 <Form.Item
                     label={'Логин'}
@@ -63,11 +54,11 @@ const Auth = (props) => {
                     <Input.Password onChange={changeAuthPassword}/>
                 </Form.Item>
 
-                <Form.Item {...tailLayout} name="remember">
-                    <span>Забыли пароль? Молодцы!</span>
+                <Form.Item name="remember">
+                    <span>Забыли пароль? Вспоминайте!</span>
                 </Form.Item>
 
-                <Form.Item {...tailLayout}>
+                <Form.Item>
                     <Button type="primary" htmlType="submit">
                         Войти
                     </Button>
