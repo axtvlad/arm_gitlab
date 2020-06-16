@@ -125,6 +125,8 @@ export const getSearchResult = (searchMode, data) => (dispatch) => {
 
                     dispatch(setIsSearching(false));
                 });
+        default:
+            return;
     }
 };
 

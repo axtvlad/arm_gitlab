@@ -27,6 +27,8 @@ const SearchPage = (props) => {
                 return props.getSearchResult(fromState.searchMode, fromState.num);
             case SearchMode.TAGS:
                 return props.getSearchResult(fromState.searchMode, fromState.tags);
+            default:
+                return props.getSearchResult(fromState.searchMode, fromState.tags);
         }
     };
 
