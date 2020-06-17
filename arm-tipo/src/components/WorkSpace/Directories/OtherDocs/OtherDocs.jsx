@@ -85,6 +85,7 @@ const OtherDocs = (props) => {
                                     style={{marginTop: 20, marginLeft: 10}}
                                     type="primary"
                                     shape="round"
+                                    href={othDoc.file_ru}
                                     icon={<DownloadOutlined/>}
                                 >
                                     {t('download')}

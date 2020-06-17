@@ -82,17 +82,18 @@ const Templates = (props) => {
                         >
                             <Content>
                                 <div style={{textAlign: 'left'}}>
-                                    <Button
+                                    {/*<Button
                                         style={{marginTop: 20, marginRight: 10}}
                                         type="danger"
                                         shape="round"
                                     >
                                         {t('more')}
-                                    </Button>
+                                    </Button>*/}
                                     <Button
                                         style={{marginTop: 20, marginLeft: 10}}
                                         type="primary"
                                         shape="round"
+                                        href={'https://drive.google.com/file/d/1MqdTvdooZBDSDEiaI6ttQykzFHZrUzUX/view?usp=sharing'}
                                         icon={<DownloadOutlined/>}
                                     >
                                         {t('download')}
