@@ -26,13 +26,13 @@ const AddTemplate = (props) => {
 
     let fromState = {
         category_id: props.templatesDir.category_id,
-        name_ru: props.templatesDir.newTemplateNameRu,
-        name_kz: props.templatesDir.newTemplateNameKz,
-        file_ru: props.templatesDir.newFileNameRu,
-        file_kz: props.templatesDir.newFileNameKz,
+        name_ru: props.templatesDir.newNameRu,
+        name_kz: props.templatesDir.newNameKz,
+        file_ru: props.templatesDir.newFileRu,
+        file_kz: props.templatesDir.newFileKz,
     };
 
-    console.log(fromState);
+    console.log('fromState', fromState);
 
     form.setFieldsValue(fromState);
 
@@ -60,12 +60,12 @@ const AddTemplate = (props) => {
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
-        props.updateTemplateFileNameRu(file_ru);
+        props.updateTemplateFileRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
-        props.updateTemplateFileNameKz(file_kz);
+        props.updateTemplateFileKz(file_kz);
     };
 
     const saveDoc = (values) => {

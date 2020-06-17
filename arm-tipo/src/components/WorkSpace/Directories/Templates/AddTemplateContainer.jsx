@@ -2,8 +2,8 @@ import {
     deleteTemplateById,
     postTemplate,
     updateTemplateCategoryId,
-    updateTemplateFileNameKz,
-    updateTemplateFileNameRu,
+    updateTemplateFileKz,
+    updateTemplateFileRu,
     updateTemplateNameKz,
     updateTemplateNameRu
 } from "../../../../redux/Reducers/TemplateReducer";
@@ -57,10 +57,10 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
         postTemplate,
         deleteTemplateById,
-        updateTemplateNameRu,
         updateTemplateNameKz,
-        updateTemplateFileNameRu,
-        updateTemplateFileNameKz,
+        updateTemplateNameRu,
+        updateTemplateFileRu,
+        updateTemplateFileKz,
         updateTemplateCategoryId,
         getCategories
     }

@@ -1,10 +1,10 @@
 import {restAPI} from "../../api/API";
 
 const ADD_TEMPLATE = 'add_template';
-const UPDATE_TEMPLATE_NAME_RU = 'update_new_template_name_ru';
-const UPDATE_TEMPLATE_NAME_KZ = 'update_new_template_name_kz';
-const UPDATE_FILE_NAME_RU = 'update_new_file_name_ru';
-const UPDATE_FILE_NAME_KZ = 'update_new_file_name_ru';
+const UPDATE_TEMPLATE_NAME_RU = 'update_template_name_ru';
+const UPDATE_TEMPLATE_NAME_KZ = 'update_template_name_kz';
+const UPDATE_TEMPLATE_FILE_RU = 'update_template_file_ru';
+const UPDATE_TEMPLATE_FILE_KZ = 'update_template_file_kz';
 const UPDATE_CATEGORY_ID = 'update_category_id';
 const SET_TEMPLATES_IS_FETCHING = 'set_templates_is_fetching';
 const SET_TEMPLATES = 'set_templates';
@@ -14,21 +14,12 @@ const SET_IS_POSTED = 'set_is_posted';
 const REMOVE_TEMPLATE = 'remove_template';
 
 let initialState = {
-    templates: [
-        {
-            id: 1,
-            name_ru: 'Шаблон приказа на фирменном бланке Политехнического колледжа',
-            name_kz: 'Политехникалық колледждің фирмалық бланкісіндегі бұйрық үлгісі',
-            fileName_ru: '/src/mainDocs/fsdj8f2oh',
-            fileName_kz: '/src/mainDocs/fsffsoh94',
-            category_id: 1
-        }
-    ],
-    newTemplateNameRu: '',
-    newTemplateNameKz: '',
+    templates: [],
+    newNameRu: '',
+    newNameKz: '',
     isFetching: false,
-    newFileNameRu: '',
-    newFileNameKz: '',
+    newFileRu: '',
+    newFileKz: '',
     templatesCount: 0,
     category_id: null,
     currentTemplate: null,
@@ -40,14 +31,16 @@ const TemplateReducer = (state = initialState, action) => {
         case ADD_TEMPLATE:
             return {
                 ...state,
-                newTemplateNameRu: '',
-                newTemplateNameKz: '',
+                newNameRu: '',
+                newNameKz: '',
+                newFileRu: '',
+                newFileKz: '',
                 templates: [...state.templates, {
                     id: action.id,
-                    name_ru: state.newFileNameRu,
-                    name_kz: state.newFileNameKz,
-                    fileName_ru: state.newFileNameRu,
-                    fileName_kz: state.newFileNameKz,
+                    name_ru: state.newNameRu,
+                    name_kz: state.newNameKz,
+                    file_ru: state.newFileRu,
+                    file_kz: state.newFileKz,
                     category_id: state.category_id
                 }]
             };
@@ -59,22 +52,22 @@ const TemplateReducer = (state = initialState, action) => {
         case UPDATE_TEMPLATE_NAME_RU:
             return {
                 ...state,
-                newTemplateNameRu: action.newNameRu
+                newNameRu: action.newNameRu
             };
         case UPDATE_TEMPLATE_NAME_KZ:
             return {
                 ...state,
-                newTemplateNameKz: action.newNameKz
+                newNameKz: action.newNameKz
             };
-        case UPDATE_FILE_NAME_RU:
+        case UPDATE_TEMPLATE_FILE_RU:
             return {
                 ...state,
-                newFileNameRu: action.newFileNameRu
+                newFileRu: action.newFileRu
             };
-        case UPDATE_FILE_NAME_KZ:
+        case UPDATE_TEMPLATE_FILE_KZ:
             return {
                 ...state,
-                newFileNameKz: action.newFileNameKz
+                newFileKz: action.newFileKz
             };
         case UPDATE_CATEGORY_ID:
             return {
@@ -84,7 +77,7 @@ const TemplateReducer = (state = initialState, action) => {
         case SET_TEMPLATES:
             return {
                 ...state,
-                templates: [...state.templates, ...action.templates]
+                templates: action.templates
             };
         case SET_TEMPLATES_IS_FETCHING:
             return {
@@ -136,14 +129,14 @@ export const updateTemplateNameKz = (newNameKz) => ({
     newNameKz
 });
 
-export const updateTemplateFileNameRu = (newFileNameRu) => ({
-    type: UPDATE_FILE_NAME_RU,
-    newFileNameRu
+export const updateTemplateFileRu = (newFileRu) => ({
+    type: UPDATE_TEMPLATE_FILE_RU,
+    newFileRu
 });
 
-export const updateTemplateFileNameKz = (newFileNameKz) => ({
-    type: UPDATE_FILE_NAME_KZ,
-    newFileNameKz
+export const updateTemplateFileKz = (newFileKz) => ({
+    type: UPDATE_TEMPLATE_FILE_KZ,
+    newFileKz
 });
 
 export const updateTemplateCategoryId = (category_id) => ({
