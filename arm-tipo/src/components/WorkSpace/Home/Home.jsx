@@ -190,6 +190,7 @@ const Home = (props) => {
                                         style={{marginTop: 20, marginLeft: 10}}
                                         type="primary"
                                         shape="round"
+                                        href={props.lastAddedMainDoc.file_kz}
                                         icon={<DownloadOutlined/>}
                                     >
                                         {t('download')}

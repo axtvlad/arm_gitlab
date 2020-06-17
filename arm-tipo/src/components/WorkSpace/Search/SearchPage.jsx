@@ -65,8 +65,8 @@ const SearchPage = (props) => {
                         label={t('searchMode')}
                     >
                         <Radio.Group onChange={changeSearchMode}>
-                            <Radio.Button value={SearchMode.TAGS}>Поиск по ключевым словам</Radio.Button>
-                            <Radio.Button value={SearchMode.NUM}>Поиск по номеру документа</Radio.Button>
+                            <Radio.Button value={SearchMode.TAGS}>{t('searchByTags')}</Radio.Button>
+                            <Radio.Button value={SearchMode.NUM}>{t('searchByDocNum')}</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
                     {props.searchDir.searchMode === SearchMode.TAGS &&
@@ -88,13 +88,13 @@ const SearchPage = (props) => {
                     {props.searchDir.searchMode === SearchMode.NUM &&
                     <Form.Item
                         name={'num'}
-                        label={t('num')}
+                        label={t('number')}
                         rules={[{
                             required: true,
-                            message: 'Введите номер документа для поиска!',
+                            message: t('enterDocNumber') + '!',
                         }]}
                     >
-                        <Input placeholder={t('enterNum')} onChange={changeNum}/>
+                        <Input placeholder={t('enterDocNumber')} onChange={changeNum}/>
                     </Form.Item>}
                     {/*<Form.Item*/}
                     {/*    name={'types'}*/}

@@ -13,11 +13,11 @@ const Templates = (props) => {
 
     const menu = (
         <Menu>
-            <Menu.Item>
+            {/*<Menu.Item>
                 <a href='/'>
                     {t('edit')}
                 </a>
-            </Menu.Item>
+            </Menu.Item>*/}
             <Menu.Item>
                 <a href='/'>
                     {t('delete')}

@@ -104,7 +104,8 @@ const DisplayMainDoc = (props) => {
                     <Descriptions.Item
                         label={t('fileKz')}
                     >
-                        <a href={props.currentMainDoc[0].file_kz}>
+                        {/*временно*/}
+                        <a href={props.currentMainDoc[0].file_ru}>
                             Документ (kz)
                         </a>
                     </Descriptions.Item>

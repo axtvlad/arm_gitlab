@@ -26,11 +26,11 @@ const MainDocs = (props) => {
     const menu = (item) => {
         return (
             <Menu>
-                <Menu.Item>
+                {/*<Menu.Item>
                     <span>
                         {t('edit')}
                     </span>
-                </Menu.Item>
+                </Menu.Item>*/}
                 <Menu.Item>
                     <span onClick={() => deleteItem(item)}>
                         {t('delete')}
@@ -168,6 +168,7 @@ const MainDocs = (props) => {
                                             style={{marginTop: 20, marginLeft: 10}}
                                             type="primary"
                                             shape="round"
+                                            href={doc.file_kz}
                                             icon={<DownloadOutlined/>}
                                         >
                                             {t('download')}
@@ -222,6 +223,7 @@ const MainDocs = (props) => {
                                             style={{marginTop: 20, marginLeft: 10}}
                                             type="primary"
                                             shape="round"
+                                            href={doc.file_kz}
                                             icon={<DownloadOutlined/>}
                                         >
                                             {t('download')}

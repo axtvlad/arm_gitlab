@@ -14,11 +14,11 @@ const OtherDocs = (props) => {
     const menu = (id) => {
         return (
             <Menu>
-                <Menu.Item>
+                {/*<Menu.Item>
                     <span>
                         {t('edit')}
                     </span>
-                </Menu.Item>
+                </Menu.Item>*/}
                 <Menu.Item>
                     <span onClick={() => props.deleteOtherDocById(id)}>
                         {t('delete')}

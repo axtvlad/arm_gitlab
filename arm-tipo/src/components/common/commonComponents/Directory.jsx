@@ -51,7 +51,7 @@ const Directory = (props) => {
                 if (props.isAdmin) {
                     return (
                         <div>
-                            <Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>
+                            {/*<Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>*/}
                             <Button
                                 style={{margin: '0 5px'}}
                                 onClick={() => deleteItem(item)}

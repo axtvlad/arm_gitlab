@@ -303,6 +303,7 @@ const AddMainDoc = (props) => {
                 <Form.Item
                     name={'tags'}
                     label={'Тэги документа'}
+                    rules={[{required: true, message: 'Пожалуйста, введите тэги документа!'}]}
                 >
                     <Input.TextArea onChange={changeTags} maxLength={5000}/>
                 </Form.Item>

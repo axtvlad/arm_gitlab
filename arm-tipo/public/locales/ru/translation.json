@@ -165,5 +165,8 @@
   "new": "Новый",
   "old": "Утратил силу",
   "actual": "Актуальный",
-  "educationDepartment": "ҚР БҒМ"
+  "educationDepartment": "МОН РК",
+  "searchMode": "Тип поиска",
+  "searchByTags": "Поиск по ключевым словам",
+  "searchByDocNum": "Поиск по номеру документа"
 }

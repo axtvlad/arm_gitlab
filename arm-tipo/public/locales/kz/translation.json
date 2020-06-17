@@ -165,5 +165,8 @@
   "new": "Жаңа",
   "old": "Мерзімі біткен",
   "actual": "Нақты",
-  "educationDepartment": "ҚР БҒМ"
+  "educationDepartment": "ҚР БҒМ",
+  "searchMode": "Іздеу түрі",
+  "searchByTags": "Кілт сөзді іздеу",
+  "searchByDocNum": "Құжат нөмірі бойынша іздеу"
 }
