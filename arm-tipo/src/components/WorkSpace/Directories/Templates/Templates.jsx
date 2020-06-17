@@ -11,20 +11,22 @@ const Templates = (props) => {
 
     const {t} = useTranslation();
 
-    const menu = (
-        <Menu>
-            {/*<Menu.Item>
+    const menu = (id) => {
+        return (
+            <Menu>
+                {/*<Menu.Item>
                 <a href='/'>
                     {t('edit')}
                 </a>
             </Menu.Item>*/}
-            <Menu.Item>
-                <a href='/'>
-                    {t('delete')}
-                </a>
-            </Menu.Item>
-        </Menu>
-    );
+                <Menu.Item>
+                    <span onClick={() => props.deleteTemplateById(id)}>
+                        {t('delete')}
+                    </span>
+                </Menu.Item>
+            </Menu>
+        );
+    }
 
     const Content = ({children, extraContent}) => {
         return (
@@ -35,9 +37,9 @@ const Templates = (props) => {
         );
     };
 
-    const DropdownMenu = () => {
+    const DropdownMenu = (attr) => {
         return (
-            <Dropdown key="more" overlay={menu}>
+            <Dropdown key="more" overlay={menu(attr.id)}>
                 <Button
                     style={{
                         border: 'none',
@@ -74,7 +76,7 @@ const Templates = (props) => {
                             title={tmp.name_ru}
                             className="site-page-header"
                             extra={props.isAdmin && [
-                                <DropdownMenu key="more"/>
+                                <DropdownMenu key={tmp.id} id={tmp.id} />
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                         >
