@@ -1,7 +1,13 @@
 import React from 'react'
 import WorkPlanSchedule from "./WorkPlanSchedule";
 import {connect} from "react-redux";
-import {getSubjectsHours, updateSemester, updateSpecialization} from "../../../redux/Reducers/WorkPlanScheduleReducer";
+import {
+    getSubjectsHours,
+    updateSemester,
+    updateSpecialization,
+    setSearchMode,
+    updateCourse
+} from "../../../redux/Reducers/WorkPlanScheduleReducer";
 
 class WorkPlanScheduleContainer extends React.Component {
 
@@ -10,8 +16,10 @@ class WorkPlanScheduleContainer extends React.Component {
             <WorkPlanSchedule
                 wps={this.props.wps}
                 updateSemester={this.props.updateSemester}
+                updateCourse={this.props.updateCourse}
                 updateSpecialization={this.props.updateSpecialization}
                 getSubjectsHours={this.props.getSubjectsHours}
+                setSearchMode={this.props.setSearchMode}
             />
         )
     }
@@ -27,6 +35,8 @@ export default connect(mapStateToProps,
     {
         getSubjectsHours,
         updateSemester,
+        updateCourse,
+        setSearchMode,
         updateSpecialization
     }
 )(WorkPlanScheduleContainer);

@@ -34,14 +34,14 @@ const SearchPage = (props) => {
 
     const changeTags = (value) => {
         props.updateSearchTags(value);
-    }
+    };
 
     const clear = () => {
         props.clearSearchResults();
         props.clearTags();
         props.clearNum();
         form.resetFields();
-    }
+    };
 
     const changeSearchMode = (value) => {
         props.setSearchMode(value.target.value);
@@ -96,16 +96,16 @@ const SearchPage = (props) => {
                     >
                         <Input placeholder={t('enterDocNumber')} onChange={changeNum}/>
                     </Form.Item>}
-                    {/*<Form.Item*/}
-                    {/*    name={'types'}*/}
-                    {/*    label={t('whereToSearch')}*/}
-                    {/*>*/}
-                    {/*    <Radio.Group defaultValue="a">*/}
-                    {/*        <Radio value="a">{t('mainDocs')}</Radio>*/}
-                    {/*        <Radio value="b">{t('otherDocs')}</Radio>*/}
-                    {/*        <Radio value="c">{t('Templates')}</Radio>*/}
-                    {/*    </Radio.Group>*/}
-                    {/*</Form.Item>*/}
+                    {/*<Form.Item
+                        name={'types'}
+                        label={t('whereToSearch')}
+                    >
+                        <Radio.Group defaultValue="a">
+                            <Radio value="a">{t('mainDocs')}</Radio>
+                            <Radio value="b">{t('otherDocs')}</Radio>
+                            <Radio value="c">{t('Templates')}</Radio>
+                        </Radio.Group>
+                    </Form.Item>*/}
                     <Button type="primary" htmlType="submit">
                         {t('search')}
                     </Button>
