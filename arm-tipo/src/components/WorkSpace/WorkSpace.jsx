@@ -50,7 +50,7 @@ class WorkSpace extends React.Component {
             <Content style={{margin: '0 16px'}}>
                 <Breadcrumb style={{margin: '16px 0', textAlign: 'left'}}>
                     <Breadcrumb.Item>
-                        <a href={''}> ARM-TIPO</a>
+                        <a href={'/'}> ARM-TIPO</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>{this.props.location.pathname.substr(1)}</Breadcrumb.Item>
                 </Breadcrumb>
