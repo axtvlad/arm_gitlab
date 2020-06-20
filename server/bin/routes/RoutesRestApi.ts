@@ -31,7 +31,7 @@ routesRestApi.use('/types', reqAuthSecurity, TypesRoutes);
 routesRestApi.use('/templates', reqAuthSecurity, TemplatesRoutes);
 routesRestApi.use('/otherDocs', reqAuthSecurity, OtherDocsRoutes);
 routesRestApi.use('/mainDocs', reqAuthSecurity, MainDocsRoutes);
-routesRestApi.use('/rup', reqAuthSecurity, WorkPlanScheduleRoutes);
+routesRestApi.use('/wps', reqAuthSecurity, WorkPlanScheduleRoutes);
 routesRestApi.use('/auth', AuthRoutes);
 
 const RoutesRestApi = routesRestApi;

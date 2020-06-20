@@ -1,43 +1,41 @@
 import {restAPI} from "../../api/API";
-import {SearchMode} from "../../components/common/utils/constants";
+import {WpsMode, WpsScheduleKeys} from "../../components/common/utils/constants";
 
 const SET_IS_POSTED = 'set_is_posted';
-const SET_WORK_PLAN_SCHEDULE_IS_FETCHING = 'set_work_plan_schedule_is_fetching';
+const SET_WPS_IS_FETCHING = 'set_wps_is_fetching';
 const SET_SUBJECT_COUNT = 'set_subject_count';
 const SET_SUBJECTS = 'set_subjects';
-const SET_SEARCH_MODE = 'set_search_mode';
-const UPDATE_PLAN = 'update_plan';
-const UPDATE_SCHEDULE = 'update_schedule';
+const SET_WPS_MODE = 'set_wps_mode';
 const UPDATE_SEMESTER = 'update_semester';
 const UPDATE_COURSE = 'update_course';
 const UPDATE_SPECIALIZATION = 'update_specialization';
+const SET_EXAMS_COUNT = 'set_exams_count';
+const SET_EXAMS = 'set_exams';
+const SET_SCHEDULE = 'set_schedule';
+const UPDATE_SCHEDULE_KEY = 'update_schedule_key';
 
 let initialState = {
     subjects: [],
-    plan: [],
+    exams: [],
     schedule: [],
     semester: 1,
     course: 1,
     specialization: 'operator',
-    subjectsCount: 0,
-    searchMode: SearchMode.PLAN,
+    scheduleKey: WpsScheduleKeys.k,
+    subjectsCount: null,
+    wpsMode: WpsMode.SUBJECTS,
     isFetching: false
 };
 
 const WorkPlanScheduleReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SET_WORK_PLAN_SCHEDULE_IS_FETCHING:
+        case SET_WPS_IS_FETCHING:
             return {
                 ...state,
                 isFetching: action.isFetching
             };
-        case UPDATE_PLAN:
-            return {
-                ...state,
-                plan: action.plan,
-            };
-        case UPDATE_SCHEDULE:
+        case SET_SCHEDULE:
             return {
                 ...state,
                 schedule: action.schedule,
@@ -52,6 +50,11 @@ const WorkPlanScheduleReducer = (state = initialState, action) => {
                 ...state,
                 course: action.course,
             };
+        case UPDATE_SCHEDULE_KEY:
+            return {
+                ...state,
+                scheduleKey: action.scheduleKey,
+            };
         case UPDATE_SPECIALIZATION:
             return {
                 ...state,
@@ -62,10 +65,15 @@ const WorkPlanScheduleReducer = (state = initialState, action) => {
                 ...state,
                 subjects: action.subjects,
             };
-        case SET_SEARCH_MODE:
+        case SET_EXAMS:
             return {
                 ...state,
-                searchMode: action.searchMode
+                exams: action.exams,
+            };
+        case SET_WPS_MODE:
+            return {
+                ...state,
+                wpsMode: action.wpsMode
             };
         default:
             return state;
@@ -82,19 +90,39 @@ export const setSubjects = (subjects) => ({
     subjects
 });
 
+export const setSchedule = (schedule) => ({
+    type: SET_SCHEDULE,
+    schedule
+});
+
 export const setSubjectsCount = (subjectsCount) => ({
     type: SET_SUBJECT_COUNT,
     subjectsCount
 });
 
-export const setSearchMode = (searchMode) => ({
-    type: SET_SEARCH_MODE,
-    searchMode
+export const setExamsCount = (examsCount) => ({
+    type: SET_EXAMS_COUNT,
+    examsCount
+});
+
+export const setWpsMode = (wpsMode) => ({
+    type: SET_WPS_MODE,
+    wpsMode
+});
+
+export const setExams = (exams) => ({
+    type: SET_EXAMS,
+    exams
 });
 
 export const updateSemester = (semester) => ({
     type: UPDATE_SEMESTER,
     semester
+});
+
+export const updateScheduleKey = (scheduleKey) => ({
+    type: UPDATE_SCHEDULE_KEY,
+    scheduleKey
 });
 
 export const updateCourse = (course) => ({
@@ -107,27 +135,52 @@ export const updateSpecialization = (specialization) => ({
     specialization
 });
 
-export const setWorkPlanScheduleIsFetching = (isFetching) => ({
-    type: SET_WORK_PLAN_SCHEDULE_IS_FETCHING,
+export const setWpsIsFetching = (isFetching) => ({
+    type: SET_WPS_IS_FETCHING,
     isFetching
 });
 
-export const getSubjectsHours = (params) => (dispatch) => {
+export const getSubjects = (params) => (dispatch) => {
 
-    dispatch(setWorkPlanScheduleIsFetching(true));
-    dispatch(setSubjects([]));
+    dispatch(setWpsIsFetching(true));
 
-
-
-    restAPI.rup.getSubjectsHours(params)
+    restAPI.wps.getSubjects(params)
         .then(response => {
             dispatch(setSubjectsCount(response.subjectsCount));
             dispatch(setSubjects(response.subjects));
-            dispatch(updateSemester(response.semester));
 
-            console.info('rup data: ', response);
+            console.info('wps subjects: ', response);
 
-            dispatch(setWorkPlanScheduleIsFetching(false));
+            dispatch(setWpsIsFetching(false));
+        });
+};
+
+export const getExams = (params) => (dispatch) => {
+
+    dispatch(setWpsIsFetching(true));
+
+    restAPI.wps.getExams(params)
+        .then(response => {
+            dispatch(setExamsCount(response.subjectsCount));
+            dispatch(setExams(response.exams));
+
+            console.info('wps exams: ', response);
+
+            dispatch(setWpsIsFetching(false));
+        });
+};
+
+export const getSchedule = (params) => (dispatch) => {
+
+    dispatch(setWpsIsFetching(true));
+
+    restAPI.wps.getSchedule(params)
+        .then(response => {
+            dispatch(setSchedule(response.schedule));
+
+            console.info('wps schedule: ', response);
+
+            dispatch(setWpsIsFetching(false));
         });
 };
 

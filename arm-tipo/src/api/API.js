@@ -305,10 +305,20 @@ export const restAPI = {
         }
     },
 
-    rup: {
-        getSubjectsHours(params) {
+    wps: {
+        getSubjects(params) {
             return instance
-                .get('rup?specialization=' + params.specialization + '&semester=' + params.semester)
+                .get('wps/subjects?specialization=' + params.specialization + '&semester=' + params.semester)
+                .then(response => response.data)
+        },
+        getExams(param) {
+            return instance
+                .get('wps/exams?specialization=' + param.specialization)
+                .then(response => response.data)
+        },
+        getSchedule(params) {
+            return instance
+                .get('wps/schedule?course=' + params.course + '&key=' + params.key)
                 .then(response => response.data)
         },
     },

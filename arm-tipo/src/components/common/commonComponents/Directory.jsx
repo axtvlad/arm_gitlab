@@ -3,7 +3,6 @@ import {Button, notification, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import {GetAddAddress} from "../utils/AddPagesRoutes";
 import {GetAddButtonText} from "../utils/AddButtonText";

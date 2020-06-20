@@ -4,6 +4,7 @@
       <w>axios</w>
       <w>dotenv</w>
       <w>sider</w>
+      <w>xlsx</w>
     </words>
   </dictionary>
 </component>

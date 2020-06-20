@@ -1,14 +1,21 @@
 export const SearchMode = {
     TAGS: 'tags',
     NUM: 'num',
-    PLAN: 'plan',
-    SCHEDULE: 'schedule',
-    BASE_MODULE: 'base_module',
-    PROF_MODULE: 'professional_module',
-    HOLIDAYS: 'holidays',
-    VACATION: 'vacation',
-    INTER_CERTIFICATION: 'intermediate_examination',
-    FINAL_EXAMINATION: 'final examination',
-    GRADUATE_DESIGN: 'graduate design',
-    MOO: 'moo'
 };
+
+export const WpsScheduleKeys = {
+    k: 'k',
+    bm: 'bm',
+    pm: 'pm',
+    pdn: 'pdn',
+    pa: 'pa',
+    ia: 'ia',
+    dp: 'dp',
+    moo: 'moo',
+}
+
+export const WpsMode = {
+    EXAMS: 'exams',
+    SUBJECTS: 'subjects',
+    SCHEDULE: 'schedule'
+}

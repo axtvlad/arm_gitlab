@@ -18,8 +18,9 @@ WorkPlanScheduleRoutes.use((req: Request, res: Response, next: Function) => {
 /**
  * Routes to URL: /rest/api/users/*
  */
-WorkPlanScheduleRoutes.get('/', WorkPlanScheduleController.getRupBySemester);
-// MainDocsRoutes.get('/:semester', WorkPlanScheduleController.getMainDocsList);
+WorkPlanScheduleRoutes.get('/subjects', WorkPlanScheduleController.getWpsSubjects);
+WorkPlanScheduleRoutes.get('/exams', WorkPlanScheduleController.getWpsExams);
+WorkPlanScheduleRoutes.get('/schedule', WorkPlanScheduleController.getWpsSchedule);
 
 /**
  * Error All Request to URL: /rest/api/users/*
@@ -27,7 +28,7 @@ WorkPlanScheduleRoutes.get('/', WorkPlanScheduleController.getRupBySemester);
 WorkPlanScheduleRoutes.use('*', (req: Request, res: Response) => {
     return res.status(500).send({
         errorCode: 13,
-        message: 'Request error for MainDocs method'
+        message: 'Request error for WPS method'
     });
 });
 
