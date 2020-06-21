@@ -63,14 +63,14 @@ const Schedule = (props) => {
                         style={{width: 400, margin: 10}}
                         onChange={updateScheduleKey}
                     >
-                        <Option value={WpsScheduleKeys.k}>{WpsScheduleKeys.k}</Option>
-                        <Option value={WpsScheduleKeys.bm}>{WpsScheduleKeys.bm}</Option>
-                        <Option value={WpsScheduleKeys.dp}>{WpsScheduleKeys.dp}</Option>
-                        <Option value={WpsScheduleKeys.ia}>{WpsScheduleKeys.ia}</Option>
-                        <Option value={WpsScheduleKeys.moo}>{WpsScheduleKeys.moo}</Option>
-                        <Option value={WpsScheduleKeys.pa}>{WpsScheduleKeys.pa}</Option>
-                        <Option value={WpsScheduleKeys.pdn}>{WpsScheduleKeys.pdn}</Option>
-                        <Option value={WpsScheduleKeys.pm}>{WpsScheduleKeys.pm}</Option>
+                        <Option value={WpsScheduleKeys.k}>{t('vacation')}</Option>
+                        <Option value={WpsScheduleKeys.bm}>{t('baseModule')}</Option>
+                        <Option value={WpsScheduleKeys.dp}>{t('diplomaProject')}</Option>
+                        <Option value={WpsScheduleKeys.ia}>{t('finalExamination')}</Option>
+                        <Option value={WpsScheduleKeys.moo}>{t('moo')}</Option>
+                        <Option value={WpsScheduleKeys.pa}>{t('intermediateExamination')}</Option>
+                        <Option value={WpsScheduleKeys.pdn}>{t('holidays')}</Option>
+                        <Option value={WpsScheduleKeys.pm}>{t('profModule')}</Option>
                     </Select>
                     <Select
                         style={{margin: 10}}
@@ -87,7 +87,7 @@ const Schedule = (props) => {
                         onClick={getSchedule}
                         type={"danger"}
                     >
-                        Получить данные
+                        {t('getData')}
                     </Button>
                     {props.wps.schedule.length !== 0 &&
                     <Table

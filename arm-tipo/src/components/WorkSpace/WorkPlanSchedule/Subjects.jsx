@@ -90,11 +90,11 @@ const Subjects = (props) => {
                         onClick={getSubjects}
                         type={"danger"}
                     >
-                        Получить данные
+                        {t('getData')}
                     </Button>
                     {props.wps.subjects.length !== 0 &&
                     <>
-                        <div>Всего предметов: {props.wps.subjects.length}</div>
+                        <div>{t('subjectsCount')}{props.wps.subjects.length}</div>
                         <Table
                             columns={subjectsColumns}
                             dataSource={props.wps.subjects}

@@ -71,11 +71,11 @@ const Exams = (props) => {
                             onClick={getExams}
                             type={"danger"}
                         >
-                            Получить данные
+                            {t('getData')}
                         </Button>
                         {props.wps.exams.length !== 0 &&
                         <>
-                            <div>Всего экзаменов: {props.wps.exams.length}</div>
+                            <div> { t('examsCount') + ':'} {props.wps.exams.length}</div>
                             <Table
                                 columns={examsColumns}
                                 dataSource={props.wps.exams}
