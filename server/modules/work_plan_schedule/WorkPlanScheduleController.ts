@@ -1,6 +1,10 @@
 import {Request, Response} from "express";
 import ServiceRest from "../../services/ServiceRest";
-import {ERROR_CODE_BAD_REQUEST, ERROR_CODE_NONE,} from '../../services/ServiceRestCodes';
+import {
+    ERROR_CODE_BAD_REQUEST,
+    ERROR_CODE_NONE,
+    ERROR_CODE_PARAMETER_NOT_PASSED,
+} from '../../services/ServiceRestCodes';
 import {Cell} from "exceljs";
 
 interface IRestWpsSubjects {
@@ -40,15 +44,28 @@ export default new class WorkPlanScheduleController {
             const rest = new ServiceRest(req);
             const queryParams: IRestWpsSubjects = <IRestWpsSubjects>rest.getQuery();
 
-            let operator: number[] = [], programmer: number[] = [];
-            let not = [0, 1, 2, 3, 4, 5, 6, 123, 124, 125, 126, 127, 128, 129, 130];
-
-            /**
-             * поля для специальности оператора ЭВМ
-             */
-            for (let i = 41; i < 79; i++) {
-                operator.push(i);
+            if (!queryParams.specialization && !queryParams.semester) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_SPECIALIZATION_AND_SEMESTER')
+                });
+            } else if (!queryParams.specialization) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_SPECIALIZATION')
+                });
+            } else if (!queryParams.semester) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_SEMESTER')
+                });
             }
+
+            let programmer: number[] = [];
+            let not = [0, 1, 2, 3, 4, 5, 6, 123, 124, 125, 126, 127, 128, 129, 130];
 
             /**
              * поля для специальности техника-программиста
@@ -83,18 +100,20 @@ export default new class WorkPlanScheduleController {
             await workbook.xlsx.readFile(yo);                                                   // считываем файл yo.xlsx
 
             let hoursCol = workbook.getWorksheet().columns[getSemester(queryParams.semester)];  // получаем колонку с семестрами
-            let subjects: any[] = [];                                                           // создаем массив, который потом отдадим в теле ответа
+            let subjects: any[] = [];                   // создаем массив, который потом отдадим в теле ответа
 
             const worksheet = workbook.getWorksheet('План')
 
             worksheet.columns[1].values.filter(                            // фильтруем столбец с предметами по условиям ниже
                 (value: string, index: number) => {              // value - ячейка с предметом, index - ее индекс
-                    if (worksheet.columns[0].values[index]                 // первая колонка не пустая
-                        && hoursCol.values[index]                          // колонка с количеством чаосов не пустая
-                        && (queryParams.specialization === 'operator'      // определяем специальность
-                            ? !programmer.includes(index)                  // Оператор эвм
-                            : !operator.includes(index))                   // техник-программист
-                        && !not.includes(index)                            // исключаем ненужные строки
+                    if (queryParams.specialization === 'operator' ?
+                        (worksheet.columns[0].values[index]                 // первая колонка не пустая
+                            && hoursCol.values[index]                          // колонка с количеством часов не пустая
+                            && !not.includes(index)                        // исключаем ненужные строки
+                            && !programmer.includes(index)) :
+                        (worksheet.columns[0].values[index]                 // первая колонка не пустая
+                            && hoursCol.values[index]                          // колонка с количеством часов не пустая
+                            && !not.includes(index))
                     ) {
                         let obj = {
                             subject: value.replace(/\s+/g, ' ').trim(),
@@ -128,15 +147,16 @@ export default new class WorkPlanScheduleController {
             const rest = new ServiceRest(req);
             const queryParams: IRestWpsExams = <IRestWpsExams>rest.getQuery();
 
-            let operator: number[] = [], programmer: number[] = [];
-            let not = [0, 1, 2, 3, 4, 5, 6, 123, 124, 125, 126, 127, 128, 129, 130];
-
-            /**
-             * поля для специальности оператора ЭВМ
-             */
-            for (let i = 41; i < 79; i++) {
-                operator.push(i);
+            if (!queryParams.specialization) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_SPECIALIZATION')
+                });
             }
+
+            let programmer: number[] = [];
+            let not = [0, 1, 2, 3, 4, 5, 6, 123, 124, 125, 126, 127, 128, 129, 130];
 
             /**
              * поля для специальности техника-программиста
@@ -155,12 +175,14 @@ export default new class WorkPlanScheduleController {
 
             worksheet.columns[1].values.filter(
                 (value: string, index: number) => {
-                    if (workbook.getWorksheet().columns[0].values[index]    // первая колонка не пустая
-                        && examCol.values[index]                              // колонка с курсом экзамена не пустая
-                        && (queryParams.specialization === 'operator'
-                            ? !programmer.includes(index)
-                            : !operator.includes(index))
-                        && !not.includes(index)                             // исключение из поиска полей с заголовками таблицы
+                    if (queryParams.specialization === 'operator' ?
+                        (workbook.getWorksheet().columns[0].values[index]    // первая колонка не пустая
+                            && examCol.values[index]                              // колонка с курсом экзамена не пустая
+                            && !not.includes(index)
+                            && !programmer.includes(index)) :
+                        (workbook.getWorksheet().columns[0].values[index]    // первая колонка не пустая
+                            && examCol.values[index]                              // колонка с курсом экзамена не пустая
+                            && !not.includes(index))
                     ) {
                         let obj = {
                             exam: value,
@@ -193,6 +215,26 @@ export default new class WorkPlanScheduleController {
             const rest = new ServiceRest(req);
             const queryParams: IRestWpsSchedule = <IRestWpsSchedule>rest.getQuery();
 
+            if (!queryParams.course && !queryParams.key) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_COURSE_AND_KEY')
+                });
+            } else if (!queryParams.course) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_COURSE')
+                });
+            } else if (!queryParams.key) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAMS_KEY')
+                });
+            }
+
             const getCourse = (course: number) => {
                 switch (course) {
                     case 1:
@@ -210,23 +252,23 @@ export default new class WorkPlanScheduleController {
                 switch (key) {
                     case Keys.bm:
                         return courseArr.filter(item =>
-                            item.cell.toString().indexOf('БМ') ||
-                            item.cell.toString().indexOf('Бм') ||
-                            item.cell.toString().indexOf('бм')
+                            item.cell.includes('БМ') ||
+                            item.cell.includes('Бм') ||
+                            item.cell.includes('бм')
                         );
                     case Keys.pm:
                         return courseArr.filter(item =>
-                            item.cell.toString().indexOf('ПМ') ||
-                            item.cell.toString().indexOf('Пм') ||
-                            item.cell.toString().indexOf('пм')
+                            item.cell.includes('ПМ') ||
+                            item.cell.includes('Пм') ||
+                            item.cell.includes('пм')
                         );
                     case Keys.k:
                         return courseArr.filter(item => item.cell === 'К' || item.cell === 'к');
                     case Keys.pa:
                         return courseArr.filter(item =>
-                            item.cell.toString().indexOf('ПА') ||
-                            item.cell.toString().indexOf('Па') ||
-                            item.cell.toString().indexOf('па')
+                            item.cell.includes('ПА') ||
+                            item.cell.includes('Па') ||
+                            item.cell.includes('па')
                         );
                     case Keys.ia:
                         return courseArr.filter(item => item.cell === 'ИА' || item.cell === 'Иа' || item.cell === 'иа');
@@ -234,15 +276,15 @@ export default new class WorkPlanScheduleController {
                         return courseArr.filter(item => item.cell === 'ДП' || item.cell === 'Дп' || item.cell === 'дп');
                     case Keys.moo:
                         return courseArr.filter(item =>
-                            item.cell.toString().indexOf('МОО') ||
-                            item.cell.toString().indexOf('Моо') ||
-                            item.cell.toString().indexOf('моо')
+                            item.cell.includes('МОО') ||
+                            item.cell.includes('Моо') ||
+                            item.cell.includes('моо')
                         );
                     case Keys.pdn:
                         return courseArr.filter(item =>
-                            item.cell.toString().indexOf('ПДН') ||
-                            item.cell.toString().indexOf('Пдн') ||
-                            item.cell.toString().indexOf('пдн')
+                            item.cell.includes('ПДН') ||
+                            item.cell.includes('Пдн') ||
+                            item.cell.includes('пдн')
                         );
                 }
             }

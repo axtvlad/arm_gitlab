@@ -54,9 +54,9 @@ const Auth = (props) => {
                     <Input.Password onChange={changeAuthPassword}/>
                 </Form.Item>
 
-                <Form.Item name="remember">
-                    <span>Забыли пароль? Вспоминайте!</span>
-                </Form.Item>
+                {/*<Form.Item name="remember">*/}
+                {/*    <span>Забыли пароль?</span>*/}
+                {/*</Form.Item>*/}
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
