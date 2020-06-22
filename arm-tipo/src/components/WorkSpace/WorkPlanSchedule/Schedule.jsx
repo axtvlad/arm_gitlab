@@ -89,12 +89,19 @@ const Schedule = (props) => {
                     >
                         {t('getData')}
                     </Button>
-                    {props.wps.schedule.length !== 0 &&
+                    {props.wps.schedule.length !== 0 ?
                     <Table
                         columns={scheduleColumns}
                         dataSource={props.wps.schedule}
                         rowKey={'id'}
-                    />}
+                    /> :
+                        <Table
+                        columns={scheduleColumns}
+                        rowKey={'id'}
+                        dataSource={props.wps.schedule}
+                        loading={false}
+                        />
+                    }
                 </Form>
             </Spin>
         </div>
