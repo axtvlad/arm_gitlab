@@ -1,5 +1,6 @@
 import * as axios from "axios";
-import {BASE_URL, PASSWORD, USER} from "../env";
+import {BASE_URL1, PASSWORD, USER} from "../env";
+import {message} from "antd";
 
 const authorizationBasic = window.btoa(USER + ':' + PASSWORD);
 
@@ -7,7 +8,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL
+    baseURL: BASE_URL1
 });
 
 export const restAPI = {
@@ -327,7 +328,16 @@ export const restAPI = {
         auth(authData) {
             return instance
                 .post('auth', authData)
-                .then(response => response.data)
+                .then(response => {
+                    if (!response.data.auth) {
+                        return message.error("Неверный логин или пароль!");
+                    }
+
+                    message.success("Добро пожаловать!");
+
+                    return response.data
+                })
+
         },
     }
 }

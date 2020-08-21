@@ -2,7 +2,6 @@ import {Button, Form, Input} from 'antd';
 import React from "react";
 
 const Auth = (props) => {
-
     const [form] = Form.useForm();
 
     let fromState = {

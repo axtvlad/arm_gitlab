@@ -8,7 +8,6 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
 const OtherDocs = (props) => {
-
     const {t} = useTranslation();
 
     const menu = (id) => {
@@ -51,16 +50,18 @@ const OtherDocs = (props) => {
     return (
         <div>
             <Spin spinning={props.isFetching}>
-                {props.isAdmin && <div className={'addButtonBlock'}>
-                    <NavLink to={GetAddAddress(props.type)}>
-                        <Button
-                            type={'danger'}
-                            icon={<PlusOutlined/>}
-                        >
-                            {t('addNewOtherDoc')}
-                        </Button>
-                    </NavLink>
-                </div>}
+                {
+                    props.isAdmin && <div className={'addButtonBlock'}>
+                        <NavLink to={GetAddAddress(props.type)}>
+                            <Button
+                                type={'danger'}
+                                icon={<PlusOutlined/>}
+                            >
+                                {t('addNewOtherDoc')}
+                            </Button>
+                        </NavLink>
+                    </div>
+                }
                 {props.otherDocs.map(othDoc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={othDoc.id}>
                         <PageHeader

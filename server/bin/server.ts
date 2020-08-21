@@ -22,8 +22,7 @@ i18n.configure({
 });
 
 app.use(cors({
-    "Access-Control-Allow-Origin": "https://arm-tipo.kz"
-    //"Access-Control-Allow-Origin": "http://localhost:3000"
+    origin: true
 }));
 app.use(cookieParser());
 app.use(i18n.init);

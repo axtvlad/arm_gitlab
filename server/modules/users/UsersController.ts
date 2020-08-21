@@ -3,7 +3,6 @@ import {FindManyOptions, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Users} from "./UsersModel";
 import passwordHash from 'password-hash';
-// import isEmail from 'validator/lib/isEmail';
 import {
     ERROR_CODE_BAD_REQUEST,
     ERROR_CODE_INVALID_EMAIL,
@@ -14,7 +13,6 @@ import {
     ERROR_CODE_USER_WITH_LOGIN_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
-import {strict} from "assert";
 
 interface IRestUsersCreate {
     firstName: string;
