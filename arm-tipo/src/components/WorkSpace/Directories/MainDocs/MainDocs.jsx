@@ -108,7 +108,7 @@ const MainDocs = ({deleteMainDocById, isFetching, isAdmin, mainDocs, type}) => {
             <Spin spinning={isFetching}>
                 {isAdmin &&
                 <div className={'addButtonBlock'}>
-                    <NavLink to={GetAddAddress(props.type)}>
+                    <NavLink to={GetAddAddress(type)}>
                         <Button
                             type={'danger'}
                             icon={<PlusOutlined/>}

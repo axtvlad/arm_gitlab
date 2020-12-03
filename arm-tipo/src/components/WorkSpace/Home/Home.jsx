@@ -8,7 +8,7 @@ import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {NavLink} from "react-router-dom";
 import i18n from "../../../i18n";
 
-const Home = ({isFetching, usersCount, totalCount, lastAddedMainDoc, }) => {
+const Home = ({isFetching, usersCount, totalCount, lastAddedMainDoc, type}) => {
     const {Title} = Typography;
     const {t} = useTranslation();
 
