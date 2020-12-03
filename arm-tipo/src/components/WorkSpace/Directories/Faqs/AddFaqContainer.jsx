@@ -13,7 +13,9 @@ import {notification} from "antd";
 
 class AddFaqContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -27,8 +29,10 @@ class AddFaqContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAdmin) {
-            if (this.props.faqsDir.isPosted) {
+        const {isAdmin, faqsDir} = this.props;
+
+        if (isAdmin) {
+            if (faqsDir.isPosted) {
                 return <Redirect to={'/faqs'}/>
             } else {
                 return (
@@ -39,7 +43,7 @@ class AddFaqContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         faqsDir: state.faqsDir,
         isAdmin: state.authDir.userData.isAdmin

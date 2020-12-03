@@ -7,10 +7,12 @@ import {notification, Spin} from "antd";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, customers, getCustomers} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.customers.length && this.props.getCustomers();
+            !customers.length && getCustomers();
         }
     }
 
@@ -23,23 +25,25 @@ class CustomersContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, customers, isFetching, deleteCustomerById} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Directory
                     type={DirectoriesTypes.CUSTOMERS}
-                    isAdmin={this.props.isAdmin}
-                    directory={this.props.customers}
-                    isFetching={this.props.isFetching}
-                    removeItemById={this.props.deleteCustomerById}
+                    isAdmin={isAdmin}
+                    directory={customers}
+                    isFetching={isFetching}
+                    removeItemById={deleteCustomerById}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         customers: state.customersDir.customers,
         isFetching: state.customersDir.isFetching,

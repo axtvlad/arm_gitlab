@@ -7,7 +7,9 @@ import {notification, Spin} from "antd";
 
 class AddCustomerContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -21,10 +23,12 @@ class AddCustomerContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, customersDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.customersDir.isPosted) {
+            if (customersDir.isPosted) {
                 return <Redirect to={'/customers'}/>
             } else {
                 return (
@@ -35,7 +39,7 @@ class AddCustomerContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         customersDir: state.customersDir,
         isAdmin: state.authDir.userData.isAdmin

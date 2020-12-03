@@ -7,17 +7,17 @@ import CodeSandboxOutlined from "@ant-design/icons/lib/icons/CodeSandboxOutlined
 import ReadOutlined from "@ant-design/icons/lib/icons/ReadOutlined";
 import {useTranslation} from 'react-i18next';
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
+import logo from './w.png'
 
-const {Sider} = Layout;
-const {SubMenu} = Menu;
-
-const NavBar = (props) => {
+const NavBar = ({isAdmin}) => {
+    const {Sider} = Layout;
+    const {SubMenu} = Menu;
     const {t} = useTranslation();
 
     return (
         <Sider collapsible>
             <div className={classes.logo}>
-                <img src={require('./w.png')} alt="logo"/>
+                <img src={logo} alt="logo"/>
             </div>
             <Menu
                 className={classes.menu}
@@ -73,7 +73,7 @@ const NavBar = (props) => {
                         </span>
                     </NavLink>
                 </Menu.Item>
-                {props.isAdmin && (
+                {isAdmin && (
                     <SubMenu
                         key={'sub4'}
                         title={
@@ -131,7 +131,7 @@ const NavBar = (props) => {
                         <span>{t('faqs')}</span>
                     </NavLink>
                 </Menu.Item>
-                {props.isAdmin && (
+                {isAdmin && (
                     <Menu.Item key={'16'}>
                         <NavLink to={'/users'}>
                             <ReadOutlined/>

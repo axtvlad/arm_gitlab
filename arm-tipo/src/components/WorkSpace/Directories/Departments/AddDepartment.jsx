@@ -3,8 +3,7 @@ import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddDepartment = (props) => {
-
+const AddDepartment = ({departmentsDir, postDepartment, updateDepartmentNameRu, updateDepartmentNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddDepartment = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.departmentsDir.newDepartmentNameRu,
-        name_kz: props.departmentsDir.newDepartmentNameKz
+    const fromState = {
+        name_ru: departmentsDir.newDepartmentNameRu,
+        name_kz: departmentsDir.newDepartmentNameKz
     };
 
     console.log(fromState);
@@ -26,7 +25,7 @@ const AddDepartment = (props) => {
     const successfulAdd = (item) => {
         notification['success']({
             message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            description: `Запись ${item.name_ru} была успешно добавлена!`,
             placement: 'bottomRight'
         });
     };
@@ -34,19 +33,21 @@ const AddDepartment = (props) => {
     const addDepartment = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postDepartment(fromState);
+        postDepartment(fromState);
 
         successfulAdd(fromState)
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateDepartmentNameRu(name_ru);
+
+        updateDepartmentNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateDepartmentNameKz(name_kz);
+
+        updateDepartmentNameKz(name_kz);
     };
 
     return (
@@ -62,7 +63,7 @@ const AddDepartment = (props) => {
                     label={t('departmentNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterDepartmentNameRu') + '!'
+                        message: `${t('enterDepartmentNameRu')} !`
                     }]}
                     hasFeedback
                 >
@@ -74,7 +75,7 @@ const AddDepartment = (props) => {
                     label={t('departmentNameKz')}
                     rules={[{
                         required: true,
-                        message: t('enterDepartmentNameKz') + '!'
+                        message: `${t('enterDepartmentNameKz')} !`
                     }]}
                     hasFeedback
                 >

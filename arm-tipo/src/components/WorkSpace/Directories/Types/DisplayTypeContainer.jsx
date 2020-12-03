@@ -5,19 +5,22 @@ import {getTypeById} from "../../../../redux/Reducers/TypeReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {notification, Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayTypeContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, match, getTypeById} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            let id = this.props.match.params.id;
+            let id = match.params.id;
 
             if (!id) {
                 id = 1
             }
 
-            this.props.getTypeById(id);
+            getTypeById(id);
         }
     }
 
@@ -30,7 +33,9 @@ class DisplayTypeContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
@@ -40,7 +45,7 @@ class DisplayTypeContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         type: GetDirectory(DirectoriesTypes.TYPES),
         currentItem: state.typesDir.currentType,
@@ -49,10 +54,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let TypeContainerUrl = withRouter(DisplayTypeContainer);
 
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getTypeById
-    }
-)(TypeContainerUrl);
+    }),
+    withRouter
+)(DisplayTypeContainer);

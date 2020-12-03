@@ -42,10 +42,10 @@ import DisplayOtherDocContainer from "./Directories/OtherDocs/DisplayOtherDocCon
 import WorkPlanScheduleContainer from "./WorkPlanSchedule/WorkPlanScheduleContainer";
 import EmailForm from "./Directories/Experts/EmailForm";
 
-const {Content} = Layout;
-
 class WorkSpace extends React.Component {
     render() {
+        const {Content} = Layout;
+
         return (
             <Content style={{margin: '0 16px'}}>
                 <Breadcrumb style={{margin: '16px 0', textAlign: 'left'}}>
@@ -117,4 +117,3 @@ class WorkSpace extends React.Component {
 }
 
 export default withRouter(WorkSpace);
-

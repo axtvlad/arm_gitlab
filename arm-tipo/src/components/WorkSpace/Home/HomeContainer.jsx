@@ -9,21 +9,25 @@ import {DirectoriesTypes} from "../../common/utils/DirectoriesTypes";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
-        !this.props.usersCount && this.props.getUsers();
-        !this.props.mainDocsDir.mainDocsCount && this.props.getMainDocs();
-        !this.props.otherDocsDir.otherDocsCount && this.props.getOtherDocs();
+        const {usersCount, mainDocsDir, otherDocsDir, getMainDocs, getUsers, getOtherDocs} = this.props;
+
+        !usersCount && getUsers();
+        !mainDocsDir.mainDocsCount && getMainDocs();
+        !otherDocsDir.otherDocsCount && getOtherDocs();
     }
 
     render() {
+        const {usersCount, mainDocsDir, otherDocsDir, isFetching} = this.props;
+
         if (
-            !this.props.mainDocsDir.mainDocs.length &&
-            !this.props.otherDocsDir.otherDocs.length
+            !mainDocsDir.mainDocs.length &&
+            !otherDocsDir.otherDocs.length
         ) {
             return <Spin/>
         } else {
-            let totalCount = this.props.mainDocsDir.mainDocsCount + this.props.otherDocsDir.otherDocsCount;
-            let mainDocs = this.props.mainDocsDir.mainDocs;
-            let lastMainDoc = mainDocs[mainDocs.length - 1];
+            const totalCount = mainDocsDir.mainDocsCount + otherDocsDir.otherDocsCount;
+            const mainDocs = mainDocsDir.mainDocs;
+            const lastMainDoc = mainDocs[mainDocs.length - 1];
 
             if (!lastMainDoc) {
                 return <Spin/>
@@ -31,10 +35,10 @@ class HomeContainer extends React.Component {
                 return (
                     <Home
                         type={DirectoriesTypes.MAIN_DOCS}
-                        usersCount={this.props.usersCount}
+                        usersCount={usersCount}
                         lastAddedMainDoc={lastMainDoc}
                         totalCount={totalCount}
-                        isFetching={this.props.isFetching}
+                        isFetching={isFetching}
                     />
                 )
             }
@@ -42,7 +46,7 @@ class HomeContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         usersCount: state.usersDir.usersCount,
         isFetching: state.usersDir.isFetching,

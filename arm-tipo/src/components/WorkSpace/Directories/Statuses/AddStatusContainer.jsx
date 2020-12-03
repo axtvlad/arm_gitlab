@@ -7,7 +7,9 @@ import {notification, Spin} from "antd";
 
 class AddStatusContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -21,10 +23,12 @@ class AddStatusContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, statusesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.statusesDir.isPosted) {
+            if (statusesDir.isPosted) {
                 return <Redirect to={'/statuses'}/>
             } else {
                 return (
@@ -35,7 +39,7 @@ class AddStatusContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         statusesDir: state.statusesDir,
         isAdmin: state.authDir.userData.isAdmin

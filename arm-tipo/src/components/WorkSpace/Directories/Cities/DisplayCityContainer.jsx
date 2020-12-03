@@ -5,26 +5,31 @@ import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirect
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getCities, getCityById} from "../../../../redux/Reducers/CityReducer";
 import {Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, cities, getCities, match, getCityById} = this.props
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.cities.length && this.props.getCities();
+            !cities.length && getCities();
 
-            let id = this.props.match.params.id;
+            let id = match.params.id;
 
             if (!id) {
                 id = 1
             }
 
-            this.props.getCityById(id)
+            getCityById(id)
         }
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
@@ -34,7 +39,7 @@ class DisplayCityContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         type: GetDirectory(DirectoriesTypes.CITIES),
         currentItem: state.citiesDir.currentCity,
@@ -44,11 +49,10 @@ let mapStateToProps = (state) => {
     }
 };
 
-let CityContainerUrl = withRouter(DisplayCityContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getCityById,
         getCities
-    }
-)(CityContainerUrl)
+    }),
+    withRouter
+)(DisplayCityContainer);

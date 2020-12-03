@@ -3,8 +3,7 @@ import {Button, Form, Input, notification} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddCity = (props) => {
-
+const AddCity = ({citiesDir, postCity, updateCityNameRu, updateCityNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddCity = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.citiesDir.newCityNameRu,
-        name_kz: props.citiesDir.newCityNameKz
+    const fromState = {
+        name_ru: citiesDir.newCityNameRu,
+        name_kz: citiesDir.newCityNameKz
     };
 
     console.log(fromState);
@@ -34,19 +33,21 @@ const AddCity = (props) => {
     const addCity = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postCity(fromState);
+        postCity(fromState);
 
         successfulAdd(fromState);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateCityNameRu(name_ru);
+
+        updateCityNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateCityNameKz(name_kz);
+
+        updateCityNameKz(name_kz);
     };
 
     return (
@@ -62,7 +63,7 @@ const AddCity = (props) => {
                     label={t('cityNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterCityNameRu') + '!'
+                        message: `${t('enterCityNameRu')} !`
                     }]}
                     hasFeedback
                 >
@@ -74,7 +75,7 @@ const AddCity = (props) => {
                     label={t('cityNameKz')}
                     rules={[{
                         required: true,
-                        message: t('enterCityNameKz') + '!'
+                        message: `${t('enterCityNameKz')} !`
                     }]}
                     hasFeedback
                 >

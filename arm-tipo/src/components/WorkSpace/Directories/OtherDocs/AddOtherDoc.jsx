@@ -3,8 +3,12 @@ import {useTranslation} from "react-i18next";
 import React from "react";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-const AddOtherDoc = (props) => {
-
+const AddOtherDoc = (
+    {
+        otherDocsDir, postOtherDoc, updateOtherDocNameRu, updateOtherDocNameKz, updateOtherDocFileRu,
+        updateOtherDocFileKz
+    }
+) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -24,11 +28,11 @@ const AddOtherDoc = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.otherDocsDir.newOtherDocNameRu,
-        name_kz: props.otherDocsDir.newOtherDocNameKz,
-        file_ru: props.otherDocsDir.newOtherDocFileRu,
-        file_kz: props.otherDocsDir.newOtherDocFileKz,
+    const fromState = {
+        name_ru: otherDocsDir.newOtherDocNameRu,
+        name_kz: otherDocsDir.newOtherDocNameKz,
+        file_ru: otherDocsDir.newOtherDocFileRu,
+        file_kz: otherDocsDir.newOtherDocFileKz,
     };
 
     console.log(fromState);
@@ -38,7 +42,7 @@ const AddOtherDoc = (props) => {
     const successfulAdd = (item) => {
         notification['success']({
             message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            description: `Запись ${item.name_ru} была успешно добавлена!`,
             placement: 'bottomRight'
         });
     };
@@ -46,7 +50,7 @@ const AddOtherDoc = (props) => {
     const saveDoc = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postOtherDoc(fromState);
+        postOtherDoc(fromState);
 
         successfulAdd(fromState);
     };
@@ -54,25 +58,25 @@ const AddOtherDoc = (props) => {
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
 
-        props.updateOtherDocNameRu(name_ru);
+        updateOtherDocNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
 
-        props.updateOtherDocNameKz(name_kz);
+        updateOtherDocNameKz(name_kz);
     };
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
 
-        props.updateOtherDocFileRu(file_ru);
+        updateOtherDocFileRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
 
-        props.updateOtherDocFileKz(file_kz);
+        updateOtherDocFileKz(file_kz);
     };
 
     return (

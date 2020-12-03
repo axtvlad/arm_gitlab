@@ -6,13 +6,13 @@ import {useTranslation} from "react-i18next";
 import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import {GetAddAddress} from "../utils/AddPagesRoutes";
 import {GetAddButtonText} from "../utils/AddButtonText";
+import classes from './Directory.module.css'
 
-const Directory = (props) => {
-
+const Directory = ({removeItemById, type, isAdmin, isFetching, directory}) => {
     const {t} = useTranslation();
 
     const deleteItem = (item) => {
-        props.removeItemById(item.id);
+        removeItemById(item.id);
 
         notification['success']({
             message: 'Удалено!',
@@ -34,25 +34,25 @@ const Directory = (props) => {
             title: t('russianName'),
             dataIndex: 'name_ru',
             key: 'name_ru',
-            render: (text, item) => <NavLink to={'/' + props.type + '/' + item.id}>{text}</NavLink>,
+            render: (text, item) => <NavLink to={'/' + type + '/' + item.id}>{text}</NavLink>,
         },
         {
             title: t('kazakhName'),
             dataIndex: 'name_kz',
             key: 'name_kz',
-            render: (text, item) => <NavLink to={'/' + props.type + '/' + item.id}>{text}</NavLink>,
+            render: (text, item) => <NavLink to={'/' + type + '/' + item.id}>{text}</NavLink>,
         },
         {
             title: t('actions'),
             key: 'action',
             dataIndex: 'actions',
             render: (action, item) => {
-                if (props.isAdmin) {
+                if (isAdmin) {
                     return (
                         <div>
                             {/*<Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>*/}
                             <Button
-                                style={{margin: '0 5px'}}
+                                className={classes.button}
                                 onClick={() => deleteItem(item)}
                                 shape="circle"
                                 icon={<DeleteOutlined/>}
@@ -67,22 +67,22 @@ const Directory = (props) => {
 
     return (
         <div className={'content'}>
-            {props.isAdmin && (
+            {isAdmin && (
                 <div className={'addButtonBlock'}>
-                    <NavLink to={GetAddAddress(props.type)}>
+                    <NavLink to={GetAddAddress(type)}>
                         <Button
                             type={'danger'}
                             icon={<PlusOutlined/>}
                         >
-                            {t(GetAddButtonText(props.type))}
+                            {t(GetAddButtonText(type))}
                         </Button>
                     </NavLink>
                 </div>
             )}
-            <Spin spinning={props.isFetching}>
+            <Spin spinning={isFetching}>
                 <Table
                     columns={columns}
-                    dataSource={props.directory}
+                    dataSource={directory}
                     rowKey={'id'}
                 />
             </Spin>

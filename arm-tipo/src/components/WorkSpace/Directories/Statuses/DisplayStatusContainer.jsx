@@ -5,20 +5,23 @@ import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirect
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getStatusById} from "../../../../redux/Reducers/StatusReducer";
 import {notification, Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayStatusContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, match, getStatusById} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
 
-            let id = this.props.match.params.id;
+            let id = match.params.id;
 
             if (!id) {
                 id = 1
             }
 
-            this.props.getStatusById(id)
+            getStatusById(id)
         }
     }
 
@@ -31,7 +34,9 @@ class DisplayStatusContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
@@ -41,7 +46,7 @@ class DisplayStatusContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         type: GetDirectory(DirectoriesTypes.STATUSES),
         currentItem: state.statusesDir.currentStatus,
@@ -50,10 +55,9 @@ let mapStateToProps = (state) => {
     }
 };
 
-let StatusContainerUrl = withRouter(DisplayStatusContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getStatusById
-    }
-)(StatusContainerUrl)
+    }),
+    withRouter
+)(DisplayStatusContainer);

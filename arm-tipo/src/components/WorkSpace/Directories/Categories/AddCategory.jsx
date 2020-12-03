@@ -3,8 +3,7 @@ import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const AddCategory = (props) => {
-
+const AddCategory = ({categoriesDir, postCategory, updateCategoryNameRu, updateCategoryNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddCategory = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.categoriesDir.newCategoryNameRu,
-        name_kz: props.categoriesDir.newCategoryNameKz
+    const fromState = {
+        name_ru: categoriesDir.newCategoryNameRu,
+        name_kz: categoriesDir.newCategoryNameKz
     };
 
     console.log(fromState);
@@ -26,7 +25,7 @@ const AddCategory = (props) => {
     const successfulAdd = (item) => {
         notification['success']({
             message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            description: `Запись ${item.name_ru} была успешно добавлена!`,
             placement: 'bottomRight'
         });
     };
@@ -34,19 +33,21 @@ const AddCategory = (props) => {
     const addCategory = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postCategory(fromState);
+        postCategory(fromState);
 
         successfulAdd(fromState);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateCategoryNameRu(name_ru);
+
+        updateCategoryNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateCategoryNameKz(name_kz);
+
+        updateCategoryNameKz(name_kz);
     };
 
     return (
@@ -62,7 +63,7 @@ const AddCategory = (props) => {
                     label={t('categoryNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterCategoryNameRu') + '!'
+                        message: `${t('enterCategoryNameRu')} !`
                     }]}
                     hasFeedback
                 >
@@ -74,7 +75,7 @@ const AddCategory = (props) => {
                     label={t('categoryNameKz')}
                     rules={[{
                         required: true,
-                        message: t('enterCategoryNameKz') + '!'
+                        message: `${t('enterCategoryNameKz')} !`
                     }]}
                     hasFeedback
                 >

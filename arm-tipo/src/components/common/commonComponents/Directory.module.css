@@ -1,0 +1,14 @@
+.content {
+    padding: 24px;
+    background: #fff;
+    min-height: 360px;
+}
+
+.addButtonBlock {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.button {
+    margin: 0 5px;
+}

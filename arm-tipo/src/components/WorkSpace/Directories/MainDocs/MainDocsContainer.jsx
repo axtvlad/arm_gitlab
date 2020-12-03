@@ -6,23 +6,27 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
-        !this.props.mainDocs.length && this.props.getMainDocs();
+        const {mainDocs, getMainDocs} = this.props;
+
+        !mainDocs.length && getMainDocs();
     }
 
     render() {
+        const {mainDocs, isFetching, isAdmin, deleteMainDocById} = this.props;
+
         return (
             <MainDocs
                 type={DirectoriesTypes.MAIN_DOCS}
-                mainDocs={this.props.mainDocs}
-                isFetching={this.props.isFetching}
-                isAdmin={this.props.isAdmin}
-                deleteMainDocById={this.props.deleteMainDocById}
+                mainDocs={mainDocs}
+                isFetching={isFetching}
+                isAdmin={isAdmin}
+                deleteMainDocById={deleteMainDocById}
             />
         )
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         mainDocs: state.mainDocsDir.mainDocs,
         isFetching: state.mainDocsDir.isFetching,

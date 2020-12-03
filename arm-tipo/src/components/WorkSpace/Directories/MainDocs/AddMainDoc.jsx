@@ -3,8 +3,15 @@ import {Button, DatePicker, Form, Input, notification, Select,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddMainDoc = (props) => {
-
+const AddMainDoc = (
+    {
+        mainDocsDir, postMainDoc, updateMainDocNum, updateMainDocNameRu, updateMainDocNameKz, updateMainDocTags,
+        updateMainDocStatusId, updateMainDocDepartmentId, updateMainDocBeginDate, updateMainDocHeaderRu,
+        updateMainDocFinishDate, updateMainDocHeaderKz, updateMainDocFileRu, updateMainDocFileKz, types,
+        updateMainDocDescriptionRu, updateMainDocDescriptionKz, updateMainDocTextRu, updateMainDocTextKz,
+        updateMainDocTypeId, departments, statuses
+    }
+) => {
     const {Option} = Select;
     const {RangePicker} = DatePicker;
     const {t} = useTranslation();
@@ -26,45 +33,45 @@ const AddMainDoc = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        num: props.mainDocsDir.newMainDocNum,
-        department_id: props.mainDocsDir.newMainDocDepartmentId,
-        status_id: props.mainDocsDir.newMainDocStatusId,
-        name_ru: props.mainDocsDir.newMainDocNameRu,
-        name_kz: props.mainDocsDir.newMainDocNameKz,
-        begin_date: props.mainDocsDir.newMainDocBeginDate,
-        finish_date: props.mainDocsDir.newMainDocFinishDate,
-        pub_date: props.mainDocsDir.newMainDocPubDate,
-        header_ru: props.mainDocsDir.newMainDocHeaderRu,
-        header_kz: props.mainDocsDir.newMainDocHeaderKz,
-        file_ru: props.mainDocsDir.newMainDocFileRu,
-        file_kz: props.mainDocsDir.newMainDocFileKz,
-        description_ru: props.mainDocsDir.newMainDocDescriptionRu,
-        description_kz: props.mainDocsDir.newMainDocDescriptionKz,
-        type_id: props.mainDocsDir.newMainDocTypeId,
-        text_ru: props.mainDocsDir.newMainDocTextRu,
-        text_kz: props.mainDocsDir.newMainDocTextKz,
-        tags: props.mainDocsDir.newMainDocTags,
+    const fromState = {
+        num: mainDocsDir.newMainDocNum,
+        department_id: mainDocsDir.newMainDocDepartmentId,
+        status_id: mainDocsDir.newMainDocStatusId,
+        name_ru: mainDocsDir.newMainDocNameRu,
+        name_kz: mainDocsDir.newMainDocNameKz,
+        begin_date: mainDocsDir.newMainDocBeginDate,
+        finish_date: mainDocsDir.newMainDocFinishDate,
+        pub_date: mainDocsDir.newMainDocPubDate,
+        header_ru: mainDocsDir.newMainDocHeaderRu,
+        header_kz: mainDocsDir.newMainDocHeaderKz,
+        file_ru: mainDocsDir.newMainDocFileRu,
+        file_kz: mainDocsDir.newMainDocFileKz,
+        description_ru: mainDocsDir.newMainDocDescriptionRu,
+        description_kz: mainDocsDir.newMainDocDescriptionKz,
+        type_id: mainDocsDir.newMainDocTypeId,
+        text_ru: mainDocsDir.newMainDocTextRu,
+        text_kz: mainDocsDir.newMainDocTextKz,
+        tags: mainDocsDir.newMainDocTags,
     };
 
     console.log(fromState);
 
     form.setFieldsValue({
-        num: props.mainDocsDir.newMainDocNum,
-        department_id: props.mainDocsDir.newMainDocDepartmentId,
-        status_id: props.mainDocsDir.newMainDocStatusId,
-        name_ru: props.mainDocsDir.newMainDocNameRu,
-        name_kz: props.mainDocsDir.newMainDocNameKz,
-        header_ru: props.mainDocsDir.newMainDocHeaderRu,
-        header_kz: props.mainDocsDir.newMainDocHeaderKz,
-        file_ru: props.mainDocsDir.newMainDocFileRu,
-        file_kz: props.mainDocsDir.newMainDocFileKz,
-        description_ru: props.mainDocsDir.newMainDocDescriptionRu,
-        description_kz: props.mainDocsDir.newMainDocDescriptionKz,
-        type_id: props.mainDocsDir.newMainDocTypeId,
-        text_ru: props.mainDocsDir.newMainDocTextRu,
-        text_kz: props.mainDocsDir.newMainDocTextKz,
-        tags: props.mainDocsDir.newMainDocTags,
+        num: mainDocsDir.newMainDocNum,
+        department_id: mainDocsDir.newMainDocDepartmentId,
+        status_id: mainDocsDir.newMainDocStatusId,
+        name_ru: mainDocsDir.newMainDocNameRu,
+        name_kz: mainDocsDir.newMainDocNameKz,
+        header_ru: mainDocsDir.newMainDocHeaderRu,
+        header_kz: mainDocsDir.newMainDocHeaderKz,
+        file_ru: mainDocsDir.newMainDocFileRu,
+        file_kz: mainDocsDir.newMainDocFileKz,
+        description_ru: mainDocsDir.newMainDocDescriptionRu,
+        description_kz: mainDocsDir.newMainDocDescriptionKz,
+        type_id: mainDocsDir.newMainDocTypeId,
+        text_ru: mainDocsDir.newMainDocTextRu,
+        text_kz: mainDocsDir.newMainDocTextKz,
+        tags: mainDocsDir.newMainDocTags,
     });
 
     const successfulAdd = (item) => {
@@ -78,7 +85,7 @@ const AddMainDoc = (props) => {
     const saveDoc = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postMainDoc(fromState);
+        postMainDoc(fromState);
 
         successfulAdd(fromState);
     };
@@ -86,93 +93,93 @@ const AddMainDoc = (props) => {
     const changeNum = () => {
         const num = form.getFieldValue().num;
 
-        props.updateMainDocNum(num);
+        updateMainDocNum(num);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
 
-        props.updateMainDocNameRu(name_ru);
+        updateMainDocNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
 
-        props.updateMainDocNameKz(name_kz);
+        updateMainDocNameKz(name_kz);
     };
 
     const changeDepartmentId = (department_id) => {
-        props.updateMainDocDepartmentId(department_id);
+        updateMainDocDepartmentId(department_id);
     };
 
     const changeStatusId = (status_id) => {
-        props.updateMainDocStatusId(status_id);
+        updateMainDocStatusId(status_id);
     };
 
     const changeTags = () => {
         const tags = form.getFieldValue().tags;
 
-        props.updateMainDocTags(tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-"));
+        updateMainDocTags(tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-"));
     };
 
     const changeBeginAndFinishDate = (date, stringDate) => {
         console.log('begin_date: ' + stringDate[0]);
         console.log('finish_date: ' + stringDate[1]);
 
-        props.updateMainDocBeginDate(stringDate[0]);
-        props.updateMainDocFinishDate(stringDate[1]);
+        updateMainDocBeginDate(stringDate[0]);
+        updateMainDocFinishDate(stringDate[1]);
     };
 
     const changeHeaderRu = () => {
         const header_ru = form.getFieldValue().header_ru;
 
-        props.updateMainDocHeaderRu(header_ru);
+        updateMainDocHeaderRu(header_ru);
     };
 
     const changeHeaderKz = () => {
         const header_kz = form.getFieldValue().header_kz;
 
-        props.updateMainDocHeaderKz(header_kz);
+        updateMainDocHeaderKz(header_kz);
     };
 
     const changeFileRu = () => {
         const file_ru = form.getFieldValue().file_ru;
 
-        props.updateMainDocFileRu(file_ru);
+        updateMainDocFileRu(file_ru);
     };
 
     const changeFileKz = () => {
         const file_kz = form.getFieldValue().file_kz;
 
-        props.updateMainDocFileKz(file_kz);
+        updateMainDocFileKz(file_kz);
     };
 
     const changeDescriptionRu = () => {
         const description_ru = form.getFieldValue().description_ru;
 
-        props.updateMainDocDescriptionRu(description_ru);
+        updateMainDocDescriptionRu(description_ru);
     };
 
     const changeDescriptionKz = () => {
         const description_kz = form.getFieldValue().description_kz;
 
-        props.updateMainDocDescriptionKz(description_kz);
+        updateMainDocDescriptionKz(description_kz);
     };
 
     const changeTextRu = () => {
         const text_ru = form.getFieldValue().text_ru;
 
-        props.updateMainDocTextRu(text_ru);
+        updateMainDocTextRu(text_ru);
     };
 
     const changeTextKz = () => {
         const text_kz = form.getFieldValue().text_kz;
 
-        props.updateMainDocTextKz(text_kz);
+        updateMainDocTextKz(text_kz);
     };
 
     const changeTypeId = (type_id) => {
-        props.updateMainDocTypeId(type_id);
+        updateMainDocTypeId(type_id);
     };
 
     return (
@@ -188,7 +195,7 @@ const AddMainDoc = (props) => {
                     label={t('number')}
                     rules={[{
                         required: true,
-                        message: t('enterDocNumber') + '!'
+                        message: `${t('enterDocNumber')} !`
                     }]}
                     hasFeedback
                 >
@@ -202,7 +209,7 @@ const AddMainDoc = (props) => {
                     rules={[{required: true, message: 'Пожалуйста, выберите отдел!'}]}
                 >
                     <Select placeholder={t('chooseDepartment')} onChange={changeDepartmentId}>
-                        {props.departments.map(department =>
+                        {departments.map(department =>
                             <Option
                                 key={department.id}
                                 value={department.id}
@@ -218,7 +225,7 @@ const AddMainDoc = (props) => {
                     label={t('status')}
                 >
                     <Select placeholder={t('chooseStatus')} onChange={changeStatusId} allowClear>
-                        {props.statuses.map(status =>
+                        {statuses.map(status =>
                             <Option
                                 key={status.id}
                                 value={status.id}
@@ -265,12 +272,12 @@ const AddMainDoc = (props) => {
                     label={t('type')}
                     rules={[{
                         required: true,
-                        message: t('enterType') + '!'
+                        message: `${t('enterType')} !`
                     }]}
                     hasFeedback
                 >
                     <Select placeholder={t('enterType')} onChange={changeTypeId}>
-                        {props.types.map(type =>
+                        {types.map(type =>
                             <Option
                                 key={type.id}
                                 value={type.id}

@@ -10,7 +10,7 @@ class NavBarContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         isAdmin: state.authDir.userData.isAdmin,
     }

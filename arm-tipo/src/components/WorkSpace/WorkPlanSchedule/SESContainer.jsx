@@ -7,24 +7,28 @@ import Exams from "./Exams";
 import {
     getExams,
     getSchedule,
-    getSubjects, updateCourse, updateScheduleKey,
+    getSubjects,
+    updateCourse,
+    updateScheduleKey,
     updateSemester,
     updateSpecialization
 } from "../../../redux/Reducers/WorkPlanScheduleReducer";
 
 class SESContainer extends React.Component {
     render() {
-        if (this.props.wps.wpsMode === WpsMode.SUBJECTS) {
+        const {wps} = this.props;
+
+        if (wps.wpsMode === WpsMode.SUBJECTS) {
             return <Subjects {...this.props}/>
-        } else if (this.props.wps.wpsMode === WpsMode.SCHEDULE) {
+        } else if (wps.wpsMode === WpsMode.SCHEDULE) {
             return <Schedule {...this.props}/>
-        } else if (this.props.wps.wpsMode === WpsMode.EXAMS) {
+        } else if (wps.wpsMode === WpsMode.EXAMS) {
             return <Exams {...this.props}/>
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         wps: state.workPlanScheduleDir
     }

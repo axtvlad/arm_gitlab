@@ -4,13 +4,12 @@ import {useTranslation} from "react-i18next";
 import {WpsMode} from "../../common/utils/constants";
 import SESContainer from "./SESContainer";
 
-const WorkPlanSchedule = (props) => {
-
+const WorkPlanSchedule = ({setWpsMode, wpsMode}) => {
     const {t} = useTranslation();
     const [form] = Form.useForm();
 
     const changeWpsMode = (value) => {
-        props.setWpsMode(value.target.value);
+        setWpsMode(value.target.value);
     }
 
     return (
@@ -27,7 +26,7 @@ const WorkPlanSchedule = (props) => {
                 >
                     {t("downloadRup")}
                 </Button>
-                <Radio.Group onChange={changeWpsMode} value={props.wpsMode}>
+                <Radio.Group onChange={changeWpsMode} value={wpsMode}>
                     <Radio.Button value={WpsMode.SUBJECTS}>{t('findSubjects')}</Radio.Button>
                     <Radio.Button value={WpsMode.EXAMS}>{t('findExams')}</Radio.Button>
                     <Radio.Button value={WpsMode.SCHEDULE}>{t('findSchedule')}</Radio.Button>

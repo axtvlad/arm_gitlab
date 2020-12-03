@@ -13,7 +13,9 @@ import {notification, Spin} from "antd";
 
 class AddOtherDocContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -27,10 +29,12 @@ class AddOtherDocContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, otherDocsDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.otherDocsDir.isPosted) {
+            if (otherDocsDir.isPosted) {
                 return <Redirect to={'/otherDocs'}/>
             } else {
                 return (
@@ -41,7 +45,7 @@ class AddOtherDocContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         otherDocsDir: state.otherDocsDir,
         isAdmin: state.authDir.userData.isAdmin

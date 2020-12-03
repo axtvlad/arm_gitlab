@@ -2,7 +2,7 @@ import {Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const Genders = (props) => {
+const Genders = ({directory, isFetching}) => {
     const {t} = useTranslation();
 
     const columns = [
@@ -22,10 +22,10 @@ const Genders = (props) => {
 
     return (
         <div className={'content'}>
-            <Spin spinning={props.isFetching}>
+            <Spin spinning={isFetching}>
                 <Table
                     columns={columns}
-                    dataSource={props.directory}
+                    dataSource={directory}
                     rowKey={'id'}
                 />
             </Spin>

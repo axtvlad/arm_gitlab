@@ -9,29 +9,34 @@ import {getCities} from "../../../../redux/Reducers/CityReducer";
 import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
 import {Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayUserContainer extends React.Component {
     componentDidMount() {
-        !this.props.roles.length && this.props.getRoles();
-        !this.props.cities.length && this.props.getCities();
-        !this.props.genders.length && this.props.getGenders();
-        !this.props.customers.length && this.props.getCustomers();
+        const {roles, match, customers, genders, cities, getRoles, getCustomers, getGenders, getCities} = this.props;
 
-        let userId = this.props.match.params.userId;
+        !roles.length && getRoles();
+        !cities.length && getCities();
+        !genders.length && getGenders();
+        !customers.length && getCustomers();
+
+        let userId = match.params.userId;
 
         if (!userId) {
             userId = 1
         }
 
-        this.props.getUserById(userId);
+        getUserById(userId);
     }
 
     render() {
-        if (!this.props.currentUser
-            || !this.props.roles.length
-            || !this.props.cities.length
-            || !this.props.customers.length
-            || !this.props.genders.length
+        const {roles, currentUser, customers, genders, cities} = this.props;
+
+        if (!currentUser
+            || !roles.length
+            || !cities.length
+            || !customers.length
+            || !genders.length
         ) {
             return (<Spin/>)
         } else {
@@ -42,7 +47,7 @@ class DisplayUserContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         directory: GetDirectory(DirectoriesTypes.USERS),
         currentUser: state.usersDir.currentUser,
@@ -53,14 +58,13 @@ let mapStateToProps = (state) => {
     }
 };
 
-let UserContainerUrl = withRouter(DisplayUserContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getUserById,
         getRoles,
         getCities,
         getGenders,
         getCustomers
-    }
-)(UserContainerUrl);
+    }),
+    withRouter
+)(DisplayUserContainer);

@@ -6,23 +6,27 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class OtherDocsContainer extends React.Component {
     componentDidMount() {
-        !this.props.otherDocs.length && this.props.getOtherDocs();
+        const {otherDocs, getOtherDocs} = this.props;
+
+        !otherDocs.length && getOtherDocs();
     }
 
     render() {
+        const {otherDocs, isAdmin, isFetching, deleteOtherDocById} = this.props;
+
         return (
             <OtherDocs
                 type={DirectoriesTypes.OTHER_DOCS}
-                otherDocs={this.props.otherDocs}
-                isAdmin={this.props.isAdmin}
-                isFetching={this.props.isFetching}
-                deleteOtherDocById={this.props.deleteOtherDocById}
+                otherDocs={otherDocs}
+                isAdmin={isAdmin}
+                isFetching={isFetching}
+                deleteOtherDocById={deleteOtherDocById}
             />
         )
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         otherDocs: state.otherDocsDir.otherDocs,
         isFetching: state.otherDocsDir.isFetching,

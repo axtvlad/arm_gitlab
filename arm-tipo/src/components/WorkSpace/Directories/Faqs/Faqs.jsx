@@ -4,14 +4,14 @@ import {Button, Card, Spin} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import {useTranslation} from "react-i18next";
 import DeleteOutlined from "@ant-design/icons/es/icons/DeleteOutlined";
+import classes from './Faqs.module.css'
 
-const Faqs = (props) => {
-
+const Faqs = ({isAdmin, isFetching, faqs, removeFaqById}) => {
     const {t} = useTranslation();
 
     return (
-        <div style={{background: "e5e5e5"}}>
-            {props.isAdmin &&
+        <div className={classes.faqs}>
+            {isAdmin &&
             <NavLink to={'/addFaq'}>
                 <Button
                     type="danger"
@@ -21,15 +21,15 @@ const Faqs = (props) => {
                     {t('addNewFaq')}
                 </Button>
             </NavLink>}
-            <Spin spinning={props.isFetching}>
-                {props.faqs.map((faq) => (
+            <Spin spinning={isFetching}>
+                {faqs.map((faq) => (
                     <Card
-                        style={{marginBottom: 20, margin: 10, textAlign: 'left'}}
+                        className={classes.card}
                         title={faq.question_ru}
                         key={faq.id}
                         bordered={false}
-                        actions={props.isAdmin && [
-                            <DeleteOutlined key="delete" onClick={() => props.removeFaqById(faq.id)}/>
+                        actions={isAdmin && [
+                            <DeleteOutlined key="delete" onClick={() => removeFaqById(faq.id)}/>
                         ]}
                         extra={
                             <NavLink to={'/faqs/' + faq.id}>{t('more')}</NavLink>

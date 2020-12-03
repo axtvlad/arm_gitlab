@@ -5,22 +5,26 @@ import {deleteFaqById, getFaqs} from "../../../../redux/Reducers/FaqReducer";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
-        !this.props.faqs.length && this.props.getFaqs();
+        const {faqs, getFaqs} = this.props;
+
+        !faqs.length && getFaqs();
     }
 
     render() {
+        const {faqs, deleteFaqById, isFetching, isAdmin} = this.props;
+
         return (
             <Faqs
-                faqs={this.props.faqs}
-                isFetching={this.props.isFetching}
-                isAdmin={this.props.isAdmin}
-                removeFaqById={this.props.deleteFaqById}
+                faqs={faqs}
+                isFetching={isFetching}
+                isAdmin={isAdmin}
+                removeFaqById={deleteFaqById}
             />
         )
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         faqs: state.faqsDir.faqs,
         isFetching: state.faqsDir.isFetching,

@@ -8,29 +8,32 @@ import {getMainDocById} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import {Spin} from "antd";
 import DisplayMainDoc from "./DisplayMainDoc";
+import {compose} from "redux";
 
 class DisplayMainDocContainer extends React.Component {
     componentDidMount() {
-        !this.props.departments.length && this.props.getDepartments();
-        !this.props.statuses.length && this.props.getStatuses();
-        !this.props.types.length && this.props.getTypes();
+        const {departments, getDepartments, statuses, types, getStatuses, getTypes, match, getMainDocById} = this.props;
+        !departments.length && getDepartments();
+        !statuses.length && getStatuses();
+        !types.length && getTypes();
 
-        let id = this.props.match.params.id;
+        let id = match.params.id;
 
         if (!id) {
             id = 1
         }
 
-        this.props.getMainDocById(id);
+        getMainDocById(id);
     }
 
 
     render() {
-        if (!this.props.currentMainDoc ||
-            !this.props.departments.length ||
-            !this.props.statuses.length ||
-            !this.props.types.length
-        ) {
+        const {departments, statuses, types, currentMainDoc} = this.props;
+
+        if (!currentMainDoc
+            || !departments.length
+            || !statuses.length
+            || !types.length) {
             return <Spin/>
         } else {
             return (
@@ -40,7 +43,7 @@ class DisplayMainDocContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         directory: GetDirectory(DirectoriesTypes.MAIN_DOCS),
         currentMainDoc: state.mainDocsDir.currentMainDoc,
@@ -51,14 +54,13 @@ let mapStateToProps = (state) => {
     }
 };
 
-let DisplayMainDocContainerUrl = withRouter(DisplayMainDocContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getMainDocById,
         getDepartments,
         getStatuses,
         getTypes
-    }
-)(DisplayMainDocContainerUrl);
+    }),
+    withRouter
+)(DisplayMainDocContainer);
 

@@ -1,0 +1,8 @@
+.authForm {
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    grid-area: auth;
+    border-radius: 20px;
+    background: linear-gradient(to left, #7bc9d4, #d8b3bbf2);
+}

@@ -11,7 +11,7 @@ class AuthContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         authDir: state.authDir
     }

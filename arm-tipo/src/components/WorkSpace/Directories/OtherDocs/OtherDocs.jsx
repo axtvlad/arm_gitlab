@@ -7,7 +7,7 @@ import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
-const OtherDocs = (props) => {
+const OtherDocs = ({deleteOtherDocById, type, isAdmin, isFetching, otherDocs}) => {
     const {t} = useTranslation();
 
     const menu = (id) => {
@@ -19,7 +19,7 @@ const OtherDocs = (props) => {
                     </span>
                 </Menu.Item>*/}
                 <Menu.Item>
-                    <span onClick={() => props.deleteOtherDocById(id)}>
+                    <span onClick={() => deleteOtherDocById(id)}>
                         {t('delete')}
                     </span>
                 </Menu.Item>
@@ -49,10 +49,10 @@ const OtherDocs = (props) => {
 
     return (
         <div>
-            <Spin spinning={props.isFetching}>
+            <Spin spinning={isFetching}>
                 {
-                    props.isAdmin && <div className={'addButtonBlock'}>
-                        <NavLink to={GetAddAddress(props.type)}>
+                    isAdmin && <div className={'addButtonBlock'}>
+                        <NavLink to={GetAddAddress(type)}>
                             <Button
                                 type={'danger'}
                                 icon={<PlusOutlined/>}
@@ -62,14 +62,14 @@ const OtherDocs = (props) => {
                         </NavLink>
                     </div>
                 }
-                {props.otherDocs.map(othDoc =>
+                {otherDocs.map(othDoc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={othDoc.id}>
                         <PageHeader
                             title={othDoc.name_ru}
                             className="site-page-header"
-                            extra={props.isAdmin && [
+                            extra={isAdmin && [
                                 <DropdownMenu key="more" id={othDoc.id}>
-                                    <NavLink to={'/' + props.type + '/' + othDoc.id}>{t('more')}</NavLink>
+                                    <NavLink to={`/${type}/${othDoc.id}`}>{t('more')}</NavLink>
                                 </DropdownMenu>
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
@@ -80,7 +80,7 @@ const OtherDocs = (props) => {
                                     type="danger"
                                     shape="round"
                                 >
-                                    <NavLink to={'/' + props.type + '/' + othDoc.id}>{t('more')}</NavLink>
+                                    <NavLink to={`/${type}/${othDoc.id}`}>{t('more')}</NavLink>
                                 </Button>
                                 <Button
                                     style={{marginTop: 20, marginLeft: 10}}

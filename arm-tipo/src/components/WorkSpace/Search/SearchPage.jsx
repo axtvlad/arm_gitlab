@@ -5,16 +5,20 @@ import MainDocs from "../Directories/MainDocs/MainDocs";
 import {DirectoriesTypes} from "../../common/utils/DirectoriesTypes";
 import {SearchMode} from "../../common/utils/constants";
 
-const SearchPage = (props) => {
+const SearchPage = (
+    {
+        searchDir, getSearchResult, clearSearchResults, clearTags, clearNum, updateSearchTags, setSearchMode,
+        updateSearchNum
+    }
+) => {
     const {t} = useTranslation();
-
     const [form] = Form.useForm();
 
-    let fromState = {
-        tags: props.searchDir.tags,
-        results: props.searchDir.results,
-        searchMode: props.searchDir.searchMode,
-        num: props.searchDir.num,
+    const fromState = {
+        tags: searchDir.tags,
+        results: searchDir.results,
+        searchMode: searchDir.searchMode,
+        num: searchDir.num,
     };
 
     console.log('fromState', fromState);
@@ -24,31 +28,31 @@ const SearchPage = (props) => {
     const search = () => {
         switch (fromState.searchMode) {
             case SearchMode.NUM:
-                return props.getSearchResult(fromState.searchMode, fromState.num);
+                return getSearchResult(fromState.searchMode, fromState.num);
             case SearchMode.TAGS:
-                return props.getSearchResult(fromState.searchMode, fromState.tags);
+                return getSearchResult(fromState.searchMode, fromState.tags);
             default:
-                return props.getSearchResult(fromState.searchMode, fromState.tags);
+                return getSearchResult(fromState.searchMode, fromState.tags);
         }
     };
 
     const changeTags = (value) => {
-        props.updateSearchTags(value);
+        updateSearchTags(value);
     };
 
     const clear = () => {
-        props.clearSearchResults();
-        props.clearTags();
-        props.clearNum();
+        clearSearchResults();
+        clearTags();
+        clearNum();
         form.resetFields();
     };
 
     const changeSearchMode = (value) => {
-        props.setSearchMode(value.target.value);
+        setSearchMode(value.target.value);
     };
 
     const changeNum = (value) => {
-        props.updateSearchNum(value.target.value);
+        updateSearchNum(value.target.value);
     };
 
     return (
@@ -69,7 +73,7 @@ const SearchPage = (props) => {
                             <Radio.Button value={SearchMode.NUM}>{t('searchByDocNum')}</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    {props.searchDir.searchMode === SearchMode.TAGS &&
+                    {searchDir.searchMode === SearchMode.TAGS &&
                     <Form.Item
                         name={'tags'}
                         label={t('tags')}
@@ -85,7 +89,7 @@ const SearchPage = (props) => {
                             onChange={changeTags}>
                         </Select>
                     </Form.Item>}
-                    {props.searchDir.searchMode === SearchMode.NUM &&
+                    {searchDir.searchMode === SearchMode.NUM &&
                     <Form.Item
                         name={'num'}
                         label={t('number')}
@@ -119,10 +123,10 @@ const SearchPage = (props) => {
                     </Button>
                 </Form>
             </div>
-            {props.searchDir.results.length ?
+            {searchDir.results.length ?
                 <MainDocs
-                    mainDocs={props.searchDir.results}
-                    isFetching={props.searchDir.isSearching}
+                    mainDocs={searchDir.results}
+                    isFetching={searchDir.isSearching}
                     type={DirectoriesTypes.MAIN_DOCS}
                 /> :
                 <div style={{padding: 24, marginTop: 20, background: '#fff', minHeight: 100}}>

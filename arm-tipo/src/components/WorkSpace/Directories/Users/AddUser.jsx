@@ -3,17 +3,22 @@ import React from "react";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddUser = (props) => {
-
+const AddUser = (
+    {
+        genders, usersDir, postUser, updateUserFirstName, updateUserLastName, updateUserPatronymic, updateUserLogin,
+        updateUserPassword, updateUserEmail, updateUserRoleId, updateUserCityId, updateUserCustomerId,
+        updateUserGenderId, updateUserPhone, updateUserBirthAt, updateUserLocale, updateUserIsAdmin,
+        updateUserIsPremium, updateUserIsBanned, roles, cities, customers
+    }
+) => {
     const {t} = useTranslation();
-
     const {Option} = Select;
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
-    //
+
     // const normFile = e => {
     //     console.log('Upload event:', e);
     //
@@ -26,45 +31,45 @@ const AddUser = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        firstName: props.usersDir.newUserFirstName,
-        lastName: props.usersDir.newUserLastName,
-        patronymic: props.usersDir.newUserPatronymic,
-        login: props.usersDir.newUserLogin,
-        password: props.usersDir.newUserPassword,
-        email: props.usersDir.newUserEmail,
-        photo: props.usersDir.newUserPhoto,
-        role_id: props.usersDir.newUserRoleId,
-        city_id: props.usersDir.newUserCityId,
-        customer_id: props.usersDir.newUserCustomerId,
-        gender_id: props.usersDir.newUserGenderId,
-        phone: props.usersDir.newUserPhone,
-        locale: props.usersDir.newUserLocale,
-        birthAt: props.usersDir.newUserBirthAt,
-        isAdmin: props.usersDir.newUserIsAdmin,
-        isPremium: props.usersDir.newUserIsPremium,
-        isBanned: props.usersDir.newUserIsBanned
+    const fromState = {
+        firstName: usersDir.newUserFirstName,
+        lastName: usersDir.newUserLastName,
+        patronymic: usersDir.newUserPatronymic,
+        login: usersDir.newUserLogin,
+        password: usersDir.newUserPassword,
+        email: usersDir.newUserEmail,
+        photo: usersDir.newUserPhoto,
+        role_id: usersDir.newUserRoleId,
+        city_id: usersDir.newUserCityId,
+        customer_id: usersDir.newUserCustomerId,
+        gender_id: usersDir.newUserGenderId,
+        phone: usersDir.newUserPhone,
+        locale: usersDir.newUserLocale,
+        birthAt: usersDir.newUserBirthAt,
+        isAdmin: usersDir.newUserIsAdmin,
+        isPremium: usersDir.newUserIsPremium,
+        isBanned: usersDir.newUserIsBanned
     };
 
     console.log(fromState);
 
     form.setFieldsValue({
-        firstName: props.usersDir.newUserFirstName,
-        lastName: props.usersDir.newUserLastName,
-        patronymic: props.usersDir.newUserPatronymic,
-        login: props.usersDir.newUserLogin,
-        password: props.usersDir.newUserPassword,
-        email: props.usersDir.newUserEmail,
-        photo: props.usersDir.newUserPhoto,
-        role_id: props.usersDir.newUserRoleId,
-        city_id: props.usersDir.newUserCityId,
-        customer_id: props.usersDir.newUserCustomerId,
-        gender_id: props.usersDir.newUserGenderId,
-        phone: props.usersDir.newUserPhone,
-        locale: props.usersDir.newUserLocale,
-        isAdmin: props.usersDir.newUserIsAdmin,
-        isPremium: props.usersDir.newUserIsPremium,
-        isBanned: props.usersDir.newUserIsBanned
+        firstName: usersDir.newUserFirstName,
+        lastName: usersDir.newUserLastName,
+        patronymic: usersDir.newUserPatronymic,
+        login: usersDir.newUserLogin,
+        password: usersDir.newUserPassword,
+        email: usersDir.newUserEmail,
+        photo: usersDir.newUserPhoto,
+        role_id: usersDir.newUserRoleId,
+        city_id: usersDir.newUserCityId,
+        customer_id: usersDir.newUserCustomerId,
+        gender_id: usersDir.newUserGenderId,
+        phone: usersDir.newUserPhone,
+        locale: usersDir.newUserLocale,
+        isAdmin: usersDir.newUserIsAdmin,
+        isPremium: usersDir.newUserIsPremium,
+        isBanned: usersDir.newUserIsBanned
     });
 
     const successfulAdd = (item) => {
@@ -78,94 +83,110 @@ const AddUser = (props) => {
     const saveUser = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postUser(fromState);
+        postUser(fromState);
 
         successfulAdd(fromState)
     };
 
     const changeFirstName = () => {
         const firstName = form.getFieldValue().firstName;
-        props.updateUserFirstName(firstName);
+
+        updateUserFirstName(firstName);
     };
 
     const changeLastName = () => {
         const lastName = form.getFieldValue().lastName;
-        props.updateUserLastName(lastName);
+
+        updateUserLastName(lastName);
     };
 
     const changePatronymic = () => {
         const patronymic = form.getFieldValue().patronymic;
-        props.updateUserPatronymic(patronymic);
+
+        updateUserPatronymic(patronymic);
     };
 
     const changeLogin = () => {
         const login = form.getFieldValue().login;
-        props.updateUserLogin(login);
+
+        updateUserLogin(login);
     };
 
     const changePassword = () => {
         const password = form.getFieldValue().password;
-        props.updateUserPassword(password);
+
+        updateUserPassword(password);
     };
 
     const changeEmail = () => {
         const email = form.getFieldValue().email;
-        props.updateUserEmail(email);
+
+        updateUserEmail(email);
     };
-    //
+
     // const changePhoto = () => {
     //     const photo = form.getFieldValue().photo;
-    //     props.updateUserPhoto(photo);
+    //     updateUserPhoto(photo);
     // };
 
     const changeRoleId = () => {
         const role_id = form.getFieldValue().role_id;
-        props.updateUserRoleId(role_id);
+
+        updateUserRoleId(role_id);
     };
+
     const changeCityId = () => {
         const city_id = form.getFieldValue().city_id;
-        props.updateUserCityId(city_id);
+
+        updateUserCityId(city_id);
     };
 
     const changeCustomerId = () => {
         const customer_id = form.getFieldValue().customer_id;
-        props.updateUserCustomerId(customer_id);
+
+        updateUserCustomerId(customer_id);
     };
 
     const changeGenderId = () => {
         const gender_id = form.getFieldValue().gender_id;
-        props.updateUserGenderId(gender_id);
+
+        updateUserGenderId(gender_id);
     };
 
     const changePhone = () => {
         const phone = form.getFieldValue().phone;
 
-        props.updateUserPhone(phone);
+        updateUserPhone(phone);
     };
 
     const changeBirthAt = (date, dateString) => {
         console.log(date, dateString)
 
-        props.updateUserBirthAt(dateString);
+        updateUserBirthAt(dateString);
     };
 
     const changeLocale = () => {
         const locale = form.getFieldValue().locale;
-        props.updateUserLocale(locale);
+
+        updateUserLocale(locale);
     };
+
     const changeIsAdmin = () => {
         const isAdmin = form.getFieldValue().isAdmin;
-        props.updateUserIsAdmin(isAdmin);
+
+        updateUserIsAdmin(isAdmin);
     };
 
     const changeIsPremium = () => {
         const isPremium = form.getFieldValue().isPremium;
-        props.updateUserIsPremium(isPremium);
+
+        updateUserIsPremium(isPremium);
     };
 
     const changeIsBanned = () => {
         const isBanned = form.getFieldValue().isBanned;
-        props.updateUserIsBanned(isBanned);
+
+        updateUserIsBanned(isBanned);
     };
 
     return (
@@ -300,7 +321,7 @@ const AddUser = (props) => {
                     hasFeedback
                 >
                     <Select placeholder={t('chooseRole')} onChange={changeRoleId}>
-                        {props.roles.map(role =>
+                        {roles.map(role =>
                             <Option
                                 key={role.id}
                                 value={role.id}
@@ -324,7 +345,7 @@ const AddUser = (props) => {
                         placeholder={t('chooseCity')}
                         onChange={changeCityId}
                     >
-                        {props.cities.map(city =>
+                        {cities.map(city =>
                             <Option
                                 key={city.id}
                                 value={city.id}
@@ -348,7 +369,7 @@ const AddUser = (props) => {
                         placeholder={t('chooseCustomer')}
                         onChange={changeCustomerId}
                     >
-                        {props.customers.map(customer =>
+                        {customers.map(customer =>
                             <Option
                                 key={customer.id}
                                 value={customer.id}
@@ -372,7 +393,7 @@ const AddUser = (props) => {
                         placeholder={t('chooseGender')}
                         onChange={changeGenderId}
                     >
-                        {props.genders.map(gender =>
+                        {genders.map(gender =>
                             <Option
                                 key={gender.id}
                                 value={gender.id}

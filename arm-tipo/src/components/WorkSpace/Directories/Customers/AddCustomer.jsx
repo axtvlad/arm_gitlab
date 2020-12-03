@@ -3,8 +3,7 @@ import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const AddCustomer = (props) => {
-
+const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCustomerNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddCustomer = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.customersDir.newCustomerNameRu,
-        name_kz: props.customersDir.newCustomerNameKz
+    const fromState = {
+        name_ru: customersDir.newCustomerNameRu,
+        name_kz: customersDir.newCustomerNameKz
     };
 
     console.log(fromState);
@@ -26,7 +25,7 @@ const AddCustomer = (props) => {
     const successfulAdd = (item) => {
         notification['success']({
             message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
+            description: `Запись ${item.name_ru} была успешно добавлена!`,
             placement: 'bottomRight'
         });
     };
@@ -34,19 +33,21 @@ const AddCustomer = (props) => {
     const addCustomer = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postCustomer(fromState);
+        postCustomer(fromState);
 
         successfulAdd(fromState)
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateCustomerNameRu(name_ru);
+
+        updateCustomerNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateCustomerNameKz(name_kz);
+
+        updateCustomerNameKz(name_kz);
     };
 
     return (
@@ -62,7 +63,7 @@ const AddCustomer = (props) => {
                     label={t('customerNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterCustomerNameRu') + '!'
+                        message: `${t('enterCustomerNameRu')} !`
                     }]}
                     hasFeedback
                 >
@@ -74,7 +75,7 @@ const AddCustomer = (props) => {
                     label={t('customerNameKz')}
                     rules={[{
                         required: true,
-                        message: t('enterCustomerNameKz') + '!'
+                        message: `${t('enterCustomerNameKz')} !`
                     }]}
                     hasFeedback
                 >

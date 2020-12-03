@@ -2,13 +2,13 @@ import {Button, Form, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const Exams = (props) => {
-
+const Exams = ({wps}) => {
     const {t} = useTranslation();
+    const {Option} = Select;
     const [form] = Form.useForm();
 
-    let fromState = {
-        specialization: props.wps.specialization
+    const fromState = {
+        specialization: wps.specialization
     };
 
     console.log(fromState);
@@ -24,8 +24,6 @@ const Exams = (props) => {
         }
     }
 
-    const {Option} = Select;
-
     const examsColumns = [
         {
             title: t('exam'),
@@ -40,16 +38,16 @@ const Exams = (props) => {
     ];
 
     const updateSpecialization = (e) => {
-        props.updateSpecialization(e);
+        updateSpecialization(e);
     };
 
     const getExams = () => {
-        props.getExams(fromState);
+        getExams(fromState);
     }
 
     return (
         <div style={{textAlign: 'left'}}>
-            <Spin spinning={props.wps.isFetching}>
+            <Spin spinning={wps.isFetching}>
                 <Form
                     form={form}
                     name="advanced_search"
@@ -57,7 +55,7 @@ const Exams = (props) => {
                 >
                     <div>
                         <Select
-                            defaultValue={props.wps.specialization}
+                            defaultValue={wps.specialization}
                             style={{width: 400, margin: 10}}
                             onChange={(e) => {
                                 updateSpecialization(e)
@@ -73,12 +71,12 @@ const Exams = (props) => {
                         >
                             {t('getData')}
                         </Button>
-                        {props.wps.exams.length !== 0 &&
+                        {wps.exams.length !== 0 &&
                         <>
-                            <div> { t('examsCount') + ':'} {props.wps.exams.length}</div>
+                            <div> {t('examsCount') + ':'} {wps.exams.length}</div>
                             <Table
                                 columns={examsColumns}
-                                dataSource={props.wps.exams}
+                                dataSource={wps.exams}
                                 rowKey={'id'}
                             />
                         </>}

@@ -17,7 +17,7 @@ import OtherDocReducer from "./Reducers/OtherDocReducer";
 import WorkPlanScheduleReducer from "./Reducers/WorkPlanScheduleReducer";
 import SearchReducer from "./Reducers/SearchReducer";
 
-let reducers = combineReducers({
+const reducers = combineReducers({
     typesDir: TypeReducer,
     departmentsDir: DepartmentReducer,
     statusesDir: StatusReducer,
@@ -36,7 +36,7 @@ let reducers = combineReducers({
     searchDir: SearchReducer,
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleWare));
+const store = createStore(reducers, applyMiddleware(thunkMiddleWare));
 
 window.store = store.getState();
 

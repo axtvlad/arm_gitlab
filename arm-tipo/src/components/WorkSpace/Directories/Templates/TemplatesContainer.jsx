@@ -6,23 +6,27 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
-        !this.props.templates.length && this.props.getTemplates();
+        const {templates, getTemplates} = this.props;
+
+        !templates.length && getTemplates();
     }
 
     render() {
+        const {templates, isFetching, isAdmin, deleteTemplateById} = this.props;
+
         return (
             <Templates
                 type={DirectoriesTypes.TEMPLATES}
-                templates={this.props.templates}
-                isFetching={this.props.isFetching}
-                isAdmin={this.props.isAdmin}
-                deleteTemplateById={this.props.deleteTemplateById}
+                templates={templates}
+                isFetching={isFetching}
+                isAdmin={isAdmin}
+                deleteTemplateById={deleteTemplateById}
             />
         )
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         templates: state.templatesDir.templates,
         isFetching: state.templatesDir.isFetching,

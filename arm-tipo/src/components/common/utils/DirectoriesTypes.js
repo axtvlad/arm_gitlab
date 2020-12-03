@@ -44,19 +44,33 @@ export const DirectoriesTypes = {
 
 export const GetDirectory = (directory_type) => {
     switch (directory_type) {
-        case DirectoriesTypes.CATEGORIES: return CATEGORY;
-        case DirectoriesTypes.DEPARTMENTS: return DEPARTMENT;
-        case DirectoriesTypes.FAQS: return FAQ;
-        case DirectoriesTypes.MAIN_DOCS: return MAIN_DOC;
-        case DirectoriesTypes.OTHER_DOCS: return OTHER_DOC;
-        case DirectoriesTypes.CITIES: return CITY;
-        case DirectoriesTypes.CUSTOMERS: return CUSTOMER;
-        case DirectoriesTypes.ROLES: return ROLE;
-        case DirectoriesTypes.USERS: return USER;
-        case DirectoriesTypes.STATUSES: return STATUS;
-        case DirectoriesTypes.TEMPLATES: return TEMPLATE;
-        case DirectoriesTypes.TYPES: return TYPE;
-        case DirectoriesTypes.GENDERS: return GENDER;
-        default: return 'none'
+        case DirectoriesTypes.CATEGORIES:
+            return CATEGORY;
+        case DirectoriesTypes.DEPARTMENTS:
+            return DEPARTMENT;
+        case DirectoriesTypes.FAQS:
+            return FAQ;
+        case DirectoriesTypes.MAIN_DOCS:
+            return MAIN_DOC;
+        case DirectoriesTypes.OTHER_DOCS:
+            return OTHER_DOC;
+        case DirectoriesTypes.CITIES:
+            return CITY;
+        case DirectoriesTypes.CUSTOMERS:
+            return CUSTOMER;
+        case DirectoriesTypes.ROLES:
+            return ROLE;
+        case DirectoriesTypes.USERS:
+            return USER;
+        case DirectoriesTypes.STATUSES:
+            return STATUS;
+        case DirectoriesTypes.TEMPLATES:
+            return TEMPLATE;
+        case DirectoriesTypes.TYPES:
+            return TYPE;
+        case DirectoriesTypes.GENDERS:
+            return GENDER;
+        default:
+            return 'none'
     }
 };

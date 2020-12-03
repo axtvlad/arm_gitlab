@@ -3,8 +3,7 @@ import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddType = (props) => {
-
+const AddType = ({typesDir, postType, updateTypeNameRu, updateTypeNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddType = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.typesDir.newTypeNameRu,
-        name_kz: props.typesDir.newTypeNameKz
+    const fromState = {
+        name_ru: typesDir.newTypeNameRu,
+        name_kz: typesDir.newTypeNameKz
     };
 
     console.log(fromState);
@@ -34,19 +33,21 @@ const AddType = (props) => {
     const addType = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postType(fromState);
+        postType(fromState);
 
         successfulAdd(fromState)
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateTypeNameRu(name_ru);
+
+        updateTypeNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateTypeNameKz(name_kz);
+
+        updateTypeNameKz(name_kz);
     };
 
     return (

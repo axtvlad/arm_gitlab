@@ -1,0 +1,17 @@
+.header {
+    background: #fff;
+    padding: 0;
+}
+
+.expert {
+    float: left;
+    margin-left: 30px;
+}
+
+.mailForRequest {
+    margin-left: 30px;
+}
+
+.localeSelect {
+    width: 100px;
+}

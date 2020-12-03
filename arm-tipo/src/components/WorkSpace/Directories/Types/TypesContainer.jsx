@@ -7,10 +7,12 @@ import {notification, Spin} from "antd";
 
 class TypesContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, types, getTypes} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.types.length && this.props.getTypes();
+            !types.length && getTypes();
         }
     }
 
@@ -23,23 +25,25 @@ class TypesContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, types, deleteTypeById, isFetching} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Directory
                     type={DirectoriesTypes.TYPES}
-                    isAdmin={this.props.isAdmin}
-                    directory={this.props.types}
-                    isFetching={this.props.isFetching}
-                    removeItemById={this.props.deleteTypeById}
+                    isAdmin={isAdmin}
+                    directory={types}
+                    isFetching={isFetching}
+                    removeItemById={deleteTypeById}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         types: state.typesDir.types,
         isFetching: state.typesDir.isFetching,

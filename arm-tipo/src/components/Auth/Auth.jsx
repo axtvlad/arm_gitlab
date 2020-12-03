@@ -1,41 +1,41 @@
 import {Button, Form, Input} from 'antd';
 import React from "react";
+import classes from './Auth.module.css'
 
-const Auth = (props) => {
+const Auth = ({postAuthUserData, updateAuthLogin, updateAuthPassword, authDir}) => {
     const [form] = Form.useForm();
 
-    let fromState = {
-        login: props.authDir.login,
-        password: props.authDir.password,
+    const fromState = {
+        login: authDir.login,
+        password: authDir.password,
     }
 
     form.setFieldsValue(fromState);
 
     const auth = () => {
-        props.postAuthUserData(fromState)
+        postAuthUserData(fromState)
     };
 
     const changeAuthLogin = () => {
         const login = form.getFieldValue().login;
 
-        props.updateAuthLogin(login)
+        updateAuthLogin(login)
     };
 
     const changeAuthPassword = () => {
         const password = form.getFieldValue().password;
 
-        props.updateAuthPassword(password)
+        updateAuthPassword(password)
     };
 
     return (
         <div className={'grid-container'}>
             <Form
                 layout={"vertical"}
-                className={'auth'}
+                className={classes.authForm}
                 name={'form'}
                 onFinish={auth}
                 form={form}
-                style={{padding: 30}}
             >
                 <Form.Item
                     label={'Логин'}

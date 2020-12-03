@@ -9,16 +9,15 @@ import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import i18n from "../../../../i18n";
 
-const MainDocs = (props) => {
-
+const MainDocs = ({deleteMainDocById, isFetching, isAdmin, mainDocs, type}) => {
     const {t} = useTranslation();
 
     const deleteItem = (item) => {
-        props.deleteMainDocById(item.id);
+        deleteMainDocById(item.id);
 
         notification['success']({
             message: 'Удалено!',
-            description: 'Запись "' + item.name_ru + '" была успешно удалена!',
+            description: `Запись ${item.name_ru} была успешно удалена!`,
             placement: 'bottomRight'
         });
     };
@@ -106,8 +105,8 @@ const MainDocs = (props) => {
 
     return (
         <div>
-            <Spin spinning={props.isFetching}>
-                {props.isAdmin &&
+            <Spin spinning={isFetching}>
+                {isAdmin &&
                 <div className={'addButtonBlock'}>
                     <NavLink to={GetAddAddress(props.type)}>
                         <Button
@@ -118,14 +117,14 @@ const MainDocs = (props) => {
                         </Button>
                     </NavLink>
                 </div>}
-                {props.mainDocs.map(doc =>
+                {mainDocs.map(doc =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={doc.id}>
                         {i18n.language === 'ru' ?
                             <PageHeader
                                 title={doc.name_ru}
                                 className="site-page-header"
                                 subTitle={doc.number}
-                                extra={props.isAdmin && [
+                                extra={isAdmin && [
                                     <DropdownMenu key="more" id={doc.id}/>
                                 ]}
                                 avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
@@ -162,7 +161,7 @@ const MainDocs = (props) => {
                                             type="danger"
                                             shape="round"
                                         >
-                                            <NavLink to={'/' + props.type + '/' + doc.id}>{t('more')}</NavLink>
+                                            <NavLink to={`/${type}/${doc.id}`}>{t('more')}</NavLink>
                                         </Button>
                                         <Button
                                             style={{marginTop: 20, marginLeft: 10}}
@@ -217,7 +216,7 @@ const MainDocs = (props) => {
                                             type="danger"
                                             shape="round"
                                         >
-                                            <NavLink to={'/' + props.type + '/' + doc.id}>{t('more')}</NavLink>
+                                            <NavLink to={'/' + type + '/' + doc.id}>{t('more')}</NavLink>
                                         </Button>
                                         <Button
                                             style={{marginTop: 20, marginLeft: 10}}

@@ -3,19 +3,18 @@ import {Affix, Button, Dropdown, Layout, Menu, Select, Typography} from "antd";
 import {AppstoreOutlined, LogoutOutlined} from "@ant-design/icons"
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
+import classes from './AppHeader.module.css';
 
-const {Header} = Layout;
-const {Text} = Typography;
-const {Option} = Select;
-
-const AppHeader = (props) => {
-
+const AppHeader = ({setIsAuth, authDir}) => {
+    const {Header} = Layout;
+    const {Text} = Typography;
+    const {Option} = Select;
     const {t, i18n} = useTranslation();
 
     const logout = () => {
         localStorage.removeItem('isAuth');
         localStorage.removeItem('user');
-        props.setIsAuth(false);
+        setIsAuth(false);
     }
 
     const menu = (
@@ -38,8 +37,8 @@ const AppHeader = (props) => {
     const getUserName = () => {
         if (localStorage.user) {
             return JSON.parse(localStorage.getItem('user')).firstName;
-        } else if (props.authDir.userData) {
-            return props.authDir.userData.firstName
+        } else if (authDir.userData) {
+            return authDir.userData.firstName
         }
     }
 
@@ -50,12 +49,12 @@ const AppHeader = (props) => {
 
     return (
         <Affix offsetTop={0}>
-            <Header style={{background: '#fff', padding: 0}}>
-                <span style={{float: 'left', marginLeft: 30}}>
+            <Header className={classes.header}>
+                <span className={classes.expert}>
                     <NavLink to={'/expert'}>
                         <Button danger>{t('help')}</Button>
                     </NavLink>
-                    <Text style={{marginLeft: 30}}>{t('mailForRequests')}</Text>
+                    <Text className={classes.mailForRequest}>{t('mailForRequests')}</Text>
                     <Text copyable>info@arm-tipo.kz</Text>
                 </span>
                 {/*<Modal
@@ -69,8 +68,8 @@ const AppHeader = (props) => {
                 </Modal>*/}
                 <Select
                     defaultValue={i18n.language}
-                    style={{width: '100px'}}
-                    onChange={(e) => changeLocale(e)}
+                    onChange={changeLocale}
+                    className={classes.localeSelect}
                 >
                     <Option value="kz">kz</Option>
                     <Option value="ru">ru</Option>

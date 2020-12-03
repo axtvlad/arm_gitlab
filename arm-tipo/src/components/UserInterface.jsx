@@ -10,38 +10,42 @@ import AuthContainer from "./Auth/AuthContainer";
 
 class UserInterface extends React.Component {
     componentDidMount() {
-        if (!this.props.authDir.isAuth) {
+        const {authDir, setUserData, setIsAuth} = this.props;
+
+        if (!authDir.isAuth) {
             if (localStorage.isAuth &&
                 localStorage.isAuth === 'true') {
 
-                this.props.setIsAuth(
+                setIsAuth(
                     JSON.parse(localStorage.getItem('isAuth'))
                 )
 
-                this.props.setUserData(
+                setUserData(
                     JSON.parse(localStorage.getItem('user'))
                 )
             }
         }
 
-        if (!this.props.authDir.userData && localStorage.user) {
-            this.props.setUserData(
+        if (!authDir.userData && localStorage.user) {
+            setUserData(
                 JSON.parse(localStorage.getItem('user'))
             )
         }
     }
 
     render() {
-        if (!this.props.authDir.isAuth) {
+        const {authDir, setIsAuth} = this.props;
+
+        if (!authDir.isAuth) {
             return <AuthContainer/>
-        } else if (this.props.authDir.authInProcess && this.props.authDir.userData.firstName) {
+        } else if (authDir.authInProcess && authDir.userData.firstName) {
             return <Spin/>
         } else {
             return (
                 <Layout style={{minHeight: '100vh'}}>
                     <NavBarContainer/>
                     <Layout>
-                        <AppHeaderContainer setIsAuth={this.props.setIsAuth}/>
+                        <AppHeaderContainer setIsAuth={setIsAuth}/>
                         <WorkSpace/>
                     </Layout>
                 </Layout>
@@ -50,7 +54,7 @@ class UserInterface extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         authDir: state.authDir
     }

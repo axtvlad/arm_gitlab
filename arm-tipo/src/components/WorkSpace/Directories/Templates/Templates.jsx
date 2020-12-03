@@ -7,8 +7,7 @@ import {NavLink} from "react-router-dom";
 import {GetAddAddress} from "../../../common/utils/AddPagesRoutes";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 
-const Templates = (props) => {
-
+const Templates = ({deleteTemplateById, isFetching, isAdmin, type, templates}) => {
     const {t} = useTranslation();
 
     const menu = (id) => {
@@ -20,7 +19,7 @@ const Templates = (props) => {
                 </a>
             </Menu.Item>*/}
                 <Menu.Item>
-                    <span onClick={() => props.deleteTemplateById(id)}>
+                    <span onClick={() => deleteTemplateById(id)}>
                         {t('delete')}
                     </span>
                 </Menu.Item>
@@ -37,9 +36,9 @@ const Templates = (props) => {
         );
     };
 
-    const DropdownMenu = (attr) => {
+    const DropdownMenu = ({id}) => {
         return (
-            <Dropdown key="more" overlay={menu(attr.id)}>
+            <Dropdown key="more" overlay={menu(id)}>
                 <Button
                     style={{
                         border: 'none',
@@ -59,9 +58,9 @@ const Templates = (props) => {
 
     return (
         <div>
-            <Spin spinning={props.isFetching}>
-                {props.isAdmin && <div className={'addButtonBlock'}>
-                    <NavLink to={GetAddAddress(props.type)}>
+            <Spin spinning={isFetching}>
+                {isAdmin && <div className={'addButtonBlock'}>
+                    <NavLink to={GetAddAddress(type)}>
                         <Button
                             type={'danger'}
                             icon={<PlusOutlined/>}
@@ -70,13 +69,13 @@ const Templates = (props) => {
                         </Button>
                     </NavLink>
                 </div>}
-                {props.templates.map(tmp =>
+                {templates.map(tmp =>
                     <div style={{margin: '30px 30px', backgroundColor: 'white'}} key={tmp.id}>
                         <PageHeader
                             title={tmp.name_ru}
                             className="site-page-header"
-                            extra={props.isAdmin && [
-                                <DropdownMenu key={tmp.id} id={tmp.id} />
+                            extra={isAdmin && [
+                                <DropdownMenu key={tmp.id} id={tmp.id}/>
                             ]}
                             avatar={{src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4'}}
                         >
@@ -107,4 +106,5 @@ const Templates = (props) => {
         </div>
     )
 };
+
 export default Templates;

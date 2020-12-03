@@ -7,7 +7,9 @@ import {notification, Spin} from "antd";
 
 class AddRoleContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -21,10 +23,12 @@ class AddRoleContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, rolesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.rolesDir.isPosted) {
+            if (rolesDir.isPosted) {
                 return <Redirect to={'/roles'}/>
             } else {
                 return (
@@ -35,7 +39,7 @@ class AddRoleContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         rolesDir: state.rolesDir,
         isAdmin: state.authDir.userData.isAdmin

@@ -7,7 +7,9 @@ import {Redirect} from "react-router-dom";
 
 class AddCategoryContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -21,10 +23,12 @@ class AddCategoryContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, categoriesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.categoriesDir.isPosted) {
+            if (categoriesDir.isPosted) {
                 return <Redirect to={'/cities'}/>
             } else {
                 return (
@@ -35,7 +39,7 @@ class AddCategoryContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         categoriesDir: state.categoriesDir,
         isAdmin: state.authDir.userData.isAdmin

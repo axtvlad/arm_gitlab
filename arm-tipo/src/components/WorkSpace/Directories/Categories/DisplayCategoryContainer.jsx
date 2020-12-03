@@ -5,20 +5,22 @@ import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirect
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getCategoryById} from "../../../../redux/Reducers/CategoryReducer";
 import {notification, Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, match, getCategoryById} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-
-            let id = this.props.match.params.id;
+            let id = match.params.id;
 
             if (!id) {
                 id = 1
             }
 
-            this.props.getCategoryById(id);
+            getCategoryById(id);
         }
     }
 
@@ -31,17 +33,22 @@ class DisplayCategoryContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, isFetching, currentItem, type} = this.props;
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
-                <DisplayDirectoryItem {...this.props}/>
+                <DisplayDirectoryItem
+                    isFetching={isFetching}
+                    currentItem={currentItem}
+                    type={type}
+                />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         type: GetDirectory(DirectoriesTypes.CATEGORIES),
         currentItem: state.categoriesDir.currentCategory,
@@ -50,10 +57,9 @@ let mapStateToProps = (state) => {
     }
 };
 
-let CategoryContainerUrl = withRouter(DisplayCategoryContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getCategoryById
-    }
-)(CategoryContainerUrl)
+    }),
+    withRouter
+)(DisplayCategoryContainer)

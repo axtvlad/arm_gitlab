@@ -16,10 +16,12 @@ import {notification, Spin} from "antd";
 
 class AddTemplateContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, categories, getCategories} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.categories.length && this.props.getCategories();
+            !categories.length && getCategories();
         }
     }
 
@@ -32,10 +34,12 @@ class AddTemplateContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, templatesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.templatesDir.isPosted) {
+            if (templatesDir.isPosted) {
                 return <Redirect to={'/templates'}/>
             } else {
                 return (
@@ -46,7 +50,7 @@ class AddTemplateContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         templatesDir: state.templatesDir,
         categories: state.categoriesDir.categories,

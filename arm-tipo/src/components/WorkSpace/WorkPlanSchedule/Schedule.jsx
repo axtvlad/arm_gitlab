@@ -3,23 +3,21 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {WpsScheduleKeys} from "../../common/utils/constants";
 
-const Schedule = (props) => {
-
+const Schedule = ({wps}) => {
     const {t} = useTranslation();
     const [form] = Form.useForm();
+    const {Option} = Select;
 
-    let fromState = {
-        schedule: props.wps.schedule,
-        specialization: props.wps.specialization,
-        course: props.wps.course,
-        key: props.wps.scheduleKey
+    const fromState = {
+        schedule: wps.schedule,
+        specialization: wps.specialization,
+        course: wps.course,
+        key: wps.scheduleKey
     };
 
     console.log(fromState);
 
     form.setFieldsValue(fromState);
-
-    const {Option} = Select;
 
     const scheduleColumns = [
         {
@@ -40,26 +38,27 @@ const Schedule = (props) => {
     ];
 
     const updateScheduleKey = (e) => {
-        props.updateScheduleKey(e);
+        updateScheduleKey(e);
     };
 
     const updateCourse = (e) => {
-        props.updateCourse(e);
+        updateCourse(e);
     }
 
     const getSchedule = () => {
-        props.getSchedule(fromState);
+        getSchedule(fromState);
     }
+
     return (
         <div style={{textAlign: 'left'}}>
-            <Spin spinning={props.wps.isFetching}>
+            <Spin spinning={wps.isFetching}>
                 <Form
                     form={form}
                     name="advanced_search"
                     className="ant-advanced-search-form"
                 >
                     <Select
-                        value={props.wps.scheduleKey}
+                        value={wps.scheduleKey}
                         style={{width: 400, margin: 10}}
                         onChange={updateScheduleKey}
                     >
@@ -74,7 +73,7 @@ const Schedule = (props) => {
                     </Select>
                     <Select
                         style={{margin: 10}}
-                        value={props.wps.course}
+                        value={wps.course}
                         onChange={updateCourse}
                     >
                         <Option value={1}>1 курс</Option>
@@ -89,17 +88,17 @@ const Schedule = (props) => {
                     >
                         {t('getData')}
                     </Button>
-                    {props.wps.schedule.length !== 0 ?
-                    <Table
-                        columns={scheduleColumns}
-                        dataSource={props.wps.schedule}
-                        rowKey={'id'}
-                    /> :
+                    {wps.schedule.length !== 0 ?
                         <Table
-                        columns={scheduleColumns}
-                        rowKey={'id'}
-                        dataSource={props.wps.schedule}
-                        loading={false}
+                            columns={scheduleColumns}
+                            dataSource={wps.schedule}
+                            rowKey={'id'}
+                        /> :
+                        <Table
+                            columns={scheduleColumns}
+                            rowKey={'id'}
+                            dataSource={wps.schedule}
+                            loading={false}
                         />
                     }
                 </Form>

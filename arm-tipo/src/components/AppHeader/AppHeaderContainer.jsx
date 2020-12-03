@@ -11,7 +11,7 @@ class AppHeaderContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         authDir: state.usersDir,
     }

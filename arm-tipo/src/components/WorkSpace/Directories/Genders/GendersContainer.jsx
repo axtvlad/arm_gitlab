@@ -6,10 +6,12 @@ import {notification, Spin} from "antd";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, genders, getGenders} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.genders.length && this.props.getGenders();
+            !genders.length && getGenders();
         }
     }
 
@@ -21,23 +23,24 @@ class GendersContainer extends React.Component {
         })
     }
 
-
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, genders, isFetching} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Genders
-                    isAdmin={this.props.isAdmin}
-                    directory={this.props.genders}
-                    isFetching={this.props.isFetching}
+                    isAdmin={isAdmin}
+                    directory={genders}
+                    isFetching={isFetching}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         genders: state.gendersDir.genders,
         isFetching: state.gendersDir.isFetching,

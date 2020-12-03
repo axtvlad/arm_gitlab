@@ -3,41 +3,40 @@ import {Descriptions} from "antd";
 import i18n from "../../../../i18n";
 import React from "react";
 
-const DisplayOtherDoc = (props) => {
-
+const DisplayOtherDoc = ({currentOtherDoc, directory}) => {
     const {t} = useTranslation();
 
-    console.log(props.currentOtherDoc)
+    console.log(currentOtherDoc)
 
     return (
         <div className={'content'}>
-            {props.currentOtherDoc && (
+            {currentOtherDoc && (
                 <Descriptions
-                    title={t(props.directory) + ': ' + props.currentOtherDoc[0].name_ru}
+                    title={t(directory) + ': ' + currentOtherDoc[0].name_ru}
                     column={1}
                     colon={true}
                 >
                     {i18n.language === 'ru' ? (<Descriptions.Item
                             label={t('docNameRu')}
                         >
-                            {props.currentOtherDoc[0].name_ru}
+                            {currentOtherDoc[0].name_ru}
                         </Descriptions.Item>) :
                         <Descriptions.Item
                             label={t('docNameKz')}
                         >
-                            {props.currentOtherDoc[0].name_kz}
+                            {currentOtherDoc[0].name_kz}
                         </Descriptions.Item>}
                     <Descriptions.Item
                         label={t('fileRu')}
                     >
-                        <a href={props.currentOtherDoc[0].file_ru}>
+                        <a href={currentOtherDoc[0].file_ru}>
                             Документ (ru)
                         </a>
                     </Descriptions.Item>
                     <Descriptions.Item
                         label={t('fileKz')}
                     >
-                        <a href={props.currentOtherDoc[0].file_kz}>
+                        <a href={currentOtherDoc[0].file_kz}>
                             Документ (kz)
                         </a>
                     </Descriptions.Item>
@@ -46,6 +45,5 @@ const DisplayOtherDoc = (props) => {
         </div>
     )
 };
-
 
 export default DisplayOtherDoc

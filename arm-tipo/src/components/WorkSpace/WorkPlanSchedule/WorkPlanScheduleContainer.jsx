@@ -9,7 +9,7 @@ class WorkPlanScheduleContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         wpsMode: state.workPlanScheduleDir.wpsMode
     }

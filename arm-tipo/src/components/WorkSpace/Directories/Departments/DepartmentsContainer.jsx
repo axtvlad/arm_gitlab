@@ -7,10 +7,12 @@ import {notification} from "antd";
 
 class DepartmentsContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, departments, getDepartments} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.departments.length && this.props.getDepartments();
+            !departments.length && getDepartments();
         }
     }
 
@@ -23,19 +25,21 @@ class DepartmentsContainer extends React.Component {
     }
 
     render() {
+        const {isAdmin, departments, deleteDepartmentById, isFetching} = this.props;
+
         return (
             <Directory
                 type={DirectoriesTypes.DEPARTMENTS}
-                isAdmin={this.props.isAdmin}
-                directory={this.props.departments}
-                isFetching={this.props.isFetching}
-                removeItemById={this.props.deleteDepartmentById}
+                isAdmin={isAdmin}
+                directory={departments}
+                isFetching={isFetching}
+                removeItemById={deleteDepartmentById}
             />
         )
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         departments: state.departmentsDir.departments,
         isFetching: state.departmentsDir.isFetching,

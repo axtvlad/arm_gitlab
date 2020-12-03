@@ -8,7 +8,9 @@ import {Spin} from "antd/es";
 
 class AddCityContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -22,10 +24,12 @@ class AddCityContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, citiesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.citiesDir.isPosted) {
+            if (citiesDir.isPosted) {
                 return <Redirect to={'/cities'}/>
             } else {
                 return (
@@ -36,7 +40,7 @@ class AddCityContainer extends React.Component {
     }
 }
 
-let MapStateToProps = (state) => {
+const MapStateToProps = (state) => {
     return {
         citiesDir: state.citiesDir,
         isAdmin: state.authDir.userData.isAdmin

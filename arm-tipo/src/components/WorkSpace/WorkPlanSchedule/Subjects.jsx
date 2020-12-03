@@ -2,14 +2,14 @@ import {Button, Form, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const Subjects = (props) => {
-
+const Subjects = ({wps, updateSpecialization, updateSemester, getSubjects}) => {
     const {t} = useTranslation();
     const [form] = Form.useForm();
+    const {Option} = Select;
 
-    let fromState = {
-        specialization: props.wps.specialization,
-        semester: props.wps.semester
+    const fromState = {
+        specialization: wps.specialization,
+        semester: wps.semester
     };
 
     console.log(fromState);
@@ -24,7 +24,6 @@ const Subjects = (props) => {
             name: t('operator')
         }
     }
-    const {Option} = Select;
 
     const subjectsColumns = [
         {
@@ -39,31 +38,31 @@ const Subjects = (props) => {
         }
     ];
 
-    const updateSpecialization = (e) => {
-        props.updateSpecialization(e);
+    const updateSpecializationEv = (e) => {
+        updateSpecialization(e);
     };
 
-    const updateSemester = (e) => {
-        props.updateSemester(e);
+    const updateSemesterEv = (e) => {
+        updateSemester(e);
     };
 
-    const getSubjects = () => {
-        props.getSubjects(fromState)
+    const getSubjectsEv = () => {
+        getSubjects(fromState)
     };
 
     return (
         <div style={{textAlign: 'left'}}>
-            <Spin spinning={props.wps.isFetching}>
+            <Spin spinning={wps.isFetching}>
                 <Form
                     form={form}
                     name="advanced_search"
                     className="ant-advanced-search-form"
                 >
                     <Select
-                        defaultValue={props.wps.specialization}
+                        defaultValue={wps.specialization}
                         style={{width: 400, margin: 10}}
                         onChange={(e) => {
-                            updateSpecialization(e)
+                            updateSpecializationEv(e)
                         }}
                     >
                         <Option value={specialization.operator.key}>{specialization.operator.name}</Option>
@@ -71,9 +70,9 @@ const Subjects = (props) => {
                     </Select>
                     <Select
                         style={{margin: 10}}
-                        defaultValue={props.wps.semester}
+                        defaultValue={wps.semester}
                         onChange={(e) => {
-                            updateSemester(e)
+                            updateSemesterEv(e)
                         }}
                     >
                         <Option value={1}>1 семестр</Option>
@@ -87,17 +86,17 @@ const Subjects = (props) => {
                     </Select>
                     <Button
                         style={{margin: 10}}
-                        onClick={getSubjects}
+                        onClick={getSubjectsEv}
                         type={"danger"}
                     >
                         {t('getData')}
                     </Button>
-                    {props.wps.subjects.length !== 0 &&
+                    {wps.subjects.length !== 0 &&
                     <>
-                        <div>{t('subjectsCount')}{props.wps.subjects.length}</div>
+                        <div>{t('subjectsCount')}{wps.subjects.length}</div>
                         <Table
                             columns={subjectsColumns}
-                            dataSource={props.wps.subjects}
+                            dataSource={wps.subjects}
                             rowKey={'id'}
                         />
                     </>}

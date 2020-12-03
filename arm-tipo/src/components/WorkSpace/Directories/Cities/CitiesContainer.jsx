@@ -7,10 +7,12 @@ import {notification, Spin} from "antd";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, cities, getCities} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.cities.length && this.props.getCities();
+            !cities.length && getCities();
         }
     }
 
@@ -23,23 +25,25 @@ class CitiesContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, cities, isFetching, deleteCityById} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Directory
                     type={DirectoriesTypes.CITIES}
-                    isAdmin={this.props.isAdmin}
-                    directory={this.props.cities}
-                    isFetching={this.props.isFetching}
-                    removeItemById={this.props.deleteCityById}
+                    isAdmin={isAdmin}
+                    directory={cities}
+                    isFetching={isFetching}
+                    removeItemById={deleteCityById}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         cities: state.citiesDir.cities,
         isFetching: state.citiesDir.isFetching,

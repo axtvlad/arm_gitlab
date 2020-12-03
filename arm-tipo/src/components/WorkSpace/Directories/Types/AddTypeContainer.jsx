@@ -7,7 +7,9 @@ import {notification, Spin} from "antd";
 
 class AddTypeContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -21,10 +23,12 @@ class AddTypeContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, typesDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.typesDir.isPosted) {
+            if (typesDir.isPosted) {
                 return <Redirect to={'/types'}/>
             } else {
                 return (
@@ -35,7 +39,7 @@ class AddTypeContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         typesDir: state.typesDir,
         isAdmin: state.authDir.userData.isAdmin

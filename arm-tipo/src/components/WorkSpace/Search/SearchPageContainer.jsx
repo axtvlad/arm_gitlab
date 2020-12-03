@@ -6,7 +6,8 @@ import {
     clearSearchResults,
     clearTags,
     getSearchResult,
-    setSearchMode, updateSearchNum,
+    setSearchMode,
+    updateSearchNum,
     updateSearchTags
 } from "../../../redux/Reducers/SearchReducer";
 
@@ -18,7 +19,7 @@ class SearchPageContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         searchDir: state.searchDir
     }

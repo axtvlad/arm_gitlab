@@ -3,8 +3,7 @@ import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddFaq = (props) => {
-
+const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, updateFaqAnswerRu, updateFaqAnswerKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -15,10 +14,10 @@ const AddFaq = (props) => {
     const [form] = Form.useForm();
 
     let fromState = {
-        question_ru: props.faqsDir.newFaqQuestionRu,
-        question_kz: props.faqsDir.newFaqQuestionKz,
-        answer_ru: props.faqsDir.newFaqAnswerRu,
-        answer_kz: props.faqsDir.newFaqAnswerKz,
+        question_ru: faqsDir.newFaqQuestionRu,
+        question_kz: faqsDir.newFaqQuestionKz,
+        answer_ru: faqsDir.newFaqAnswerRu,
+        answer_kz: faqsDir.newFaqAnswerKz,
     };
 
     console.log(fromState);
@@ -36,29 +35,32 @@ const AddFaq = (props) => {
     const addFaq = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postFaq(fromState);
+        postFaq(fromState);
 
         successfulAdd(fromState);
     };
 
     const changeQuestionRu = () => {
         const question_ru = form.getFieldValue().question_ru;
-        props.updateFaqQuestionRu(question_ru);
+
+        updateFaqQuestionRu(question_ru);
     };
 
     const changeQuestionKz = () => {
         const question_kz = form.getFieldValue().question_kz;
-        props.updateFaqQuestionKz(question_kz);
+        updateFaqQuestionKz(question_kz);
     };
 
     const changeAnswerRu = () => {
         const answer_ru = form.getFieldValue().answer_ru;
-        props.updateFaqAnswerRu(answer_ru);
+
+        updateFaqAnswerRu(answer_ru);
     };
 
     const changeAnswerKz = () => {
         const answer_kz = form.getFieldValue().answer_kz;
-        props.updateFaqAnswerKz(answer_kz);
+
+        updateFaqAnswerKz(answer_kz);
     };
 
     return (
@@ -74,7 +76,7 @@ const AddFaq = (props) => {
                     label={t('questionRu')}
                     rules={[{
                         required: true,
-                        message: t('enterQuestionRu') + '!'
+                        message: `${t('enterQuestionRu')} !`
                     }]}
                     hasFeedback
                 >
@@ -88,7 +90,7 @@ const AddFaq = (props) => {
                     label={t('questionKz')}
                     rules={[{
                         required: true,
-                        message: t('enterQuestionKz') + '!'
+                        message:`${t('enterQuestionKz')} !`
                     }]}
                     hasFeedback
                 >
@@ -103,7 +105,7 @@ const AddFaq = (props) => {
                      label={t('answerRu')}
                      rules={[{
                          required: true,
-                         message: t('enterAnswerRu') + '!'
+                         message: `${t('enterAnswerRu')} !`
                      }]}
                      hasFeedback
                  >
@@ -117,7 +119,7 @@ const AddFaq = (props) => {
                     label={t('answerKz')}
                     rules={[{
                         required: true,
-                        message: t('enterAnswerKz') + '!'
+                        message: `${t('enterAnswerKz')} !`
                     }]}
                     hasFeedback
                 >

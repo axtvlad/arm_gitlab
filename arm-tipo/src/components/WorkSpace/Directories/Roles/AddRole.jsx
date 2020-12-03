@@ -3,8 +3,7 @@ import {Button, Form, Input, notification,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 
-const AddRole = (props) => {
-
+const AddRole = ({rolesDir, postRole, updateRoleNameRu, updateRoleNameKz}) => {
     const {t} = useTranslation();
 
     const formItemLayout = {
@@ -14,9 +13,9 @@ const AddRole = (props) => {
 
     const [form] = Form.useForm();
 
-    let fromState = {
-        name_ru: props.rolesDir.newRoleNameRu,
-        name_kz: props.rolesDir.newRoleNameKz
+    const fromState = {
+        name_ru: rolesDir.newRoleNameRu,
+        name_kz: rolesDir.newRoleNameKz
     };
 
     console.log(fromState);
@@ -34,19 +33,21 @@ const AddRole = (props) => {
     const addRole = (values) => {
         console.log('Received values of form: ', values);
 
-        props.postRole(fromState);
+        postRole(fromState);
 
         successfulAdd(fromState);
     };
 
     const changeNameRu = () => {
         const name_ru = form.getFieldValue().name_ru;
-        props.updateRoleNameRu(name_ru);
+
+        updateRoleNameRu(name_ru);
     };
 
     const changeNameKz = () => {
         const name_kz = form.getFieldValue().name_kz;
-        props.updateRoleNameKz(name_kz);
+
+        updateRoleNameKz(name_kz);
     };
 
     return (

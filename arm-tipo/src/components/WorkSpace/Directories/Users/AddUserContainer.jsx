@@ -30,13 +30,15 @@ import {notification, Spin} from "antd";
 
 class AddUserContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {roles, isAdmin, customers, genders, cities, getRoles, getCustomers, getGenders, getCities} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.roles.length && this.props.getRoles();
-            !this.props.customers.length && this.props.getCustomers();
-            !this.props.genders.length && this.props.getGenders();
-            !this.props.cities.length && this.props.getCities();
+            !roles.length && getRoles();
+            !customers.length && getCustomers();
+            !genders.length && getGenders();
+            !cities.length && getCities();
         }
     }
 
@@ -49,10 +51,12 @@ class AddUserContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {usersDir, isAdmin} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.usersDir.isPosted) {
+            if (usersDir.isPosted) {
                 return <Redirect to={'/users'}/>
             } else {
                 return (
@@ -63,7 +67,7 @@ class AddUserContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         usersDir: state.usersDir,
         roles: state.rolesDir.roles,

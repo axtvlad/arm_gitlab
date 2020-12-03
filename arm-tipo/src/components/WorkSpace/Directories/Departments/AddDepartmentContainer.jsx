@@ -11,7 +11,9 @@ import {notification, Spin} from "antd";
 
 class AddDepartmentContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             this.error()
         }
     }
@@ -25,10 +27,12 @@ class AddDepartmentContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, departmentsDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.departmentsDir.isPosted) {
+            if (departmentsDir.isPosted) {
                 return <Redirect to={'/departments'}/>
             } else {
                 return (

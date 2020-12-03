@@ -7,10 +7,12 @@ import {connect} from "react-redux";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, roles, getRoles} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.roles.length && this.props.getRoles();
+            !roles.length && getRoles();
         }
     }
 
@@ -23,23 +25,25 @@ class RolesContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, roles, deleteRoleById, isFetching} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Directory
                     type={DirectoriesTypes.ROLES}
-                    isAdmin={this.props.isAdmin}
-                    directory={this.props.roles}
-                    isFetching={this.props.isFetching}
-                    removeItemById={this.props.deleteRoleById}
+                    isAdmin={isAdmin}
+                    directory={roles}
+                    isFetching={isFetching}
+                    removeItemById={deleteRoleById}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         roles: state.rolesDir.roles,
         isFetching: state.rolesDir.isFetching,

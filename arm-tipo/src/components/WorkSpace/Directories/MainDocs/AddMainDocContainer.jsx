@@ -30,13 +30,16 @@ import {notification, Spin} from "antd";
 
 class AddMainDocContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, types, departments, statuses, getTypes, getDepartments, getStatuses, updateMainDocPubDate} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.types.length && this.props.getTypes();
-            !this.props.departments.length && this.props.getDepartments();
-            !this.props.statuses.length && this.props.getStatuses();
-            this.props.updateMainDocPubDate();
+            !types.length && getTypes();
+            !departments.length && getDepartments();
+            !statuses.length && getStatuses();
+
+            updateMainDocPubDate();
         }
     }
 
@@ -49,10 +52,12 @@ class AddMainDocContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, mainDocsDir} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
-            if (this.props.mainDocsDir.isPosted) {
+            if (mainDocsDir.isPosted) {
                 return <Redirect to={'/mainDocs'}/>
             } else {
                 return (
@@ -63,7 +68,7 @@ class AddMainDocContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         mainDocsDir: state.mainDocsDir,
         types: state.typesDir.types,

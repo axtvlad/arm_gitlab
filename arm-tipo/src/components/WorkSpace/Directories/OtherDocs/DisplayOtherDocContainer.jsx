@@ -5,18 +5,25 @@ import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesT
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {getOtherDocById} from "../../../../redux/Reducers/OtherDocReducer";
+import {compose} from "redux";
 
 class DisplayOtherDocContainer extends React.Component {
-    componentDidMount() { let id = this.props.match.params.id;
+    componentDidMount() {
+        const {match, getOtherDocById} = this.props;
+
+        let id = match.params.id;
+
         if (!id) {
             id = 1
         }
 
-        this.props.getOtherDocById(id);
+        getOtherDocById(id);
     }
 
     render() {
-        if (!this.props.currentOtherDoc) {
+        const {currentOtherDoc} = this.props;
+
+        if (!currentOtherDoc) {
             return <Spin/>
         } else {
             return (
@@ -26,17 +33,16 @@ class DisplayOtherDocContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         directory: GetDirectory(DirectoriesTypes.OTHER_DOCS),
         currentOtherDoc: state.otherDocsDir.currentOtherDoc,
     }
 };
 
-let DisplayOtherDocContainerUrl = withRouter(DisplayOtherDocContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getOtherDocById
-    }
-)(DisplayOtherDocContainerUrl);
+    }),
+    withRouter
+)(DisplayOtherDocContainer);

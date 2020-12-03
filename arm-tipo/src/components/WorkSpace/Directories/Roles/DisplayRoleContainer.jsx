@@ -5,19 +5,22 @@ import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirect
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getRoleById} from "../../../../redux/Reducers/RoleReducer";
 import {notification, Spin} from "antd";
+import {compose} from "redux";
 
 class DisplayRoleContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, match, getRoleById} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            let id = this.props.match.params.id;
+            let id = match.params.id;
 
             if (!id) {
                 id = 1
             }
 
-            this.props.getRoleById(id);
+            getRoleById(id);
         }
     }
 
@@ -30,7 +33,9 @@ class DisplayRoleContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
@@ -40,7 +45,7 @@ class DisplayRoleContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         type: GetDirectory(DirectoriesTypes.ROLES),
         currentItem: state.rolesDir.currentRole,
@@ -49,10 +54,9 @@ let mapStateToProps = (state) => {
     }
 };
 
-let RoleContainerUrl = withRouter(DisplayRoleContainer);
-
-export default connect(mapStateToProps,
-    {
+export default compose(
+    connect(mapStateToProps, {
         getRoleById
-    }
-)(RoleContainerUrl);
+    }),
+    withRouter
+)(DisplayRoleContainer);

@@ -7,10 +7,12 @@ import {notification, Spin} from "antd";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, users, getUsers} = this.props;
+
+        if (!isAdmin) {
             this.error()
         } else {
-            !this.props.users.length && this.props.getUsers();
+            !users.length && getUsers();
         }
     }
 
@@ -23,22 +25,24 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAdmin) {
+        const {isAdmin, users, isFetching, deleteUserById} = this.props;
+
+        if (!isAdmin) {
             return <Spin/>
         } else {
             return (
                 <Users
                     type={DirectoriesTypes.USERS}
-                    users={this.props.users}
-                    isFetching={this.props.isFetching}
-                    deleteUserById={this.props.deleteUserById}
+                    users={users}
+                    isFetching={isFetching}
+                    deleteUserById={deleteUserById}
                 />
             )
         }
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         users: state.usersDir.users,
         isFetching: state.usersDir.isFetching,
