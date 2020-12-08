@@ -1,62 +1,32 @@
-import {Button, Form, Input, notification} from "antd";
+import {Button, Form, Input} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import React from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {WalletOutlined} from "@ant-design/icons";
+import {NavLink} from "react-router-dom";
 
-const AddCategory = ({categoriesDir, postCategory, updateCategoryNameRu, updateCategoryNameKz}) => {
+const AddCategory = ({postCategory}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: categoriesDir.newCategoryNameRu,
-        name_kz: categoriesDir.newCategoryNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: `Запись ${item.name_ru} была успешно добавлена!`,
-            placement: 'bottomRight'
-        });
-    };
-
-    const addCategory = (values) => {
-        console.log('Received values of form: ', values);
-
-        postCategory(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateCategoryNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateCategoryNameKz(name_kz);
+    const onSubmit = (formData) => {
+        postCategory(formData).then(() => {
+            setIsSaved(true);
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name={'add_category_form'}
                 {...formItemLayout}
-                onFinish={addCategory}
-                form={form}
+                onFinish={onSubmit}
+                defaultValue={{name_ru: '', name_kz: ''}}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,7 +37,7 @@ const AddCategory = ({categoriesDir, postCategory, updateCategoryNameRu, updateC
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterCategoryNameRu')} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterCategoryNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -79,10 +49,7 @@ const AddCategory = ({categoriesDir, postCategory, updateCategoryNameRu, updateC
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterCategoryNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterCategoryNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -91,10 +58,26 @@ const AddCategory = ({categoriesDir, postCategory, updateCategoryNameRu, updateC
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/categories'}>
+                        <Button
+                            type={''}
+
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

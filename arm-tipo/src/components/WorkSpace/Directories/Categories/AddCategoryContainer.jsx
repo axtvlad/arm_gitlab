@@ -1,9 +1,8 @@
 import {connect} from "react-redux";
 import AddCategory from "./AddCategory";
-import {postCategory, updateCategoryNameKz, updateCategoryNameRu} from "../../../../redux/Reducers/CategoryReducer";
+import {postCategory} from "../../../../redux/Reducers/CategoryReducer";
 import * as React from "react";
 import {notification, Spin} from "antd";
-import {Redirect} from "react-router-dom";
 
 class AddCategoryContainer extends React.Component {
     componentDidMount() {
@@ -23,25 +22,18 @@ class AddCategoryContainer extends React.Component {
     }
 
     render() {
-        const {isAdmin, categoriesDir} = this.props;
+        const {isAdmin, postCategory} = this.props;
 
         if (!isAdmin) {
             return <Spin/>
-        } else {
-            if (categoriesDir.isPosted) {
-                return <Redirect to={'/cities'}/>
-            } else {
-                return (
-                    <AddCategory {...this.props}/>
-                )
-            }
         }
+
+        return <AddCategory postCategory={postCategory}/>
     }
 }
 
 const MapStateToProps = (state) => {
     return {
-        categoriesDir: state.categoriesDir,
         isAdmin: state.authDir.userData.isAdmin
     }
 };
@@ -49,7 +41,5 @@ const MapStateToProps = (state) => {
 export default connect(MapStateToProps,
     {
         postCategory,
-        updateCategoryNameRu,
-        updateCategoryNameKz,
     }
 )(AddCategoryContainer);

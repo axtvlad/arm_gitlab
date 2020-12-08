@@ -49,7 +49,7 @@ const AppHeader = ({setIsAuth, authDir}) => {
 
     return (
         <Affix offsetTop={0}>
-            <Header className={classes.header}>
+            <Header className={classes.header} style={{backgroundColor: '#fff'}}>
                 <span className={classes.expert}>
                     <NavLink to={'/expert'}>
                         <Button danger>{t('help')}</Button>

@@ -1,8 +1,6 @@
 import {restAPI} from "../../api/API";
+import {successfulAdd} from "../../components/common/messages/messages";
 
-const ADD_CATEGORY = 'add_category';
-const UPDATE_CATEGORY_NAME_RU = 'update_category_name_ru';
-const UPDATE_CATEGORY_NAME_KZ = 'update_category_name_kz';
 const SET_CATEGORIES = 'set_categories';
 const SET_CATEGORIES_COUNT = 'set_categories_count';
 const SET_CATEGORIES_IS_FETCHING = 'set_categories_is_fetching';
@@ -12,8 +10,6 @@ const REMOVE_CATEGORY = 'remove_category';
 
 let initialState = {
     categories: [],
-    newCategoryNameRu: '',
-    newCategoryNameKz: '',
     categoriesCount: 0,
     isFetching: false,
     currentCategory: null,
@@ -21,33 +17,11 @@ let initialState = {
 };
 
 const CategoryReducer = (state = initialState, action) => {
-
     switch (action.type) {
-        case ADD_CATEGORY:
-            return {
-                ...state,
-                newCategoryNameRu: '',
-                newCategoryNameKz: '',
-                categories: [...state.categories, {
-                    id: action.id,
-                    name_ru: state.newCategoryNameRu,
-                    name_kz: state.newCategoryNameKz,
-                }]
-            };
         case REMOVE_CATEGORY:
             return {
                 ...state,
                 categories: state.categories.filter(category => category.id !== action.id)
-            };
-        case UPDATE_CATEGORY_NAME_RU:
-            return {
-                ...state,
-                newCategoryNameRu: action.newNameRu
-            };
-        case UPDATE_CATEGORY_NAME_KZ:
-            return {
-                ...state,
-                newCategoryNameKz: action.newNameKz
             };
         case SET_CATEGORIES:
             return {
@@ -79,11 +53,6 @@ const CategoryReducer = (state = initialState, action) => {
     }
 };
 
-export const addCategory = (id) => ({
-    type: ADD_CATEGORY,
-    id
-});
-
 export const removeCategory = (id) => ({
     type: REMOVE_CATEGORY,
     id
@@ -92,16 +61,6 @@ export const removeCategory = (id) => ({
 export const setIsPosted = (isPosted) => ({
     type: SET_IS_POSTED,
     isPosted
-});
-
-export const updateCategoryNameRu = (newNameRu) => ({
-    type: UPDATE_CATEGORY_NAME_RU,
-    newNameRu
-});
-
-export const updateCategoryNameKz = (newNameKz) => ({
-    type: UPDATE_CATEGORY_NAME_KZ,
-    newNameKz
 });
 
 export const setCategories = (categories) => ({
@@ -156,21 +115,18 @@ export const getCategoryById = (id) => (dispatch) => {
         });
 };
 
-export const postCategory = (newCategory) => (dispatch) => {
-
+export const postCategory = (formData) => async (dispatch) => {
     dispatch(setCategoriesIsFetching(true));
 
-    restAPI.categories.postCategory(newCategory)
-        .then(response => {
-            console.info('posted category: ', response.data);
+    const data = await restAPI.categories.postCategory(formData);
 
-            dispatch(addCategory(response.data.id));
+    console.info('posted category: ', data);
 
-            dispatch(setCategoriesIsFetching(false));
+    getCategories();
 
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    successfulAdd(formData)
+
+    dispatch(setCategoriesIsFetching(false));
 };
 
 export const deleteCategoryById = (id) => (dispatch) => {

@@ -22,7 +22,8 @@ i18n.configure({
 });
 
 app.use(cors({
-    origin: true
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
 }));
 app.use(cookieParser());
 app.use(i18n.init);
