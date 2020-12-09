@@ -5,9 +5,9 @@ import {setIsAuth} from "../../redux/Reducers/AuthReducer";
 
 class AppHeaderContainer extends React.Component {
     render() {
-        return (
-            <AppHeader {...this.props}/>
-        )
+        const {authDir, setIsAuth} = this.props
+
+        return <AppHeader authDir={authDir} setIsAuth={setIsAuth}/>
     }
 }
 

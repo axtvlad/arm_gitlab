@@ -1,16 +1,14 @@
 import {connect} from "react-redux";
 import {postRole} from "../../../../redux/Reducers/RoleReducer";
-import AddRole from "./AddRole";
 import React from "react";
 import {compose} from "redux";
+import AddDirectoryItemForm from "../../../common/Forms/AddDirectoryItemForm";
 
 class AddRoleContainer extends React.Component {
     render() {
         const {postRole} = this.props;
 
-        return (
-            <AddRole postRole={postRole}/>
-        )
+        return <AddDirectoryItemForm onSubmit={postRole} redirectTo={'/roles'}/>
     }
 }
 

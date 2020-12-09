@@ -26,7 +26,6 @@ const Schedule = ({wps, getSchedule}) => {
     ];
 
     const onSubmit = (formData) => {
-        console.log(formData)
         getSchedule(formData);
     }
 

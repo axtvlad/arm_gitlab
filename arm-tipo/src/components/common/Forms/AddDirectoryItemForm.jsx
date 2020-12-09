@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import {Button, Form, Input,} from 'antd';
+import {Button, Form, Input} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 
-const AddType = ({postType}) => {
+const AddDirectoryItemForm = ({onSubmit, redirectTo}) => {
     const {t} = useTranslation();
     const [isSaved, setIsSaved] = useState(false)
 
@@ -14,41 +13,42 @@ const AddType = ({postType}) => {
         wrapperCol: {span: 14},
     };
 
-    const onSubmit = (formData) => {
-        postType(formData).then(() => {
-            setIsSaved(true)
+    const onFinish = (formData) => {
+        onSubmit(formData).then(() => {
+            setIsSaved(true);
         })
     };
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={redirectTo}/>}
             <Form
-                name="add_type_form"
+                name={'ADD_DIRECTORY_ITEM_FORM'}
                 {...formItemLayout}
-                onFinish={onSubmit}
+                onFinish={onFinish}
             >
                 <Form.Item
                     name={'name_ru'}
-                    label={t('typeNameRu')}
+                    label={t('Наименование на русском')}
                     rules={[{
                         required: true,
-                        message: t('enterTypeNameRu') + '!'
+                        message: t('Заполните поле')
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterTypeNameRu')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
-                    label={t('typeNameKz')}
+                    label={t('Наименование на казахском')}
                     rules={[{
                         required: true,
-                        message: t('enterTypeNameKz') + '!'
+                        message: t('Заполните поле')
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterTypeNameKz')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -57,27 +57,13 @@ const AddType = ({postType}) => {
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/types'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     );
 };
 
-export default AddType;
+export default AddDirectoryItemForm;

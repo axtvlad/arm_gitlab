@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {Button, notification, Spin, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import React from "react";
 import {useTranslation} from "react-i18next";
@@ -7,18 +7,13 @@ import DeleteOutlined from "@ant-design/icons/lib/icons/DeleteOutlined";
 import {GetAddAddress} from "../utils/AddPagesRoutes";
 import {GetAddButtonText} from "../utils/AddButtonText";
 import classes from './Directory.module.css'
+import EditOutlined from "@ant-design/icons/lib/icons/EditOutlined";
 
 const Directory = ({removeItemById, type, isAdmin, isFetching, directory}) => {
     const {t} = useTranslation();
 
     const deleteItem = (item) => {
         removeItemById(item.id);
-
-        notification['success']({
-            message: 'Удалено!',
-            description: 'Запись "' + item.name_ru + '" была успешно удалена!',
-            placement: 'bottomRight'
-        });
     };
 
     /**
@@ -31,16 +26,16 @@ const Directory = ({removeItemById, type, isAdmin, isFetching, directory}) => {
      */
     const columns = [
         {
-            title: t('russianName'),
+            title: t('Наименование на русском'),
             dataIndex: 'name_ru',
             key: 'name_ru',
-            render: (text, item) => <NavLink to={'/' + type + '/' + item.id}>{text}</NavLink>,
+            render: (text, item) => <NavLink to={`/${type}/${item.id}`}>{text}</NavLink>,
         },
         {
-            title: t('kazakhName'),
+            title: t('Наименование на казахском'),
             dataIndex: 'name_kz',
             key: 'name_kz',
-            render: (text, item) => <NavLink to={'/' + type + '/' + item.id}>{text}</NavLink>,
+            render: (text, item) => <NavLink to={`/${type}/${item.id}`}>{text}</NavLink>,
         },
         {
             title: t('actions'),
@@ -50,7 +45,12 @@ const Directory = ({removeItemById, type, isAdmin, isFetching, directory}) => {
                 if (isAdmin) {
                     return (
                         <div>
-                            {/*<Button style={{margin: '0 5px'}} shape="circle" icon={<EditOutlined/>} type={"primary"}/>*/}
+                            <Button
+                                style={{margin: '0 5px'}}
+                                shape="circle"
+                                icon={<EditOutlined/>}
+                                type={"primary"}
+                            />
                             <Button
                                 className={classes.button}
                                 onClick={() => deleteItem(item)}

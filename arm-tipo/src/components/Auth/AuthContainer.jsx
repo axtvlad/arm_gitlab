@@ -16,9 +16,7 @@ class AuthContainer extends React.Component {
     render() {
         const {postAuthUserData} = this.props;
 
-        return (
-            <Auth postAuthUserData={postAuthUserData}/>
-        )
+        return <Auth postAuthUserData={postAuthUserData}/>
     }
 }
 

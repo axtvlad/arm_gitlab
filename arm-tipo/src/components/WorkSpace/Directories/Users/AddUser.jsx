@@ -2,8 +2,7 @@ import {Button, Checkbox, DatePicker, Form, Input, Select} from "antd";
 import React, {useState} from "react";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 import moment from "moment";
 
 const AddUser = ({genders, roles, cities, customers, postUser}) => {
@@ -39,6 +38,7 @@ const AddUser = ({genders, roles, cities, customers, postUser}) => {
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={'users'}/>}
             <Form
                 name="add_user_form"
                 {...formItemLayout}
@@ -284,24 +284,10 @@ const AddUser = ({genders, roles, cities, customers, postUser}) => {
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/users'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     )

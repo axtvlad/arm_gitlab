@@ -4,9 +4,9 @@ import NavBar from "./NavBar";
 
 class NavBarContainer extends React.Component {
     render() {
-        return (
-            <NavBar {...this.props}/>
-        )
+        const {isAdmin} = this.props;
+
+        return <NavBar isAdmin={isAdmin}/>
     }
 }
 

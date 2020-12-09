@@ -21,8 +21,6 @@ const SearchPage = (
         num: searchDir.num,
     };
 
-    console.log('fromState', fromState);
-
     form.setFieldsValue(fromState);
 
     const search = () => {

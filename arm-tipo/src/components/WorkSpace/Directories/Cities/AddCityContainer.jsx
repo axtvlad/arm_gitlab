@@ -1,17 +1,15 @@
 import {connect} from "react-redux";
 import {postCity} from "../../../../redux/Reducers/CityReducer";
-import AddCity from "./AddCity";
 import * as React from "react";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
+import AddDirectoryItemForm from "../../../common/Forms/AddDirectoryItemForm";
 
 class AddCityContainer extends React.Component {
     render() {
         const {postCity} = this.props;
 
-        return (
-            <AddCity postCity={postCity}/>
-        )
+        return <AddDirectoryItemForm onSubmit={postCity} redirectTo={'/cities'}/>
     }
 }
 

@@ -1,17 +1,15 @@
 import {connect} from "react-redux";
-import AddDepartment from "./AddDepartment";
 import {postDepartment} from "../../../../redux/Reducers/DepartmentReducer";
 import React from "react";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
+import AddDirectoryItemForm from "../../../common/Forms/AddDirectoryItemForm";
 
 class AddDepartmentContainer extends React.Component {
     render() {
         const {postDepartment} = this.props;
 
-        return (
-            <AddDepartment postDepartment={postDepartment}/>
-        )
+        return <AddDirectoryItemForm onSubmit={postDepartment} redirectTo={'/departments'}/>
     }
 }
 

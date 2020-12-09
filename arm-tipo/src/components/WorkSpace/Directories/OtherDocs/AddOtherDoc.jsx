@@ -2,8 +2,7 @@ import {Button, Form, Input} from "antd";
 import {useTranslation} from "react-i18next";
 import React, {useState} from "react";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 
 const AddOtherDoc = ({postOtherDoc}) => {
     const {t} = useTranslation();
@@ -32,6 +31,7 @@ const AddOtherDoc = ({postOtherDoc}) => {
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={'otherDocs'}/>}
             <Form
                 name="add_other_doc_form"
                 {...formItemLayout}
@@ -46,23 +46,26 @@ const AddOtherDoc = ({postOtherDoc}) => {
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDocNameRu')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
                     label={t('docNameKz')}
                 >
-                    <Input placeholder={t('enterDocNameKz')}/>
+                    <Input/>
                 </Form.Item>
                 <Form.Item
                     name={'file_ru'}
                     label={t('attachFileRu')}
                     // valuePropName="fileList"
                     // getValueFromEvent={normFile}
-                    rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
+                    rules={[{
+                        required: true,
+                        message: 'Пожалуйста, выберите файл (ru)!'
+                    }]}
                 >
-                    <Input placeholder={t('attachFileRu')}/>
+                    <Input/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>*/}
                     {/*    <Button>*/}
@@ -77,7 +80,7 @@ const AddOtherDoc = ({postOtherDoc}) => {
                     // valuePropName="fileList"
                     // getValueFromEvent={normFile}
                 >
-                    <Input placeholder={t('attachFileKz')}/>
+                    <Input/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>*/}
                     {/*    <Button>*/}
@@ -91,24 +94,10 @@ const AddOtherDoc = ({postOtherDoc}) => {
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/otherDocs'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     );

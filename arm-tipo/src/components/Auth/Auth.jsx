@@ -1,8 +1,11 @@
 import {Button, Form, Input} from 'antd';
 import React from "react";
 import classes from './Auth.module.css'
+import {useTranslation} from "react-i18next";
 
 const Auth = ({postAuthUserData}) => {
+    const {t} = useTranslation();
+
     const onSubmit = (formData) => {
         postAuthUserData(formData)
     };
@@ -18,7 +21,10 @@ const Auth = ({postAuthUserData}) => {
                 <Form.Item
                     label={'Логин'}
                     name={'login'}
-                    rules={[{required: true, message: 'Пожалуйста, введите свой логин'}]}
+                    rules={[{
+                        required: true,
+                        message: t('Заполните поле')
+                    }]}
                 >
                     <Input/>
                 </Form.Item>
@@ -26,14 +32,13 @@ const Auth = ({postAuthUserData}) => {
                 <Form.Item
                     label={'Пароль'}
                     name={'password'}
-                    rules={[{required: true, message: 'Пожалуйста, введите свой пароль!'}]}
+                    rules={[{
+                        required: true,
+                        message: t('Заполните поле')
+                    }]}
                 >
                     <Input.Password/>
                 </Form.Item>
-
-                {/*<Form.Item name="remember">*/}
-                {/*    <span>Забыли пароль?</span>*/}
-                {/*</Form.Item>*/}
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">

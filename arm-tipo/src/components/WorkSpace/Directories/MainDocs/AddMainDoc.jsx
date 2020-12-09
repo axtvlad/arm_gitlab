@@ -3,8 +3,7 @@ import {Button, DatePicker, Form, Input, Select,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
 import moment from "moment";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 
 const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
     const {Option} = Select;
@@ -49,6 +48,7 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={'mainDocs'}/>}
             <Form
                 name="validate_other"
                 {...formItemLayout}
@@ -59,7 +59,7 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                     label={t('number')}
                     rules={[{
                         required: true,
-                        message: `${t('enterDocNumber')} !`
+                        message: t('enterDocNumber')
                     }]}
                     hasFeedback
                 >
@@ -119,18 +119,18 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                     label={t('docNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterDocNameRu')
+                        message: t('Заполните поле')
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDocNameRu')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
                     label={t('docNameKz')}
                 >
-                    <Input placeholder={t('enterDocNameKz')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
@@ -160,7 +160,7 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                     hasFeedback
                     rules={[{
                         required: true,
-                        message: t('enterHeaderRu') + '!'
+                        message: t('enterHeaderRu')
                     }]}
                 >
                     <Input/>
@@ -194,7 +194,7 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                         message: 'Пожалуйста, выберите файл (ru)!'
                     }]}
                 >
-                    <Input placeholder={t('enterDocNameRu')}/>
+                    <Input/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>*/}
                     {/*    <Button>*/}
@@ -209,7 +209,7 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                     // valuePropName="fileList"
                     // getValueFromEvent={normFile}
                 >
-                    <Input placeholder={t('enterDocNameKz')}/>
+                    <Input/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>*/}
                     {/*    <Button>*/}
@@ -222,14 +222,14 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                     name={'description_ru'}
                     label={t('descriptionRu')}
                 >
-                    <Input.TextArea placeholder={t('enterDescriptionRu')}/>
+                    <Input.TextArea/>
                 </Form.Item>
 
                 <Form.Item
                     name={'description_kz'}
                     label={t('descriptionKz')}
                 >
-                    <Input.TextArea placeholder={t('enterDescriptionKz')}/>
+                    <Input.TextArea/>
                 </Form.Item>
 
                 <Form.Item
@@ -252,24 +252,10 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/mainDocs'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     )

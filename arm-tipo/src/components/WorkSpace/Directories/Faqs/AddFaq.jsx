@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 
 const AddFaq = ({postFaq}) => {
     const {t} = useTranslation();
@@ -22,6 +21,7 @@ const AddFaq = ({postFaq}) => {
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={'/faqs'}/>}
             <Form
                 name="add_faq_form"
                 {...formItemLayout}
@@ -81,25 +81,10 @@ const AddFaq = ({postFaq}) => {
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/faqs'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     );

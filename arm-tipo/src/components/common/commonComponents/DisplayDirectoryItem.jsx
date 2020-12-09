@@ -15,12 +15,12 @@ const DisplayDirectoryItem = ({isFetching, currentItem, type}) => {
                         colon={true}
                     >
                         <Descriptions.Item
-                            label={t('russianName')}
+                            label={t('Наименование на русском')}
                         >
                             {currentItem[0].name_ru}
                         </Descriptions.Item>
                         <Descriptions.Item
-                            label={t('kazakhName')}
+                            label={t('Наименование на казахском')}
                         >
                             {currentItem[0].name_kz}
                         </Descriptions.Item>

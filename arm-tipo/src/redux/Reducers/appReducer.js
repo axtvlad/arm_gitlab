@@ -34,8 +34,6 @@ export const initializeApp = () => async (dispatch) => {
         dispatch(setIsAdmin(JSON.parse(localStorage.getItem('user')).isAdmin))
     }
 
-    console.log(localStorage.getItem('isAuth'))
-
     Promise.all([
         dispatch(getUsers())
     ])

@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {Button, Form, Input, Select} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {WalletOutlined} from "@ant-design/icons";
+import {Redirect} from "react-router-dom";
 
 const AddTemplate = ({postTemplate, categories}) => {
     const {t} = useTranslation();
@@ -31,6 +30,7 @@ const AddTemplate = ({postTemplate, categories}) => {
 
     return (
         <div className={'content'}>
+            {isSaved && <Redirect to={'templates'}/>}
             <Form
                 name="add_template_form"
                 {...formItemLayout}
@@ -42,7 +42,7 @@ const AddTemplate = ({postTemplate, categories}) => {
                     hasFeedback
                     rules={[{
                         required: true,
-                        message: t('chooseCategory') + '!'
+                        message: t('chooseCategory')
                     }]}
                 >
                     <Select placeholder={t('chooseCategory')}>
@@ -61,32 +61,32 @@ const AddTemplate = ({postTemplate, categories}) => {
                     label={t('templateNameRu')}
                     rules={[{
                         required: true,
-                        message: t('enterTemplateNameRu') + '!'
+                        message: t('Заполните поле')
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterTemplateNameRu')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
                     label={t('templateNameKz')}
                 >
-                    <Input placeholder={t('enterTemplateNameKz')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_ru'}
                     label={t('attachFileRu')}
                 >
-                    <Input placeholder={t('chooseFile')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
                     label={t('attachFileKz')}
                 >
-                    <Input placeholder={t('chooseFile')}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -95,24 +95,10 @@ const AddTemplate = ({postTemplate, categories}) => {
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
-                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
-
-                {isSaved &&
-                <Form.Item wrapperCol={{span: 12, offset: 6}}>
-                    <NavLink to={'/templates'}>
-                        <Button
-                            icon={<WalletOutlined/>}
-                            block
-                        >
-                            Вернуться к списку
-                        </Button>
-                    </NavLink>
-                </Form.Item>
-                }
             </Form>
         </div>
     )

@@ -4,6 +4,8 @@ import {AppstoreOutlined, LogoutOutlined} from "@ant-design/icons"
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
 import classes from './AppHeader.module.css';
+import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
+import SettingOutlined from "@ant-design/icons/lib/icons/SettingOutlined";
 
 const AppHeader = ({setIsAuth, authDir}) => {
     const {Header} = Layout;
@@ -19,14 +21,14 @@ const AppHeader = ({setIsAuth, authDir}) => {
 
     const menu = (
         <Menu>
-            {/*<Menu.Item key="1">
+            <Menu.Item key="1">
                 <UserOutlined/>
                 {t('profile')}
             </Menu.Item>
             <Menu.Item key="2">
                 <SettingOutlined/>
                 {t('settings')}
-            </Menu.Item>*/}
+            </Menu.Item>*
             <Menu.Item key="3" onClick={logout}>
                 <LogoutOutlined/>
                 {t('logout')}
@@ -43,7 +45,6 @@ const AppHeader = ({setIsAuth, authDir}) => {
     }
 
     const changeLocale = (e) => {
-        console.log(e);
         i18n.changeLanguage(e);
     }
 
@@ -57,15 +58,6 @@ const AppHeader = ({setIsAuth, authDir}) => {
                     <Text className={classes.mailForRequest}>{t('mailForRequests')}</Text>
                     <Text copyable>info@arm-tipo.kz</Text>
                 </span>
-                {/*<Modal
-                    title={t('help')}
-                    visible={false}
-                    onOk={() => {
-                        alert('omg!')
-                    }}
-                >
-                    <p>Скоро здесь появится инструкция</p>
-                </Modal>*/}
                 <Select
                     defaultValue={i18n.language}
                     onChange={changeLocale}
@@ -73,7 +65,7 @@ const AppHeader = ({setIsAuth, authDir}) => {
                 >
                     <Option value="kz">kz</Option>
                     <Option value="ru">ru</Option>
-                    {/*<Option value="en">en</Option>*/}
+                    <Option value="en">en</Option>
                 </Select>
                 <Dropdown.Button icon={<AppstoreOutlined/>} overlay={menu}>
                     {getUserName()}
