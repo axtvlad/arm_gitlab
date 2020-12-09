@@ -3,42 +3,28 @@ import React from "react";
 import Users from "./Users";
 import {deleteUserById, getUsers} from "../../../../redux/Reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
-import {notification, Spin} from "antd";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
+import {compose} from "redux";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, users, getUsers} = this.props;
+        const {getUsers} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !users.length && getUsers();
-        }
+        getUsers();
     }
 
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
-    }
 
     render() {
-        const {isAdmin, users, isFetching, deleteUserById} = this.props;
+        const {users, isFetching, deleteUserById} = this.props;
 
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <Users
-                    type={DirectoriesTypes.USERS}
-                    users={users}
-                    isFetching={isFetching}
-                    deleteUserById={deleteUserById}
-                />
-            )
-        }
+        return (
+            <Users
+                type={DirectoriesTypes.USERS}
+                users={users}
+                isFetching={isFetching}
+                deleteUserById={deleteUserById}
+            />
+        )
     }
 }
 
@@ -50,9 +36,11 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getUsers,
-        deleteUserById
-    }
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps,
+        {
+            getUsers,
+            deleteUserById
+        })
 )(UsersContainer);

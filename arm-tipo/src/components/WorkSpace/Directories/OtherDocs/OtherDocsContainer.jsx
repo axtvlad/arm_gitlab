@@ -6,9 +6,9 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class OtherDocsContainer extends React.Component {
     componentDidMount() {
-        const {otherDocs, getOtherDocs} = this.props;
+        const {getOtherDocs} = this.props;
 
-        !otherDocs.length && getOtherDocs();
+        getOtherDocs()
     }
 
     render() {
@@ -34,9 +34,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getOtherDocs,
-        deleteOtherDocById
-    }
-)(OtherDocsContainer);
+export default connect(mapStateToProps, {
+    deleteOtherDocById,
+    getOtherDocs
+})(OtherDocsContainer);

@@ -31,8 +31,7 @@ const mapStateToProps = (state) => {
     return {
         faq: GetDirectory(DirectoriesTypes.FAQS),
         currentItem: state.faqsDir.currentFaq,
-        isFetching: state.faqsDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isFetching: state.faqsDir.isFetching
     }
 };
 

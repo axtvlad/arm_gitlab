@@ -21,11 +21,35 @@ i18n.configure({
     directory: __dirname + '/locales',
 });
 
+app.use(cookieParser());
+
+/*
+app.use(function (req, res, next) {
+    // check if client sent cookie
+    let cookie = req.cookies.cookieName;
+    if (cookie === undefined) {
+        // no: set a new cookie
+        let randomNumber = Math.random().toString();
+        randomNumber = randomNumber.substring(2, randomNumber.length);
+        res.cookie('cookieName', randomNumber, {maxAge: 900000, httpOnly: false});
+        console.log('cookie created successfully');
+    } else {
+        // yes, cookie was already present
+        console.log('cookie exists', cookie);
+    }
+    next(); // <-- important!
+});
+
+// let static middleware do its job
+app.use(express.static(__dirname + '/public'));
+
+ */
+
+
 app.use(cors({
     "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 }));
-app.use(cookieParser());
 app.use(i18n.init);
 app.use(express.json());
 app.use(express.urlencoded({

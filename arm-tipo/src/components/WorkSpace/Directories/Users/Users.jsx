@@ -25,27 +25,28 @@ const Users = ({type, isFetching, users}) => {
             </div>
             <Spin spinning={isFetching}>
                 <Table dataSource={users}>
-                    <Column title={t('firstName')} dataIndex={'firstName'} key={'firstName'}
-                            render={(text, record) => {
-                                console.log(record);
-                                return (
-                                    <Space size="middle">
-                                        <NavLink
-                                            to={'/' + type + '/' + record.userId}>{record.firstName}</NavLink>
-                                    </Space>
-                                )
-                            }}/>
+                    <Column
+                        title={t('firstName')}
+                        dataIndex={'firstName'}
+                        key={'firstName'}
+                        render={(text, record) =>
+                            <Space size="middle">
+                                <NavLink
+                                    to={'/' + type + '/' + record.userId}>{record.firstName}</NavLink>
+                            </Space>
+                        }
+                    />
                     <Column title={t('lastName')} dataIndex={'lastName'} key={'lastName'}/>
                     <Column title={t('email')} dataIndex={'email'} key={'email'}/>
                     <Column title={t('phone')} dataIndex={'phone'} key={'phone'}/>
                     <Column
                         title={t('actions')}
                         key="action"
-                        render={(text, record) => (
+                        render={(text, record) =>
                             <Space size="middle">
                                 <a href={'/'}>Delete {record.firstName}</a>
                             </Space>
-                        )}
+                        }
                     />
                 </Table>
             </Spin>

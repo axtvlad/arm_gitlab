@@ -6,7 +6,6 @@ import SESContainer from "./SESContainer";
 
 const WorkPlanSchedule = ({setWpsMode, wpsMode}) => {
     const {t} = useTranslation();
-    const [form] = Form.useForm();
 
     const changeWpsMode = (value) => {
         setWpsMode(value.target.value);
@@ -15,7 +14,6 @@ const WorkPlanSchedule = ({setWpsMode, wpsMode}) => {
     return (
         <div className={'content'} style={{textAlign: 'left'}}>
             <Form
-                form={form}
                 name="form"
                 className="ant-advanced-search-form"
             >

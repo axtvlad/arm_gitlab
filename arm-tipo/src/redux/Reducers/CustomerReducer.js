@@ -1,58 +1,25 @@
 import {restAPI} from "../../api/API";
 
-const ADD_CUSTOMER = 'add_customer';
-const UPDATE_CUSTOMER_NAME_RU = 'update_customer_name_ru';
-const UPDATE_CUSTOMER_NAME_KZ = 'update_customer_name_kz';
 const SET_CUSTOMERS = 'set_customers';
 const SET_CUSTOMERS_COUNT = 'set_customers_count';
 const SET_CUSTOMERS_IS_FETCHING = 'set_categories_is_fetching';
 const SET_CURRENT_CUSTOMER = 'set_current_customer';
 const SET_IS_POSTED = 'set_is_posted';
-const REMOVE_CUSTOMER = 'remove_customer';
 
-let initialState = {
+const initialState = {
     customers: [],
-    newCustomerNameRu: '',
-    newCustomerNameKz: '',
     customersCount: 0,
     isFetching: false,
     currentCustomer: null,
     isPosted: false,
 };
 
-const CustomerReducer = (state = initialState, action) => {
-
+export const CustomerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_CUSTOMER:
-            return {
-                ...state,
-                newCustomerNameRu: '',
-                newCustomerNameKz: '',
-                customers: [...state.customers, {
-                    id: action.id,
-                    name_ru: state.newCustomerNameRu,
-                    name_kz: state.newCustomerNameKz,
-                }]
-            };
-        case REMOVE_CUSTOMER:
-            return {
-                ...state,
-                customers: state.customers.filter(customer => customer.id !== action.id)
-            };
-        case UPDATE_CUSTOMER_NAME_RU:
-            return {
-                ...state,
-                newCustomerNameRu: action.newNameRu
-            };
-        case UPDATE_CUSTOMER_NAME_KZ:
-            return {
-                ...state,
-                newCustomerNameKz: action.newNameKz
-            };
         case SET_CUSTOMERS:
             return {
                 ...state,
-                customers: [...state.customers, ...action.customers]
+                customers: action.customers
             };
         case SET_CUSTOMERS_COUNT:
             return {
@@ -79,29 +46,9 @@ const CustomerReducer = (state = initialState, action) => {
     }
 };
 
-export const addCustomer = (id) => ({
-    type: ADD_CUSTOMER,
-    id
-});
-
-export const removeCustomer = (id) => ({
-    type: REMOVE_CUSTOMER,
-    id
-});
-
 export const setIsPosted = (isPosted) => ({
     type: SET_IS_POSTED,
     isPosted
-});
-
-export const updateCustomerNameRu = (newNameRu) => ({
-    type: UPDATE_CUSTOMER_NAME_RU,
-    newNameRu
-});
-
-export const updateCustomerNameKz = (newNameKz) => ({
-    type: UPDATE_CUSTOMER_NAME_KZ,
-    newNameKz
 });
 
 export const setCustomers = (customers) => ({
@@ -124,67 +71,30 @@ export const setCurrentCustomer = (currentCustomer) => ({
     currentCustomer
 });
 
-export const getCustomers = () => (dispatch) => {
-
+export const getCustomers = () => async (dispatch) => {
     dispatch(setCustomersIsFetching(true));
 
-    restAPI.customers.getCustomers()
-        .then(response => {
-            dispatch(setCustomersCount(response.totalCount));
-            dispatch(setCustomers(response.data));
+    const res = await restAPI.customers.getCustomers()
 
-            console.info('customers: ', response.data);
-
-            dispatch(setCustomersIsFetching(false));
-        });
+    dispatch(setCustomersCount(res.totalCount));
+    dispatch(setCustomers(res.data));
+    dispatch(setCustomersIsFetching(false));
 };
 
-export const getCustomerById = (id) => (dispatch) => {
+export const getCustomerById = (id) => async (dispatch) => {
+    const res = await restAPI.customers.getCustomerById(id)
 
-    dispatch(setCustomersIsFetching(true));
-
-    restAPI.customers.getCustomerById(id)
-        .then(response => {
-            dispatch(setCurrentCustomer(response.data));
-
-            console.info('customer: ', response.data);
-
-            dispatch(setCustomersIsFetching(false));
-
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    dispatch(setCurrentCustomer(res.data));
 };
 
-export const postCustomer = (newCustomer) => (dispatch) => {
+export const postCustomer = (formData) => async (dispatch) => {
+    await restAPI.customers.postCustomer(formData)
 
-    dispatch(setCustomersIsFetching(true));
-
-    restAPI.customers.postCustomer(newCustomer)
-        .then(response => {
-            console.info('posted customer: ', response.data);
-
-            dispatch(addCustomer(response.data.id));
-
-            dispatch(setCustomersIsFetching(false));
-
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    dispatch(getCustomers())
 };
 
-export const deleteCustomerById = (id) => (dispatch) => {
+export const deleteCustomerById = (id) => async (dispatch) => {
+    await  restAPI.customers.deleteCustomerById(id)
 
-    dispatch(setCustomersIsFetching(true));
-
-    restAPI.customers.deleteCustomerById(id)
-        .then(response => {
-            console.info('deleted department: ', response.data);
-
-            dispatch(removeCustomer(id));
-
-            dispatch(setCustomersIsFetching(false));
-        });
+    dispatch(getCustomers())
 };
-
-export default CustomerReducer;

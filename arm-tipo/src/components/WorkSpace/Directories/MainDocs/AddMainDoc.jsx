@@ -1,20 +1,16 @@
-import React from 'react';
-import {Button, DatePicker, Form, Input, notification, Select,} from 'antd';
+import React, {useState} from 'react';
+import {Button, DatePicker, Form, Input, Select,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import moment from "moment";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddMainDoc = (
-    {
-        mainDocsDir, postMainDoc, updateMainDocNum, updateMainDocNameRu, updateMainDocNameKz, updateMainDocTags,
-        updateMainDocStatusId, updateMainDocDepartmentId, updateMainDocBeginDate, updateMainDocHeaderRu,
-        updateMainDocFinishDate, updateMainDocHeaderKz, updateMainDocFileRu, updateMainDocFileKz, types,
-        updateMainDocDescriptionRu, updateMainDocDescriptionKz, updateMainDocTextRu, updateMainDocTextKz,
-        updateMainDocTypeId, departments, statuses
-    }
-) => {
+const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
     const {Option} = Select;
     const {RangePicker} = DatePicker;
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -31,155 +27,27 @@ const AddMainDoc = (
         return e && e.fileList;
     };*/
 
-    const [form] = Form.useForm();
+    const onSubmit = (formData) => {
+        // todo должно выполняться на сервере (на сервер отдаем всю строку)
+        formData.tags = formData.tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-")
 
-    const fromState = {
-        num: mainDocsDir.newMainDocNum,
-        department_id: mainDocsDir.newMainDocDepartmentId,
-        status_id: mainDocsDir.newMainDocStatusId,
-        name_ru: mainDocsDir.newMainDocNameRu,
-        name_kz: mainDocsDir.newMainDocNameKz,
-        begin_date: mainDocsDir.newMainDocBeginDate,
-        finish_date: mainDocsDir.newMainDocFinishDate,
-        pub_date: mainDocsDir.newMainDocPubDate,
-        header_ru: mainDocsDir.newMainDocHeaderRu,
-        header_kz: mainDocsDir.newMainDocHeaderKz,
-        file_ru: mainDocsDir.newMainDocFileRu,
-        file_kz: mainDocsDir.newMainDocFileKz,
-        description_ru: mainDocsDir.newMainDocDescriptionRu,
-        description_kz: mainDocsDir.newMainDocDescriptionKz,
-        type_id: mainDocsDir.newMainDocTypeId,
-        text_ru: mainDocsDir.newMainDocTextRu,
-        text_kz: mainDocsDir.newMainDocTextKz,
-        tags: mainDocsDir.newMainDocTags,
-    };
+        // todo найти альтернативное решение
+        const begin_date = moment(formData.begin_and_finish_date[0]).format('YYYY-MM-DD')
+        const finish_date = moment(formData.begin_and_finish_date[1]).format('YYYY-MM-DD')
 
-    console.log(fromState);
+        formData.begin_and_finish_date = begin_date;
 
-    form.setFieldsValue({
-        num: mainDocsDir.newMainDocNum,
-        department_id: mainDocsDir.newMainDocDepartmentId,
-        status_id: mainDocsDir.newMainDocStatusId,
-        name_ru: mainDocsDir.newMainDocNameRu,
-        name_kz: mainDocsDir.newMainDocNameKz,
-        header_ru: mainDocsDir.newMainDocHeaderRu,
-        header_kz: mainDocsDir.newMainDocHeaderKz,
-        file_ru: mainDocsDir.newMainDocFileRu,
-        file_kz: mainDocsDir.newMainDocFileKz,
-        description_ru: mainDocsDir.newMainDocDescriptionRu,
-        description_kz: mainDocsDir.newMainDocDescriptionKz,
-        type_id: mainDocsDir.newMainDocTypeId,
-        text_ru: mainDocsDir.newMainDocTextRu,
-        text_kz: mainDocsDir.newMainDocTextKz,
-        tags: mainDocsDir.newMainDocTags,
-    });
+        // todo зарефакторить
+        const form = {
+            ...formData,
+            finish_date
+        }
 
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
+        // todo на сервер приходит begin_date = null
 
-    const saveDoc = (values) => {
-        console.log('Received values of form: ', values);
-
-        postMainDoc(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeNum = () => {
-        const num = form.getFieldValue().num;
-
-        updateMainDocNum(num);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateMainDocNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateMainDocNameKz(name_kz);
-    };
-
-    const changeDepartmentId = (department_id) => {
-        updateMainDocDepartmentId(department_id);
-    };
-
-    const changeStatusId = (status_id) => {
-        updateMainDocStatusId(status_id);
-    };
-
-    const changeTags = () => {
-        const tags = form.getFieldValue().tags;
-
-        updateMainDocTags(tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-"));
-    };
-
-    const changeBeginAndFinishDate = (date, stringDate) => {
-        console.log('begin_date: ' + stringDate[0]);
-        console.log('finish_date: ' + stringDate[1]);
-
-        updateMainDocBeginDate(stringDate[0]);
-        updateMainDocFinishDate(stringDate[1]);
-    };
-
-    const changeHeaderRu = () => {
-        const header_ru = form.getFieldValue().header_ru;
-
-        updateMainDocHeaderRu(header_ru);
-    };
-
-    const changeHeaderKz = () => {
-        const header_kz = form.getFieldValue().header_kz;
-
-        updateMainDocHeaderKz(header_kz);
-    };
-
-    const changeFileRu = () => {
-        const file_ru = form.getFieldValue().file_ru;
-
-        updateMainDocFileRu(file_ru);
-    };
-
-    const changeFileKz = () => {
-        const file_kz = form.getFieldValue().file_kz;
-
-        updateMainDocFileKz(file_kz);
-    };
-
-    const changeDescriptionRu = () => {
-        const description_ru = form.getFieldValue().description_ru;
-
-        updateMainDocDescriptionRu(description_ru);
-    };
-
-    const changeDescriptionKz = () => {
-        const description_kz = form.getFieldValue().description_kz;
-
-        updateMainDocDescriptionKz(description_kz);
-    };
-
-    const changeTextRu = () => {
-        const text_ru = form.getFieldValue().text_ru;
-
-        updateMainDocTextRu(text_ru);
-    };
-
-    const changeTextKz = () => {
-        const text_kz = form.getFieldValue().text_kz;
-
-        updateMainDocTextKz(text_kz);
-    };
-
-    const changeTypeId = (type_id) => {
-        updateMainDocTypeId(type_id);
+        postMainDoc(form).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
@@ -187,8 +55,7 @@ const AddMainDoc = (
             <Form
                 name="validate_other"
                 {...formItemLayout}
-                onFinish={saveDoc}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'num'}
@@ -199,16 +66,19 @@ const AddMainDoc = (
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDocNumber')} onChange={changeNum}/>
+                    <Input placeholder={t('enterDocNumber')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'department_id'}
                     label={t('department')}
                     hasFeedback
-                    rules={[{required: true, message: 'Пожалуйста, выберите отдел!'}]}
+                    rules={[{
+                        required: true,
+                        message: 'Пожалуйста, выберите отдел!'
+                    }]}
                 >
-                    <Select placeholder={t('chooseDepartment')} onChange={changeDepartmentId}>
+                    <Select placeholder={t('chooseDepartment')}>
                         {departments.map(department =>
                             <Option
                                 key={department.id}
@@ -224,7 +94,7 @@ const AddMainDoc = (
                     name={'status_id'}
                     label={t('status')}
                 >
-                    <Select placeholder={t('chooseStatus')} onChange={changeStatusId} allowClear>
+                    <Select placeholder={t('chooseStatus')} allowClear>
                         {statuses.map(status =>
                             <Option
                                 key={status.id}
@@ -242,7 +112,6 @@ const AddMainDoc = (
                 >
                     <RangePicker
                         format={'YYYY-MM-DD'}
-                        onChange={changeBeginAndFinishDate}
                         placeholder={[t("published"), t("finished")]}
                         allowEmpty={[false, true]}
                     />
@@ -257,14 +126,14 @@ const AddMainDoc = (
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDocNameRu')} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterDocNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
                     label={t('docNameKz')}
                 >
-                    <Input placeholder={t('enterDocNameKz')} onChange={changeNameKz}/>
+                    <Input placeholder={t('enterDocNameKz')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -276,7 +145,7 @@ const AddMainDoc = (
                     }]}
                     hasFeedback
                 >
-                    <Select placeholder={t('enterType')} onChange={changeTypeId}>
+                    <Select placeholder={t('enterType')}>
                         {types.map(type =>
                             <Option
                                 key={type.id}
@@ -297,22 +166,25 @@ const AddMainDoc = (
                         message: t('enterHeaderRu') + '!'
                     }]}
                 >
-                    <Input onChange={changeHeaderRu}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'header_kz'}
                     label={t('headerKz')}
                 >
-                    <Input onChange={changeHeaderKz}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'tags'}
                     label={'Тэги документа'}
-                    rules={[{required: true, message: 'Пожалуйста, введите тэги документа!'}]}
+                    rules={[{
+                        required: true,
+                        message: 'Пожалуйста, введите тэги документа!'
+                    }]}
                 >
-                    <Input.TextArea onChange={changeTags} maxLength={5000}/>
+                    <Input.TextArea maxLength={5000}/>
                 </Form.Item>
 
                 <Form.Item
@@ -320,9 +192,12 @@ const AddMainDoc = (
                     label={t('attachFileRu')}
                     // valuePropName="fileList"
                     // getValueFromEvent={normFile}
-                    rules={[{required: true, message: 'Пожалуйста, выберите файл (ru)!'}]}
+                    rules={[{
+                        required: true,
+                        message: 'Пожалуйста, выберите файл (ru)!'
+                    }]}
                 >
-                    <Input placeholder={t('enterDocNameRu')} onChange={changeFileRu}/>
+                    <Input placeholder={t('enterDocNameRu')}/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileRu}>*/}
                     {/*    <Button>*/}
@@ -337,7 +212,7 @@ const AddMainDoc = (
                     // valuePropName="fileList"
                     // getValueFromEvent={normFile}
                 >
-                    <Input placeholder={t('enterDocNameKz')} onChange={changeFileKz}/>
+                    <Input placeholder={t('enterDocNameKz')}/>
 
                     {/*<Upload name="logo" action="/upload.do" listType="picture" onChange={changeFileKz}>*/}
                     {/*    <Button>*/}
@@ -350,32 +225,28 @@ const AddMainDoc = (
                     name={'description_ru'}
                     label={t('descriptionRu')}
                 >
-                    <Input.TextArea
-                        placeholder={t('enterDescriptionRu')}
-                        onChange={changeDescriptionRu}/>
+                    <Input.TextArea placeholder={t('enterDescriptionRu')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'description_kz'}
                     label={t('descriptionKz')}
                 >
-                    <Input.TextArea
-                        placeholder={t('enterDescriptionKz')}
-                        onChange={changeDescriptionKz}/>
+                    <Input.TextArea placeholder={t('enterDescriptionKz')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'text_ru'}
                     label={t('decisionFieldRu')}
                 >
-                    <Input onChange={changeTextRu}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
                     name={'text_kz'}
                     label={t('decisionFieldKz')}
                 >
-                    <Input onChange={changeTextKz}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -384,13 +255,27 @@ const AddMainDoc = (
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/mainDocs'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
-    );
+    )
 };
 
 export default AddMainDoc;

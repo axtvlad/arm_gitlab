@@ -1,5 +1,4 @@
 import React from "react";
-import {Spin} from "antd";
 import DisplayOtherDoc from "./DisplayOtherDoc";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {withRouter} from "react-router-dom";
@@ -21,15 +20,10 @@ class DisplayOtherDocContainer extends React.Component {
     }
 
     render() {
-        const {currentOtherDoc} = this.props;
+        return (
+            <DisplayOtherDoc {...this.props}/>
+        )
 
-        if (!currentOtherDoc) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayOtherDoc {...this.props}/>
-            )
-        }
     }
 }
 

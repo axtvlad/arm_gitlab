@@ -1,58 +1,25 @@
 import {restAPI} from "../../api/API";
 
-const ADD_ROLE = 'add_role';
-const UPDATE_ROLE_NAME_RU = 'update_role_name_ru';
-const UPDATE_ROLE_NAME_KZ = 'update_role_name_kz';
 const SET_ROLES = 'set_roles';
 const SET_ROLES_COUNT = 'set_roles_count';
 const SET_ROLES_IS_FETCHING = 'set_roles_is_fetching';
 const SET_CURRENT_ROLE = 'set_current_role';
 const SET_IS_POSTED = 'set_is_posted';
-const REMOVE_ROLE = 'remove_role';
 
-let initialState = {
+const initialState = {
     roles: [],
-    newRoleNameRu: '',
-    newRoleNameKz: '',
     rolesCount: 0,
     isFetching: false,
     currentRole: null,
     isPosted: false,
 };
 
-const RoleReducer = (state = initialState, action) => {
-
+export const RoleReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_ROLE:
-            return {
-                ...state,
-                newRoleNameRu: '',
-                newRoleNameKz: '',
-                roles: [...state.roles, {
-                    id: action.id,
-                    name_ru: state.newRoleNameRu,
-                    name_kz: state.newRoleNameKz,
-                }]
-            };
-        case REMOVE_ROLE:
-            return {
-                ...state,
-                roles: state.roles.filter(role => role.id !== action.id)
-            };
-        case UPDATE_ROLE_NAME_RU:
-            return {
-                ...state,
-                newRoleNameRu: action.newNameRu
-            };
-        case UPDATE_ROLE_NAME_KZ:
-            return {
-                ...state,
-                newRoleNameKz: action.newNameKz
-            };
         case SET_ROLES:
             return {
                 ...state,
-                roles: [...state.roles, ...action.roles]
+                roles: action.roles
             };
         case SET_ROLES_COUNT:
             return {
@@ -79,29 +46,9 @@ const RoleReducer = (state = initialState, action) => {
     }
 };
 
-export const addRole = (id) => ({
-    type: ADD_ROLE,
-    id
-});
-
-export const removeRole = (id) => ({
-    type: REMOVE_ROLE,
-    id
-});
-
 export const setIsPosted = (isPosted) => ({
     type: SET_IS_POSTED,
     isPosted
-});
-
-export const updateRoleNameRu = (newNameRu) => ({
-    type: UPDATE_ROLE_NAME_RU,
-    newNameRu
-});
-
-export const updateRoleNameKz = (newNameKz) => ({
-    type: UPDATE_ROLE_NAME_KZ,
-    newNameKz
 });
 
 export const setRoles = (roles) => ({
@@ -124,67 +71,30 @@ export const setCurrentRole = (currentRole) => ({
     currentRole
 });
 
-export const getRoles = () => (dispatch) => {
-
+export const getRoles = () => async (dispatch) => {
     dispatch(setRolesIsFetching(true));
 
-    restAPI.roles.getRoles()
-        .then(response => {
-            dispatch(setRolesCount(response.totalCount));
-            dispatch(setRoles(response.data));
+    const response = await restAPI.roles.getRoles()
 
-            console.info('roles: ', response.data);
-
-            dispatch(setRolesIsFetching(false));
-        });
+    dispatch(setRolesCount(response.totalCount));
+    dispatch(setRoles(response.data));
+    dispatch(setRolesIsFetching(false));
 };
 
-export const getRoleById = (id) => (dispatch) => {
+export const getRoleById = (id) => async (dispatch) => {
+    const res = await restAPI.roles.getRolesById(id)
 
-    dispatch(setRolesIsFetching(true));
-
-    restAPI.roles.getRolesById(id)
-        .then(response => {
-            dispatch(setCurrentRole(response.data));
-
-            console.info('role: ', response.data);
-
-            dispatch(setRolesIsFetching(false));
-
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    dispatch(setCurrentRole(res.data));
 };
 
-export const postRole = (newRole) => (dispatch) => {
+export const postRole = (formData) => async (dispatch) => {
+    await restAPI.roles.postRole(formData)
 
-    dispatch(setRolesIsFetching(true));
-
-    restAPI.roles.postRole(newRole)
-        .then(response => {
-            console.info('posted role: ', response.data);
-
-            dispatch(addRole(response.data.id));
-
-            dispatch(setRolesIsFetching(false));
-
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    dispatch(getRoles())
 };
 
-export const deleteRoleById = (id) => (dispatch) => {
+export const deleteRoleById = (id) => async (dispatch) => {
+    await restAPI.roles.deleteRoleById(id)
 
-    dispatch(setRolesIsFetching(true));
-
-    restAPI.roles.deleteRoleById(id)
-        .then(response => {
-            console.info('deleted role: ', response.data);
-
-            dispatch(removeRole(id));
-
-            dispatch(setRolesIsFetching(false));
-        });
+    dispatch(getRoles())
 };
-
-export default RoleReducer;

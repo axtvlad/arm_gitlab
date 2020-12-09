@@ -2,12 +2,14 @@ import {connect} from "react-redux";
 import React from "react";
 import Faqs from "./Faqs";
 import {deleteFaqById, getFaqs} from "../../../../redux/Reducers/FaqReducer";
+import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class FaqsContainer extends React.Component {
     componentDidMount() {
-        const {faqs, getFaqs} = this.props;
+        const {getFaqs} = this.props;
 
-        !faqs.length && getFaqs();
+        getFaqs();
     }
 
     render() {
@@ -27,14 +29,15 @@ class FaqsContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         faqs: state.faqsDir.faqs,
-        isFetching: state.faqsDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isFetching: state.faqsDir.isFetching
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getFaqs,
-        deleteFaqById
-    }
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps,
+        {
+            getFaqs,
+            deleteFaqById
+        })
 )(FaqsContainer);

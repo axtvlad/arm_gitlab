@@ -2,30 +2,9 @@ import {Button, Form, Input} from 'antd';
 import React from "react";
 import classes from './Auth.module.css'
 
-const Auth = ({postAuthUserData, updateAuthLogin, updateAuthPassword, authDir}) => {
-    const [form] = Form.useForm();
-
-    const fromState = {
-        login: authDir.login,
-        password: authDir.password,
-    }
-
-    form.setFieldsValue(fromState);
-
-    const auth = () => {
-        postAuthUserData(fromState)
-    };
-
-    const changeAuthLogin = () => {
-        const login = form.getFieldValue().login;
-
-        updateAuthLogin(login)
-    };
-
-    const changeAuthPassword = () => {
-        const password = form.getFieldValue().password;
-
-        updateAuthPassword(password)
+const Auth = ({postAuthUserData}) => {
+    const onSubmit = (formData) => {
+        postAuthUserData(formData)
     };
 
     return (
@@ -33,16 +12,15 @@ const Auth = ({postAuthUserData, updateAuthLogin, updateAuthPassword, authDir}) 
             <Form
                 layout={"vertical"}
                 className={classes.authForm}
-                name={'form'}
-                onFinish={auth}
-                form={form}
+                name={'auth_form'}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     label={'Логин'}
                     name={'login'}
                     rules={[{required: true, message: 'Пожалуйста, введите свой логин'}]}
                 >
-                    <Input onChange={changeAuthLogin}/>
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
@@ -50,7 +28,7 @@ const Auth = ({postAuthUserData, updateAuthLogin, updateAuthPassword, authDir}) 
                     name={'password'}
                     rules={[{required: true, message: 'Пожалуйста, введите свой пароль!'}]}
                 >
-                    <Input.Password onChange={changeAuthPassword}/>
+                    <Input.Password/>
                 </Form.Item>
 
                 {/*<Form.Item name="remember">*/}

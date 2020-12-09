@@ -3,19 +3,18 @@ import {restAPI} from "../../api/API";
 const SET_USER_DATA = 'set_user_data';
 const SET_AUTH_IN_PROCESS = 'set_auth_in_progress';
 const SET_IS_AUTH = 'set_is_auth';
-const UPDATE_AUTH_LOGIN = 'update_auth_login';
-const UPDATE_AUTH_PASSWORD = 'update_auth_password';
+const SET_IS_ADMIN = 'SET_IS_ADMIN';
 
-let initialState = {
+const initialState = {
     userData: {},
     isAuth: false,
     login: '',
     password: '',
     authInProcess: false,
+    isAdmin: false
 };
 
-const AuthReducer = (state = initialState, action) => {
-
+export const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -27,20 +26,15 @@ const AuthReducer = (state = initialState, action) => {
                 ...state,
                 isAuth: action.isAuth
             };
-        case UPDATE_AUTH_LOGIN:
-            return {
-                ...state,
-                login: action.login
-            };
-        case UPDATE_AUTH_PASSWORD:
-            return {
-                ...state,
-                password: action.password
-            };
         case SET_AUTH_IN_PROCESS:
             return {
                 ...state,
                 authInProcess: action.authInProcess
+            };
+        case SET_IS_ADMIN:
+            return {
+                ...state,
+                isAdmin: action.isAdmin
             };
         default:
             return state;
@@ -62,33 +56,25 @@ export const setIsAuth = (isAuth) => ({
     isAuth
 });
 
-export const updateAuthLogin = (login) => ({
-    type: UPDATE_AUTH_LOGIN,
-    login
+export const setIsAdmin = (isAdmin) => ({
+    type: SET_IS_ADMIN,
+    isAdmin
 });
 
-export const updateAuthPassword = (password) => ({
-    type: UPDATE_AUTH_PASSWORD,
-    password
-});
-
-export const postAuthUserData = (authUserData) => (dispatch) => {
-
+export const postAuthUserData = (userData) => async (dispatch) => {
     dispatch(setAuthInProcess(true));
 
-    restAPI.auth.auth(authUserData)
-        .then(response => {
-            dispatch(setIsAuth(response.auth));
+    const response = await restAPI.auth.auth(userData)
 
-            if (response.auth === true) {
-                dispatch(setUserData(response.user));
-            }
+    dispatch(setIsAuth(response.auth));
 
-            localStorage.setItem('user', JSON.stringify(response.user));
-            localStorage.setItem('isAuth', response.auth);
+    if (response.auth === true) {
+        dispatch(setUserData(response.user));
+        dispatch(setIsAdmin(response.user.isAdmin));
+    }
 
-            dispatch(setAuthInProcess(false));
-        });
+    localStorage.setItem('user', JSON.stringify(response.user));
+    localStorage.setItem('isAuth', response.auth);
+
+    dispatch(setAuthInProcess(false));
 };
-
-export default AuthReducer;

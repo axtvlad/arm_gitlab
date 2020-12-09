@@ -6,15 +6,11 @@ const SET_WPS_IS_FETCHING = 'set_wps_is_fetching';
 const SET_SUBJECT_COUNT = 'set_subject_count';
 const SET_SUBJECTS = 'set_subjects';
 const SET_WPS_MODE = 'set_wps_mode';
-const UPDATE_SEMESTER = 'update_semester';
-const UPDATE_COURSE = 'update_course';
-const UPDATE_SPECIALIZATION = 'update_specialization';
 const SET_EXAMS_COUNT = 'set_exams_count';
 const SET_EXAMS = 'set_exams';
 const SET_SCHEDULE = 'set_schedule';
-const UPDATE_SCHEDULE_KEY = 'update_schedule_key';
 
-let initialState = {
+const initialState = {
     subjects: [],
     exams: [],
     schedule: [],
@@ -27,8 +23,7 @@ let initialState = {
     isFetching: false
 };
 
-const WorkPlanScheduleReducer = (state = initialState, action) => {
-
+export const WorkPlanScheduleReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_WPS_IS_FETCHING:
             return {
@@ -39,26 +34,6 @@ const WorkPlanScheduleReducer = (state = initialState, action) => {
             return {
                 ...state,
                 schedule: action.schedule,
-            };
-        case UPDATE_SEMESTER:
-            return {
-                ...state,
-                semester: action.semester,
-            };
-        case UPDATE_COURSE:
-            return {
-                ...state,
-                course: action.course,
-            };
-        case UPDATE_SCHEDULE_KEY:
-            return {
-                ...state,
-                scheduleKey: action.scheduleKey,
-            };
-        case UPDATE_SPECIALIZATION:
-            return {
-                ...state,
-                specialization: action.specialization,
             };
         case SET_SUBJECTS:
             return {
@@ -115,73 +90,36 @@ export const setExams = (exams) => ({
     exams
 });
 
-export const updateSemester = (semester) => ({
-    type: UPDATE_SEMESTER,
-    semester
-});
-
-export const updateScheduleKey = (scheduleKey) => ({
-    type: UPDATE_SCHEDULE_KEY,
-    scheduleKey
-});
-
-export const updateCourse = (course) => ({
-    type: UPDATE_COURSE,
-    course
-});
-
-export const updateSpecialization = (specialization) => ({
-    type: UPDATE_SPECIALIZATION,
-    specialization
-});
-
 export const setWpsIsFetching = (isFetching) => ({
     type: SET_WPS_IS_FETCHING,
     isFetching
 });
 
-export const getSubjects = (params) => (dispatch) => {
-
+export const getSubjects = (params) => async (dispatch) => {
     dispatch(setWpsIsFetching(true));
 
-    restAPI.wps.getSubjects(params)
-        .then(response => {
-            dispatch(setSubjectsCount(response.subjectsCount));
-            dispatch(setSubjects(response.subjects));
+    const res = await restAPI.wps.getSubjects(params)
 
-            console.info('wps subjects: ', response);
-
-            dispatch(setWpsIsFetching(false));
-        });
+    dispatch(setSubjectsCount(res.subjectsCount));
+    dispatch(setSubjects(res.subjects));
+    dispatch(setWpsIsFetching(false));
 };
 
-export const getExams = (params) => (dispatch) => {
-
+export const getExams = (params) => async (dispatch) => {
     dispatch(setWpsIsFetching(true));
 
-    restAPI.wps.getExams(params)
-        .then(response => {
-            dispatch(setExamsCount(response.subjectsCount));
-            dispatch(setExams(response.exams));
+    const res = await restAPI.wps.getExams(params)
 
-            console.info('wps exams: ', response);
-
-            dispatch(setWpsIsFetching(false));
-        });
+    dispatch(setExamsCount(res.subjectsCount));
+    dispatch(setExams(res.exams));
+    dispatch(setWpsIsFetching(false));
 };
 
-export const getSchedule = (params) => (dispatch) => {
-
+export const getSchedule = (params) => async (dispatch) => {
     dispatch(setWpsIsFetching(true));
 
-    restAPI.wps.getSchedule(params)
-        .then(response => {
-            dispatch(setSchedule(response.schedule));
+    const res = await restAPI.wps.getSchedule(params)
 
-            console.info('wps schedule: ', response);
-
-            dispatch(setWpsIsFetching(false));
-        });
+    dispatch(setSchedule(res.schedule));
+    dispatch(setWpsIsFetching(false));
 };
-
-export default WorkPlanScheduleReducer;

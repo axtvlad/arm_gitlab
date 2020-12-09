@@ -3,21 +3,9 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {WpsScheduleKeys} from "../../common/utils/constants";
 
-const Schedule = ({wps}) => {
+const Schedule = ({wps, getSchedule}) => {
     const {t} = useTranslation();
-    const [form] = Form.useForm();
     const {Option} = Select;
-
-    const fromState = {
-        schedule: wps.schedule,
-        specialization: wps.specialization,
-        course: wps.course,
-        key: wps.scheduleKey
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
 
     const scheduleColumns = [
         {
@@ -37,69 +25,68 @@ const Schedule = ({wps}) => {
         }
     ];
 
-    const updateScheduleKey = (e) => {
-        updateScheduleKey(e);
-    };
-
-    const updateCourse = (e) => {
-        updateCourse(e);
-    }
-
-    const getSchedule = () => {
-        getSchedule(fromState);
+    const onSubmit = (formData) => {
+        console.log(formData)
+        getSchedule(formData);
     }
 
     return (
         <div style={{textAlign: 'left'}}>
             <Spin spinning={wps.isFetching}>
                 <Form
-                    form={form}
+                    onFinish={onSubmit}
                     name="advanced_search"
-                    className="ant-advanced-search-form"
+                    initialValues={{key: wps.scheduleKey, course: wps.course}}
                 >
-                    <Select
-                        value={wps.scheduleKey}
-                        style={{width: 400, margin: 10}}
-                        onChange={updateScheduleKey}
+                    <Form.Item
+                        name={'key'}
                     >
-                        <Option value={WpsScheduleKeys.k}>{t('vacation')}</Option>
-                        <Option value={WpsScheduleKeys.bm}>{t('baseModule')}</Option>
-                        <Option value={WpsScheduleKeys.dp}>{t('diplomaProject')}</Option>
-                        <Option value={WpsScheduleKeys.ia}>{t('finalExamination')}</Option>
-                        <Option value={WpsScheduleKeys.moo}>{t('moo')}</Option>
-                        <Option value={WpsScheduleKeys.pa}>{t('intermediateExamination')}</Option>
-                        <Option value={WpsScheduleKeys.pdn}>{t('holidays')}</Option>
-                        <Option value={WpsScheduleKeys.pm}>{t('profModule')}</Option>
-                    </Select>
-                    <Select
-                        style={{margin: 10}}
-                        value={wps.course}
-                        onChange={updateCourse}
+                        <Select
+                            style={{width: 400, margin: 10}}
+                        >
+                            <Option value={WpsScheduleKeys.k}>{t('vacation')}</Option>
+                            <Option value={WpsScheduleKeys.bm}>{t('baseModule')}</Option>
+                            <Option value={WpsScheduleKeys.dp}>{t('diplomaProject')}</Option>
+                            <Option value={WpsScheduleKeys.ia}>{t('finalExamination')}</Option>
+                            <Option value={WpsScheduleKeys.moo}>{t('moo')}</Option>
+                            <Option value={WpsScheduleKeys.pa}>{t('intermediateExamination')}</Option>
+                            <Option value={WpsScheduleKeys.pdn}>{t('holidays')}</Option>
+                            <Option value={WpsScheduleKeys.pm}>{t('profModule')}</Option>
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        name={'course'}
                     >
-                        <Option value={1}>1 курс</Option>
-                        <Option value={2}>2 курс</Option>
-                        <Option value={3}>3 курс</Option>
-                        <Option value={4}>4 курс</Option>
-                    </Select>
-                    <Button
-                        style={{margin: 10}}
-                        onClick={getSchedule}
-                        type={"danger"}
-                    >
-                        {t('getData')}
-                    </Button>
-                    {wps.schedule.length !== 0 ?
-                        <Table
-                            columns={scheduleColumns}
-                            dataSource={wps.schedule}
-                            rowKey={'id'}
-                        /> :
-                        <Table
-                            columns={scheduleColumns}
-                            rowKey={'id'}
-                            dataSource={wps.schedule}
-                            loading={false}
-                        />
+                        <Select
+                            style={{margin: 10}}
+                            value={wps.course}
+                        >
+                            <Option value={1}>1 курс</Option>
+                            <Option value={2}>2 курс</Option>
+                            <Option value={3}>3 курс</Option>
+                            <Option value={4}>4 курс</Option>
+                        </Select>
+
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button
+                            style={{margin: 10}}
+                            type={"danger"}
+                            block
+                            htmlType={'submit'}
+                        >
+                            {t('getData')}
+                        </Button>
+                    </Form.Item>
+
+                    {wps.schedule.length !== 0 &&
+                    <Table
+                        columns={scheduleColumns}
+                        dataSource={wps.schedule}
+                        rowKey={'id'}
+                    />
                     }
                 </Form>
             </Spin>

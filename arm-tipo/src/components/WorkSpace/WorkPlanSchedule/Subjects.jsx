@@ -2,17 +2,9 @@ import {Button, Form, Select, Spin, Table} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-const Subjects = ({wps, updateSpecialization, updateSemester, getSubjects}) => {
+const Subjects = ({wps, getSubjects}) => {
     const {t} = useTranslation();
-    const [form] = Form.useForm();
     const {Option} = Select;
-
-    const fromState = {
-        specialization: wps.specialization,
-        semester: wps.semester
-    };
-
-    console.log(fromState);
 
     const specialization = {
         programmer: {
@@ -38,59 +30,49 @@ const Subjects = ({wps, updateSpecialization, updateSemester, getSubjects}) => {
         }
     ];
 
-    const updateSpecializationEv = (e) => {
-        updateSpecialization(e);
-    };
-
-    const updateSemesterEv = (e) => {
-        updateSemester(e);
-    };
-
-    const getSubjectsEv = () => {
-        getSubjects(fromState)
+    const onSubmit = (formData) => {
+        getSubjects(formData)
     };
 
     return (
         <div style={{textAlign: 'left'}}>
             <Spin spinning={wps.isFetching}>
                 <Form
-                    form={form}
+                    onFinish={onSubmit}
                     name="advanced_search"
-                    className="ant-advanced-search-form"
+                    initialValues={{specialization: wps.specialization, semester: wps.semester}}
                 >
-                    <Select
-                        defaultValue={wps.specialization}
-                        style={{width: 400, margin: 10}}
-                        onChange={(e) => {
-                            updateSpecializationEv(e)
-                        }}
-                    >
-                        <Option value={specialization.operator.key}>{specialization.operator.name}</Option>
-                        <Option value={specialization.programmer.key}>{specialization.programmer.name}</Option>
-                    </Select>
-                    <Select
-                        style={{margin: 10}}
-                        defaultValue={wps.semester}
-                        onChange={(e) => {
-                            updateSemesterEv(e)
-                        }}
-                    >
-                        <Option value={1}>1 семестр</Option>
-                        <Option value={2}>2 семестр</Option>
-                        <Option value={3}>3 семестр</Option>
-                        <Option value={4}>4 семестр</Option>
-                        <Option value={5}>5 семестр</Option>
-                        <Option value={6}>6 семестр</Option>
-                        <Option value={7}>7 семестр</Option>
-                        <Option value={8}>8 семестр</Option>
-                    </Select>
+                    <Form.Item name={'specialization'}>
+                        <Select style={{width: 400, margin: 10}}>
+                            <Option value={specialization.operator.key}>{specialization.operator.name}</Option>
+                            <Option value={specialization.programmer.key}>{specialization.programmer.name}</Option>
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item name={'semester'}>
+                        <Select
+                            style={{margin: 10}}
+                        >
+                            <Option value={1}>1 семестр</Option>
+                            <Option value={2}>2 семестр</Option>
+                            <Option value={3}>3 семестр</Option>
+                            <Option value={4}>4 семестр</Option>
+                            <Option value={5}>5 семестр</Option>
+                            <Option value={6}>6 семестр</Option>
+                            <Option value={7}>7 семестр</Option>
+                            <Option value={8}>8 семестр</Option>
+                        </Select>
+                    </Form.Item>
+
                     <Button
                         style={{margin: 10}}
-                        onClick={getSubjectsEv}
                         type={"danger"}
+                        htmlType={'submit'}
+                        block
                     >
                         {t('getData')}
                     </Button>
+
                     {wps.subjects.length !== 0 &&
                     <>
                         <div>{t('subjectsCount')}{wps.subjects.length}</div>

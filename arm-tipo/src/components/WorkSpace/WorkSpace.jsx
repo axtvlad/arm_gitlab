@@ -41,6 +41,7 @@ import AddOtherDocContainer from "./Directories/OtherDocs/AddOtherDocContainer";
 import DisplayOtherDocContainer from "./Directories/OtherDocs/DisplayOtherDocContainer";
 import WorkPlanScheduleContainer from "./WorkPlanSchedule/WorkPlanScheduleContainer";
 import EmailForm from "./Directories/Experts/EmailForm";
+import {compose} from "redux";
 
 class WorkSpace extends React.Component {
     render() {
@@ -116,4 +117,6 @@ class WorkSpace extends React.Component {
     }
 }
 
-export default withRouter(WorkSpace);
+export default compose(
+    withRouter
+)(WorkSpace)

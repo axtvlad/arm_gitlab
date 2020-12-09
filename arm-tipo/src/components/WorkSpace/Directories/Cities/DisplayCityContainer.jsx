@@ -4,38 +4,26 @@ import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getCities, getCityById} from "../../../../redux/Reducers/CityReducer";
-import {Spin} from "antd";
 import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class DisplayCityContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, cities, getCities, match, getCityById} = this.props
+        const {match, getCityById} = this.props
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !cities.length && getCities();
+        let id = match.params.id;
 
-            let id = match.params.id;
-
-            if (!id) {
-                id = 1
-            }
-
-            getCityById(id)
+        if (!id) {
+            id = 1
         }
+
+        getCityById(id)
     }
 
     render() {
-        const {isAdmin} = this.props
-
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayDirectoryItem {...this.props}/>
-            )
-        }
+        return (
+            <DisplayDirectoryItem {...this.props}/>
+        )
     }
 }
 
@@ -44,12 +32,12 @@ const mapStateToProps = (state) => {
         type: GetDirectory(DirectoriesTypes.CITIES),
         currentItem: state.citiesDir.currentCity,
         isFetching: state.citiesDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin,
         cities: state.citiesDir.cities
     }
 };
 
 export default compose(
+    isAdminRedirect,
     connect(mapStateToProps, {
         getCityById,
         getCities

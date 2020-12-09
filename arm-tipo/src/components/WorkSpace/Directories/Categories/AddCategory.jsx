@@ -26,7 +26,6 @@ const AddCategory = ({postCategory}) => {
                 name={'add_category_form'}
                 {...formItemLayout}
                 onFinish={onSubmit}
-                defaultValue={{name_ru: '', name_kz: ''}}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -68,8 +67,6 @@ const AddCategory = ({postCategory}) => {
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
                     <NavLink to={'/categories'}>
                         <Button
-                            type={''}
-
                             icon={<WalletOutlined/>}
                             block
                         >

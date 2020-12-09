@@ -10,7 +10,7 @@ const UPDATE_SEARCH_NUM = 'update_search_num';
 const SET_SEARCH_MODE = 'set_search_mode';
 const CLEAR_NUM = 'clear_num';
 
-let initialState = {
+const initialState = {
     results: [],
     tags: [],
     isSearching: false,
@@ -18,7 +18,7 @@ let initialState = {
     searchMode: SearchMode.TAGS,
 };
 
-const SearchReducer = (state = initialState, action) => {
+export const SearchReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_SEARCH_TAGS:
             return {
@@ -102,32 +102,27 @@ export const clearNum = () => ({
     type: CLEAR_NUM
 });
 
-export const getSearchResult = (searchMode, data) => (dispatch) => {
-
+export const getSearchResult = (searchMode, data) => async (dispatch) => {
     dispatch(setIsSearching(true));
 
     switch (searchMode) {
-        case SearchMode.NUM:
-            return restAPI.mainDocs.getSearchResultsByNum(data)
-                .then(response => {
-                    dispatch(setSearchResults(response.results));
+        case SearchMode.NUM: {
+            const res = await restAPI.mainDocs.getSearchResultsByNum(data)
 
-                    console.info('search results: ', response);
+            dispatch(setSearchResults(res.results));
+            dispatch(setIsSearching(false));
 
-                    dispatch(setIsSearching(false));
-                });
-        case SearchMode.TAGS:
-            return restAPI.mainDocs.getSearchResultsByTags(data)
-                .then(response => {
-                    dispatch(setSearchResults(response.results));
+            break
+        }
+        case SearchMode.TAGS: {
+            const res = await restAPI.mainDocs.getSearchResultsByTags(data)
 
-                    console.info('search results: ', response);
+            dispatch(setSearchResults(res.results));
+            dispatch(setIsSearching(false));
 
-                    dispatch(setIsSearching(false));
-                });
+            break
+        }
         default:
             return;
     }
 };
-
-export default SearchReducer;

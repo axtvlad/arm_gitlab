@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Descriptions, Dropdown, Menu, notification, PageHeader, Row, Spin, Tag} from 'antd';
 import {EllipsisOutlined} from '@ant-design/icons';
+import {Button, Descriptions, Dropdown, Menu, PageHeader, Row, Spin, Tag} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import word_svg from '../../../../svg/word.svg'
 import {useTranslation} from "react-i18next";
@@ -14,12 +14,6 @@ const MainDocs = ({deleteMainDocById, isFetching, isAdmin, mainDocs, type}) => {
 
     const deleteItem = (item) => {
         deleteMainDocById(item.id);
-
-        notification['success']({
-            message: 'Удалено!',
-            description: `Запись ${item.name_ru} была успешно удалена!`,
-            placement: 'bottomRight'
-        });
     };
 
     const menu = (item) => {

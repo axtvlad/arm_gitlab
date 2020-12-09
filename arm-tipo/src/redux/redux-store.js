@@ -1,23 +1,24 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import TypeReducer from "./Reducers/TypeReducer";
-import DepartmentReducer from "./Reducers/DepartmentReducer";
-import StatusReducer from "./Reducers/StatusReducer";
-import MainDocReducer from "./Reducers/MainDocReducer";
-import RoleReducer from "./Reducers/RoleReducer";
-import FaqReducer from "./Reducers/FaqReducer";
-import CustomerReducer from "./Reducers/CustomerReducer";
-import CategoryReducer from "./Reducers/CategoryReducer";
-import CityReducer from "./Reducers/CityReducer";
-import UserReducer from "./Reducers/UserReducer";
-import GenderReducer from "./Reducers/GenderReducer";
-import TemplateReducer from "./Reducers/TemplateReducer";
-import AuthReducer from "./Reducers/AuthReducer";
-import thunkMiddleWare from 'redux-thunk';
-import OtherDocReducer from "./Reducers/OtherDocReducer";
-import WorkPlanScheduleReducer from "./Reducers/WorkPlanScheduleReducer";
-import SearchReducer from "./Reducers/SearchReducer";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {TypeReducer} from "./Reducers/TypeReducer";
+import {DepartmentReducer} from "./Reducers/DepartmentReducer";
+import {StatusReducer} from "./Reducers/StatusReducer";
+import {MainDocReducer} from "./Reducers/MainDocReducer";
+import {RoleReducer} from "./Reducers/RoleReducer";
+import {FaqReducer} from "./Reducers/FaqReducer";
+import {CustomerReducer} from "./Reducers/CustomerReducer";
+import {CategoryReducer} from "./Reducers/CategoryReducer";
+import {CityReducer} from "./Reducers/CityReducer";
+import {UserReducer} from "./Reducers/UserReducer";
+import {GenderReducer} from "./Reducers/GenderReducer";
+import {TemplateReducer} from "./Reducers/TemplateReducer";
+import {AuthReducer} from "./Reducers/AuthReducer";
+import thunk from 'redux-thunk';
+import {OtherDocReducer} from "./Reducers/OtherDocReducer";
+import {WorkPlanScheduleReducer} from "./Reducers/WorkPlanScheduleReducer";
+import {SearchReducer} from "./Reducers/SearchReducer";
+import {appReducer} from "./Reducers/appReducer";
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     typesDir: TypeReducer,
     departmentsDir: DepartmentReducer,
     statusesDir: StatusReducer,
@@ -34,10 +35,11 @@ const reducers = combineReducers({
     authDir: AuthReducer,
     workPlanScheduleDir: WorkPlanScheduleReducer,
     searchDir: SearchReducer,
+    app: appReducer
 });
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleWare));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-window.store = store.getState();
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
-export default store;
+export default store

@@ -6,9 +6,9 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
-        const {mainDocs, getMainDocs} = this.props;
+        const {getMainDocs} = this.props;
 
-        !mainDocs.length && getMainDocs();
+        getMainDocs();
     }
 
     render() {
@@ -34,9 +34,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getMainDocs,
-        deleteMainDocById
-    }
-)(MainDocsContainer);
+export default connect(mapStateToProps, {
+    getMainDocs,
+    deleteMainDocById
+})(MainDocsContainer);

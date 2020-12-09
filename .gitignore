@@ -1,3 +1,6 @@
 .idea
+
 arm-tipo/node_modules
+arm-tipo/.eslintcache
+
 server/node_modules

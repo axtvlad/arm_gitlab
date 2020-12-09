@@ -4,47 +4,32 @@ import {withRouter} from "react-router-dom";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getCategoryById} from "../../../../redux/Reducers/CategoryReducer";
-import {notification, Spin} from "antd";
 import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class DisplayCategoryContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, match, getCategoryById} = this.props;
+        const {match, getCategoryById} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            let id = match.params.id;
+        let id = match.params.id;
 
-            if (!id) {
-                id = 1
-            }
-
-            getCategoryById(id);
+        if (!id) {
+            id = 1
         }
-    }
 
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getCategoryById(id);
     }
 
     render() {
-        const {isAdmin, isFetching, currentItem, type} = this.props;
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayDirectoryItem
-                    isFetching={isFetching}
-                    currentItem={currentItem}
-                    type={type}
-                />
-            )
-        }
+        const {isFetching, currentItem, type} = this.props;
+
+        return (
+            <DisplayDirectoryItem
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+            />
+        )
     }
 }
 
@@ -58,6 +43,7 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
+    isAdminRedirect,
     connect(mapStateToProps, {
         getCategoryById
     }),

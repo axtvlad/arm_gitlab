@@ -35,11 +35,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-    updateSemester,
-    updateSpecialization,
     getSubjects,
     getSchedule,
     getExams,
-    updateScheduleKey,
-    updateCourse
 })(SESContainer);

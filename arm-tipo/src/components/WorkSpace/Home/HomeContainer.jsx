@@ -6,6 +6,8 @@ import {getMainDocs} from "../../../redux/Reducers/MainDocReducer";
 import {Spin} from "antd";
 import {getOtherDocs} from "../../../redux/Reducers/OtherDocReducer";
 import {DirectoriesTypes} from "../../common/utils/DirectoriesTypes";
+import {isAuthRedirect} from "../../../hoc/isAuthRedirect";
+import {compose} from "redux";
 
 class HomeContainer extends React.Component {
     componentDidMount() {
@@ -20,8 +22,8 @@ class HomeContainer extends React.Component {
         const {usersCount, mainDocsDir, otherDocsDir, isFetching} = this.props;
 
         if (
-            !mainDocsDir.mainDocs.length &&
-            !otherDocsDir.otherDocs.length
+            !mainDocsDir.mainDocs?.length &&
+            !otherDocsDir.otherDocs?.length
         ) {
             return <Spin/>
         } else {
@@ -55,10 +57,12 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getUsers,
-        getMainDocs,
-        getOtherDocs
-    }
+export default compose(
+    connect(mapStateToProps,
+        {
+            getUsers,
+            getMainDocs,
+            getOtherDocs
+        }),
+    isAuthRedirect
 )(HomeContainer);

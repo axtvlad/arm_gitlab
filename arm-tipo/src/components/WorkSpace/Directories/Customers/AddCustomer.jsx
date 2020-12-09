@@ -1,53 +1,23 @@
-import {Button, Form, Input, notification} from "antd";
+import {Button, Form, Input} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
-import React from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCustomerNameKz}) => {
+const AddCustomer = ({postCustomer, updateCustomerNameRu, updateCustomerNameKz}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: customersDir.newCustomerNameRu,
-        name_kz: customersDir.newCustomerNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: `Запись ${item.name_ru} была успешно добавлена!`,
-            placement: 'bottomRight'
-        });
-    };
-
-    const addCustomer = (values) => {
-        console.log('Received values of form: ', values);
-
-        postCustomer(fromState);
-
-        successfulAdd(fromState)
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateCustomerNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateCustomerNameKz(name_kz);
+    const onSubmit = (formData) => {
+        postCustomer(formData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
@@ -55,8 +25,7 @@ const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCu
             <Form
                 name="validate_other"
                 {...formItemLayout}
-                onFinish={addCustomer}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,7 +36,7 @@ const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCu
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterCustomerNameRu')} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterCustomerNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -79,10 +48,7 @@ const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCu
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterCustomerNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterCustomerNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -91,10 +57,24 @@ const AddCustomer = ({customersDir, postCustomer, updateCustomerNameRu, updateCu
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/customers'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

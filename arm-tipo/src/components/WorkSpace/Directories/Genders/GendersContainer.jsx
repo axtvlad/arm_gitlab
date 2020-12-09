@@ -2,54 +2,39 @@ import {connect} from "react-redux";
 import React from "react";
 import Genders from "./Genders";
 import {getGenders} from "../../../../redux/Reducers/GenderReducer";
-import {notification, Spin} from "antd";
+import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, genders, getGenders} = this.props;
+        const {getGenders} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !genders.length && getGenders();
-        }
-    }
-
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getGenders();
     }
 
     render() {
         const {isAdmin, genders, isFetching} = this.props;
 
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <Genders
-                    isAdmin={isAdmin}
-                    directory={genders}
-                    isFetching={isFetching}
-                />
-            )
-        }
+        return (
+            <Genders
+                isAdmin={isAdmin}
+                directory={genders}
+                isFetching={isFetching}
+            />
+        )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         genders: state.gendersDir.genders,
-        isFetching: state.gendersDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin,
+        isFetching: state.gendersDir.isFetching
     }
 };
 
-export default connect(mapStateToProps,
-    {
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps, {
         getGenders
-    }
+    })
 )(GendersContainer);

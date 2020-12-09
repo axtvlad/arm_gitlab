@@ -8,17 +8,16 @@ import {getRoles} from "../../../../redux/Reducers/RoleReducer";
 import {getCities} from "../../../../redux/Reducers/CityReducer";
 import {getGenders} from "../../../../redux/Reducers/GenderReducer";
 import {getCustomers} from "../../../../redux/Reducers/CustomerReducer";
-import {Spin} from "antd";
 import {compose} from "redux";
 
 class DisplayUserContainer extends React.Component {
     componentDidMount() {
-        const {roles, match, customers, genders, cities, getRoles, getCustomers, getGenders, getCities} = this.props;
+        const {match, getRoles, getCustomers, getGenders, getCities, getUserById} = this.props;
 
-        !roles.length && getRoles();
-        !cities.length && getCities();
-        !genders.length && getGenders();
-        !customers.length && getCustomers();
+        getRoles();
+        getCities();
+        getGenders();
+        getCustomers();
 
         let userId = match.params.userId;
 
@@ -30,20 +29,10 @@ class DisplayUserContainer extends React.Component {
     }
 
     render() {
-        const {roles, currentUser, customers, genders, cities} = this.props;
+        return (
+            <DisplayUser {...this.props}/>
+        )
 
-        if (!currentUser
-            || !roles.length
-            || !cities.length
-            || !customers.length
-            || !genders.length
-        ) {
-            return (<Spin/>)
-        } else {
-            return (
-                <DisplayUser {...this.props}/>
-            )
-        }
     }
 }
 

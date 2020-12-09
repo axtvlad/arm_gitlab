@@ -3,43 +3,28 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 import {deleteStatusById, getStatuses} from "../../../../redux/Reducers/StatusReducer";
-import {notification, Spin} from "antd";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
+import {compose} from "redux";
 
 class StatusesContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, statuses, getStatuses} = this.props;
+        const {getStatuses} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !statuses.length && getStatuses();
-        }
-    }
-
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getStatuses();
     }
 
     render() {
         const {isAdmin, statuses, deleteStatusById, isFetching} = this.props;
 
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <Directory
-                    type={DirectoriesTypes.STATUSES}
-                    isAdmin={isAdmin}
-                    directory={statuses}
-                    isFetching={isFetching}
-                    removeItemById={deleteStatusById}
-                />
-            )
-        }
+        return (
+            <Directory
+                type={DirectoriesTypes.STATUSES}
+                isAdmin={isAdmin}
+                directory={statuses}
+                isFetching={isFetching}
+                removeItemById={deleteStatusById}
+            />
+        )
     }
 }
 
@@ -47,13 +32,13 @@ const mapStateToProps = (state) => {
     return {
         statuses: state.statusesDir.statuses,
         isFetching: state.statusesDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
-export default connect(mapStateToProps,
-    {
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps, {
         getStatuses,
         deleteStatusById
-    }
+    })
 )(StatusesContainer);

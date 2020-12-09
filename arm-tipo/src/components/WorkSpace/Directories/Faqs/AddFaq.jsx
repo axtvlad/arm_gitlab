@@ -1,75 +1,31 @@
-import React from 'react';
-import {Button, Form, Input, notification,} from 'antd';
+import React, {useState} from 'react';
+import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, updateFaqAnswerRu, updateFaqAnswerKz}) => {
+const AddFaq = ({postFaq}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    let fromState = {
-        question_ru: faqsDir.newFaqQuestionRu,
-        question_kz: faqsDir.newFaqQuestionKz,
-        answer_ru: faqsDir.newFaqAnswerRu,
-        answer_kz: faqsDir.newFaqAnswerKz,
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.question_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const addFaq = (values) => {
-        console.log('Received values of form: ', values);
-
-        postFaq(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeQuestionRu = () => {
-        const question_ru = form.getFieldValue().question_ru;
-
-        updateFaqQuestionRu(question_ru);
-    };
-
-    const changeQuestionKz = () => {
-        const question_kz = form.getFieldValue().question_kz;
-        updateFaqQuestionKz(question_kz);
-    };
-
-    const changeAnswerRu = () => {
-        const answer_ru = form.getFieldValue().answer_ru;
-
-        updateFaqAnswerRu(answer_ru);
-    };
-
-    const changeAnswerKz = () => {
-        const answer_kz = form.getFieldValue().answer_kz;
-
-        updateFaqAnswerKz(answer_kz);
+    const onSubmit = (formData) => {
+        postFaq(formData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
-             <Form
-                name="validate_other"
+            <Form
+                name="add_faq_form"
                 {...formItemLayout}
-                onFinish={addFaq}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'question_ru'}
@@ -80,9 +36,7 @@ const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, upd
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterQuestionRu')}
-                           onChange={changeQuestionRu}
-                    />
+                    <Input placeholder={t('enterQuestionRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -90,31 +44,26 @@ const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, upd
                     label={t('questionKz')}
                     rules={[{
                         required: true,
-                        message:`${t('enterQuestionKz')} !`
+                        message: `${t('enterQuestionKz')} !`
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterQuestionKz')}
-                        onChange={changeQuestionKz}
-                    />
+                    <Input placeholder={t('enterQuestionKz')}/>
                 </Form.Item>
 
-                 <Form.Item
-                     name={'answer_ru'}
-                     label={t('answerRu')}
-                     rules={[{
-                         required: true,
-                         message: `${t('enterAnswerRu')} !`
-                     }]}
-                     hasFeedback
-                 >
-                     <Input placeholder={t('enterAnswerRu')}
-                            onChange={changeAnswerRu}
-                     />
-                 </Form.Item>
+                <Form.Item
+                    name={'answer_ru'}
+                    label={t('answerRu')}
+                    rules={[{
+                        required: true,
+                        message: `${t('enterAnswerRu')} !`
+                    }]}
+                    hasFeedback
+                >
+                    <Input placeholder={t('enterAnswerRu')}/>
+                </Form.Item>
 
-                 <Form.Item
+                <Form.Item
                     name={'answer_kz'}
                     label={t('answerKz')}
                     rules={[{
@@ -123,10 +72,7 @@ const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, upd
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterAnswerKz')}
-                        onChange={changeAnswerKz}
-                    />
+                    <Input placeholder={t('enterAnswerKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -135,10 +81,25 @@ const AddFaq = ({faqsDir, postFaq, updateFaqQuestionRu, updateFaqQuestionKz, upd
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/faqs'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

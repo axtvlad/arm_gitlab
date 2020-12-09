@@ -3,43 +3,28 @@ import React from "react";
 import Directory from "../../../common/commonComponents/Directory";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 import {deleteCityById, getCities} from "../../../../redux/Reducers/CityReducer";
-import {notification, Spin} from "antd";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
+import {compose} from "redux";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, cities, getCities} = this.props;
+        const {getCities} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !cities.length && getCities();
-        }
-    }
-
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getCities();
     }
 
     render() {
         const {isAdmin, cities, isFetching, deleteCityById} = this.props;
 
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <Directory
-                    type={DirectoriesTypes.CITIES}
-                    isAdmin={isAdmin}
-                    directory={cities}
-                    isFetching={isFetching}
-                    removeItemById={deleteCityById}
-                />
-            )
-        }
+        return (
+            <Directory
+                type={DirectoriesTypes.CITIES}
+                isAdmin={isAdmin}
+                directory={cities}
+                isFetching={isFetching}
+                removeItemById={deleteCityById}
+            />
+        )
     }
 }
 
@@ -51,9 +36,11 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps,
-    {
-        getCities,
-        deleteCityById
-    }
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps,
+        {
+            getCities,
+            deleteCityById
+        })
 )(CitiesContainer);

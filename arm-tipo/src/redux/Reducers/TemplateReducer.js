@@ -1,79 +1,21 @@
 import {restAPI} from "../../api/API";
 
-const ADD_TEMPLATE = 'add_template';
-const UPDATE_TEMPLATE_NAME_RU = 'update_template_name_ru';
-const UPDATE_TEMPLATE_NAME_KZ = 'update_template_name_kz';
-const UPDATE_TEMPLATE_FILE_RU = 'update_template_file_ru';
-const UPDATE_TEMPLATE_FILE_KZ = 'update_template_file_kz';
-const UPDATE_CATEGORY_ID = 'update_category_id';
 const SET_TEMPLATES_IS_FETCHING = 'set_templates_is_fetching';
 const SET_TEMPLATES = 'set_templates';
 const SET_TEMPLATES_COUNT = 'set_templates_count';
 const SET_CURRENT_TEMPLATE = 'set_current_template';
 const SET_IS_POSTED = 'set_is_posted';
-const REMOVE_TEMPLATE = 'remove_template';
 
-let initialState = {
+const initialState = {
     templates: [],
-    newNameRu: '',
-    newNameKz: '',
     isFetching: false,
-    newFileRu: '',
-    newFileKz: '',
     templatesCount: 0,
-    category_id: null,
     currentTemplate: null,
     isPosted: false,
 };
 
-const TemplateReducer = (state = initialState, action) => {
+export const TemplateReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_TEMPLATE:
-            return {
-                ...state,
-                newNameRu: '',
-                newNameKz: '',
-                newFileRu: '',
-                newFileKz: '',
-                templates: [...state.templates, {
-                    id: action.id,
-                    name_ru: state.newNameRu,
-                    name_kz: state.newNameKz,
-                    file_ru: state.newFileRu,
-                    file_kz: state.newFileKz,
-                    category_id: state.category_id
-                }]
-            };
-        case REMOVE_TEMPLATE:
-            return {
-                ...state,
-                templates: state.templates.filter(template => template.id !== action.id)
-            };
-        case UPDATE_TEMPLATE_NAME_RU:
-            return {
-                ...state,
-                newNameRu: action.newNameRu
-            };
-        case UPDATE_TEMPLATE_NAME_KZ:
-            return {
-                ...state,
-                newNameKz: action.newNameKz
-            };
-        case UPDATE_TEMPLATE_FILE_RU:
-            return {
-                ...state,
-                newFileRu: action.newFileRu
-            };
-        case UPDATE_TEMPLATE_FILE_KZ:
-            return {
-                ...state,
-                newFileKz: action.newFileKz
-            };
-        case UPDATE_CATEGORY_ID:
-            return {
-                ...state,
-                category_id: action.category_id
-            };
         case SET_TEMPLATES:
             return {
                 ...state,
@@ -104,44 +46,9 @@ const TemplateReducer = (state = initialState, action) => {
     }
 };
 
-export const addTemplate = (id) => ({
-    type: ADD_TEMPLATE,
-    id
-});
-
-export const removeTemplate = (id) => ({
-    type: REMOVE_TEMPLATE,
-    id
-});
-
 export const setIsPosted = (isPosted) => ({
     type: SET_IS_POSTED,
     isPosted
-});
-
-export const updateTemplateNameRu = (newNameRu) => ({
-    type: UPDATE_TEMPLATE_NAME_RU,
-    newNameRu
-});
-
-export const updateTemplateNameKz = (newNameKz) => ({
-    type: UPDATE_TEMPLATE_NAME_KZ,
-    newNameKz
-});
-
-export const updateTemplateFileRu = (newFileRu) => ({
-    type: UPDATE_TEMPLATE_FILE_RU,
-    newFileRu
-});
-
-export const updateTemplateFileKz = (newFileKz) => ({
-    type: UPDATE_TEMPLATE_FILE_KZ,
-    newFileKz
-});
-
-export const updateTemplateCategoryId = (category_id) => ({
-    type: UPDATE_CATEGORY_ID,
-    category_id
 });
 
 export const setTemplates = (templates) => ({
@@ -164,64 +71,30 @@ export const setCurrentTemplate = (currentTemplate) => ({
     currentTemplate
 });
 
-export const getTemplates = () => (dispatch) => {
-
+export const getTemplates = () => async (dispatch) => {
     dispatch(setTemplatesIsFetching(true));
 
-    restAPI.templates.getTemplates()
-        .then(response => {
-            dispatch(setTemplatesCount(response.totalCount));
-            dispatch(setTemplates(response.data));
+    const response = await restAPI.templates.getTemplates()
 
-            console.info('templates: ', response.data);
-
-            dispatch(setTemplatesIsFetching(false));
-        });
+    dispatch(setTemplatesCount(response.totalCount));
+    dispatch(setTemplates(response.data));
+    dispatch(setTemplatesIsFetching(false));
 };
 
-export const getTemplateById = (id) => (dispatch) => {
+export const getTemplateById = (id) => async (dispatch) => {
+    const res = await restAPI.templates.getTemplateById(id)
 
-    dispatch(setTemplatesIsFetching(true));
-
-    restAPI.templates.getTemplateById(id)
-        .then(response => {
-            dispatch(setCurrentTemplate(response.data));
-
-            console.info('template: ', response.data);
-
-            dispatch(setTemplatesIsFetching(false));
-        });
+    dispatch(setCurrentTemplate(res.data));
 };
 
-export const postTemplate = (newTemplate) => (dispatch) => {
+export const postTemplate = (formData) => async (dispatch) => {
+    await restAPI.templates.postTemplate(formData)
 
-    dispatch(setTemplatesIsFetching(true));
-
-    restAPI.templates.postTemplate(newTemplate)
-        .then(response => {
-            console.info('posted template: ', response.data);
-
-            dispatch(addTemplate(response.data.id));
-
-            dispatch(setTemplatesIsFetching(false));
-
-            dispatch(setIsPosted(true));
-            dispatch(setIsPosted(false));
-        });
+    dispatch(getTemplates())
 };
 
-export const deleteTemplateById = (id) => (dispatch) => {
+export const deleteTemplateById = (id) => async (dispatch) => {
+    await restAPI.templates.deleteTemplateById(id)
 
-    dispatch(setTemplatesIsFetching(true));
-
-    restAPI.templates.deleteTemplateById(id)
-        .then(response => {
-            console.info('deleted template: ', response.data);
-
-            dispatch(removeTemplate(id));
-
-            dispatch(setTemplatesIsFetching(false));
-        });
+    dispatch(getTemplates())
 };
-
-export default TemplateReducer;

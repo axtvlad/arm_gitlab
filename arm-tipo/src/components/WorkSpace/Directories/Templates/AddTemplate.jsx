@@ -1,16 +1,14 @@
-import React from 'react';
-import {Button, Form, Input, notification, Select} from "antd";
+import React, {useState} from 'react';
+import {Button, Form, Input, Select} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddTemplate = (
-    {
-        templatesDir, updateTemplateCategoryId, updateTemplateNameRu, updateTemplateNameKz, updateTemplateFileRu,
-        updateTemplateFileKz, postTemplate, categories
-    }
-) => {
+const AddTemplate = ({postTemplate, categories}) => {
     const {t} = useTranslation();
     const {Option} = Select;
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -25,71 +23,18 @@ const AddTemplate = (
     //     return e && e.fileList;
     // };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        category_id: templatesDir.category_id,
-        name_ru: templatesDir.newNameRu,
-        name_kz: templatesDir.newNameKz,
-        file_ru: templatesDir.newFileRu,
-        file_kz: templatesDir.newFileKz,
-    };
-
-    console.log('fromState', fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const changeCategoryId = (category_id) => {
-        updateTemplateCategoryId(category_id);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateTemplateNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateTemplateNameKz(name_kz);
-    };
-
-    const changeFileRu = () => {
-        const file_ru = form.getFieldValue().file_ru;
-
-        updateTemplateFileRu(file_ru);
-    };
-
-    const changeFileKz = () => {
-        const file_kz = form.getFieldValue().file_kz;
-
-        updateTemplateFileKz(file_kz);
-    };
-
-    const saveDoc = (values) => {
-        console.log('Received values of form: ', values);
-
-        postTemplate(fromState);
-
-        successfulAdd(fromState);
+    const onSubmit = (formData) => {
+        postTemplate(formData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_template_form"
                 {...formItemLayout}
-                onFinish={saveDoc}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'category_id'}
@@ -100,10 +45,7 @@ const AddTemplate = (
                         message: t('chooseCategory') + '!'
                     }]}
                 >
-                    <Select
-                        placeholder={t('chooseCategory')}
-                        onChange={changeCategoryId}
-                    >
+                    <Select placeholder={t('chooseCategory')}>
                         {categories.map(category =>
                             <Option
                                 key={category.id}
@@ -123,50 +65,54 @@ const AddTemplate = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterTemplateNameRu')}
-                        onChange={changeNameRu}/>
+                    <Input placeholder={t('enterTemplateNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'name_kz'}
                     label={t('templateNameKz')}
                 >
-                    <Input
-                        placeholder={t('enterTemplateNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterTemplateNameKz')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_ru'}
                     label={t('attachFileRu')}
                 >
-                    <Input
-                        placeholder={t('chooseFile')}
-                        onChange={changeFileRu}
-                    />
+                    <Input placeholder={t('chooseFile')}/>
                 </Form.Item>
 
                 <Form.Item
                     name={'file_kz'}
                     label={t('attachFileKz')}
                 >
-                    <Input
-                        placeholder={t('chooseFile')}
-                        onChange={changeFileKz}
-                    />
+                    <Input placeholder={t('chooseFile')}/>
                 </Form.Item>
+
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
                     <Button
                         type="danger"
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/templates'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     )

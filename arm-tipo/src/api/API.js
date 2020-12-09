@@ -8,7 +8,7 @@ const instance = axios.create({
     headers: {
         "Authorization": "Basic " + authorizationBasic
     },
-    baseURL: BASE_URL1
+    baseURL: BASE_URL1,
 });
 
 export const restAPI = {
@@ -140,12 +140,12 @@ export const restAPI = {
         },
         deleteDepartmentById(id) {
             return instance
-                .delete('department/' + id)
+                .delete('departments/' + id)
                 .then(response => response.data)
         },
         postDepartment(newDepartment) {
             return instance
-                .post('department', newDepartment)
+                .post('departments', newDepartment)
                 .then(response => response.data)
         }
     },

@@ -4,43 +4,26 @@ import {withRouter} from "react-router-dom";
 import {getCustomerById} from "../../../../redux/Reducers/CustomerReducer";
 import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {notification, Spin} from "antd";
 import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class DisplayCustomerContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, match, getCustomerById} = this.props;
-        if (!isAdmin) {
-            this.error()
-        } else {
-            let id = match.params.id;
+        const {match, getCustomerById} = this.props;
 
-            if (!id) {
-                id = 1
-            }
+        let id = match.params.id;
 
-            getCustomerById(id)
+        if (!id) {
+            id = 1
         }
-    }
 
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getCustomerById(id)
     }
 
     render() {
-        const {isAdmin} = this.props;
-
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayDirectoryItem {...this.props}/>
-            )
-        }
+        return (
+            <DisplayDirectoryItem {...this.props}/>
+        )
     }
 }
 
@@ -49,11 +32,11 @@ const mapStateToProps = (state) => {
         type: GetDirectory(DirectoriesTypes.CUSTOMERS),
         currentItem: state.customersDir.currentCustomer,
         isFetching: state.customersDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
 export default compose(
+    isAdminRedirect,
     connect(mapStateToProps, {
         getCustomerById
     }),

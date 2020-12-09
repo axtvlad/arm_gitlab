@@ -1,62 +1,31 @@
-import React from 'react';
-import {Button, Form, Input, notification,} from 'antd';
+import React, {useState} from 'react';
+import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddRole = ({rolesDir, postRole, updateRoleNameRu, updateRoleNameKz}) => {
+const AddRole = ({postRole}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: rolesDir.newRoleNameRu,
-        name_kz: rolesDir.newRoleNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const addRole = (values) => {
-        console.log('Received values of form: ', values);
-
-        postRole(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateRoleNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateRoleNameKz(name_kz);
+    const onSubmit = (forData) => {
+        postRole(forData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_role_form"
                 {...formItemLayout}
-                onFinish={addRole}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,10 +36,7 @@ const AddRole = ({rolesDir, postRole, updateRoleNameRu, updateRoleNameKz}) => {
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterRoleNameRu')}
-                        onChange={changeNameRu}
-                    />
+                    <Input placeholder={t('enterRoleNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -82,10 +48,7 @@ const AddRole = ({rolesDir, postRole, updateRoleNameRu, updateRoleNameKz}) => {
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterRoleNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterRoleNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -94,10 +57,24 @@ const AddRole = ({rolesDir, postRole, updateRoleNameRu, updateRoleNameKz}) => {
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/roles'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

@@ -16,25 +16,25 @@ const DisplayFaq = ({isFetching, currentItem, faq}) => {
                         colon={true}
                     >
                         {i18n.language === 'ru' ? <Descriptions.Item
-                            label={t('questionRu')}
-                        >
-                            {currentItem[0].question_ru}
-                        </Descriptions.Item>:
-                        <Descriptions.Item
-                            label={t('questionKz')}
-                        >
-                            {currentItem[0].question_kz}
-                        </Descriptions.Item>}
+                                label={t('questionRu')}
+                            >
+                                {currentItem[0].question_ru}
+                            </Descriptions.Item> :
+                            <Descriptions.Item
+                                label={t('questionKz')}
+                            >
+                                {currentItem[0].question_kz}
+                            </Descriptions.Item>}
                         {i18n.language === 'ru' ? <Descriptions.Item
-                            label={t('answerRu')}
-                        >
-                            {currentItem[0].answer_ru}
-                        </Descriptions.Item>:
-                        <Descriptions.Item
-                            label={t('answerKz')}
-                        >
-                            {currentItem[0].answer_kz}
-                        </Descriptions.Item>}
+                                label={t('answerRu')}
+                            >
+                                {currentItem[0].answer_ru}
+                            </Descriptions.Item> :
+                            <Descriptions.Item
+                                label={t('answerKz')}
+                            >
+                                {currentItem[0].answer_kz}
+                            </Descriptions.Item>}
                     </Descriptions>
                 )}
             </div>

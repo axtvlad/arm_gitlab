@@ -6,9 +6,9 @@ import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
-        const {templates, getTemplates} = this.props;
+        const {getTemplates} = this.props;
 
-        !templates.length && getTemplates();
+        getTemplates();
     }
 
     render() {

@@ -1,62 +1,31 @@
-import React from "react";
-import {Button, Form, Input, notification} from "antd";
+import React, {useState} from "react";
+import {Button, Form, Input} from "antd";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddCity = ({citiesDir, postCity, updateCityNameRu, updateCityNameKz}) => {
+const AddCity = ({postCity}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: citiesDir.newCityNameRu,
-        name_kz: citiesDir.newCityNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const addCity = (values) => {
-        console.log('Received values of form: ', values);
-
-        postCity(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateCityNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateCityNameKz(name_kz);
+    const onSubmit = (formData) => {
+        postCity(formData).then(() => {
+            setIsSaved(true);
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_city_form"
                 {...formItemLayout}
-                onFinish={addCity}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,7 +36,7 @@ const AddCity = ({citiesDir, postCity, updateCityNameRu, updateCityNameKz}) => {
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterCityNameRu')} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterCityNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -79,10 +48,7 @@ const AddCity = ({citiesDir, postCity, updateCityNameRu, updateCityNameKz}) => {
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterCityNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterCityNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -91,10 +57,24 @@ const AddCity = ({citiesDir, postCity, updateCityNameRu, updateCityNameKz}) => {
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/cities'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

@@ -1,62 +1,31 @@
-import React from 'react';
-import {Button, Form, Input, notification,} from 'antd';
+import React, {useState} from 'react';
+import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddDepartment = ({departmentsDir, postDepartment, updateDepartmentNameRu, updateDepartmentNameKz}) => {
+const AddDepartment = ({postDepartment}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: departmentsDir.newDepartmentNameRu,
-        name_kz: departmentsDir.newDepartmentNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: `Запись ${item.name_ru} была успешно добавлена!`,
-            placement: 'bottomRight'
-        });
-    };
-
-    const addDepartment = (values) => {
-        console.log('Received values of form: ', values);
-
-        postDepartment(fromState);
-
-        successfulAdd(fromState)
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateDepartmentNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateDepartmentNameKz(name_kz);
+    const onSubmit = (formData) => {
+        postDepartment(formData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_department_form"
                 {...formItemLayout}
-                onFinish={addDepartment}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,7 +36,7 @@ const AddDepartment = ({departmentsDir, postDepartment, updateDepartmentNameRu, 
                     }]}
                     hasFeedback
                 >
-                    <Input placeholder={t('enterDepartmentNameRu')} onChange={changeNameRu}/>
+                    <Input placeholder={t('enterDepartmentNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -79,10 +48,7 @@ const AddDepartment = ({departmentsDir, postDepartment, updateDepartmentNameRu, 
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterDepartmentNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterDepartmentNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -91,10 +57,24 @@ const AddDepartment = ({departmentsDir, postDepartment, updateDepartmentNameRu, 
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/departments'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );

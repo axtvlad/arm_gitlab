@@ -6,8 +6,6 @@ import React from "react";
 const DisplayOtherDoc = ({currentOtherDoc, directory}) => {
     const {t} = useTranslation();
 
-    console.log(currentOtherDoc)
-
     return (
         <div className={'content'}>
             {currentOtherDoc && (

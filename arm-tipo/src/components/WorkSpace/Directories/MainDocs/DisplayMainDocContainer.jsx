@@ -6,16 +6,14 @@ import {getStatuses} from "../../../../redux/Reducers/StatusReducer";
 import {getDepartments} from "../../../../redux/Reducers/DepartmentReducer";
 import {getMainDocById} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
-import {Spin} from "antd";
 import DisplayMainDoc from "./DisplayMainDoc";
 import {compose} from "redux";
 
+// todo зарефакторить
+
 class DisplayMainDocContainer extends React.Component {
     componentDidMount() {
-        const {departments, getDepartments, statuses, types, getStatuses, getTypes, match, getMainDocById} = this.props;
-        !departments.length && getDepartments();
-        !statuses.length && getStatuses();
-        !types.length && getTypes();
+        const {getDepartments, getStatuses, getTypes, match, getMainDocById} = this.props;
 
         let id = match.params.id;
 
@@ -24,22 +22,23 @@ class DisplayMainDocContainer extends React.Component {
         }
 
         getMainDocById(id);
+        getDepartments();
+        getStatuses();
+        getTypes();
     }
 
-
     render() {
-        const {departments, statuses, types, currentMainDoc} = this.props;
+        const {currentMainDoc, departments, statuses, types, directory} = this.props;
 
-        if (!currentMainDoc
-            || !departments.length
-            || !statuses.length
-            || !types.length) {
-            return <Spin/>
-        } else {
-            return (
-                <DisplayMainDoc {...this.props}/>
-            )
-        }
+        return (
+            <DisplayMainDoc
+                currentMainDoc={currentMainDoc}
+                departments={departments}
+                statuses={statuses}
+                types={types}
+                directory={directory}
+            />
+        )
     }
 }
 
@@ -50,7 +49,6 @@ const mapStateToProps = (state) => {
         departments: state.departmentsDir.departments,
         statuses: state.statusesDir.statuses,
         types: state.typesDir.types,
-        isAdmin: state.authDir.userData.isAdmin
     }
 };
 

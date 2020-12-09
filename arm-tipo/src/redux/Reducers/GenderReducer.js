@@ -3,13 +3,12 @@ import {restAPI} from "../../api/API";
 const SET_GENDERS_IS_FETCHING = 'set_genders_is_fetching';
 const SET_GENDERS = 'set_genders';
 
-let initialState = {
+const initialState = {
     genders: [],
     isFetching: false
 };
 
-const GenderReducer = (state = initialState, action) => {
-
+export const GenderReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_GENDERS_IS_FETCHING:
             return {
@@ -19,7 +18,7 @@ const GenderReducer = (state = initialState, action) => {
         case SET_GENDERS:
             return {
                 ...state,
-                genders: [...state.genders, ...action.genders]
+                genders: action.genders
             };
         default:
             return state;
@@ -36,18 +35,11 @@ export const setGenders = (genders) => ({
     genders
 });
 
-export const getGenders = () => (dispatch) => {
-
+export const getGenders = () => async (dispatch) => {
     dispatch(setGendersIsFetching(true));
 
-    restAPI.genders.getGenders()
-        .then(response => {
-            dispatch(setGenders(response.data));
+    const res = await restAPI.genders.getGenders()
 
-            console.info('genders: ', response.data);
-
-            dispatch(setGendersIsFetching(false));
-        });
+    dispatch(setGenders(res.data));
+    dispatch(setGendersIsFetching(false));
 };
-
-export default GenderReducer;

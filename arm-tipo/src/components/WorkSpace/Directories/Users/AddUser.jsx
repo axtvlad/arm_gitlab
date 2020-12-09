@@ -1,18 +1,15 @@
-import {Button, Checkbox, DatePicker, Form, Input, notification, Select} from "antd";
-import React from "react";
+import {Button, Checkbox, DatePicker, Form, Input, Select} from "antd";
+import React, {useState} from "react";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
+import moment from "moment";
 
-const AddUser = (
-    {
-        genders, usersDir, postUser, updateUserFirstName, updateUserLastName, updateUserPatronymic, updateUserLogin,
-        updateUserPassword, updateUserEmail, updateUserRoleId, updateUserCityId, updateUserCustomerId,
-        updateUserGenderId, updateUserPhone, updateUserBirthAt, updateUserLocale, updateUserIsAdmin,
-        updateUserIsPremium, updateUserIsBanned, roles, cities, customers
-    }
-) => {
+const AddUser = ({genders, roles, cities, customers, postUser}) => {
     const {t} = useTranslation();
     const {Option} = Select;
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
@@ -29,173 +26,23 @@ const AddUser = (
     //     return e && e.fileList;
     // };
 
-    const [form] = Form.useForm();
+    const onSubmit = (formData) => {
+        const data = {
+            ...formData,
+            birthAt: moment(formData.birthAt).format('YYYY-MM-DD')
+        }
 
-    const fromState = {
-        firstName: usersDir.newUserFirstName,
-        lastName: usersDir.newUserLastName,
-        patronymic: usersDir.newUserPatronymic,
-        login: usersDir.newUserLogin,
-        password: usersDir.newUserPassword,
-        email: usersDir.newUserEmail,
-        photo: usersDir.newUserPhoto,
-        role_id: usersDir.newUserRoleId,
-        city_id: usersDir.newUserCityId,
-        customer_id: usersDir.newUserCustomerId,
-        gender_id: usersDir.newUserGenderId,
-        phone: usersDir.newUserPhone,
-        locale: usersDir.newUserLocale,
-        birthAt: usersDir.newUserBirthAt,
-        isAdmin: usersDir.newUserIsAdmin,
-        isPremium: usersDir.newUserIsPremium,
-        isBanned: usersDir.newUserIsBanned
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue({
-        firstName: usersDir.newUserFirstName,
-        lastName: usersDir.newUserLastName,
-        patronymic: usersDir.newUserPatronymic,
-        login: usersDir.newUserLogin,
-        password: usersDir.newUserPassword,
-        email: usersDir.newUserEmail,
-        photo: usersDir.newUserPhoto,
-        role_id: usersDir.newUserRoleId,
-        city_id: usersDir.newUserCityId,
-        customer_id: usersDir.newUserCustomerId,
-        gender_id: usersDir.newUserGenderId,
-        phone: usersDir.newUserPhone,
-        locale: usersDir.newUserLocale,
-        isAdmin: usersDir.newUserIsAdmin,
-        isPremium: usersDir.newUserIsPremium,
-        isBanned: usersDir.newUserIsBanned
-    });
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.firstName + ' ' + item.lastName + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const saveUser = (values) => {
-        console.log('Received values of form: ', values);
-
-        postUser(fromState);
-
-        successfulAdd(fromState)
-    };
-
-    const changeFirstName = () => {
-        const firstName = form.getFieldValue().firstName;
-
-        updateUserFirstName(firstName);
-    };
-
-    const changeLastName = () => {
-        const lastName = form.getFieldValue().lastName;
-
-        updateUserLastName(lastName);
-    };
-
-    const changePatronymic = () => {
-        const patronymic = form.getFieldValue().patronymic;
-
-        updateUserPatronymic(patronymic);
-    };
-
-    const changeLogin = () => {
-        const login = form.getFieldValue().login;
-
-        updateUserLogin(login);
-    };
-
-    const changePassword = () => {
-        const password = form.getFieldValue().password;
-
-        updateUserPassword(password);
-    };
-
-    const changeEmail = () => {
-        const email = form.getFieldValue().email;
-
-        updateUserEmail(email);
-    };
-
-    // const changePhoto = () => {
-    //     const photo = form.getFieldValue().photo;
-    //     updateUserPhoto(photo);
-    // };
-
-    const changeRoleId = () => {
-        const role_id = form.getFieldValue().role_id;
-
-        updateUserRoleId(role_id);
-    };
-
-    const changeCityId = () => {
-        const city_id = form.getFieldValue().city_id;
-
-        updateUserCityId(city_id);
-    };
-
-    const changeCustomerId = () => {
-        const customer_id = form.getFieldValue().customer_id;
-
-        updateUserCustomerId(customer_id);
-    };
-
-    const changeGenderId = () => {
-        const gender_id = form.getFieldValue().gender_id;
-
-        updateUserGenderId(gender_id);
-    };
-
-    const changePhone = () => {
-        const phone = form.getFieldValue().phone;
-
-        updateUserPhone(phone);
-    };
-
-    const changeBirthAt = (date, dateString) => {
-        console.log(date, dateString)
-
-        updateUserBirthAt(dateString);
-    };
-
-    const changeLocale = () => {
-        const locale = form.getFieldValue().locale;
-
-        updateUserLocale(locale);
-    };
-
-    const changeIsAdmin = () => {
-        const isAdmin = form.getFieldValue().isAdmin;
-
-        updateUserIsAdmin(isAdmin);
-    };
-
-    const changeIsPremium = () => {
-        const isPremium = form.getFieldValue().isPremium;
-
-        updateUserIsPremium(isPremium);
-    };
-
-    const changeIsBanned = () => {
-        const isBanned = form.getFieldValue().isBanned;
-
-        updateUserIsBanned(isBanned);
+        postUser(data).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_user_form"
                 {...formItemLayout}
-                onFinish={saveUser}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'firstName'}
@@ -206,9 +53,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterFirstName')}
-                        onChange={changeFirstName}/>
+                    <Input placeholder={t('enterFirstName')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -220,9 +65,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterLastName')}
-                        onChange={changeLastName}/>
+                    <Input placeholder={t('enterLastName')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -230,9 +73,7 @@ const AddUser = (
                     label={t('patronymic')}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterPatronymic')}
-                        onChange={changePatronymic}/>
+                    <Input placeholder={t('enterPatronymic')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -244,9 +85,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterLogin')}
-                        onChange={changeLogin}/>
+                    <Input placeholder={t('enterLogin')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -258,10 +97,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        type={'password'}
-                        placeholder={t('enterPassword')}
-                        onChange={changePassword}/>
+                    <Input type={'password'} placeholder={t('enterPassword')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -273,10 +109,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterEmail')}
-                        onChange={changeEmail}
-                    />
+                    <Input placeholder={t('enterEmail')}/>
                 </Form.Item>
 
                 {/*<Form.Item*/}
@@ -298,9 +131,7 @@ const AddUser = (
                     label={t('phone')}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterPhone')}
-                        onChange={changePhone}/>
+                    <Input placeholder={t('enterPhone')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -308,7 +139,7 @@ const AddUser = (
                     label={t('birthDate')}
                     hasFeedback
                 >
-                    <DatePicker onChange={changeBirthAt} format={'YYYY-MM-DD'}/>
+                    <DatePicker format={'YYYY-MM-DD'}/>
                 </Form.Item>
 
                 <Form.Item
@@ -320,7 +151,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Select placeholder={t('chooseRole')} onChange={changeRoleId}>
+                    <Select placeholder={t('chooseRole')}>
                         {roles.map(role =>
                             <Option
                                 key={role.id}
@@ -341,10 +172,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Select
-                        placeholder={t('chooseCity')}
-                        onChange={changeCityId}
-                    >
+                    <Select placeholder={t('chooseCity')}>
                         {cities.map(city =>
                             <Option
                                 key={city.id}
@@ -365,10 +193,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Select
-                        placeholder={t('chooseCustomer')}
-                        onChange={changeCustomerId}
-                    >
+                    <Select placeholder={t('chooseCustomer')}>
                         {customers.map(customer =>
                             <Option
                                 key={customer.id}
@@ -389,10 +214,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Select
-                        placeholder={t('chooseGender')}
-                        onChange={changeGenderId}
-                    >
+                    <Select placeholder={t('chooseGender')}>
                         {genders.map(gender =>
                             <Option
                                 key={gender.id}
@@ -413,7 +235,7 @@ const AddUser = (
                     }]}
                     hasFeedback
                 >
-                    <Select placeholder={t('chooseLocale')} onChange={changeLocale}>
+                    <Select placeholder={t('chooseLocale')}>
                         <Option key='ru' value='ru'>
                             ru
                         </Option>
@@ -431,7 +253,7 @@ const AddUser = (
                     label={t('isAdmin')}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsAdmin}>
+                    <Checkbox>
                         {t('yes')}
                     </Checkbox>
                 </Form.Item>
@@ -441,7 +263,7 @@ const AddUser = (
                     label={t('isPremium')}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsPremium}>
+                    <Checkbox>
                         {t('yes')}
                     </Checkbox>
                 </Form.Item>
@@ -451,7 +273,7 @@ const AddUser = (
                     label={t('isBanned')}
                     hasFeedback
                 >
-                    <Checkbox onChange={changeIsBanned}>
+                    <Checkbox>
                         {t('yes')}
                     </Checkbox>
                 </Form.Item>
@@ -462,10 +284,24 @@ const AddUser = (
                         htmlType="submit"
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/users'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     )

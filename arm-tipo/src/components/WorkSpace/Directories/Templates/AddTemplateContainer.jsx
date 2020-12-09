@@ -1,71 +1,37 @@
-import {
-    deleteTemplateById,
-    postTemplate,
-    updateTemplateCategoryId,
-    updateTemplateFileKz,
-    updateTemplateFileRu,
-    updateTemplateNameKz,
-    updateTemplateNameRu
-} from "../../../../redux/Reducers/TemplateReducer";
+import {postTemplate} from "../../../../redux/Reducers/TemplateReducer";
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import React from "react";
 import AddTemplate from "./AddTemplate";
 import {getCategories} from "../../../../redux/Reducers/CategoryReducer";
-import {notification, Spin} from "antd";
+import {compose} from "redux";
+import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
 class AddTemplateContainer extends React.Component {
     componentDidMount() {
-        const {isAdmin, categories, getCategories} = this.props;
+        const {getCategories} = this.props;
 
-        if (!isAdmin) {
-            this.error()
-        } else {
-            !categories.length && getCategories();
-        }
-    }
-
-    error() {
-        notification['error']({
-            message: 'У вас нет прав!',
-            description: 'У вас нет прав, чтобы просматривать данный модуль!',
-            placement: 'bottomRight'
-        })
+        getCategories();
     }
 
     render() {
-        const {isAdmin, templatesDir} = this.props;
+        const {postTemplate, categories} = this.props;
 
-        if (!isAdmin) {
-            return <Spin/>
-        } else {
-            if (templatesDir.isPosted) {
-                return <Redirect to={'/templates'}/>
-            } else {
-                return (
-                    <AddTemplate {...this.props}/>
-                )
-            }
-        }
+        return (
+            <AddTemplate postTemplate={postTemplate} categories={categories}/>
+        )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        templatesDir: state.templatesDir,
         categories: state.categoriesDir.categories,
-        isAdmin: state.authDir.userData.isAdmin
     }
 };
 
-export default connect(mapStateToProps, {
+export default compose(
+    isAdminRedirect,
+    connect(mapStateToProps, {
         postTemplate,
-        deleteTemplateById,
-        updateTemplateNameKz,
-        updateTemplateNameRu,
-        updateTemplateFileRu,
-        updateTemplateFileKz,
-        updateTemplateCategoryId,
         getCategories
-    }
+    })
 )(AddTemplateContainer);

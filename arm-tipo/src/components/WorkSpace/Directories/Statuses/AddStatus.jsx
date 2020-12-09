@@ -1,62 +1,31 @@
-import React from 'react';
-import {Button, Form, Input, notification,} from 'antd';
+import React, {useState} from 'react';
+import {Button, Form, Input,} from 'antd';
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {WalletOutlined} from "@ant-design/icons";
 
-const AddStatus = ({statusesDir, postStatus, updateStatusNameRu, updateStatusNameKz}) => {
+const AddStatus = ({postStatus}) => {
     const {t} = useTranslation();
+    const [isSaved, setIsSaved] = useState(false)
 
     const formItemLayout = {
         labelCol: {span: 6},
         wrapperCol: {span: 14},
     };
 
-    const [form] = Form.useForm();
-
-    const fromState = {
-        name_ru: statusesDir.newStatusNameRu,
-        name_kz: statusesDir.newStatusNameKz
-    };
-
-    console.log(fromState);
-
-    form.setFieldsValue(fromState);
-
-    const successfulAdd = (item) => {
-        notification['success']({
-            message: 'Сохранено!',
-            description: 'Запись "' + item.name_ru + '" была успешно добавлена!',
-            placement: 'bottomRight'
-        });
-    };
-
-    const addStatus = (values) => {
-        console.log('Received values of form: ', values);
-
-        postStatus(fromState);
-
-        successfulAdd(fromState);
-    };
-
-    const changeNameRu = () => {
-        const name_ru = form.getFieldValue().name_ru;
-
-        updateStatusNameRu(name_ru);
-    };
-
-    const changeNameKz = () => {
-        const name_kz = form.getFieldValue().name_kz;
-
-        updateStatusNameKz(name_kz);
+    const onSubmit = (formData) => {
+        postStatus(formData).then(() => {
+            setIsSaved(true)
+        })
     };
 
     return (
         <div className={'content'}>
             <Form
-                name="validate_other"
+                name="add_status_form"
                 {...formItemLayout}
-                onFinish={addStatus}
-                form={form}
+                onFinish={onSubmit}
             >
                 <Form.Item
                     name={'name_ru'}
@@ -67,9 +36,7 @@ const AddStatus = ({statusesDir, postStatus, updateStatusNameRu, updateStatusNam
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterStatusNameRu')}
-                        onChange={changeNameRu}/>
+                    <Input placeholder={t('enterStatusNameRu')}/>
                 </Form.Item>
 
                 <Form.Item
@@ -81,10 +48,7 @@ const AddStatus = ({statusesDir, postStatus, updateStatusNameRu, updateStatusNam
                     }]}
                     hasFeedback
                 >
-                    <Input
-                        placeholder={t('enterStatusNameKz')}
-                        onChange={changeNameKz}
-                    />
+                    <Input placeholder={t('enterStatusNameKz')}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span: 12, offset: 6}}>
@@ -93,10 +57,24 @@ const AddStatus = ({statusesDir, postStatus, updateStatusNameRu, updateStatusNam
                         htmlType={'submit'}
                         icon={<DownloadOutlined/>}
                         block
+                        disabled={isSaved}
                     >
                         {t('saveInBase')}
                     </Button>
                 </Form.Item>
+
+                {isSaved &&
+                <Form.Item wrapperCol={{span: 12, offset: 6}}>
+                    <NavLink to={'/statuses'}>
+                        <Button
+                            icon={<WalletOutlined/>}
+                            block
+                        >
+                            Вернуться к списку
+                        </Button>
+                    </NavLink>
+                </Form.Item>
+                }
             </Form>
         </div>
     );
