@@ -82,7 +82,7 @@ export const getTypes = () => async (dispatch) => {
 };
 
 export const getTypeById = (id) => async (dispatch) => {
-    const res = restAPI.types.getTypeById(id)
+    const res = await restAPI.types.getTypeById(id)
 
     dispatch(setCurrentType(res.data));
 };

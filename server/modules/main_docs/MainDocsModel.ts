@@ -14,14 +14,14 @@ export class MainDocs {
     @Column({precision: 2, default: null})
     status_id?: number;
 
-    @Column({type: 'date', default: null})
-    begin_date?: Date;
+    @Column({precision: 10, default: null})
+    begin_date?: string;
 
-    @Column({type: "date", default: null})
-    finish_date?: Date;
+    @Column({precision: 10, default: null})
+    finish_date?: string;
 
-    @Column({type: "date", default: null})
-    pub_date?: Date;
+    @Column({precision: 10, default: null})
+    pub_date?: string;
 
     @Column({length: 1000, unique: true})
     name_ru: string;

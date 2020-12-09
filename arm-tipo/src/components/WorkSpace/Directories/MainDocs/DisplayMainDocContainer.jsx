@@ -8,12 +8,12 @@ import {getMainDocById} from "../../../../redux/Reducers/MainDocReducer";
 import React from "react";
 import DisplayMainDoc from "./DisplayMainDoc";
 import {compose} from "redux";
-
-// todo зарефакторить
+import {Spin} from "antd";
+import moment from "moment";
 
 class DisplayMainDocContainer extends React.Component {
     componentDidMount() {
-        const {getDepartments, getStatuses, getTypes, match, getMainDocById} = this.props;
+        const {match, getMainDocById, getDepartments, getTypes, getStatuses} = this.props;
 
         let id = match.params.id;
 
@@ -22,13 +22,18 @@ class DisplayMainDocContainer extends React.Component {
         }
 
         getMainDocById(id);
+
         getDepartments();
-        getStatuses();
-        getTypes();
+        getTypes()
+        getStatuses()
     }
 
     render() {
         const {currentMainDoc, departments, statuses, types, directory} = this.props;
+
+        if (departments.length === 0 || statuses.length === 0 || types.length === 0) {
+            return <Spin/>
+        }
 
         return (
             <DisplayMainDoc

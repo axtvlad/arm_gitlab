@@ -12,14 +12,15 @@ import {
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import moment from "moment";
 
 interface IRestMainDocsCreate {
     num: string;
     department_id: number;
     status_id?: number;
-    begin_date?: Date;
-    finish_date?: Date;
-    pub_date?: Date;
+    begin_date?: string;
+    finish_date?: string;
+    pub_date?: string;
     name_ru: string;
     name_kz?: string;
     header_ru: string;
@@ -110,7 +111,8 @@ export default new class MainDocsController {
             MainDoc.header_ru = bodyParams.header_ru;
             MainDoc.file_ru = bodyParams.file_ru;
             MainDoc.type_id = bodyParams.type_id;
-            MainDoc.tags = bodyParams.tags;
+            MainDoc.tags = bodyParams.tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-");
+            MainDoc.pub_date = moment().format('YYYY-MM-DD')
 
             if (bodyParams.status_id) {
                 MainDoc.status_id = bodyParams.status_id;
@@ -120,9 +122,6 @@ export default new class MainDocsController {
             }
             if (bodyParams.finish_date) {
                 MainDoc.finish_date = bodyParams.finish_date;
-            }
-            if (bodyParams.pub_date) {
-                MainDoc.pub_date = bodyParams.pub_date;
             }
             if (bodyParams.status_id) {
                 MainDoc.status_id = bodyParams.status_id;
@@ -356,7 +355,7 @@ export default new class MainDocsController {
 
             return res.send({
                 errorCode: ERROR_CODE_NONE,
-                data: mainDoc,
+                data: mainDoc[0],
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

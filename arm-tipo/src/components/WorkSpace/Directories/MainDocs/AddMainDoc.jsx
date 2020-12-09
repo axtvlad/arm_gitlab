@@ -28,9 +28,6 @@ const AddMainDoc = ({postMainDoc, types, departments, statuses}) => {
     };*/
 
     const onSubmit = (formData) => {
-        // todo должно выполняться на сервере (на сервер отдаем всю строку)
-        formData.tags = formData.tags.toString().replace(/[ ,!@#$%^&*()-_+±|/]/g, "-")
-
         // todo найти альтернативное решение
         const begin_date = moment(formData.begin_and_finish_date[0]).format('YYYY-MM-DD')
         const finish_date = moment(formData.begin_and_finish_date[1]).format('YYYY-MM-DD')

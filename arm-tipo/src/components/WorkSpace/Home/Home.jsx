@@ -62,7 +62,7 @@ const Home = ({isFetching, usersCount, totalCount, lastAddedMainDoc, type}) => {
 
     return (
         <div className={'content'}>
-            <Row gutter={16}>
+            <Row gutter={16} style={{textAlign: 'center'}}>
                 <Col span={12}>
                     <Spin spinning={isFetching}>
                         <Statistic

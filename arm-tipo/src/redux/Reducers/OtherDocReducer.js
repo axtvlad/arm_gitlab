@@ -93,8 +93,8 @@ export const postOtherDoc = (newOtherDoc) => async (dispatch) => {
     dispatch(getOtherDocs())
 };
 
-export const deleteOtherDocById = (id) => async (dispatch) => {
-    await restAPI.otherDocs.deleteOtherDocById(id)
+export const deleteOtherDocById = (formData) => async (dispatch) => {
+    await restAPI.otherDocs.deleteOtherDocById(formData.id)
 
     dispatch(getOtherDocs())
 };
