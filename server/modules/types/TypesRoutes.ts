@@ -21,6 +21,7 @@ TypesRoutes.get('/', TypesController.getTypesList);
 TypesRoutes.get('/:id', TypesController.getTypeById);
 TypesRoutes.post('/', TypesController.create);
 TypesRoutes.delete(`/:id`, TypesController.remove);
+TypesRoutes.put(`/:id`, TypesController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

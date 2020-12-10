@@ -21,6 +21,7 @@ GendersRoutes.get('/', GendersController.getGendersList);
 GendersRoutes.get('/:id', GendersController.getGenderById);
 GendersRoutes.post('/', GendersController.create);
 GendersRoutes.delete(`/:id`, GendersController.remove);
+GendersRoutes.put(`/:id`, GendersController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

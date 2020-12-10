@@ -9,7 +9,6 @@ import React from "react";
 import DisplayMainDoc from "./DisplayMainDoc";
 import {compose} from "redux";
 import {Spin} from "antd";
-import moment from "moment";
 
 class DisplayMainDocContainer extends React.Component {
     componentDidMount() {

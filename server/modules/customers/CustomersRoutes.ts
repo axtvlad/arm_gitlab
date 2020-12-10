@@ -21,6 +21,7 @@ CustomersRoutes.get('/', CustomersController.getCustomersList);
 CustomersRoutes.get('/:id', CustomersController.getCustomerById);
 CustomersRoutes.post('/', CustomersController.create);
 CustomersRoutes.delete(`/:id`, CustomersController.remove);
+CustomersRoutes.put(`/:id`, CustomersController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {getDepartmentById} from "../../../../redux/Reducers/DepartmentReducer";
-import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
@@ -22,7 +22,7 @@ class DisplayDepartmentContainer extends React.Component {
 
     render() {
         return (
-            <DisplayDirectoryItem {...this.props}/>
+            <DisplayDirectory {...this.props}/>
         )
     }
 }

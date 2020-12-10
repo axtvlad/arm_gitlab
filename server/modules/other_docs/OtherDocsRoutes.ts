@@ -21,6 +21,7 @@ OtherDocsRoutes.get('/', OtherDocsController.getOtherDocsList);
 OtherDocsRoutes.get('/:id', OtherDocsController.getOtherDocById);
 OtherDocsRoutes.post('/', OtherDocsController.create);
 OtherDocsRoutes.delete(`/:id`, OtherDocsController.remove);
+OtherDocsRoutes.put(`/:id`, OtherDocsController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

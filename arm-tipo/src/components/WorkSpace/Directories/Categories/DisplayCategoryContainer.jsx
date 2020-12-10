@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {getCategoryById} from "../../../../redux/Reducers/CategoryReducer";
+import {getCategoryById, updateCategory} from "../../../../redux/Reducers/CategoryReducer";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
@@ -20,14 +20,16 @@ class DisplayCategoryContainer extends React.Component {
         getCategoryById(id);
     }
 
+
     render() {
-        const {isFetching, currentItem, type} = this.props;
+        const {isFetching, currentItem, type, updateCategory} = this.props;
 
         return (
-            <DisplayDirectoryItem
+            <DisplayDirectory
                 isFetching={isFetching}
                 currentItem={currentItem}
                 type={type}
+                onSubmit={updateCategory}
             />
         )
     }
@@ -45,7 +47,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getCategoryById
+        getCategoryById,
+        updateCategory
     }),
     withRouter
 )(DisplayCategoryContainer)

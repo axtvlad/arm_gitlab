@@ -1,12 +1,23 @@
-import React from 'react'
-import {Descriptions, Spin} from "antd";
+import React, {useState} from 'react'
+import {Button, Descriptions, Spin} from "antd";
 import {useTranslation} from "react-i18next";
+import EditDirectory from "../Forms/EditDirectory";
 
-const DisplayDirectoryItem = ({isFetching, currentItem, type}) => {
+const DisplayDirectory = ({onSubmit, isFetching, currentItem, type}) => {
     const {t} = useTranslation();
+    const [editMode, setEditMode] = useState(false);
+
+    const editModeOn = () => {
+        setEditMode(true);
+    }
+
+    const editModeOff = () => {
+        setEditMode(false);
+    }
 
     return (
         <Spin spinning={isFetching}>
+            {!editMode &&
             <div className={'content'}>
                 {currentItem && (
                     <Descriptions
@@ -26,9 +37,14 @@ const DisplayDirectoryItem = ({isFetching, currentItem, type}) => {
                         </Descriptions.Item>
                     </Descriptions>
                 )}
+                <Button onClick={editModeOn} type={'primary'}>
+                    {t('Редактировать')}
+                </Button>
             </div>
+            }
+            {editMode && <EditDirectory onSubmit={onSubmit} currentItem={currentItem[0]} editModeOff={editModeOff}/>}
         </Spin>
     )
 };
 
-export default DisplayDirectoryItem
+export default DisplayDirectory

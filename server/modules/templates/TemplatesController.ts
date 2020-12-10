@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Templates} from "./TemplatesModel";
 import {
@@ -12,6 +12,14 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestTemplatesCreate {
+    name_ru: string;
+    name_kz: string;
+    category_id: number;
+    file_ru: string;
+    file_kz?: string;
+}
+
+interface IRestTemplatesUpdate {
     name_ru: string;
     name_kz: string;
     category_id: number;
@@ -207,6 +215,40 @@ export default new class TemplatesController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestTemplatesUpdate>rest.getBody();
+            const config = <FindManyOptions<Templates>>{};
+            const {id} = <IRestTemplateByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Templates)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ["id", "name_ru", "name_kz", "category_id", "file_ru", "file_kz"];
+            config.where = {id};
+
+            const updatedTemplate = await getManager().getRepository(Templates).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedTemplate[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

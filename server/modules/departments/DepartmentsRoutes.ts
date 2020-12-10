@@ -21,6 +21,7 @@ DepartmentsRoutes.get('/', DepartmentsController.getDepartmentsList);
 DepartmentsRoutes.get('/:id', DepartmentsController.getDepartmentById);
 DepartmentsRoutes.post('/', DepartmentsController.create);
 DepartmentsRoutes.delete(`/:id`, DepartmentsController.remove);
+DepartmentsRoutes.put(`/:id`, DepartmentsController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

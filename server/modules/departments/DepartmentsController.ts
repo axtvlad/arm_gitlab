@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Departments} from "./DepartmentsModel";
 import {
@@ -11,8 +11,14 @@ import {
     ERROR_CODE_PARAMETER_NOT_PASSED,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {Customers} from "../customers/CustomersModel";
 
 interface IRestDepartmentsCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestDepartmentsUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -191,6 +197,40 @@ export default new class DepartmentsController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestDepartmentsUpdate>rest.getBody();
+            const config = <FindManyOptions<Departments>>{};
+            const {id} = <IRestDepartmentByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Departments)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const updatedDepartment = await getManager().getRepository(Departments).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedDepartment[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

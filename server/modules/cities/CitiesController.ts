@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Cities} from "./CitiesModel";
 import {
@@ -11,8 +11,14 @@ import {
     ERROR_CODE_USER_NOT_EXISTS,
 } from '../../services/ServiceRestCodes';
 import ServiceLocale from "../../services/ServiceLocale";
+import {Categories} from "../categories/CategoriesModel";
 
 interface IRestCitiesCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestCitiesUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -188,6 +194,59 @@ export default new class CitiesController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestCitiesUpdate>rest.getBody();
+            const config = <FindManyOptions<Cities>>{};
+            const {id} = <IRestCityByIdKeys>rest.getKeys();
+
+            if (!bodyParams.name_ru) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_RU',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_NAME_RU')
+                });
+            } else if (!bodyParams.name_kz) {
+                return res.status(400).send({
+                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_NAME_KZ',
+                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
+                    message: req.__('PASSED_PARAM_NAME_KZ')
+                });
+            }
+
+            const City = {
+                name_ru: bodyParams.name_ru,
+                name_kz: bodyParams.name_kz,
+            }
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Cities)
+                .set(City)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const updatedCity = await getManager().getRepository(Cities).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedCity[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

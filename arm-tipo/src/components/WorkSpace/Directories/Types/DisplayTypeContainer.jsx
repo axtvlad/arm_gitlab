@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {getTypeById} from "../../../../redux/Reducers/TypeReducer";
-import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
@@ -22,7 +22,7 @@ class DisplayTypeContainer extends React.Component {
 
     render() {
         return (
-            <DisplayDirectoryItem {...this.props}/>
+            <DisplayDirectory {...this.props}/>
         )
     }
 }

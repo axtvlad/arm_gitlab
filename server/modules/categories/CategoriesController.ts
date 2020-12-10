@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Categories} from "./CategoriesModel";
 import {
@@ -13,6 +13,11 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestCategoriesCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestCategoriesUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -81,6 +86,41 @@ export default new class CategoriesController {
                     name_ru: category.name_ru,
                     name_kz: category.name_kz
                 },
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestCategoriesUpdate>rest.getBody();
+            const config = <FindManyOptions<Categories>>{};
+            const {id} = <IRestCategoryByIdKeys>rest.getKeys();
+
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Categories)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const updatedCategory = await getManager().getRepository(Categories).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedCategory[0],
                 message: req.__('MESSAGE_OK')
             });
         } catch (err) {

@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import {withRouter} from "react-router-dom";
-import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getRoleById} from "../../../../redux/Reducers/RoleReducer";
 import {compose} from "redux";
@@ -22,7 +22,7 @@ class DisplayRoleContainer extends React.Component {
 
     render() {
         return (
-            <DisplayDirectoryItem {...this.props}/>
+            <DisplayDirectory {...this.props}/>
         )
     }
 }

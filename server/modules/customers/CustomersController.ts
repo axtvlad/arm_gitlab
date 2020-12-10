@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Customers} from "./CustomersModel";
 import {
@@ -12,6 +12,11 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestCustomersCreate {
+    name_ru: string;
+    name_kz?: string;
+}
+
+interface IRestCustomersUpdate {
     name_ru: string;
     name_kz?: string;
 }
@@ -180,6 +185,40 @@ export default new class CustomersController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestCustomersUpdate>rest.getBody();
+            const config = <FindManyOptions<Customers>>{};
+            const {id} = <IRestCustomerByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Customers)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const updatedCustomer = await getManager().getRepository(Customers).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedCustomer[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

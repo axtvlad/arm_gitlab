@@ -23,6 +23,7 @@ MainDocsRoutes.post('/', MainDocsController.create);
 MainDocsRoutes.delete(`/:id`, MainDocsController.remove);
 MainDocsRoutes.post(`/searchByTags`, MainDocsController.searchByTags);
 MainDocsRoutes.post(`/searchByNum`, MainDocsController.searchByNum);
+MainDocsRoutes.put(`/:id`, MainDocsController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {MainDocs} from "./MainDocsModel";
 import {
@@ -15,6 +15,27 @@ import ServiceLocale from "../../services/ServiceLocale";
 import moment from "moment";
 
 interface IRestMainDocsCreate {
+    num: string;
+    department_id: number;
+    status_id?: number;
+    begin_date?: string;
+    finish_date?: string;
+    pub_date?: string;
+    name_ru: string;
+    name_kz?: string;
+    header_ru: string;
+    header_kz?: string;
+    file_ru: string;
+    file_kz?: string;
+    description_ru?: string;
+    description_kz?: string;
+    type_id: number;
+    text_ru?: string;
+    text_kz?: string;
+    tags: string;
+}
+
+interface IRestMainDocsUpdate {
     num: string;
     department_id: number;
     status_id?: number;
@@ -394,6 +415,44 @@ export default new class MainDocsController {
             });
         } catch (err) {
             console.error(err);
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestMainDocsUpdate>rest.getBody();
+            const config = <FindManyOptions<MainDocs>>{};
+            const {id} = <IRestMainDocByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(MainDocs)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = [
+                "id", "num", "department_id", "status_id", "begin_date", "finish_date", "pub_date",
+                "name_ru", "name_kz", "file_ru", "file_kz", "header_ru", "header_kz", "description_ru",
+                "description_ru", "type_id", "text_ru", "text_kz", "tags"
+            ];
+            config.where = {id};
+
+            const updatedMainDoc = await getManager().getRepository(MainDocs).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedMainDoc[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

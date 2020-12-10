@@ -98,3 +98,9 @@ export const deleteCategoryById = (id) => async (dispatch) => {
 
     dispatch(getCategories())
 };
+
+export const updateCategory = (id, data) => async (dispatch) => {
+    await restAPI.categories.updateCategory(id, data)
+
+    dispatch(getCategoryById(id))
+};

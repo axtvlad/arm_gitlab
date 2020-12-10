@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {
     ERROR_CODE_BAD_REQUEST,
@@ -12,6 +12,13 @@ import {Faqs} from "./FaqsModel";
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestFaqsCreate {
+    question_ru: string;
+    question_kz?: string;
+    answer_ru: string;
+    answer_kz?: string;
+}
+
+interface IRestFaqsUpdate {
     question_ru: string;
     question_kz?: string;
     answer_ru: string;
@@ -195,6 +202,40 @@ export default new class FaqsController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestFaqsUpdate>rest.getBody();
+            const config = <FindManyOptions<Faqs>>{};
+            const {id} = <IRestFaqByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Faqs)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ["id", "question_ru", "answer_ru", "question_kz", "answer_kz"];
+            config.where = {id};
+
+            const updatedFaq = await getManager().getRepository(Faqs).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedFaq[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

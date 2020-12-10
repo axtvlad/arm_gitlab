@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import DisplayDirectoryItem from "../../../common/commonComponents/DisplayDirectoryItem";
+import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {getCities, getCityById} from "../../../../redux/Reducers/CityReducer";
 import {compose} from "redux";
@@ -22,7 +22,7 @@ class DisplayCityContainer extends React.Component {
 
     render() {
         return (
-            <DisplayDirectoryItem {...this.props}/>
+            <DisplayDirectory {...this.props}/>
         )
     }
 }

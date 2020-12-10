@@ -20,17 +20,22 @@ export const restAPI = {
         },
         getUserById(userId) {
             return instance
-                .get('users/' + userId + '?loadData=true')
+                .get(`users/${userId}?loadData=true`)
                 .then(response => response.data);
         },
         deleteUserById(id) {
             return instance
-                .delete('users/' + id)
+                .delete(`users/${id}`)
                 .then(response => response.data);
         },
         postUser(newUser) {
             return instance
                 .post('users', newUser)
+                .then(response => response.data)
+        },
+        updateUser(id, data) {
+            return instance
+                .put(`users/${id}`, data)
                 .then(response => response.data)
         },
     },
@@ -43,19 +48,24 @@ export const restAPI = {
         },
         getCategoryById(id) {
             return instance
-                .get('categories/' + id)
+                .get(`categories/${id}`)
                 .then(response => response.data)
         },
         deleteCategoryById(id) {
             return instance
-                .delete('categories/' + id)
+                .delete(`categories/${id}`)
                 .then(response => response.data)
         },
         postCategory(newCategory) {
             return instance
                 .post('categories', newCategory)
                 .then(response => response.data)
-        }
+        },
+        updateCategory(id, data) {
+            return instance
+                .put(`categories/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     faqs: {
@@ -66,19 +76,24 @@ export const restAPI = {
         },
         getFaqById(id) {
             return instance
-                .get('faqs/' + id)
+                .get(`faqs/${id}`)
                 .then(response => response.data)
         },
         deleteFaqById(id) {
             return instance
-                .delete('faqs/' + id)
+                .delete(`faqs/${id}`)
                 .then(response => response.data)
         },
         postFaq(newFaq) {
             return instance
                 .post('faqs', newFaq)
                 .then(response => response.data)
-        }
+        },
+        updateFaq(id, data) {
+            return instance
+                .put(`faqs/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     cities: {
@@ -89,19 +104,24 @@ export const restAPI = {
         },
         getCityById(id) {
             return instance
-                .get('cities/' + id)
+                .get(`cities/${id}`)
                 .then(response => response.data)
         },
         deleteCityById(id) {
             return instance
-                .delete('cities/' + id)
+                .delete(`cities/${id}`)
                 .then(response => response.data)
         },
         postCity(newCity) {
             return instance
                 .post('cities', newCity)
                 .then(response => response.data)
-        }
+        },
+        updateCity(id, data) {
+            return instance
+                .put(`cities/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     customers: {
@@ -112,19 +132,24 @@ export const restAPI = {
         },
         getCustomerById(id) {
             return instance
-                .get('customers/' + id)
+                .get(`customers/${id}`)
                 .then(response => response.data)
         },
         deleteCustomerById(id) {
             return instance
-                .delete('customers/' + id)
+                .delete(`customers/${id}`)
                 .then(response => response.data)
         },
         postCustomer(newCustomer) {
             return instance
                 .post('customers', newCustomer)
                 .then(response => response.data)
-        }
+        },
+        updateCustomer(id, data) {
+            return instance
+                .put(`customers/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     departments: {
@@ -147,13 +172,23 @@ export const restAPI = {
             return instance
                 .post('departments', newDepartment)
                 .then(response => response.data)
-        }
+        },
+        updateDepartment(id, data) {
+            return instance
+                .put(`departments/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     genders: {
         getGenders() {
             return instance
                 .get('genders')
+                .then(response => response.data)
+        },
+        updateGender(id, data) {
+            return instance
+                .put(`genders/${id}`, data)
                 .then(response => response.data)
         },
     },
@@ -188,7 +223,12 @@ export const restAPI = {
             return instance
                 .post('mainDocs/searchByNum', {num: num})
                 .then(response => response.data)
-        }
+        },
+        updateMainDoc(id, data) {
+            return instance
+                .put(`mainDocs/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     otherDocs: {
@@ -211,7 +251,12 @@ export const restAPI = {
             return instance
                 .post('otherDocs', newOtherDoc)
                 .then(response => response.data)
-        }
+        },
+        updateOtherDoc(id, data) {
+            return instance
+                .put(`otherDocs/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     roles: {
@@ -234,7 +279,12 @@ export const restAPI = {
             return instance
                 .post('roles', newRole)
                 .then(response => response.data)
-        }
+        },
+        updateRole(id, data) {
+            return instance
+                .put(`roles/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     statuses: {
@@ -257,7 +307,12 @@ export const restAPI = {
             return instance
                 .post('statuses', newStatus)
                 .then(response => response.data)
-        }
+        },
+        updateStatus(id, data) {
+            return instance
+                .put(`statuses/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     templates: {
@@ -280,7 +335,12 @@ export const restAPI = {
             return instance
                 .post('templates', newTemplate)
                 .then(response => response.data)
-        }
+        },
+        updateTemplate(id, data) {
+            return instance
+                .put(`templates/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     types: {
@@ -303,7 +363,12 @@ export const restAPI = {
             return instance
                 .post('types', newType)
                 .then(response => response.data)
-        }
+        },
+        updateType(id, data) {
+            return instance
+                .put(`types/${id}`, data)
+                .then(response => response.data)
+        },
     },
 
     wps: {
@@ -337,7 +402,6 @@ export const restAPI = {
 
                     return response.data
                 })
-
         },
     }
 }

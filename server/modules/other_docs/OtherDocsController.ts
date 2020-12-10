@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {OtherDocs} from "./OtherDocsModel";
 import {
@@ -12,6 +12,13 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestOtherDocsCreate {
+    name_ru: string;
+    name_kz?: string;
+    file_ru: string;
+    file_kz?: string;
+}
+
+interface IRestOtherDocsUpdate {
     name_ru: string;
     name_kz?: string;
     file_ru: string;
@@ -194,6 +201,40 @@ export default new class OtherDocsController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestOtherDocsUpdate>rest.getBody();
+            const config = <FindManyOptions<OtherDocs>>{};
+            const {id} = <IRestOtherDocByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(OtherDocs)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ["id", "name_ru", "name_kz", "file_ru", "file_kz"];
+            config.where = {id};
+
+            const updatedOtherDoc = await getManager().getRepository(OtherDocs).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedOtherDoc[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

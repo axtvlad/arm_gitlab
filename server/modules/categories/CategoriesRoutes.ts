@@ -15,15 +15,16 @@ CategoriesRoutes.use((req: Request, res: Response, next: Function) => {
 });
 
 /**
- * Routes to URL: /rest/api/users/*
+ * Routes to URL: /rest/api/categories/*
  */
 CategoriesRoutes.get('/', CategoriesController.getCategoriesList);
 CategoriesRoutes.get('/:id', CategoriesController.getCategoryById);
 CategoriesRoutes.post('/', CategoriesController.create);
 CategoriesRoutes.delete(`/:id`, CategoriesController.remove);
+CategoriesRoutes.put(`/:id`, CategoriesController.update);
 
 /**
- * Error All Request to URL: /rest/api/users/*
+ * Error All Request to URL: /rest/api/categories/*
  */
 CategoriesRoutes.use('*', (req: Request, res: Response) => {
     return res.status(500).send({

@@ -21,6 +21,7 @@ FaqsRoutes.get('/', FaqsController.getFaqsList);
 FaqsRoutes.get('/:id', FaqsController.getFaqById);
 FaqsRoutes.post('/', FaqsController.create);
 FaqsRoutes.delete(`/:id`, FaqsController.remove);
+FaqsRoutes.put(`/:id`, FaqsController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

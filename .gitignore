@@ -1,4 +1,5 @@
 .idea
+.idea/*
 
 arm-tipo/node_modules
 arm-tipo/.eslintcache

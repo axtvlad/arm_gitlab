@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Statuses} from "./StatusesModel";
 import {
@@ -13,6 +13,11 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestStatusesCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestStatusesUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -192,6 +197,40 @@ export default new class StatusesController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestStatusesUpdate>rest.getBody();
+            const config = <FindManyOptions<Statuses>>{};
+            const {id} = <IRestStatusByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Statuses)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ["id", "name_ru", "name_kz"];
+            config.where = {id};
+
+            const updatedStatus = await getManager().getRepository(Statuses).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedStatus[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

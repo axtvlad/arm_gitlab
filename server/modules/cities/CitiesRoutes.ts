@@ -21,6 +21,7 @@ CitiesRoutes.get('/', CitiesController.getCitiesList);
 CitiesRoutes.get('/:id', CitiesController.getCityById);
 CitiesRoutes.post('/', CitiesController.create);
 CitiesRoutes.delete(`/:id`, CitiesController.remove);
+CitiesRoutes.put(`/:id`, CitiesController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

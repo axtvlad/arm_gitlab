@@ -52,8 +52,8 @@ export class Users {
     })
     locale?: string;
 
-    @Column({type: 'date', default: null})
-    birthAt?: Date;
+    @Column({precision: 10, default: null})
+    birthAt?: string;
 
     @Column({default: false})
     isAdmin?: boolean;

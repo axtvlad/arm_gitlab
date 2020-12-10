@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Genders} from "./GendersModel";
 import {
@@ -13,6 +13,11 @@ import {
 import ServiceLocale from "../../services/ServiceLocale";
 
 interface IRestGendersCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestGendersUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -192,6 +197,40 @@ export default new class GendersController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestGendersUpdate>rest.getBody();
+            const config = <FindManyOptions<Genders>>{};
+            const {id} = <IRestGenderByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Genders)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ['id', 'name_ru', 'name_kz'];
+            config.where = {id};
+
+            const updatedGender = await getManager().getRepository(Genders).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedGender[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

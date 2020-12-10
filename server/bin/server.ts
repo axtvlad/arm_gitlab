@@ -45,10 +45,9 @@ app.use(express.static(__dirname + '/public'));
 
  */
 
-
 app.use(cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    origin: '*',
+    methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS",
 }));
 app.use(i18n.init);
 app.use(express.json());

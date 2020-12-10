@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {
     ERROR_CODE_BAD_REQUEST,
@@ -12,6 +12,11 @@ import ServiceLocale from "../../services/ServiceLocale";
 import {Types} from "./TypesModel";
 
 interface IRestTypesCreate {
+    name_ru: string;
+    name_kz: string;
+}
+
+interface IRestTypesUpdate {
     name_ru: string;
     name_kz: string;
 }
@@ -191,6 +196,40 @@ export default new class TypesController {
             });
         } catch (err) {
 
+        }
+    }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestTypesUpdate>rest.getBody();
+            const config = <FindManyOptions<Types>>{};
+            const {id} = <IRestTypeByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Types)
+                .set(bodyParams)
+                .where("id = :id", {id: id})
+                .execute();
+
+            config.select = ["id", "name_ru", "name_kz"];
+            config.where = {id};
+
+            const updatedType = await getManager().getRepository(Types).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedType[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
         }
     }
 }

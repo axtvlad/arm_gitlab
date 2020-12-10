@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {FindManyOptions, getManager} from "typeorm";
+import {FindManyOptions, getConnection, getManager} from "typeorm";
 import ServiceRest from "../../services/ServiceRest";
 import {Users} from "./UsersModel";
 import passwordHash from 'password-hash';
@@ -28,7 +28,27 @@ interface IRestUsersCreate {
     gender_id?: number;
     phone?: number;
     locale?: string;
-    birthAt?: Date;
+    birthAt?: string;
+    isAdmin?: boolean;
+    isPremium?: boolean;
+    isBanned?: boolean;
+}
+
+interface IRestUsersUpdate {
+    firstName: string;
+    lastName: string;
+    patronymic?: string;
+    login: string;
+    password: string;
+    email: string;
+    photo?: string;
+    role_id?: number;
+    city_id?: number;
+    customer_id?: number;
+    gender_id?: number;
+    phone?: number;
+    locale?: string;
+    birthAt?: string;
     isAdmin?: boolean;
     isPremium?: boolean;
     isBanned?: boolean;
@@ -286,4 +306,42 @@ export default new class UsersController {
             });
         }
     }
+
+    async update(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestUsersUpdate>rest.getBody();
+            const config = <FindManyOptions<Users>>{};
+            const {userId} = <IRestUserByIdKeys>rest.getKeys();
+
+            await getConnection()
+                .createQueryBuilder()
+                .update(Users)
+                .set(bodyParams)
+                .where("id = :id", {id: userId})
+                .execute();
+
+            config.select = [
+                "userId", 'firstName', "lastName", "patronymic", "login", "email", "photo", "role_id", "city_id",
+                "customer_id", "gender_id", "photo", "locale", "birthAt", "isAdmin", "isBanned", "isPremium"
+            ];
+            config.where = {id: userId};
+
+            const updatedUser = await getManager().getRepository(Users).find(config);
+
+            return res.send({
+                errorCode: ERROR_CODE_NONE,
+                data: updatedUser[0],
+                message: req.__('MESSAGE_OK')
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
 }

@@ -21,6 +21,7 @@ RolesRoutes.get('/', RolesController.getRolesList);
 RolesRoutes.get('/:id', RolesController.getRoleDocById);
 RolesRoutes.post('/', RolesController.create);
 RolesRoutes.delete(`/:id`, RolesController.remove);
+RolesRoutes.put(`/:id`, RolesController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

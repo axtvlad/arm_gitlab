@@ -21,6 +21,7 @@ TemplatesRoutes.get('/', TemplatesController.getTemplatesList);
 TemplatesRoutes.get('/:id', TemplatesController.getTemplateById);
 TemplatesRoutes.post('/', TemplatesController.create);
 TemplatesRoutes.delete(`/:id`, TemplatesController.remove);
+TemplatesRoutes.put(`/:id`, TemplatesController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*

@@ -21,6 +21,7 @@ StatusesRoutes.get('/', StatusesController.getStatusesList);
 StatusesRoutes.get('/:id', StatusesController.getStatusById);
 StatusesRoutes.post('/', StatusesController.create);
 StatusesRoutes.delete(`/:id`, StatusesController.remove);
+StatusesRoutes.put(`/:id`, StatusesController.update);
 
 /**
  * Error All Request to URL: /rest/api/users/*
