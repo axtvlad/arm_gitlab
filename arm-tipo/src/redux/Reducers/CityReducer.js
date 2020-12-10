@@ -4,14 +4,12 @@ const SET_CITIES = 'set_cities';
 const SET_CITIES_COUNT = 'set_cities_count';
 const SET_CITIES_IS_FETCHING = 'set_cities_is_fetching';
 const SET_CURRENT_CITY = 'set_current_city';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     cities: [],
     citiesCount: 0,
     isFetching: false,
     currentCity: null,
-    isPosted: false,
 };
 
 export const CityReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const CityReducer = (state = initialState, action) => {
                 ...state,
                 currentCity: action.currentCity
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setCities = (cities) => ({
+const setCities = (cities) => ({
     type: SET_CITIES,
     cities
 });
 
-export const setCitiesCount = (citiesCount) => ({
+const setCitiesCount = (citiesCount) => ({
     type: SET_CITIES_COUNT,
     citiesCount
 });
 
-export const setCitiesIsFetching = (isFetching) => ({
+const setCitiesIsFetching = (isFetching) => ({
     type: SET_CITIES_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentCity = (currentCity) => ({
+const setCurrentCity = (currentCity) => ({
     type: SET_CURRENT_CITY,
     currentCity
 });
@@ -97,4 +85,10 @@ export const deleteCityById = (id) => async (dispatch) => {
     await restAPI.cities.deleteCityById(id)
 
     dispatch(getCities())
+};
+
+export const updateCity = (id, data) => async (dispatch) => {
+    await restAPI.cities.updateCity(id, data)
+
+    dispatch(getCityById(id))
 };

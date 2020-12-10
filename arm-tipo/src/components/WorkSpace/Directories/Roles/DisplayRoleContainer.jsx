@@ -3,7 +3,7 @@ import React from "react";
 import {withRouter} from "react-router-dom";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {getRoleById} from "../../../../redux/Reducers/RoleReducer";
+import {getRoleById, updateRole} from "../../../../redux/Reducers/RoleReducer";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
@@ -21,8 +21,15 @@ class DisplayRoleContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateRole, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+                onSubmit={updateRole}
+            />
         )
     }
 }
@@ -39,7 +46,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getRoleById
+        getRoleById,
+        updateRole
     }),
     withRouter
 )(DisplayRoleContainer);

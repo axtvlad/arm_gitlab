@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {getCities, getCityById} from "../../../../redux/Reducers/CityReducer";
+import {getCities, getCityById, updateCity} from "../../../../redux/Reducers/CityReducer";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
@@ -21,8 +21,15 @@ class DisplayCityContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateCity, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                onSubmit={updateCity}
+                type={type}
+            />
         )
     }
 }
@@ -40,7 +47,8 @@ export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
         getCityById,
-        getCities
+        getCities,
+        updateCity
     }),
     withRouter
 )(DisplayCityContainer);

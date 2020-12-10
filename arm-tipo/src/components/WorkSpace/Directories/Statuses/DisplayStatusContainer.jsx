@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
-import {getStatusById} from "../../../../redux/Reducers/StatusReducer";
+import {getStatusById, updateStatus} from "../../../../redux/Reducers/StatusReducer";
 import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 
@@ -21,8 +21,15 @@ class DisplayStatusContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateStatus, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+                onSubmit={updateStatus}
+            />
         )
     }
 }
@@ -38,7 +45,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getStatusById
+        getStatusById,
+        updateStatus
     }),
     withRouter
 )(DisplayStatusContainer);

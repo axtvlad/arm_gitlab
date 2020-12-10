@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {getTypeById} from "../../../../redux/Reducers/TypeReducer";
+import {getTypeById, updateType} from "../../../../redux/Reducers/TypeReducer";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {compose} from "redux";
@@ -21,8 +21,15 @@ class DisplayTypeContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateType, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+                onSubmit={updateType}
+            />
         )
     }
 }
@@ -39,7 +46,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getTypeById
+        getTypeById,
+        updateType
     }),
     withRouter
 )(DisplayTypeContainer);

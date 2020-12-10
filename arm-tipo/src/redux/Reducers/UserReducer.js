@@ -4,7 +4,6 @@ const SET_USERS = 'set_users';
 const SET_USERS_COUNT = 'set_users_count';
 const SET_USERS_IS_FETCHING = 'set_users_is_fetching';
 const SET_CURRENT_USER = 'set_current_user';
-const SET_IS_POSTED = 'set_is_posted';
 
 const getIsAdmin = () => {
     if (!localStorage.getItem('isAdmin') || localStorage.getItem('isAdmin') === 'false') {
@@ -22,7 +21,6 @@ const initialState = {
     isFetching: false,
     currentUser: undefined,
     isAdmin: getIsAdmin(),
-    isPosted: false,
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -47,37 +45,27 @@ export const UserReducer = (state = initialState, action) => {
                 ...state,
                 currentUser: action.currentUser
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setUsers = (users) => ({
+const setUsers = (users) => ({
     type: SET_USERS,
     users
 });
 
-export const setUsersCount = (usersCount) => ({
+const setUsersCount = (usersCount) => ({
     type: SET_USERS_COUNT,
     usersCount
 });
 
-export const setUsersIsFetching = (isFetching) => ({
+const setUsersIsFetching = (isFetching) => ({
     type: SET_USERS_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentUser = (currentUser) => ({
+const setCurrentUser = (currentUser) => ({
     type: SET_CURRENT_USER,
     currentUser
 });
@@ -108,4 +96,10 @@ export const deleteUserById = (id) => async (dispatch) => {
     await restAPI.users.deleteUserById(id)
 
     dispatch(getUsers())
+};
+
+export const updateUser = (id, data) => async (dispatch) => {
+    await restAPI.users.updateUser(id, data)
+
+    dispatch(getUserById(id))
 };

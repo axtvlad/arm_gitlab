@@ -25,12 +25,12 @@ export const GenderReducer = (state = initialState, action) => {
     }
 }
 
-export const setGendersIsFetching = (isFetching) => ({
+const setGendersIsFetching = (isFetching) => ({
     type: SET_GENDERS_IS_FETCHING,
     isFetching
 });
 
-export const setGenders = (genders) => ({
+const setGenders = (genders) => ({
     type: SET_GENDERS,
     genders
 });
@@ -43,3 +43,9 @@ export const getGenders = () => async (dispatch) => {
     dispatch(setGenders(res.data));
     dispatch(setGendersIsFetching(false));
 };
+
+/*
+export const updateGender = (id, data) => async (dispatch) => {
+    await restAPI.genders.updateGender(id, data)
+}
+ */

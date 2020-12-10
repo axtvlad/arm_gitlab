@@ -46,7 +46,7 @@ export const setUserData = (userData) => ({
     userData
 });
 
-export const setAuthInProcess = (authInProcess) => ({
+const setAuthInProcess = (authInProcess) => ({
     type: SET_AUTH_IN_PROCESS,
     authInProcess
 });

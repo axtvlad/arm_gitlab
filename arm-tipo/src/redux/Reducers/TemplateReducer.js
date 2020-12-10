@@ -4,14 +4,12 @@ const SET_TEMPLATES_IS_FETCHING = 'set_templates_is_fetching';
 const SET_TEMPLATES = 'set_templates';
 const SET_TEMPLATES_COUNT = 'set_templates_count';
 const SET_CURRENT_TEMPLATE = 'set_current_template';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     templates: [],
     isFetching: false,
     templatesCount: 0,
     currentTemplate: null,
-    isPosted: false,
 };
 
 export const TemplateReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const TemplateReducer = (state = initialState, action) => {
                 ...state,
                 currentTemplate: action.currentTemplate
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setTemplates = (templates) => ({
+const setTemplates = (templates) => ({
     type: SET_TEMPLATES,
     templates
 });
 
-export const setTemplatesIsFetching = (isFetching) => ({
+const setTemplatesIsFetching = (isFetching) => ({
     type: SET_TEMPLATES_IS_FETCHING,
     isFetching
 });
 
-export const setTemplatesCount = (templatesCount) => ({
+const setTemplatesCount = (templatesCount) => ({
     type: SET_TEMPLATES_COUNT,
     templatesCount
 });
 
-export const setCurrentTemplate = (currentTemplate) => ({
+const setCurrentTemplate = (currentTemplate) => ({
     type: SET_CURRENT_TEMPLATE,
     currentTemplate
 });
@@ -97,4 +85,10 @@ export const deleteTemplateById = (id) => async (dispatch) => {
     await restAPI.templates.deleteTemplateById(id)
 
     dispatch(getTemplates())
+};
+
+export const updateTemplate = (id, data) => async (dispatch) => {
+    await restAPI.templates.updateTemplate(id, data)
+
+    dispatch(getTemplateById(id))
 };

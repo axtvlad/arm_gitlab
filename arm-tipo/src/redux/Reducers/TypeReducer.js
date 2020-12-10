@@ -1,6 +1,5 @@
 import {restAPI} from "../../api/API";
 
-const SET_IS_POSTED = 'set_is_posted';
 const SET_TYPES = 'set_types';
 const SET_TYPES_COUNT = 'set_types_count';
 const SET_TYPES_IS_FETCHING = 'set_types_is_fetching';
@@ -11,7 +10,6 @@ const initialState = {
     typesCount: 0,
     isFetching: false,
     currentType: null,
-    isPosted: false,
 };
 
 export const TypeReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const TypeReducer = (state = initialState, action) => {
                 ...state,
                 currentType: action.currentType
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted,
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setTypes = (typesArr) => ({
+const setTypes = (typesArr) => ({
     type: SET_TYPES,
     typesArr
 });
 
-export const setTypesCount = (typesCount) => ({
+const setTypesCount = (typesCount) => ({
     type: SET_TYPES_COUNT,
     typesCount
 });
 
-export const setTypesIsFetching = (isFetching) => ({
+const setTypesIsFetching = (isFetching) => ({
     type: SET_TYPES_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentType = (currentType) => ({
+const setCurrentType = (currentType) => ({
     type: SET_CURRENT_TYPE,
     currentType
 });
@@ -93,8 +81,14 @@ export const deleteTypeById = (id) => async (dispatch) => {
     dispatch(getTypes())
 };
 
-export const postType = (newType) => async (dispatch) => {
-    await restAPI.types.postType(newType)
+export const postType = (formData) => async (dispatch) => {
+    await restAPI.types.postType(formData)
 
     dispatch(getTypes())
+};
+
+export const updateType = (id, data) => async (dispatch) => {
+    await restAPI.types.updateType(id, data)
+
+    dispatch(getTypeById(id))
 };

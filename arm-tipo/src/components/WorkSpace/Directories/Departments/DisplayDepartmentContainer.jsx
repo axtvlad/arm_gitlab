@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {getDepartmentById} from "../../../../redux/Reducers/DepartmentReducer";
+import {getDepartmentById, updateDepartment} from "../../../../redux/Reducers/DepartmentReducer";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {compose} from "redux";
@@ -21,8 +21,15 @@ class DisplayDepartmentContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateDepartment, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+                onSubmit={updateDepartment}
+            />
         )
     }
 }
@@ -38,7 +45,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getDepartmentById
+        getDepartmentById,
+        updateDepartment
     }),
     withRouter
 )(DisplayDepartmentContainer)

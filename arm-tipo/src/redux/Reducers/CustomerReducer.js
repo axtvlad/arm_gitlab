@@ -4,14 +4,12 @@ const SET_CUSTOMERS = 'set_customers';
 const SET_CUSTOMERS_COUNT = 'set_customers_count';
 const SET_CUSTOMERS_IS_FETCHING = 'set_categories_is_fetching';
 const SET_CURRENT_CUSTOMER = 'set_current_customer';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     customers: [],
     customersCount: 0,
     isFetching: false,
     currentCustomer: null,
-    isPosted: false,
 };
 
 export const CustomerReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const CustomerReducer = (state = initialState, action) => {
                 ...state,
                 currentCustomer: action.currentCustomer
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setCustomers = (customers) => ({
+const setCustomers = (customers) => ({
     type: SET_CUSTOMERS,
     customers
 });
 
-export const setCustomersCount = (customersCount) => ({
+const setCustomersCount = (customersCount) => ({
     type: SET_CUSTOMERS_COUNT,
     customersCount
 });
 
-export const setCustomersIsFetching = (isFetching) => ({
+const setCustomersIsFetching = (isFetching) => ({
     type: SET_CUSTOMERS_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentCustomer = (currentCustomer) => ({
+const setCurrentCustomer = (currentCustomer) => ({
     type: SET_CURRENT_CUSTOMER,
     currentCustomer
 });
@@ -94,7 +82,13 @@ export const postCustomer = (formData) => async (dispatch) => {
 };
 
 export const deleteCustomerById = (id) => async (dispatch) => {
-    await  restAPI.customers.deleteCustomerById(id)
+    await restAPI.customers.deleteCustomerById(id)
 
     dispatch(getCustomers())
+};
+
+export const updateCustomer = (id, data) => async (dispatch) => {
+    await restAPI.customers.updateCustomer(id, data)
+
+    dispatch(getCustomerById(id))
 };

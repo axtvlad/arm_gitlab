@@ -4,13 +4,11 @@ const SET_OTHER_DOCS = 'set_other_docs';
 const SET_OTHER_DOCS_COUNT = 'set_other_docs_count';
 const SET_OTHER_DOCS_IS_FETCHING = 'set_other_docs_is_fetching';
 const SET_CURRENT_OTHER_DOC = 'set_current_other_doc';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     otherDocs: [],
     otherDocsCount: 0,
     isFetching: false,
-    isPosted: false,
     currentOtherDoc: undefined,
 }
 
@@ -36,37 +34,27 @@ export const OtherDocReducer = (state = initialState, action) => {
                 ...state,
                 currentOtherDoc: action.currentOtherDoc
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setOtherDocs = (otherDocs) => ({
+const setOtherDocs = (otherDocs) => ({
     type: SET_OTHER_DOCS,
     otherDocs
 });
 
-export const setOtherDocsCount = (otherDocsCount) => ({
+const setOtherDocsCount = (otherDocsCount) => ({
     type: SET_OTHER_DOCS_COUNT,
     otherDocsCount
 });
 
-export const setOtherDocsIsFetching = (isFetching) => ({
+const setOtherDocsIsFetching = (isFetching) => ({
     type: SET_OTHER_DOCS_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentOtherDoc = (currentOtherDoc) => ({
+const setCurrentOtherDoc = (currentOtherDoc) => ({
     type: SET_CURRENT_OTHER_DOC,
     currentOtherDoc
 });
@@ -97,4 +85,10 @@ export const deleteOtherDocById = (formData) => async (dispatch) => {
     await restAPI.otherDocs.deleteOtherDocById(formData.id)
 
     dispatch(getOtherDocs())
+};
+
+export const updateOtherDoc = (id, data) => async (dispatch) => {
+    await restAPI.otherDocs.updateOtherDoc(id, data)
+
+    dispatch(getOtherDocById(id))
 };

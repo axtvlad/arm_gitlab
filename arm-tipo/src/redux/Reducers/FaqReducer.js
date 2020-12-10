@@ -4,14 +4,12 @@ const SET_FAQS = 'set_faqs';
 const SET_FAQS_COUNT = 'set_faqs_count';
 const SET_FAQS_IS_FETCHING = 'set_faqs_is_fetching';
 const SET_CURRENT_FAQ = 'set_current_faq';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     faqs: [],
     faqsCount: 0,
     isFetching: false,
     currentFaq: {},
-    isPosted: false,
 };
 
 export const FaqReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const FaqReducer = (state = initialState, action) => {
                 ...state,
                 currentFaq: action.currentFaq
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setFaqs = (faqs) => ({
+const setFaqs = (faqs) => ({
     type: SET_FAQS,
     faqs
 });
 
-export const setFaqsCount = (faqsCount) => ({
+const setFaqsCount = (faqsCount) => ({
     type: SET_FAQS_COUNT,
     faqsCount
 });
 
-export const setFaqsIsFetching = (isFetching) => ({
+const setFaqsIsFetching = (isFetching) => ({
     type: SET_FAQS_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentFaq = (currentFaq) => ({
+const setCurrentFaq = (currentFaq) => ({
     type: SET_CURRENT_FAQ,
     currentFaq
 });
@@ -97,4 +85,10 @@ export const deleteFaqById = (id) => async (dispatch) => {
     await restAPI.faqs.deleteFaqById(id)
 
     dispatch(getFaqs())
+};
+
+export const updateFaq = (id, data) => async (dispatch) => {
+    await restAPI.faqs.updateFaq(id, data)
+
+    dispatch(getFaqById(id))
 };

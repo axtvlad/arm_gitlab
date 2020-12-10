@@ -4,14 +4,12 @@ const SET_ROLES = 'set_roles';
 const SET_ROLES_COUNT = 'set_roles_count';
 const SET_ROLES_IS_FETCHING = 'set_roles_is_fetching';
 const SET_CURRENT_ROLE = 'set_current_role';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     roles: [],
     rolesCount: 0,
     isFetching: false,
     currentRole: null,
-    isPosted: false,
 };
 
 export const RoleReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const RoleReducer = (state = initialState, action) => {
                 ...state,
                 currentRole: action.currentRole
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setRoles = (roles) => ({
+const setRoles = (roles) => ({
     type: SET_ROLES,
     roles
 });
 
-export const setRolesCount = (rolesCount) => ({
+const setRolesCount = (rolesCount) => ({
     type: SET_ROLES_COUNT,
     rolesCount
 });
 
-export const setRolesIsFetching = (isFetching) => ({
+const setRolesIsFetching = (isFetching) => ({
     type: SET_ROLES_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentRole = (currentRole) => ({
+const setCurrentRole = (currentRole) => ({
     type: SET_CURRENT_ROLE,
     currentRole
 });
@@ -97,4 +85,10 @@ export const deleteRoleById = (id) => async (dispatch) => {
     await restAPI.roles.deleteRoleById(id)
 
     dispatch(getRoles())
+};
+
+export const updateRole = (id, data) => async (dispatch) => {
+    await restAPI.roles.updateRole(id, data)
+
+    dispatch(getRoleById(id))
 };

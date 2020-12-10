@@ -4,14 +4,12 @@ const SET_CATEGORIES = 'set_categories';
 const SET_CATEGORIES_COUNT = 'set_categories_count';
 const SET_CATEGORIES_IS_FETCHING = 'set_categories_is_fetching';
 const SET_CURRENT_CATEGORY = 'set_current_category';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     categories: [],
     categoriesCount: 0,
     isFetching: false,
     currentCategory: null,
-    isPosted: false,
 };
 
 export const CategoryReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const CategoryReducer = (state = initialState, action) => {
                 ...state,
                 currentCategory: action.currentCategory
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setCategories = (categories) => ({
+const setCategories = (categories) => ({
     type: SET_CATEGORIES,
     categories
 });
 
-export const setCategoriesCount = (categoriesCount) => ({
+const setCategoriesCount = (categoriesCount) => ({
     type: SET_CATEGORIES_COUNT,
     categoriesCount
 });
 
-export const setCategoriesIsFetching = (isFetching) => ({
+const setCategoriesIsFetching = (isFetching) => ({
     type: SET_CATEGORIES_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentCategory = (currentCategory) => ({
+const setCurrentCategory = (currentCategory) => ({
     type: SET_CURRENT_CATEGORY,
     currentCategory
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {getCustomerById} from "../../../../redux/Reducers/CustomerReducer";
+import {getCustomerById, updateCustomer} from "../../../../redux/Reducers/CustomerReducer";
 import DisplayDirectory from "../../../common/commonComponents/DisplayDirectory";
 import {DirectoriesTypes, GetDirectory} from "../../../common/utils/DirectoriesTypes";
 import {compose} from "redux";
@@ -21,8 +21,15 @@ class DisplayCustomerContainer extends React.Component {
     }
 
     render() {
+        const {isFetching, currentItem, updateCustomer, type} = this.props;
+
         return (
-            <DisplayDirectory {...this.props}/>
+            <DisplayDirectory
+                isFetching={isFetching}
+                currentItem={currentItem}
+                type={type}
+                onSubmit={updateCustomer}
+            />
         )
     }
 }
@@ -38,7 +45,8 @@ const mapStateToProps = (state) => {
 export default compose(
     isAdminRedirect,
     connect(mapStateToProps, {
-        getCustomerById
+        getCustomerById,
+        updateCustomer
     }),
     withRouter
 )(DisplayCustomerContainer);

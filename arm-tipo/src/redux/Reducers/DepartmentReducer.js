@@ -4,14 +4,12 @@ const SET_DEPARTMENTS = 'set_departments';
 const SET_DEPARTMENTS_COUNT = 'set_departments_count';
 const SET_DEPARTMENTS_IS_FETCHING = 'set_departments_is_fetching';
 const SET_CURRENT_DEPARTMENT = 'set_current_department';
-const SET_IS_POSTED = 'set_is_posted';
 
 const initialState = {
     departments: [],
     departmentsCount: 0,
     isFetching: false,
     currentDepartment: null,
-    isPosted: false,
 };
 
 export const DepartmentReducer = (state = initialState, action) => {
@@ -36,37 +34,27 @@ export const DepartmentReducer = (state = initialState, action) => {
                 ...state,
                 currentDepartment: action.currentDepartment
             };
-        case SET_IS_POSTED:
-            return {
-                ...state,
-                isPosted: action.isPosted
-            };
         default:
             return state;
     }
 };
 
-export const setIsPosted = (isPosted) => ({
-    type: SET_IS_POSTED,
-    isPosted
-});
-
-export const setDepartments = (departments) => ({
+const setDepartments = (departments) => ({
     type: SET_DEPARTMENTS,
     departments
 });
 
-export const setDepartmentsCount = (departmentsCount) => ({
+const setDepartmentsCount = (departmentsCount) => ({
     type: SET_DEPARTMENTS_COUNT,
     departmentsCount
 });
 
-export const setDepartmentsIsFetching = (isFetching) => ({
+const setDepartmentsIsFetching = (isFetching) => ({
     type: SET_DEPARTMENTS_IS_FETCHING,
     isFetching
 });
 
-export const setCurrentDepartment = (currentDepartment) => ({
+const setCurrentDepartment = (currentDepartment) => ({
     type: SET_CURRENT_DEPARTMENT,
     currentDepartment
 });
@@ -97,4 +85,10 @@ export const deleteDepartmentById = (id) => async (dispatch) => {
     await restAPI.departments.deleteDepartmentById(id)
 
     dispatch(getDepartments())
+};
+
+export const updateDepartment = (id, data) => async (dispatch) => {
+    await restAPI.departments.updateDepartment(id, data)
+
+    dispatch(getDepartmentById(id))
 };

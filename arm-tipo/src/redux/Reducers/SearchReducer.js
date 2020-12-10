@@ -75,7 +75,7 @@ export const updateSearchNum = (num) => ({
     num
 });
 
-export const setIsSearching = (isSearching) => ({
+const setIsSearching = (isSearching) => ({
     type: SET_IS_SEARCHING,
     isSearching
 });
@@ -85,7 +85,7 @@ export const setSearchMode = (searchMode) => ({
     searchMode
 });
 
-export const setSearchResults = (results) => ({
+const setSearchResults = (results) => ({
     type: SET_SEARCH_RESULTS,
     results
 });
