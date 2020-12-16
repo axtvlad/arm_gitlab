@@ -1,67 +1,105 @@
-import {Request, Response} from "express";
-import {getManager} from "typeorm";
-import ServiceRest from "../../services/ServiceRest";
-import passwordHash from 'password-hash';
-import {
-    ERROR_CODE_BAD_REQUEST,
-    ERROR_CODE_NONE,
-    ERROR_CODE_PARAMETER_NOT_PASSED,
-} from '../../services/ServiceRestCodes';
-import {Users} from "../users/UsersModel";
+import {Request, Response} from "express"
+import jwt from 'jsonwebtoken'
+import ServiceRest from "../../services/ServiceRest"
+import {ERROR_CODE_BAD_REQUEST, ERROR_CODE_NONE, ERROR_CODE_PARAMETER_NOT_PASSED} from "../../services/ServiceRestCodes"
+import {getManager} from "typeorm"
+import {Users} from "../users/UsersModel"
+import passwordHash from 'password-hash'
 
 interface IRestUserAuth {
     login: string;
     password: string;
 }
 
+const generateAccessToken = (user: any) => {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+}
+
 export default new class AuthController {
-    async auth(req: Request, res: Response) {
+    async login(req: Request, res: Response) {
         try {
             const rest = new ServiceRest(req);
             const bodyParams = <IRestUserAuth>rest.getBody();
 
-            if (!bodyParams.login && !bodyParams.password) {
+            const [login, password] = [bodyParams.login, bodyParams.password]
+
+            if (!login || !password) {
                 return res.status(400).send({
                     code: 'ERROR_CODE_PARAMETERS_NOT_PASSED',
                     errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
                     message: req.__('PASSED_PARAMS_LOGIN_OR_PASSWORD')
                 });
-            } else if (!bodyParams.login) {
-                return res.status(400).send({
-                    code: 'ERROR_CODE_PARAMETER_NOT_PASSED_LOGIN',
-                    errorCode: ERROR_CODE_PARAMETER_NOT_PASSED,
-                    message: req.__('PASSED_PARAM_LOGIN_NOT')
-                });
             }
+
+            const user = {login, password}
 
             const existUser = await getManager().getRepository(Users).findOne({
                 where: [{
-                    login: bodyParams.login
+                    login: login
                 }]
             });
 
-            if (existUser && passwordHash.verify(bodyParams.password, existUser.password)) {
+            if (existUser && passwordHash.verify(password, existUser.password)) {
+                const accessToken = generateAccessToken(user)
+                const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+
+                res.cookie('accessToken', accessToken, {
+                    maxAge: 3600 * 24,
+                })
+                res.cookie('refreshToken', refreshToken, {
+                    maxAge: 3600 * 24,
+                })
+
+                const {password, ...userData} = existUser
+
                 return res.status(200).send({
                     errorCode: ERROR_CODE_NONE,
-                    auth: true,
-                    data: existUser,
+                    data: userData,
                     message: req.__('MESSAGE_OK')
                 });
             } else {
-                return res.status(200).send({
-                    errorCode: ERROR_CODE_NONE,
-                    auth: false,
-                    data: {},
-                    message: req.__('MESSAGE_OK')
-                })
+                return res.sendStatus(403)
             }
         } catch (err) {
-            console.error(err);
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
                 errorCode: ERROR_CODE_BAD_REQUEST,
                 message: req.__('UNKNOWN_ERROR')
             });
         }
+    }
+
+    async token(req: Request, res: Response) {
+        const [refreshToken] = [req.cookies['refreshToken']]
+
+        if (!refreshToken) {
+            return res.sendStatus(401)
+        }
+
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err: any, user: any) => {
+            if (err) {
+                return res.sendStatus(403)
+            }
+
+            const accessToken = generateAccessToken({
+                login: user.login,
+                password: user.password
+            })
+
+            res.cookie('accessToken', accessToken)
+
+            return res.sendStatus(200)
+        })
+    }
+
+    async logout(req: Request, res: Response) {
+        res.cookie('accessToken', null, {
+            maxAge: 0,
+        })
+        res.cookie('refreshToken', null, {
+            maxAge: 0,
+        })
+
+        return res.sendStatus(200)
     }
 }
