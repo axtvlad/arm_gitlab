@@ -62,7 +62,7 @@ const Home = ({isFetching, usersCount, totalCount, lastAddedMainDoc, type}) => {
 
     return (
         <div className={'content'}>
-            <Row gutter={16} style={{textAlign: 'center'}}>
+            <Row style={{textAlign: 'center'}}>
                 <Col span={12}>
                     <Spin spinning={isFetching}>
                         <Statistic
@@ -81,7 +81,7 @@ const Home = ({isFetching, usersCount, totalCount, lastAddedMainDoc, type}) => {
                 </Col>
             </Row>
             <Divider/>
-            <Title level={3}>{t('lastAddedDoc')} </Title>
+            <Title level={3}>{t('lastAddedDoc')}</Title>
             <Row>
                 <div style={{
                     padding: 30,

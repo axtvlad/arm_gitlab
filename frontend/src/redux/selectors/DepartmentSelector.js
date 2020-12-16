@@ -1,15 +1,11 @@
 export const selectDepartments = (state) => {
-    return state.departmentsDir.departments
+    return state.directories.directories.departments.recordsList
 }
 
 export const selectDepartmentsCount = (state) => {
-    return state.departmentsDir.departmentsCount
+    return state.directories.directories.departments.totalCount
 }
 
 export const selectDepartmentsIsFetching = (state) => {
-    return state.departmentsDir.isFetching
-}
-
-export const selectCurrentDepartment = (state) => {
-    return state.departmentsDir.currentDepartment
+    return state.directories.directories.departments.isFetching
 }

@@ -1,15 +1,11 @@
 export const selectRoles = (state) => {
-    return state.rolesDir.roles
+    return state.directories.directories.roles.recordsList
 }
 
 export const selectRolesCount = (state) => {
-    return state.rolesDir.rolesCount
+    return state.directories.directories.roles.totalCount
 }
 
 export const selectRolesIsFetching = (state) => {
-    return state.rolesDir.isFetching
-}
-
-export const selectCurrentRole = (state) => {
-    return state.rolesDir.currentRole
+    return state.directories.directories.roles.isFetching
 }

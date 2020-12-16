@@ -1,15 +1,11 @@
 export const selectCities = (state) => {
-    return state.citiesDir.cities
+    return state.directories.directories.cities.recordsList
 }
 
 export const selectCitiesCount = (state) => {
-    return state.citiesDir.citiesCount
+    return state.directories.directories.cities.totalCount
 }
 
 export const selectCitiesIsFetching = (state) => {
-    return state.citiesDir.isFetching
-}
-
-export const selectCurrentCity = (state) => {
-    return state.citiesDir.currentCity
+    return state.directories.directories.cities.isFetching
 }

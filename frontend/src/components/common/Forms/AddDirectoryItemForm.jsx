@@ -14,7 +14,7 @@ const AddDirectoryItemForm = ({onSubmit, redirectTo}) => {
     };
 
     const onFinish = (formData) => {
-        onSubmit(formData).then(() => {
+        onSubmit(redirectTo.substring(1) ,formData).then(() => {
             setIsSaved(true);
         })
     };

@@ -6,6 +6,8 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {deleteDirectoryRecordById, getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectCustomers} from "../../../../redux/selectors/CustomerSelector";
+import {selectCategoriesIsFetching} from "../../../../redux/selectors/CategorySelector";
 
 class CustomersContainer extends React.Component {
     componentDidMount() {
@@ -31,8 +33,8 @@ class CustomersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        customers: state.directories.customers.recordsList,
-        isFetching: state.directories.customers.isFetching,
+        customers: selectCustomers(state),
+        isFetching: selectCategoriesIsFetching(state)
     }
 };
 

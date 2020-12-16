@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import Auth from "./Auth";
-import {postAuthUserData} from "../../redux/reducers/AuthReducer";
+import {login} from "../../redux/reducers/AuthReducer";
 import {Redirect} from "react-router-dom";
 
 class AuthContainer extends React.Component {
@@ -14,9 +14,9 @@ class AuthContainer extends React.Component {
     }
 
     render() {
-        const {postAuthUserData} = this.props;
+        const {login} = this.props;
 
-        return <Auth postAuthUserData={postAuthUserData}/>
+        return <Auth login={login}/>
     }
 }
 
@@ -27,5 +27,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    postAuthUserData
+    login
 })(AuthContainer);

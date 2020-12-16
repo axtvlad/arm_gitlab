@@ -1,15 +1,11 @@
 export const selectTypes = (state) => {
-    return state.typesDir.types
+    return state.directories.directories.types.recordsList
 }
 
 export const selectTypesCount = (state) => {
-    return state.typesDir.typesCount
+    return state.directories.directories.types.totalCount
 }
 
 export const selectTypesIsFetching = (state) => {
-    return state.typesDir.isFetching
-}
-
-export const selectCurrentType = (state) => {
-    return state.typesDir.currentType
+    return state.directories.directories.types.isFetching
 }

@@ -1,26 +1,42 @@
 import {message} from "antd";
 import {instance} from "./api";
-import {AuthDataType, UserType} from "../../types/types";
+import {AuthDataType} from "../types/types";
 
 type AuthResponseType = {
-    data: UserType
+    data: any
     message: string
     errorCode: number
-    auth: boolean
 }
 
 export const authAPI = {
-    auth(authData: AuthDataType) {
+    login(authData: AuthDataType) {
         return instance
-            .post<AuthResponseType>('auth', authData)
-            .then(response => {
-                if (!response.data) {
-                    return message.error("Неверный логин или пароль!");
-                }
-
-                message.success("Добро пожаловать!");
-
-                return response.data
+            .post<AuthResponseType>('auth/login', authData)
+            .then(res => {
+                console.log(res)
+                return res.data
             })
+            .catch(e => {
+                return message.error("Неверный логин или пароль!");
+            })
+    },
+    logout() {
+        return instance
+            .delete('auth/logout')
+            .then(res => {
+                message.success("До скорой встречи!");
+            })
+    },
+    token() {
+        return instance
+            .get('auth/token')
+            .then(response => {
+                message.info("Токен обновлен!");
+            })
+    },
+    me() {
+        return instance
+            .get('auth/me')
+            .then(res => res.data)
     },
 }

@@ -10,31 +10,31 @@ const DisplayOtherDoc = ({currentOtherDoc, directory}) => {
         <div className={'content'}>
             {currentOtherDoc && (
                 <Descriptions
-                    title={t(directory) + ': ' + currentOtherDoc[0].name_ru}
+                    title={t(directory) + ': ' + currentOtherDoc.name_ru}
                     column={1}
                     colon={true}
                 >
                     {i18n.language === 'ru' ? (<Descriptions.Item
                             label={t('docNameRu')}
                         >
-                            {currentOtherDoc[0].name_ru}
+                            {currentOtherDoc.name_ru}
                         </Descriptions.Item>) :
                         <Descriptions.Item
                             label={t('docNameKz')}
                         >
-                            {currentOtherDoc[0].name_kz}
+                            {currentOtherDoc.name_kz}
                         </Descriptions.Item>}
                     <Descriptions.Item
                         label={t('fileRu')}
                     >
-                        <a href={currentOtherDoc[0].file_ru}>
+                        <a href={currentOtherDoc.file_ru}>
                             Документ (ru)
                         </a>
                     </Descriptions.Item>
                     <Descriptions.Item
                         label={t('fileKz')}
                     >
-                        <a href={currentOtherDoc[0].file_kz}>
+                        <a href={currentOtherDoc.file_kz}>
                             Документ (kz)
                         </a>
                     </Descriptions.Item>

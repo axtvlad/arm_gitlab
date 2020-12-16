@@ -2,12 +2,13 @@ import {Button, Form, Input} from 'antd';
 import React from "react";
 import classes from './Auth.module.css'
 import {useTranslation} from "react-i18next";
+import {login} from "../../redux/reducers/AuthReducer";
 
-const Auth = ({postAuthUserData}) => {
+const Auth = ({login}) => {
     const {t} = useTranslation();
 
     const onSubmit = (formData) => {
-        postAuthUserData(formData)
+        login(formData)
     };
 
     return (

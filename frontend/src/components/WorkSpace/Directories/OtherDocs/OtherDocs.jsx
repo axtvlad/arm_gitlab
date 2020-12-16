@@ -13,11 +13,11 @@ const OtherDocs = ({deleteOtherDocById, type, isAdmin, isFetching, otherDocs}) =
     const menu = (id) => {
         return (
             <Menu>
-                {/*<Menu.Item>
+                <Menu.Item>
                     <span>
                         {t('edit')}
                     </span>
-                </Menu.Item>*/}
+                </Menu.Item>
                 <Menu.Item>
                     <span onClick={() => deleteOtherDocById(id)}>
                         {t('delete')}

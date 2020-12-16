@@ -1,11 +1,9 @@
 import axios from "axios";
-import {BASE_URL1, PASSWORD, USER} from "../env";
-
-const authorizationBasic = window.btoa(USER + ':' + PASSWORD);
+import {BASE_URL1} from "../env";
 
 export const instance = axios.create({
     headers: {
-        "Authorization": "Basic " + authorizationBasic
+        withCredentials: true
     },
     baseURL: BASE_URL1,
 })

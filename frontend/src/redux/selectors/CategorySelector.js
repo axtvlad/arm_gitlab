@@ -1,15 +1,11 @@
 export const selectCategories = (state) => {
-    return state.categoriesDir.categories
+    return state.directories.directories.categories.recordsList
 }
 
 export const selectCategoriesCount = (state) => {
-    return state.categoriesDir.categoriesCount
+    return state.directories.directories.categories.totalCount
 }
 
 export const selectCategoriesIsFetching = (state) => {
-    return state.categoriesDir.isFetching
-}
-
-export const selectCurrentCategory = (state) => {
-    return state.categoriesDir.currentCategory
+    return state.directories.directories.categories.isFetching
 }

@@ -18,6 +18,7 @@ AuthRoutes.use((req: Request, res: Response, next: Function) => {
 AuthRoutes.post('/login', AuthController.login);
 AuthRoutes.get(`/token`, reqAuthSecurity, AuthController.token);
 AuthRoutes.delete(`/logout`, reqAuthSecurity, AuthController.logout);
+AuthRoutes.get(`/me`, reqAuthSecurity, AuthController.me);
 
 /**
  * Error All Request to URL: /rest/api/auth/*

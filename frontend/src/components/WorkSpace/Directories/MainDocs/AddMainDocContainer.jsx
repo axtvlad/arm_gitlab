@@ -6,6 +6,9 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
 import {getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
+import {selectTypes} from "../../../../redux/selectors/TypeSelector";
+import {selectDepartments} from "../../../../redux/selectors/DepartmentSelector";
+import {selectStatuses} from "../../../../redux/selectors/StatusSelector";
 
 class AddMainDocContainer extends React.Component {
     componentDidMount() {
@@ -27,9 +30,9 @@ class AddMainDocContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        types: state.directories.types.recordsList,
-        departments: state.directories.departments.recordsList,
-        statuses: state.directories.statuses.recordsList,
+        types: selectTypes(state),
+        departments: selectDepartments(state),
+        statuses: selectStatuses(state)
     }
 };
 

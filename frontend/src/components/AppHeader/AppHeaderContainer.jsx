@@ -1,22 +1,23 @@
 import React from 'react'
 import {connect} from "react-redux";
 import AppHeader from "./AppHeader";
-import {authActions} from "../../redux/reducers/AuthReducer";
+import {logout} from "../../redux/reducers/AuthReducer";
+import {selectLogin} from "../../redux/selectors/AuthSelector";
 
 class AppHeaderContainer extends React.Component {
     render() {
-        const {authDir, setIsAuth} = this.props
+        const {login, logout} = this.props
 
-        return <AppHeader authDir={authDir} setIsAuth={setIsAuth}/>
+        return <AppHeader login={login} logout={logout}/>
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        authDir: state.usersDir,
+        login: selectLogin(state),
     }
 };
 
 export default connect(mapStateToProps, {
-    setIsAuth: authActions.setIsAuth
+    logout
 })(AppHeaderContainer);

@@ -13,7 +13,7 @@ const Directory = ({removeItemById, type, isAdmin, isFetching, directory}) => {
     const {t} = useTranslation();
 
     const deleteItem = (item) => {
-        removeItemById(item.id);
+        removeItemById(type, item.id);
     };
 
     /**

@@ -6,6 +6,7 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {deleteDirectoryRecordById, getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectRoles, selectRolesIsFetching} from "../../../../redux/selectors/RoleSelector";
 
 class RolesContainer extends React.Component {
     componentDidMount() {
@@ -31,8 +32,8 @@ class RolesContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        roles: state.directories.roles.recordsList,
-        isFetching: state.directories.roles.isFetching,
+        roles: selectRoles(state),
+        isFetching: selectRolesIsFetching(state)
     }
 };
 

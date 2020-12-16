@@ -1,5 +1,5 @@
 import {APIResponseType, instance} from "./api";
-import {MainDocType, NewMainDocType} from "../../types/types";
+import {MainDocType, NewMainDocType} from "../types/types";
 
 export const mainDocsAPI = {
     getMainDocs() {

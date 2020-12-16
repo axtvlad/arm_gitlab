@@ -37,17 +37,17 @@ type ScheduleResponseType = {
 export const wpsAPI = {
     getSubjects(params: ParamsType) {
         return instance
-            .get<SubjectsResponseType>(`wps/subjects${paramsToQS(params)}`)
+            .get<SubjectsResponseType>(`wps/subjects?${paramsToQS(params)}`)
             .then(response => response.data)
     },
     getExams(params: ParamsType) {
         return instance
-            .get<ExamsResponseType>(`wps/exams${paramsToQS(params)}`)
+            .get<ExamsResponseType>(`wps/exams?${paramsToQS(params)}`)
             .then(response => response.data)
     },
     getSchedule(params: ParamsType) {
         return instance
-            .get<ScheduleResponseType>(`wps/schedule${paramsToQS(params)}`)
+            .get<ScheduleResponseType>(`wps/schedule?${paramsToQS(params)}`)
             .then(response => response.data)
     }
 }

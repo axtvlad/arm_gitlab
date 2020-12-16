@@ -1,6 +1,6 @@
 import {Breadcrumb, Layout} from "antd";
 import React from "react";
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import AddTypeContainer from "./Directories/Types/AddTypeContainer";
 import AddMainDocContainer from "./Directories/MainDocs/AddMainDocContainer";
 import TypesContainer from "./Directories/Types/TypesContainer";
@@ -55,8 +55,8 @@ class WorkSpace extends React.Component {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>{this.props.location.pathname.substr(1)}</Breadcrumb.Item>
                 </Breadcrumb>
-                <div>
-                    <Route exact path={'/'} render={() => <HomeContainer/>}/>
+                <Switch>
+                    <Route exact path={'/home'} render={() => <HomeContainer/>}/>
                     <Route exact path={'/search'} render={() => <SearchPage/>}/>
 
                     <Route exact path={'/mainDocs'} render={() => <MainDocsContainer/>}/>
@@ -111,7 +111,9 @@ class WorkSpace extends React.Component {
                     <Route exact path={'/users/:userId'} render={() => <DisplayUserContainer/>}/>
 
                     <Route exact path={'/workPlanSchedule'} render={() => <WorkPlanScheduleContainer/>}/>
-                </div>
+
+                    <Redirect from={'/'} to={'home'}/>
+                </Switch>
             </Content>
         )
     }

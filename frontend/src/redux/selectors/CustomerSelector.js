@@ -1,15 +1,11 @@
 export const selectCustomers = (state) => {
-    return state.customersDir.customers
+    return state.directories.directories.customers.recordsList
 }
 
 export const selectCustomersCount = (state) => {
-    return state.customersDir.customersCount
+    return state.directories.directories.customers.totalCount
 }
 
 export const selectCustomersIsFetching = (state) => {
-    return state.customersDir.isFetching
-}
-
-export const selectCurrentCustomer = (state) => {
-    return state.customersDir.currentCustomer
+    return state.directories.directories.customers.isFetching
 }

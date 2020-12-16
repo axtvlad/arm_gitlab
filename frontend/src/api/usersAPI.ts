@@ -1,5 +1,5 @@
 import {instance} from "./api"
-import {NewUserType} from "../../types/types";
+import {NewUserType} from "../types/types";
 
 export const usersAPI = {
     getUsers() {

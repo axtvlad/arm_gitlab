@@ -58,11 +58,10 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-    connect(mapStateToProps,
-        {
-            getUsers,
-            getMainDocs,
-            getOtherDocs
-        }),
+    connect(mapStateToProps, {
+        getUsers,
+        getMainDocs,
+        getOtherDocs
+    }),
     isAuthRedirect
 )(HomeContainer);

@@ -1,4 +1,4 @@
-import {DirectoryType, NewDirectoryType} from "../../../types/types";
+import {DirectoryType, NewDirectoryType} from "../../types/types";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
 import {directoriesAPI, DirectoryNameEnum} from "../../api/directoriesAPI";
 

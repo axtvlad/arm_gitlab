@@ -1,6 +1,7 @@
-import {getUsers} from "./UserReducer";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
-import {authActions} from "./AuthReducer";
+import {me} from "./AuthReducer";
+import {getDirectoryRecords} from "./DirectoriesReducer";
+import {DirectoryNameEnum} from "../../api/directoriesAPI";
 
 type InitialType = typeof initial
 
@@ -28,23 +29,21 @@ export const appActions = {
     } as const)
 }
 
-
 export const initializeApp = (): ThunkType => async (dispatch) => {
-    if (localStorage.getItem('isAuth') && localStorage.getItem('user')) {
-        // @ts-ignore
-        dispatch(authActions.setIsAuth(true))
-        // @ts-ignore
-        dispatch(authActions.setUserData(JSON.parse(localStorage.getItem('user'))))
-        // @ts-ignore
-        dispatch(authActions.setIsAdmin(JSON.parse(localStorage.getItem('user')).isAdmin))
-    }
+    await dispatch(me());
 
     Promise.all([
-        dispatch(getUsers())
-    ])
-        .then(() => {
-            dispatch(appActions.initializedSuccess())
-        })
+        dispatch(getDirectoryRecords(DirectoryNameEnum.genders)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.statuses)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.types)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.departments)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.customers)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.cities)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.roles)),
+        dispatch(getDirectoryRecords(DirectoryNameEnum.categories)),
+    ]).then(() => {
+        dispatch(appActions.initializedSuccess());
+    })
 }
 
 type ThunkType = BaseThunkType<ActionTypes> // | FormAction> from redux-forms. Если ограничиваем только нашими actions

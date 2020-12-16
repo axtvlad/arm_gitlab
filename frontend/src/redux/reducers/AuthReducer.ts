@@ -1,81 +1,73 @@
 import {authAPI} from "../../api/authAPI";
-import {AuthDataType, UserType} from "../../../types/types";
+import {AuthDataType} from "../../types/types";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
 
 type InitialType = typeof initial
 
 const initial = {
-    userData: null as null | object,
-    isAuth: false as boolean,
-    login: null as null | string,
-    password: null as null | string,
-    authInProcess: false,
-    isAdmin: false,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false,
+    isAdmin: false
 };
 
 export const AuthReducer = (state = initial, action: ActionTypes): InitialType => {
     switch (action.type) {
-        case 'ARM/AUTH/SET_USER_DATA':
+        case 'ARM/AUTH/SET_AUTH_USER_DATA':
             return {
                 ...state,
-                userData: action.userData
-            };
-        case 'ARM/AUTH/SET_IS_AUTH':
-            return {
-                ...state,
-                isAuth: action.isAuth
-            };
-        case 'ARM/AUTH/SET_AUTH_IN_PROCESS':
-            return {
-                ...state,
-                authInProcess: action.authInProcess
-            };
-        case 'ARM/AUTH/SET_IS_ADMIN':
-            return {
-                ...state,
-                isAdmin: action.isAdmin
-            };
+                ...action.payload,
+            }
         default:
             return state;
     }
 };
 
 export const authActions = {
-    setUserData: (userData: UserType) => ({
-        type: 'ARM/AUTH/SET_USER_DATA',
-        userData
-    } as const),
-    setAuthInProcess: (authInProcess: boolean) => ({
-        type: 'ARM/AUTH/SET_AUTH_IN_PROCESS',
-        authInProcess
-    } as const),
-    setIsAuth: (isAuth: boolean) => ({
-        type: 'ARM/AUTH/SET_IS_AUTH',
-        isAuth: isAuth
-    } as const),
-    setIsAdmin: (isAdmin: boolean) => ({
-        type: 'ARM/AUTH/SET_IS_ADMIN',
-        isAdmin
+    setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean, isAdmin: boolean) => ({
+        type: 'ARM/AUTH/SET_AUTH_USER_DATA',
+        payload: {userId, email, login, isAuth, isAdmin}
     } as const),
 }
 
-export const postAuthUserData = (authData: AuthDataType): ThunkType => async (dispatch) => {
-    dispatch(authActions.setAuthInProcess(true));
+export const login = (authData: AuthDataType): ThunkType => async (dispatch) => {
+    const res = await authAPI.login(authData)
 
-    const response = await authAPI.auth(authData)
-
-    dispatch(authActions.setIsAuth(response.auth));
-
-    if (response.auth === true) {
-        dispatch(authActions.setUserData(response.data));
-        dispatch(authActions.setIsAdmin(response.data.isAdmin));
-    }
-
-    localStorage.setItem('user', JSON.stringify(response));
-    localStorage.setItem('isAuth', response.auth);
-
-    dispatch(authActions.setAuthInProcess(false));
+    await Promise.all([res])
+        .then(() => {
+            dispatch(me());
+        })
+        .catch(e => {
+            return alert('some error')
+        })
 };
+
+export const logout = (): ThunkType => async (dispatch) => {
+    const res = await authAPI.logout()
+
+    Promise.all([res])
+        .then(() => {
+            dispatch(authActions.setAuthUserData(null, null, null, false, false))
+        })
+        .catch(e => {
+            return alert('some error')
+        })
+};
+
+export const me = (): ThunkType => async (dispatch) => {
+    const res = await authAPI.me();
+
+    Promise.all([res])
+        .then(() => {
+            const {id, email, login, isAdmin} = res.data;
+
+            dispatch(authActions.setAuthUserData(id, email, login, true, isAdmin))
+        })
+        .catch(e => {
+            return alert('some error')
+        })
+}
 
 type ThunkType = BaseThunkType<ActionTypes> // | FormAction> from redux-forms. Если ограничиваем только нашими actions
 type ActionTypes = InferActionsTypes<typeof authActions>

@@ -6,6 +6,7 @@ import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {compose} from "redux";
 import {deleteDirectoryRecordById, getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectCities, selectCitiesIsFetching} from "../../../../redux/selectors/CitySelector";
 
 class CitiesContainer extends React.Component {
     componentDidMount() {
@@ -31,8 +32,8 @@ class CitiesContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        cities: state.directories.cities.recordsList,
-        isFetching: state.directories.cities.isFetching,
+        cities: selectCities(state),
+        isFetching: selectCitiesIsFetching(state)
     }
 };
 

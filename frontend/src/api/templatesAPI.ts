@@ -1,5 +1,5 @@
 import {instance} from "./api";
-import {NewTemplateType} from "../../types/types";
+import {NewTemplateType} from "../types/types";
 
 export const templatesAPI = {
     getTemplates() {

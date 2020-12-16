@@ -1,5 +1,5 @@
 import {instance} from "./api";
-import {NewFaqType} from "../../types/types";
+import {NewFaqType} from "../types/types";
 
 export const faqsAPI = {
     getFaqs() {

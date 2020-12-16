@@ -6,6 +6,7 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {deleteDirectoryRecordById, getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectCategories, selectCategoriesIsFetching} from "../../../../redux/selectors/CategorySelector";
 
 class CategoriesContainer extends React.Component {
     componentDidMount() {
@@ -31,8 +32,8 @@ class CategoriesContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.directories.categories.recordsList,
-        isFetching: state.directories.categories.isFetching,
+        categories: selectCategories(state),
+        isFetching: selectCategoriesIsFetching(state)
     }
 };
 

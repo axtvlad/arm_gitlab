@@ -1,5 +1,5 @@
 import {instance} from "./api";
-import {NewOtherDocType} from "../../types/types";
+import {NewOtherDocType} from "../types/types";
 
 export const otherDocsAPI = {
     getOtherDocs() {

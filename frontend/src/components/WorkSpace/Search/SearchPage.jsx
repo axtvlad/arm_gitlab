@@ -132,7 +132,7 @@ export const SearchPage = (props) => {
                     </Button>
                 </Form>
             </div>
-            {results.length ?
+            {results?.length ?
                 <MainDocs
                     mainDocs={results}
                     isFetching={isSearching}

@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {selectIsAdmin} from "../redux/selectors/AuthSelector";
 
 const mapStateToProps = (state) => {
     return {
-        isAdmin: state.authDir.userData.isAdmin
+        isAdmin: selectIsAdmin(state)
     }
 }
 

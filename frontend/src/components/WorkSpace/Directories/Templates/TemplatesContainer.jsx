@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import Templates from "./Templates";
 import {deleteTemplateById, getTemplates} from "../../../../redux/reducers/TemplateReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {selectIsAdmin} from "../../../../redux/selectors/AuthSelector";
+import {selectTemplates, selectTemplatesIsFetching} from "../../../../redux/selectors/TemplateSelector";
 
 class TemplatesContainer extends React.Component {
     componentDidMount() {
@@ -28,14 +30,13 @@ class TemplatesContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        templates: state.templatesDir.templates,
-        isFetching: state.templatesDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        templates: selectTemplates(state),
+        isFetching: selectTemplatesIsFetching(state),
+        isAdmin: selectIsAdmin(state)
     }
 };
 
 export default connect(mapStateToProps, {
-        getTemplates,
-        deleteTemplateById
-    }
-)(TemplatesContainer);
+    getTemplates,
+    deleteTemplateById
+})(TemplatesContainer);

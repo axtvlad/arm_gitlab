@@ -11,9 +11,9 @@ export const selectSearchIsSearching = (state) => {
 }
 
 export const selectSearchMode = (state) => {
-    return state.rolesDir.searchMode
+    return state.searchDir.searchMode
 }
 
 export const selectSearchNum = (state) => {
-    return state.rolesDir.num
+    return state.searchDir.num
 }

@@ -52,7 +52,7 @@ export const directoriesAPI = {
     },
     postDirectoryRecord(directoryName: DirectoryNameEnum, formData: NewDirectoryInterface) {
         return instance
-            .post<APIResponseType<DirectoryInterface>>(`directory${directoryName}/post`, formData)
+            .post<APIResponseType<DirectoryInterface>>(`directory/${directoryName}/post`, formData)
             .then(response => response.data)
     },
     updateDirectoryRecordById(directoryName: DirectoryNameEnum, id: number, formData: NewDirectoryInterface) {

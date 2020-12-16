@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import NavBar from "./NavBar";
+import {selectIsAdmin} from "../../redux/selectors/AuthSelector";
 
 class NavBarContainer extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class NavBarContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAdmin: state.authDir.isAdmin,
+        isAdmin: selectIsAdmin(state),
     }
 };
 

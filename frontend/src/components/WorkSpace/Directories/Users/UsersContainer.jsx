@@ -5,6 +5,7 @@ import {deleteUserById, getUsers} from "../../../../redux/reducers/UserReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {compose} from "redux";
+import {selectIsAdmin} from "../../../../redux/selectors/AuthSelector";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -32,7 +33,7 @@ const mapStateToProps = (state) => {
     return {
         users: state.usersDir.users,
         isFetching: state.usersDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isAdmin: selectIsAdmin(state)
     }
 };
 

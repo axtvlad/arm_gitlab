@@ -6,6 +6,7 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectCategories} from "../../../../redux/selectors/CategorySelector";
 
 class AddTemplateContainer extends React.Component {
     componentDidMount() {
@@ -25,7 +26,7 @@ class AddTemplateContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.directories.categories,
+        categories: selectCategories(state)
     }
 };
 

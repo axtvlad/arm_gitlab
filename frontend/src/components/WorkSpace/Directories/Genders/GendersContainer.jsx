@@ -5,6 +5,7 @@ import {compose} from "redux";
 import {isAdminRedirect} from "../../../../hoc/isAdminRedirect";
 import {getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectGenders, selectGendersIsFetching} from "../../../../redux/selectors/GenderSelector";
 
 class GendersContainer extends React.Component {
     componentDidMount() {
@@ -28,8 +29,8 @@ class GendersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        genders: state.directories.genders.recordsList,
-        isFetching: state.directories.genders.isFetching,
+        genders: selectGenders(state),
+        isFetching: selectGendersIsFetching(state)
     }
 };
 

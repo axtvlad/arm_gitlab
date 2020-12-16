@@ -24,8 +24,10 @@ i18n.configure({
 app.use(cookieParser());
 
 app.use(cors({
-    origin: '*',
     methods: "GET,HEAD,PUT,POST,DELETE,OPTIONS",
+    origin: [
+        "http://localhost:3000",
+    ],
 }));
 app.use(i18n.init);
 app.use(express.json());

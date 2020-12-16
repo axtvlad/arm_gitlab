@@ -3,6 +3,7 @@ import React from "react";
 import MainDocs from "./MainDocs";
 import {deleteMainDocById, getMainDocs} from "../../../../redux/reducers/MainDocReducer";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {selectIsAdmin} from "../../../../redux/selectors/AuthSelector";
 
 class MainDocsContainer extends React.Component {
     componentDidMount() {
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => {
     return {
         mainDocs: state.mainDocsDir.mainDocs,
         isFetching: state.mainDocsDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isAdmin: selectIsAdmin(state)
     }
 };
 

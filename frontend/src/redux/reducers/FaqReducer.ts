@@ -1,5 +1,5 @@
 import {faqsAPI} from "../../api/faqsAPI";
-import {NewFaqType} from "../../../types/types";
+import {NewFaqType} from "../../types/types";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
 
 const initial = {

@@ -8,6 +8,9 @@ import {compose} from "redux";
 import {Spin} from "antd";
 import {getDirectoryRecords} from "../../../../redux/reducers/DirectoriesReducer";
 import {DirectoryNameEnum} from "../../../../api/directoriesAPI";
+import {selectDepartments} from "../../../../redux/selectors/DepartmentSelector";
+import {selectStatuses} from "../../../../redux/selectors/StatusSelector";
+import {selectTypes} from "../../../../redux/selectors/TypeSelector";
 
 class DisplayMainDocContainer extends React.Component {
     componentDidMount() {
@@ -29,7 +32,7 @@ class DisplayMainDocContainer extends React.Component {
     render() {
         const {currentMainDoc, departments, statuses, types, directory} = this.props;
 
-        if (departments.length === 0 || statuses.length === 0 || types.length === 0) {
+        if (!departments || !statuses || !types) {
             return <Spin/>
         }
 
@@ -49,9 +52,9 @@ const mapStateToProps = (state) => {
     return {
         directory: GetDirectory(DirectoriesTypes.MAIN_DOCS),
         currentMainDoc: state.mainDocsDir.currentMainDoc,
-        departments: state.directories.departments.recordsList,
-        statuses: state.directories.statuses.recordsList,
-        types: state.directories.types.recordsList,
+        departments: selectDepartments(state),
+        statuses: selectStatuses(state),
+        types: selectTypes(state)
     }
 };
 

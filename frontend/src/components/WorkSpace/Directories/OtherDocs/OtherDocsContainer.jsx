@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {deleteOtherDocById, getOtherDocs} from "../../../../redux/reducers/OtherDocReducer";
 import OtherDocs from "./OtherDocs";
 import {DirectoriesTypes} from "../../../common/utils/DirectoriesTypes";
+import {selectIsAdmin} from "../../../../redux/selectors/AuthSelector";
 
 class OtherDocsContainer extends React.Component {
     componentDidMount() {
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => {
     return {
         otherDocs: state.otherDocsDir.otherDocs,
         isFetching: state.otherDocsDir.isFetching,
-        isAdmin: state.authDir.userData.isAdmin
+        isAdmin: selectIsAdmin(state)
     }
 };
 

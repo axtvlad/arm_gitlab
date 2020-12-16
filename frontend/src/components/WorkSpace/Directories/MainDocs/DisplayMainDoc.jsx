@@ -28,8 +28,10 @@ const DisplayMainDoc = ({currentMainDoc, departments, statuses, types, directory
         type = types.find(type => type.id === currentMainDoc.type_id);
 
         if (!type) {
-            type.name_ru = ''
-            type.name_kz = ''
+            type = {
+                name_ru: '',
+                name_kz: ''
+            }
         }
     }
 

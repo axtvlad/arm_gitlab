@@ -12,7 +12,7 @@ interface IRestUserAuth {
 }
 
 const generateAccessToken = (user: any) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'})
 }
 
 export default new class AuthController {
@@ -44,10 +44,10 @@ export default new class AuthController {
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
 
                 res.cookie('accessToken', accessToken, {
-                    maxAge: 3600 * 24,
+                    maxAge: 100000000,
                 })
                 res.cookie('refreshToken', refreshToken, {
-                    maxAge: 3600 * 24,
+                    maxAge: 100000000,
                 })
 
                 const {password, ...userData} = existUser
@@ -60,6 +60,35 @@ export default new class AuthController {
             } else {
                 return res.sendStatus(403)
             }
+        } catch (err) {
+            res.status(500).send({
+                code: 'ERROR_CODE_BAD_REQUEST',
+                errorCode: ERROR_CODE_BAD_REQUEST,
+                message: req.__('UNKNOWN_ERROR')
+            });
+        }
+    }
+
+    async me(req: Request, res: Response) {
+        try {
+            const rest = new ServiceRest(req);
+            const bodyParams = <IRestUserAuth>rest.getBody();
+
+            const [login] = [bodyParams.login, bodyParams.password]
+
+            const me = await getManager().getRepository(Users).findOne({
+                where: [{
+                    login: login
+                }]
+            });
+
+            const {password, ...userData} = me
+
+            return res.status(200).send({
+                errorCode: ERROR_CODE_NONE,
+                data: userData,
+                message: req.__('MESSAGE_OK')
+            });
         } catch (err) {
             res.status(500).send({
                 code: 'ERROR_CODE_BAD_REQUEST',
